@@ -13,7 +13,7 @@ export default function App({ Component, pageProps }) {
       </Head>
       <div className={styles.logo_container}>
         <h1 className={styles.logo}>Bebeng's Kitchen</h1>
-        <p className={styles.description}>Where every bite is a delight!</p>
+        <p className={styles.description}>~ Where every bite is a delight! ~</p>
       </div>
       <Component {...pageProps} />
     </>
