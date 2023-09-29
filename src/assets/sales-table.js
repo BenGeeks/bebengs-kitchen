@@ -1,11 +1,21 @@
 'use client';
 import React, { useMemo } from 'react';
 import { useTable } from 'react-table';
+
+import ReactTable from './react-table';
 import styles from './react-table.module.css';
 
-const ReactTable = ({ COLUMNS, DATA }) => {
+const SalesTable = ({ COLUMNS, DATA }) => {
   const columns = useMemo(() => COLUMNS, []);
   const data = useMemo(() => DATA, []);
+
+  let ITEM_HEADER = [
+    { Header: 'item', accessor: 'item_name' },
+    { Header: 'size', accessor: 'size_variation' },
+    { Header: 'qty', accessor: 'qty' },
+    { Header: 'price', accessor: 'price' },
+    { Header: 'total', accessor: 'total' },
+  ];
 
   const { getTableProps, getTableBodyProps, headerGroups, rows, prepareRow } = useTable({ columns, data });
   return (
@@ -28,9 +38,15 @@ const ReactTable = ({ COLUMNS, DATA }) => {
             <tr {...row.getRowProps()} className={styles.table_row}>
               {row.cells.map((cell) => {
                 return (
-                  <td {...cell.getCellProps()} className={styles.cell}>
-                    {cell.column.Header === 'image' && <img src={cell.value} className={styles.image} />}
-                    {cell.column.Header !== 'image' && cell.render('Cell')}
+                  <td {...cell.getCellProps()} className={cell.column.Header === 'Total' ? styles.cell_total : styles.cell}>
+                    {cell.column.Header === 'Order Details' ? (
+                      <div className={styles.cell_order_container}>
+                        <div className={styles.cell_customer}>{cell.value.name}</div>
+                        <ReactTable COLUMNS={ITEM_HEADER} DATA={cell.value.item} />
+                      </div>
+                    ) : (
+                      cell.render('Cell')
+                    )}
                   </td>
                 );
               })}
@@ -42,4 +58,4 @@ const ReactTable = ({ COLUMNS, DATA }) => {
   );
 };
 
-export default ReactTable;
+export default SalesTable;

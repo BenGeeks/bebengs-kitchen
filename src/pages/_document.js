@@ -10,6 +10,7 @@ export default function Document() {
         <link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@300&display=swap" rel="stylesheet"></link>
       </Head>
       <body>
+        <div id="modal"></div>
         <Main />
         <NextScript />
       </body>

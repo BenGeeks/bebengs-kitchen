@@ -3,6 +3,10 @@ import styles from '@/styles/Home.module.css';
 export default function Home() {
   return (
     <main className={styles.main}>
+      <div className={styles.logo_container}>
+        <h1 className={styles.logo}>Bebeng's Kitchen</h1>
+        <p className={styles.description}>~ Where every bite is a delight! ~</p>
+      </div>
       <div className={styles.login_container}>
         <form className={styles.login_form}>
           <div>
