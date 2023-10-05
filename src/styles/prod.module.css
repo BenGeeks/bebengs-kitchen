@@ -79,12 +79,6 @@
   font-size: 24px;
 }
 
-.header_bar {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
 .header_button {
   height: 40px;
   padding: 0px 10px;
@@ -107,7 +101,6 @@
   width: 100%;
   max-width: 1000px;
   border: 1px solid beige;
-  padding: 0px 10px;
   background-color: #f7f7ec;
 }
 
@@ -181,4 +174,60 @@
 .item_add:hover {
   color: beige;
   background-color: #374151;
+}
+
+.clickable {
+  cursor: pointer;
+  padding: 5px 10px;
+  color: #374151;
+  border-radius: 3px;
+  transition: 0.3s;
+  margin: 0px 10px;
+}
+
+.clickable:hover {
+  color: beige;
+  background-color: #374151;
+}
+
+.header_bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: aliceblue;
+}
+
+.page_nav_container {
+  display: flex;
+  align-items: center;
+}
+
+.page_nav {
+  padding: 5px 20px;
+  margin: 5px 5px -7px 5px;
+  color: #374151;
+  background-color: aliceblue;
+  border: 1px solid #374151;
+  border-bottom: none;
+  border-radius: 5px 5px 0px 0px;
+  font-size: 1.4rem;
+  z-index: 2;
+  cursor: pointer;
+}
+
+.page_nav:hover {
+  background-color: #374151;
+  border: 1px solid aliceblue;
+  color: beige;
+}
+
+.page_nav_active {
+  padding: 5px 20px;
+  margin: 5px 5px -7px 5px;
+  background-color: beige;
+  border: 1px solid white;
+  border-bottom: none;
+  border-radius: 5px 5px 0px 0px;
+  font-size: 1.4rem;
+  z-index: 2;
 }

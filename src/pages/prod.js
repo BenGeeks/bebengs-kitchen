@@ -5,8 +5,8 @@ import NavigationBar from '@/prod-components/navigation';
 import OrdersPage from '@/prod-components/Sales/Orders';
 import CollectiblesPage from '@/prod-components/Sales/Collectibles';
 import DailyMenuPage from '@/prod-components/menu/daily-menu';
-import MenuPage from '@/prod-components/menu/menu';
-import CustomersListPage from '@/prod-components/customers/customers';
+import MenuPage from '@/prod-components/menu/menu-list';
+import CustomersListPage from '@/prod-components/customer/customer-list';
 import styles from '@/styles/prod.module.css';
 
 const ProdPage = () => {

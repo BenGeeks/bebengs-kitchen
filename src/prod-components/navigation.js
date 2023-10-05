@@ -23,13 +23,7 @@ const NavigationBar = ({ showNav, setShowNav, currentPage, setCurrentPage }) => 
           className={currentPage === 'orders' ? (showNav ? styles.nav_active_mobile : styles.nav_active) : styles.nav}
           onClick={() => setCurrentPage('orders')}
         >
-          Sales
-        </div>
-        <div
-          className={currentPage === 'collectibles' ? (showNav ? styles.nav_active_mobile : styles.nav_active) : styles.nav}
-          onClick={() => setCurrentPage('collectibles')}
-        >
-          Collectibles
+          Orders
         </div>
         <div
           className={currentPage === 'daily_menu' ? (showNav ? styles.nav_active_mobile : styles.nav_active) : styles.nav}

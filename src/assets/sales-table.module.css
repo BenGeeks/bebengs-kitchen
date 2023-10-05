@@ -1,0 +1,66 @@
+.table {
+  width: 100%;
+  margin-bottom: 20px;
+  border-spacing: 0px;
+  background-color: white;
+  border-bottom: 1px solid #3e5569;
+}
+
+.table_head_row {
+  margin-top: 2px;
+  background-color: aliceblue;
+}
+
+.table_head {
+  cursor: pointer;
+  border-top: 1px solid #3e5569;
+  padding-left: 5px;
+}
+
+.table_head_text {
+  height: 30px;
+  padding-left: 5px;
+  display: flex;
+  align-items: center;
+}
+
+.table_row {
+  height: 50px;
+  margin-top: 2px;
+}
+
+.cell {
+  border-top: 1px solid #3e5569;
+  padding: 5px;
+  text-align: left;
+  vertical-align: text-top;
+}
+
+.cell_total {
+  border-top: 1px solid #3e5569;
+  padding: 5px;
+  text-align: center;
+  vertical-align: text-top;
+  padding-left: 10px;
+  font-weight: 700;
+  font-size: 1.2rem;
+  width: 70px;
+}
+
+.image {
+  width: 50px;
+  height: auto;
+  margin: 3px;
+}
+
+.cell_order_container {
+  padding: 5px;
+  border: 1px solid #3e5569;
+  background-color: #f7f7ec;
+}
+
+.cell_customer {
+  padding: 5px;
+  font-size: 1.2rem;
+  font-weight: 700;
+}

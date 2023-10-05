@@ -1,9 +1,8 @@
-'use client';
 import React, { useMemo } from 'react';
 import { useTable } from 'react-table';
 
 import ReactTable from './react-table';
-import styles from './react-table.module.css';
+import styles from './sales-table.module.css';
 
 const SalesTable = ({ COLUMNS, DATA }) => {
   const columns = useMemo(() => COLUMNS, []);
