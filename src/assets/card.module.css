@@ -124,8 +124,18 @@
 
 @media (max-width: 768px) {
   .card {
-    width: 170px;
-    height: 170px;
+    width: 165px;
+    height: 165px;
+  }
+
+  .price_card_selected {
+    width: 165px;
+    height: 165px;
+  }
+
+  .price_card {
+    width: 165px;
+    height: 165px;
   }
 
   .image {

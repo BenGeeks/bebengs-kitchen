@@ -3,23 +3,22 @@ import React, { useState } from 'react';
 import { RiAddCircleLine } from 'react-icons/ri';
 
 import Modal from '@/assets/modal';
-import MenuModal from './menu-modal';
+import MenuListModal from './menu-list-modal';
 import Card from '@/assets/card';
 
-import styles from '@/styles/prod.module.css';
+import styles from './menu.module.css';
 
 import { DATA } from './resources';
 
-const MenuPage = () => {
-  const initialState = { item: '', size: '', price: '' };
+const MenuList = () => {
+  const DEFAULT_MENU_ITEM = { item_name: '', description: '', image: '', variation: [] };
   const [modalOpen, setModalOpen] = useState(false);
   const [action, setAction] = useState('');
-  const [menuData, setMenuData] = useState(initialState);
-  const [currentPage, setCurrentPage] = useState('today');
+  const [menuData, setMenuData] = useState(DEFAULT_MENU_ITEM);
 
   const onAddMenu = () => {
-    setMenuData(initialState);
-    setAction('Add new');
+    setMenuData(DEFAULT_MENU_ITEM);
+    setAction('Add');
     setModalOpen(true);
   };
 
@@ -30,37 +29,21 @@ const MenuPage = () => {
   };
 
   const onCancel = () => {
-    setMenuData(initialState);
+    setMenuData(DEFAULT_MENU_ITEM);
     setModalOpen(false);
   };
 
   return (
-    <div className={styles.main_page}>
-      <div className={styles.header_bar}>
-        <div className={styles.page_nav_container}>
-          <div className={currentPage === 'today' ? styles.page_nav_active : styles.page_nav} onClick={() => setCurrentPage('today')}>
-            Today
-          </div>
-          <div className={currentPage === 'menu' ? styles.page_nav_active : styles.page_nav} onClick={() => setCurrentPage('menu')}>
-            List
-          </div>
-        </div>
-
-        <div className={styles.header_button} onClick={onAddMenu}>
-          <RiAddCircleLine />
-        </div>
+    <>
+      <div className={styles.floating_icon} onClick={onAddMenu}>
+        <RiAddCircleLine />
       </div>
-
-      {currentPage === 'menu' && (
-        <>
-          <Modal open={modalOpen}>
-            <MenuModal onClose={onCancel} action={action} data={menuData} />
-          </Modal>
-          <Card data={DATA ? DATA : []} size="small" onSelect={onViewMenu} />
-        </>
-      )}
-    </div>
+      <Modal open={modalOpen}>
+        <MenuListModal onClose={onCancel} action={action} data={menuData} />
+      </Modal>
+      <Card data={DATA ? DATA : []} size="small" onSelect={onViewMenu} />
+    </>
   );
 };
 
-export default MenuPage;
+export default MenuList;

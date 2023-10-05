@@ -9,16 +9,35 @@ import Card from '@/assets/card';
 import Modal2 from '@/assets/Modal2';
 import { MENU_INPUT, MENU_SCHEMA, VARIATION_INPUT, VARIATION_SCHEMA, VARIATION_COLUMNS } from './resources';
 
-const MenuModal = ({ action, onClose, data }) => {
+const MenuListModal = ({ action, onClose, data }) => {
   const DEFAULT_VARIATION = { size: '', qty: 1, price: 0 };
   const [modalOpen, setModalOpen] = useState(false);
   const [onEdit, setOnEdit] = useState(false);
-  const [currentData, setCurrentData] = useState(data ? data : {});
+  const [onAddNew, setOnAddNew] = useState(false);
+  const [currentData, setCurrentData] = useState(data);
   const [editVariation, setEditVariation] = useState(false);
   const [currentVariation, setCurrentVariation] = useState(DEFAULT_VARIATION);
+  const [action2, setAction2] = useState('');
 
-  const onSubmitHandler = (formData) => {
+  console.log(currentData);
+
+  useEffect(() => {
+    if (action === 'Add new') {
+      setOnAddNew(true);
+      setCurrentVariation(DEFAULT_VARIATION);
+    }
+  }, [action]);
+
+  const onUpdateHandler = (formData) => {
     console.log(formData);
+    setOnEdit(false);
+    setOnAddNew(false);
+  };
+
+  const onSaveHandler = (formData) => {
+    setCurrentData({ ...formData, variation: [], id: Date.now() });
+    console.log(formData);
+    setOnAddNew(false);
     setOnEdit(false);
   };
 
@@ -32,6 +51,7 @@ const MenuModal = ({ action, onClose, data }) => {
   const onEditVariation = (data) => {
     setCurrentVariation(data);
     setEditVariation(true);
+    setAction2('Edit');
     setModalOpen(true);
   };
 
@@ -52,6 +72,7 @@ const MenuModal = ({ action, onClose, data }) => {
     let temp = { ...DEFAULT_VARIATION, id: Date.now() };
     setCurrentVariation(temp);
     setEditVariation(true);
+    setAction2('Add');
     setModalOpen(true);
   };
 
@@ -62,6 +83,7 @@ const MenuModal = ({ action, onClose, data }) => {
           layout={VARIATION_INPUT}
           schema={VARIATION_SCHEMA}
           defaultValues={currentVariation}
+          action={action2}
           onSubmit={onSaveVariation}
           onCancel={onCancelVariationEdit}
         />
@@ -85,24 +107,27 @@ const MenuModal = ({ action, onClose, data }) => {
       </div>
 
       <div className={styles.modal_body}>
-        {onEdit ? (
+        {onEdit || onAddNew ? (
           <ReactForm
             layout={MENU_INPUT}
             schema={MENU_SCHEMA}
-            defaultValues={data}
-            onSubmit={onSubmitHandler}
+            defaultValues={currentData}
+            onSubmit={onAddNew ? onSaveHandler : onUpdateHandler}
             action={action}
             onCancel={() => setOnEdit(false)}
           />
         ) : (
-          <Card data={data} solo={true} option="big" />
+          <Card data={currentData} solo={true} option="big" />
         )}
-        <div className={styles.modal_sub_header}>
-          <h3 className={styles.modal_sub_header_text}>Variations</h3>
-          <div className={styles.modal_sub_header_icon} onClick={onAddVariation}>
-            <RiAddCircleLine />
+        {!onAddNew && (
+          <div className={styles.modal_sub_header}>
+            <h3 className={styles.modal_sub_header_text}>Variations</h3>
+            <div className={styles.modal_sub_header_icon} onClick={onAddVariation}>
+              <RiAddCircleLine />
+            </div>
           </div>
-        </div>
+        )}
+
         {!editVariation && (
           <ReactTable
             COLUMNS={VARIATION_COLUMNS}
@@ -117,4 +142,4 @@ const MenuModal = ({ action, onClose, data }) => {
   );
 };
 
-export default MenuModal;
+export default MenuListModal;

@@ -1,13 +1,13 @@
 import React, { useState } from 'react';
 
 import Modal from '@/assets/modal';
-import DailyMenuModal from './daily-menu-modal';
+import MenuTodayModal from './menu-today-modal';
 import Card from '@/assets/card';
 
 import { RiAddCircleLine } from 'react-icons/ri';
-import styles from '@/styles/prod.module.css';
+import styles from './menu.module.css';
 
-const DailyMenuPage = () => {
+const MenuToday = () => {
   const [modalOpen, setModalOpen] = useState(false);
   const [dailyList, setDailyList] = useState([]);
 
@@ -44,21 +44,21 @@ const DailyMenuPage = () => {
   };
 
   return (
-    <div className={styles.main_page}>
-      <div className={styles.header_bar}>
-        <h2 className={styles.header_text}>Daily Menu</h2>
-        <div className={styles.header_button} onClick={onAddDailyMenu}>
-          <RiAddCircleLine />
-        </div>
+    <>
+      <div className={styles.floating_icon} onClick={onAddDailyMenu}>
+        <RiAddCircleLine />
       </div>
 
       <Modal open={modalOpen}>
-        <DailyMenuModal onClose={onCancel} onSave={onSaveHandler} />
+        <MenuTodayModal onClose={onCancel} onSave={onSaveHandler} />
       </Modal>
-
-      <Card data={dailyList} isPrice={true} onSelect={onSelect} />
-    </div>
+      {dailyList.length === 0 ? (
+        <h2 className={styles.no_item}>No item to display</h2>
+      ) : (
+        <Card data={dailyList} isPrice={true} onSelect={onSelect} />
+      )}
+    </>
   );
 };
 
-export default DailyMenuPage;
+export default MenuToday;

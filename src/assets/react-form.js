@@ -44,7 +44,7 @@ const ReactForm = ({ layout, schema, defaultValues, onSubmit, onCancel, action }
             Cancel
           </button>
           <button className={styles.button_save} type="submit">
-            {action === 'Add new' ? 'Save' : 'Update'}
+            {action === 'Add' ? 'Save' : 'Update'}
           </button>
         </div>
       </form>

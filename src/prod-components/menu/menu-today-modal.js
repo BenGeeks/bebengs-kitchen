@@ -4,9 +4,9 @@ import { RiCloseCircleLine, RiSkipBackLine, RiCheckboxCircleLine } from 'react-i
 
 import Card from '@/assets/card';
 import { DATA } from './resources';
-import styles from '@/assets/modal.module.css';
+import styles from './menu.module.css';
 
-const DailyMenuModal = ({ onClose, onSave }) => {
+const MenuTodayModal = ({ onClose, onSave }) => {
   const [step, setStep] = useState(1);
   const [variation, setVariation] = useState([]);
 
@@ -67,13 +67,11 @@ const DailyMenuModal = ({ onClose, onSave }) => {
         </div>
       </div>
       <div className={styles.modal_body}>
-        <div className={styles.modal_body}>
-          {step === 1 && <Card data={DATA} size="small" onSelect={onSelectItem} />}
-          {step === 2 && <Card data={variation} isPrice={true} onSelect={onSelectPrice} />}
-        </div>
+        {step === 1 && <Card data={DATA} size="small" onSelect={onSelectItem} />}
+        {step === 2 && <Card data={variation} isPrice={true} onSelect={onSelectPrice} />}
       </div>
     </div>
   );
 };
 
-export default DailyMenuModal;
+export default MenuTodayModal;
