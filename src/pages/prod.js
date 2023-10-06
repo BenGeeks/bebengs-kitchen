@@ -2,7 +2,7 @@
 import { useState } from 'react';
 
 import NavigationBar from '@/prod-components/navigation';
-import OrdersPage from '@/prod-components/Sales/Orders';
+import OrderPage from '@/prod-components/order/order';
 import MenuPage from '@/prod-components/menu/menu';
 import CustomerPage from '@/prod-components/customer/customer';
 import styles from '@/styles/prod.module.css';
@@ -16,7 +16,7 @@ const ProdPage = () => {
     <div className={styles.page_holder}>
       <NavigationBar currentPage={currentPage} setCurrentPage={setCurrentPage} showNav={showNav} setShowNav={setShowNav} />
 
-      {currentPage === 'orders' && <OrdersPage />}
+      {currentPage === 'orders' && <OrderPage />}
       {currentPage === 'menu' && <MenuPage />}
       {currentPage === 'customers' && <CustomerPage />}
     </div>

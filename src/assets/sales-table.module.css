@@ -15,6 +15,7 @@
   cursor: pointer;
   border-top: 1px solid #3e5569;
   padding-left: 5px;
+  cursor: default;
 }
 
 .table_head_text {
@@ -22,6 +23,7 @@
   padding-left: 5px;
   display: flex;
   align-items: center;
+  justify-content: center;
 }
 
 .table_row {
@@ -34,8 +36,56 @@
   padding: 5px;
   text-align: left;
   vertical-align: text-top;
+  text-align: center;
 }
 
+.cell_order_number_container {
+  border-top: 1px solid #3e5569;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 60px;
+}
+
+.cell_order_details {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 5px;
+}
+
+.cell_delivery_time {
+  font-size: 1.2rem;
+}
+
+.cell_edit_icon {
+  width: 30px;
+  height: 30px;
+  display: flex;
+  color: #374151;
+  background-color: aliceblue;
+  border: 1px solid white;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+.cell_edit_icon:hover {
+  background-color: lightblue;
+}
+
+.hide_details {
+  max-height: 0px;
+  overflow: hidden;
+  transition: all 0.5s ease-in-out;
+}
+
+.show {
+  max-height: 200px;
+  overflow: auto;
+}
 .cell_total {
   border-top: 1px solid #3e5569;
   padding: 5px;
@@ -43,7 +93,7 @@
   vertical-align: text-top;
   padding-left: 10px;
   font-weight: 700;
-  font-size: 1.2rem;
+  font-size: 1.4rem;
   width: 70px;
 }
 
@@ -63,4 +113,5 @@
   padding: 5px;
   font-size: 1.2rem;
   font-weight: 700;
+  cursor: pointer;
 }
