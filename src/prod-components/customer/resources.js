@@ -8,7 +8,12 @@ export const LOGIN_SCHEMA = yup.object().shape({
 export const FORM_INPUT = [
   { type: 'text', name: 'name', label: 'Name' },
   { type: 'text', name: 'phone', label: 'G-cash number' },
-  { type: 'text', name: 'address', label: 'Address' },
+  {
+    type: 'text',
+    name: 'address',
+    label: 'Address',
+    list: ['Sta. Rosa Hills', 'Sta. Rosa Heights', 'Morning View', 'Buklod Bahayan', 'Mandara', 'Imperial', 'Verona', 'Cinta Dessa'],
+  },
   { type: 'number', name: 'block', label: 'Block' },
   { type: 'number', name: 'lot', label: 'Lot' },
 ];

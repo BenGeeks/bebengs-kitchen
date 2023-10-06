@@ -21,20 +21,31 @@ const ReactForm = ({ layout, schema, defaultValues, onSubmit, onCancel, action }
           return (
             <div key={index} className={styles.input_container}>
               <label htmlFor={input.name} className={styles.input_label}>
-                {input.label}
+                {input.label}:
               </label>
               {errors[input.name] && <div className={styles.error_message}>{errors[input.name]?.message}</div>}
 
               {input.type === 'textarea' ? (
                 <textarea {...register(input.name)} className={styles.textarea} rows={5} />
               ) : (
-                <input
-                  type={input.type}
-                  placeholder={input.label}
-                  className={styles.input}
-                  {...register(input.name)}
-                  autoFocus={index === 0}
-                />
+                <>
+                  {console.log(input)}
+                  <input
+                    type={input.type}
+                    placeholder={input.label}
+                    className={styles.input}
+                    list={input.name}
+                    {...register(input.name)}
+                    autoFocus={index === 0}
+                  />
+                  {input.list && (
+                    <datalist id={input.name}>
+                      {input.list.map((el) => {
+                        return <option value={el} />;
+                      })}
+                    </datalist>
+                  )}
+                </>
               )}
             </div>
           );

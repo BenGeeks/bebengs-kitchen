@@ -1,10 +1,12 @@
 import React from 'react';
 
+import styles from './menu.module.css';
+
 const MenuHistory = () => {
   return (
-    <div>
+    <>
       <h1>Menu History goes here!</h1>
-    </div>
+    </>
   );
 };
 

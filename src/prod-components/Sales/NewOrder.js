@@ -100,12 +100,12 @@ const NewOrder = ({ onClose }) => {
             })}
           </datalist>
         </div>
-        <ReactTable COLUMNS={ITEM_HEADER} DATA={itemList} />
+        {/* <ReactTable COLUMNS={ITEM_HEADER} DATA={itemList} /> */}
         <div className={styles.search_user_container}>
           <div className={styles.search_user_label}>Search:</div>
           <input className={styles.search_user_input} onChange={(e) => setFilterText(e.target.value)} />
         </div>
-        <ReactTable COLUMNS={MENU_HEADER} DATA={items.filter} />
+        {/* <ReactTable COLUMNS={MENU_HEADER} DATA={items.filter} /> */}
       </div>
     </>
   );

@@ -1,6 +1,5 @@
 'use client';
 import React, { useState } from 'react';
-import { RiAddCircleLine } from 'react-icons/ri';
 
 import MenuToday from './menu-today';
 import MenuList from './menu-list';
