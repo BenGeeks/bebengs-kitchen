@@ -25,7 +25,7 @@ const OrderStatus = ({ row }) => {
     if (data.isPaid && !data.delivered) return styles.purple;
     return styles.orange;
   };
-  console.log(row);
+
   return (
     <>
       <Modal open={modalOpen}>

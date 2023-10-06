@@ -22,6 +22,9 @@ export const COLUMNS = [
   },
 ];
 
+export const CUSTOMER_COLUMNS = ['Name', 'Address', 'Block', 'Lot'];
+export const ORDER_COLUMNS = ['Item Name', 'Variation', 'Quantity', 'Price', 'Subtotal'];
+
 export const SAMPLE_ORDER_DATA = [
   {
     id: 12,

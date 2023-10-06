@@ -12,7 +12,17 @@ export const FORM_INPUT = [
     type: 'text',
     name: 'address',
     label: 'Address',
-    list: ['Sta. Rosa Hills', 'Sta. Rosa Heights', 'Morning View', 'Buklod Bahayan', 'Mandara', 'Imperial', 'Verona', 'Cinta Dessa'],
+    list: [
+      'Sta. Rosa Hills',
+      'Sta. Rosa Heights',
+      'Morning View',
+      'Buklod Bahayan',
+      'Mandara',
+      'Imperial',
+      'Verona',
+      'Cinta Dessa',
+      'Saddleback',
+    ],
   },
   { type: 'number', name: 'block', label: 'Block' },
   { type: 'number', name: 'lot', label: 'Lot' },
@@ -26,8 +36,8 @@ export const COLUMNS = [
 ];
 
 export const DATA = [
-  { id: 1, name: 'Bebeng', address: 'sta rosa hills', block: '19', lot: '23' },
-  { id: 2, name: 'Susan', address: 'sta rosa hills', block: '19', lot: '24' },
-  { id: 3, name: 'Vivian', address: 'sta rosa hills', block: '3', lot: '14' },
-  { id: 4, name: 'Chona', address: 'sta rosa hills', block: '25', lot: '15' },
+  { id: 1, name: 'Bebeng', phone: '0968-882-4453', address: 'sta rosa hills', block: '19', lot: '23' },
+  { id: 2, name: 'Susan', phone: '0977-135-2629', address: 'sta rosa hills', block: '19', lot: '24' },
+  { id: 3, name: 'Vivian', phone: '0999-995-7176', address: 'sta rosa hills', block: '3', lot: '14' },
+  { id: 4, name: 'Chona', phone: '0123-456-7890', address: 'sta rosa hills', block: '25', lot: '15' },
 ];

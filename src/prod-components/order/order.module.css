@@ -321,3 +321,39 @@
   color: rgb(90, 216, 90);
   border: 1px solid rgb(90, 216, 90);
 }
+
+/* ================================ */
+/* =========  NEW ORDER  ========== */
+/* ================================ */
+
+.search_container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.search_input {
+  width: 300px;
+  margin: 10px auto;
+  font-size: 1.2rem;
+  padding: 5px;
+  color: #374151;
+  border: 1px solid #374151;
+  background-color: beige;
+  border-radius: 5px;
+}
+
+.table_row {
+  height: 50px;
+  margin-top: 2px;
+  cursor: pointer;
+}
+
+.table_row:hover {
+  background-color: beige;
+}
+
+.selected_customer {
+  text-align: center;
+  padding: 10px;
+}

@@ -19,8 +19,6 @@ const MenuListModal = ({ action, onClose, data }) => {
   const [currentVariation, setCurrentVariation] = useState(DEFAULT_VARIATION);
   const [action2, setAction2] = useState('');
 
-  console.log(currentData);
-
   useEffect(() => {
     if (action === 'Add new') {
       setOnAddNew(true);
