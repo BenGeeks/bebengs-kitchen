@@ -25,6 +25,7 @@
   padding: 10px;
   box-shadow: 5px 5px 5px #333;
   border-radius: 5px;
+  overflow-y: auto;
 }
 
 .modal_header_bar {
@@ -63,8 +64,6 @@
 .modal_body {
   padding: 5px;
   background-color: beige;
-  overflow-y: auto;
-  height: calc(100vh - 150px);
 }
 
 .modal_input_container {
@@ -219,4 +218,11 @@
   padding: 10px;
   box-shadow: 5px 5px 5px #333;
   border-radius: 5px;
+  overflow-y: auto;
+}
+
+@media (max-width: 768px) {
+  .modal2 {
+    width: 95%;
+  }
 }

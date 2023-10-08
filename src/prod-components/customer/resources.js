@@ -1,11 +1,11 @@
 import * as yup from 'yup';
 
-export const LOGIN_SCHEMA = yup.object().shape({
+export const SCHEMA = yup.object().shape({
   name: yup.string().required('Customer name is required'),
   address: yup.string().required('Customer address is required'),
 });
 
-export const FORM_INPUT = [
+export const INPUT = [
   { type: 'text', name: 'name', label: 'Name' },
   { type: 'text', name: 'phone', label: 'G-cash number' },
   {

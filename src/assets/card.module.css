@@ -30,7 +30,6 @@
 }
 
 .card_name {
-  margin-top: 10px;
   font-size: 1.4rem;
   margin-bottom: 3px;
 }
@@ -129,13 +128,13 @@
   }
 
   .price_card_selected {
-    width: 165px;
-    height: 165px;
+    width: 130px;
+    height: auto;
   }
 
   .price_card {
-    width: 165px;
-    height: 165px;
+    width: 130px;
+    height: auto;
   }
 
   .image {

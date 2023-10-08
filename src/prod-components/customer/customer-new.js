@@ -3,16 +3,11 @@ import { RiCloseCircleLine } from 'react-icons/ri';
 import styles from '@/assets/modal.module.css';
 
 import ReactForm from '@/assets/react-form';
-import { FORM_INPUT, LOGIN_SCHEMA } from './resources';
+import { INPUT, SCHEMA } from './resources';
 
-const CustomerModal = ({ action, onClose, data }) => {
-  const onSubmitHandler = (formData) => {
-    console.log(formData);
-    onClose();
-  };
-
+const CustomerNew = ({ action, onClose, onAdd, onEdit, data }) => {
   return (
-    <div>
+    <>
       <div className={styles.modal_header_bar}>
         <h2 className={styles.modal_header_text}>{`${action} customer:`}</h2>
         <div className={styles.modal_header_icon} onClick={onClose}>
@@ -21,16 +16,16 @@ const CustomerModal = ({ action, onClose, data }) => {
       </div>
       <div className={styles.modal_body}>
         <ReactForm
-          layout={FORM_INPUT}
-          schema={LOGIN_SCHEMA}
+          layout={INPUT}
+          schema={SCHEMA}
           defaultValues={data}
-          onSubmit={onSubmitHandler}
+          onSubmit={action === 'Add' ? onAdd : onEdit}
           action={action}
           onCancel={onClose}
         />
       </div>
-    </div>
+    </>
   );
 };
 
-export default CustomerModal;
+export default CustomerNew;

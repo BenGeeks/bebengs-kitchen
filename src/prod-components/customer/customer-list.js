@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import { RiAddCircleLine } from 'react-icons/ri';
 
 import Modal from '@/assets/modal';
-import CustomerModal from './customer-modal';
+import CustomerNew from './customer-new';
 import ReactTable from '@/assets/react-table';
 import { DATA, COLUMNS } from './resources';
 import styles from './customer.module.css';
@@ -15,7 +15,7 @@ const CustomersList = () => {
 
   const onAddCustomer = () => {
     setCustomerData({ name: '', address: '', block: '', lot: '' });
-    setAction('Add new');
+    setAction('Add');
     setModalOpen(true);
   };
 
@@ -34,13 +34,23 @@ const CustomersList = () => {
     setModalOpen(false);
   };
 
+  const addNewCustomerHandler = (data) => {
+    console.log('Add new Customer has been triggered: ', data);
+    onCancel();
+  };
+
+  const editCustomerHandler = (data) => {
+    console.log('Edit Customer has been triggered: ', data);
+    onCancel();
+  };
+
   return (
     <>
       <div className={styles.floating_icon} onClick={onAddCustomer}>
         <RiAddCircleLine />
       </div>
       <Modal open={modalOpen}>
-        <CustomerModal onClose={onCancel} action={action} data={customerData} />
+        <CustomerNew onClose={onCancel} action={action} data={customerData} onAdd={addNewCustomerHandler} onEdit={editCustomerHandler} />
       </Modal>
 
       <ReactTable COLUMNS={COLUMNS} DATA={DATA} onDelete={onDeleteCustomer} onEdit={onEditCustomer} enableActions={true} />

@@ -1,7 +1,7 @@
 'use client';
 import React, { useState } from 'react';
 
-import OrderToday from './order-today';
+import OrderToday from './today/order-today';
 import OrderCollectibles from './order-collectibles';
 import OrderFuture from './order-future';
 import OrderHistory from './order-history';

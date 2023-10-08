@@ -5,24 +5,26 @@ import { TbTruckDelivery } from 'react-icons/tb';
 import { BsCartCheck, BsCartX, BsCashCoin } from 'react-icons/bs';
 
 import Modal from '@/assets/modal';
-import styles from './order.module.css';
+import styles from './order-today.module.css';
 
-const OrderStatus = ({ row }) => {
+const OrderStatus = ({ order, index, onUpdate }) => {
+  console.log('ORDER: ', order);
   const [modalOpen, setModalOpen] = useState(false);
-  const [delivered, setDelivered] = useState(row.original.delivered);
-  const [paid, setPaid] = useState(row.original.paid);
-  const [isGcash, setIsGcash] = useState(row.original.isGcash);
+  const [delivered, setDelivered] = useState(order && order.delivered);
+  const [paid, setPaid] = useState(order && order.paid);
+  const [isGcash, setIsGcash] = useState(order && order.isGcash);
 
   const onSubmitHandler = () => {
     console.log('ON SUBMIT HANDLER HAS BEEN CALLED!');
+    onUpdate({ delivered, paid, isGcash });
     setModalOpen(false);
   };
 
   const getStatusColor = (data) => {
-    if (data.isPaid && data.delivered && data.isGcash) return styles.blue;
-    if (data.isPaid && data.delivered && !data.isGcash) return styles.green;
-    if (!data.isPaid && data.delivered) return styles.red;
-    if (data.isPaid && !data.delivered) return styles.purple;
+    if (data && data.isPaid && data.delivered && data.isGcash) return styles.blue;
+    if (data && data.isPaid && data.delivered && !data.isGcash) return styles.green;
+    if (data && !data.isPaid && data.delivered) return styles.red;
+    if (data && data.isPaid && !data.delivered) return styles.purple;
     return styles.orange;
   };
 
@@ -72,7 +74,7 @@ const OrderStatus = ({ row }) => {
         </div>
       </Modal>
       <div className={styles.cell_order_number_container} onClick={() => setModalOpen(true)}>
-        <div className={`${styles.cell_order_number} ${getStatusColor(row.original)}`}>{row.index + 1}</div>
+        <div className={`${styles.cell_order_number} ${getStatusColor(order)}`}>{index + 1}</div>
       </div>
     </>
   );

@@ -29,7 +29,6 @@ const ReactForm = ({ layout, schema, defaultValues, onSubmit, onCancel, action }
                 <textarea {...register(input.name)} className={styles.textarea} rows={5} />
               ) : (
                 <>
-                  {console.log(input)}
                   <input
                     type={input.type}
                     placeholder={input.label}
