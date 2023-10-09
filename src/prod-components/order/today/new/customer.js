@@ -18,7 +18,8 @@ const Customer = ({ selectedCustomer, setSelectedCustomer }) => {
 
   useEffect(() => {
     let tempData = DATA.filter((customer) => {
-      return customer.name.toLowerCase().includes(searchValue.toLowerCase());
+      let searchFrom = `${customer.name.toLowerCase()} ${customer.address} ${customer.block} ${customer.lot}`;
+      return searchFrom.includes(searchValue.toLowerCase());
     });
     searchValue.length === 0 ? setCustomerData(DATA) : setCustomerData([...tempData]);
   }, [searchValue]);
@@ -29,7 +30,6 @@ const Customer = ({ selectedCustomer, setSelectedCustomer }) => {
   };
 
   const addNewCustomerHandler = (data) => {
-    console.log('Add new Customer has been triggered: ', data);
     setSelectedCustomer(data);
     setAddCustomer(false);
     setChangeCustomer(false);
@@ -98,9 +98,14 @@ const Customer = ({ selectedCustomer, setSelectedCustomer }) => {
         </div>
       ) : (
         <div className={styles.selected_data}>
-          <h2>
-            {selectedCustomer.name} - {selectedCustomer.address} {selectedCustomer.block} {selectedCustomer.lot}
-          </h2>
+          {selectedCustomer.displayName ? (
+            <h2>{selectedCustomer.displayName}</h2>
+          ) : (
+            <h2>
+              {selectedCustomer.name} - {selectedCustomer.address} {selectedCustomer.block} {selectedCustomer.lot}
+            </h2>
+          )}
+
           <div className={styles.sub_header_icon_container}>
             <div className={styles.sub_header_icon} onClick={() => setChangeCustomer(true)}>
               <BsPersonFillGear />

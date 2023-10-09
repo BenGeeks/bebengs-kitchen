@@ -215,10 +215,17 @@
 }
 
 .cell_customer {
-  padding: 5px;
+  padding: 10px 5px;
   font-size: 1.2rem;
   font-weight: 700;
   cursor: pointer;
+  background-color: beige;
+  border: 1px solid white;
+  border-radius: 5px;
+}
+
+.cell_customer:hover {
+  background-color: aliceblue;
 }
 
 .cell_order_details {

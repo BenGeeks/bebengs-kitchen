@@ -43,7 +43,7 @@ const ReactTable = ({ COLUMNS, DATA, onDelete, onAdd, onEdit, enableActions, ena
               {enableActions && (
                 <td className={styles.cell}>
                   <div className={styles.icons_container}>
-                    <div className={styles.delete_icon_holder} onClick={() => onDelete(row.original.id)}>
+                    <div className={styles.delete_icon_holder} onClick={() => onDelete(row.original._id)}>
                       <RiDeleteBin4Line />
                     </div>
                     <div className={styles.edit_icon_holder} onClick={() => onEdit(row.original)}>

@@ -2,54 +2,68 @@
 import React, { useState } from 'react';
 import { RiAddCircleLine } from 'react-icons/ri';
 
-import SalesTable from '@/assets/sales-table';
-
 import Modal from '@/assets/modal';
 import OrderNew from './new/order-new';
 import OrderStatus from './order-status';
 import OrderDetails from './order-details';
-import { COLUMNS, ORDER_COLUMNS, SAMPLE_ORDER_DATA } from './resources';
+import { ORDER_COLUMNS, SAMPLE_ORDER_DATA } from './resources';
 import styles from './order-today.module.css';
 import styles2 from '@/assets/react-table.module.css';
 
 const OrderToday = () => {
-  const [modalOpen, setModalOpen] = useState(false);
+  const [newModal, setNewModal] = useState(false);
   const [data, setData] = useState(SAMPLE_ORDER_DATA);
+  const [viewModal, setViewModal] = useState(false);
+  const [viewData, setViewData] = useState({});
   const [isLoading, setIsLoading] = useState(false);
-  console.log(data);
 
-  const onAddOrder = () => {
-    setModalOpen(true);
+  const loading = () => {
+    setIsLoading(true);
+    setTimeout(() => {
+      setIsLoading(false);
+    }, 500);
   };
-
   const onSaveHandler = (newData) => {
     let tempData = [...data, newData];
     setData(tempData);
     setIsLoading(true);
-    setTimeout(() => {
-      setIsLoading(false);
-      console.log('SET TIMEOUT HAS BEEN CALLED');
-    }, 500);
+    loading();
   };
 
-  const selectCustomerHandler = (orderDetails) => {
-    console.log('SELECT CUSTOMER HANDLER: ', orderDetails);
+  const onUpdateHandler = (updatedData) => {
+    console.log('UPDATED DATA: ', updatedData);
+    let updatedOrder = [];
+    data.forEach((order) => {
+      order.id === updatedData.id ? updatedOrder.push(updatedData) : updatedOrder.push(order);
+    });
+    console.log('UPDATED ORDER LIST', updatedOrder);
+    setData(updatedOrder);
+    loading();
   };
 
-  const statusUpdateHandler = (data) => {
-    console.log('STATUS UPDATE HANDLER: ', data);
+  const statusUpdateHandler = (status) => {
+    let updatedOrder = [];
+    data.forEach((order) => {
+      order.id === status.id ? updatedOrder.push({ ...order, ...status }) : updatedOrder.push(order);
+    });
+    setData(updatedOrder);
+    loading();
   };
 
   const veiwOrderHandler = (data) => {
-    console.log('VIEW ORDER HANDLER: ', data);
+    setViewData(data);
+    setViewModal(true);
   };
   return (
     <>
-      <div className={styles.floating_icon} onClick={onAddOrder}>
+      <div className={styles.floating_icon} onClick={() => setNewModal(true)}>
         <RiAddCircleLine />
       </div>
-      <Modal open={modalOpen}>
-        <OrderNew onClose={() => setModalOpen(false)} onSave={onSaveHandler} />
+      <Modal open={newModal}>
+        <OrderNew onClose={() => setNewModal(false)} onSave={onSaveHandler} />
+      </Modal>
+      <Modal open={viewModal}>
+        <OrderNew onClose={() => setViewModal(false)} onSave={onUpdateHandler} order={viewData} />
       </Modal>
       {isLoading ? (
         <h1>Loading...</h1>
@@ -67,19 +81,20 @@ const OrderToday = () => {
             </tr>
           </thead>
           <tbody>
-            {data.map((order, index) => {
-              return (
-                <tr key={index} className={styles.table_row} onClick={() => selectCustomerHandler(order)}>
-                  <td className={styles2.cell}>
-                    <OrderStatus order={order} index={index} onUpdate={statusUpdateHandler} />
-                  </td>
-                  <td className={styles2.cell}>
-                    <OrderDetails order={order} onView={veiwOrderHandler} />
-                  </td>
-                  <td className={styles2.cell_total}>{order.total}</td>
-                </tr>
-              );
-            })}
+            {data &&
+              data.map((order, index) => {
+                return (
+                  <tr key={index} className={styles.table_row}>
+                    <td className={styles2.cell}>
+                      <OrderStatus order={order} index={index} onUpdate={statusUpdateHandler} />
+                    </td>
+                    <td className={styles2.cell}>
+                      <OrderDetails order={order} onView={veiwOrderHandler} />
+                    </td>
+                    <td className={styles2.cell_total}>{order.total}</td>
+                  </tr>
+                );
+              })}
           </tbody>
         </table>
       )}

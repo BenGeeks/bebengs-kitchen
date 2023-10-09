@@ -40,7 +40,7 @@ const ReactForm = ({ layout, schema, defaultValues, onSubmit, onCancel, action }
                   {input.list && (
                     <datalist id={input.name}>
                       {input.list.map((el) => {
-                        return <option value={el} />;
+                        return <option value={el} key={el} />;
                       })}
                     </datalist>
                   )}

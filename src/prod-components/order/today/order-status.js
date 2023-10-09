@@ -8,23 +8,21 @@ import Modal from '@/assets/modal';
 import styles from './order-today.module.css';
 
 const OrderStatus = ({ order, index, onUpdate }) => {
-  console.log('ORDER: ', order);
   const [modalOpen, setModalOpen] = useState(false);
-  const [delivered, setDelivered] = useState(order && order.delivered);
-  const [paid, setPaid] = useState(order && order.paid);
-  const [isGcash, setIsGcash] = useState(order && order.isGcash);
+  const [delivered, setDelivered] = useState(order && order.isDelivered ? order.isDelivered : false);
+  const [paid, setPaid] = useState(order && order.paid ? order.paid : false);
+  const [gCash, setGCash] = useState(order && order.isGcash ? order.isGcash : false);
 
   const onSubmitHandler = () => {
-    console.log('ON SUBMIT HANDLER HAS BEEN CALLED!');
-    onUpdate({ delivered, paid, isGcash });
+    onUpdate({ isDelivered: delivered, isPaid: paid, isGcash: gCash, id: order.id });
     setModalOpen(false);
   };
 
   const getStatusColor = (data) => {
-    if (data && data.isPaid && data.delivered && data.isGcash) return styles.blue;
-    if (data && data.isPaid && data.delivered && !data.isGcash) return styles.green;
-    if (data && !data.isPaid && data.delivered) return styles.red;
-    if (data && data.isPaid && !data.delivered) return styles.purple;
+    if (data && data.isPaid && data.isDelivered && data.isGcash) return styles.blue;
+    if (data && data.isPaid && data.isDelivered && !data.isGcash) return styles.green;
+    if (data && !data.isPaid && data.isDelivered) return styles.red;
+    if (data && data.isPaid && !data.isDelivered) return styles.purple;
     return styles.orange;
   };
 
@@ -49,11 +47,11 @@ const OrderStatus = ({ order, index, onUpdate }) => {
               <span className={styles.status_icon_text}>{delivered ? 'Delivered' : 'Ordered'}</span>
             </div>
             <div
-              className={`${styles.status_icon} ${isGcash ? styles.status_icon_blue : styles.status_icon_green}`}
-              onClick={() => setIsGcash(!isGcash)}
+              className={`${styles.status_icon} ${gCash ? styles.status_icon_blue : styles.status_icon_green}`}
+              onClick={() => setGCash(!gCash)}
             >
-              {isGcash ? <RiBitCoinLine /> : <BsCashCoin />}
-              <span className={styles.status_icon_text}>{isGcash ? 'G-Cash' : 'Cash'}</span>
+              {gCash ? <RiBitCoinLine /> : <BsCashCoin />}
+              <span className={styles.status_icon_text}>{gCash ? 'G-Cash' : 'Cash'}</span>
             </div>
             <div
               className={`${styles.status_icon} ${paid ? styles.status_icon_green : styles.status_icon_red}`}

@@ -13,12 +13,13 @@ const OrderDetails = ({ orderDetails, setOrderDetails }) => {
   const updateDetailsHandler = (data) => {
     let tempData = {
       deliveryDate: data && data.deliveryDate ? data.deliveryDate : moment().format('YYYY-MM-DD'),
-      deliveryTime: data && data.deliveryTime ? data.deliveryTime : '08:00',
+      deliveryTime: data && data.deliveryTime ? data.deliveryTime : null,
       downPayment: data && data.downPayment ? data.downPayment : 0,
     };
     setOrderDetails(tempData);
     setUpdateDetails(false);
   };
+
   return (
     <div className={styles.sub_container}>
       {updateDetails ? (
@@ -49,7 +50,7 @@ const OrderDetails = ({ orderDetails, setOrderDetails }) => {
               </div>
               <div>
                 <p>Delivery Time:</p>
-                <h2>{moment(orderDetails.deliveryTime, 'HH:mm').format('h:mm a')}</h2>
+                <h2>{orderDetails.deliveryTime === null ? 'Anytime' : moment(orderDetails.deliveryTime, 'HH:mm').format('h:mm a')}</h2>
               </div>
 
               <div>
