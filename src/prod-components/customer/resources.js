@@ -30,10 +30,10 @@ export const INPUT = [
   { type: 'number', name: 'lot', label: 'Lot' },
 ];
 
-export const COLUMNS = [
-  { Header: 'Name', accessor: 'name' },
-  { Header: 'G-Cash', accessor: 'phone' },
-  { Header: 'Address', accessor: 'address' },
-  { Header: 'Block', accessor: 'block' },
-  { Header: 'Lot', accessor: 'lot' },
+export const header = [
+  { display: 'Name', name: 'name' },
+  { display: 'G-Cash', name: 'phone' },
+  { display: 'Address', name: 'address' },
+  { display: 'Block', name: 'block' },
+  { display: 'Lot', name: 'lot' },
 ];

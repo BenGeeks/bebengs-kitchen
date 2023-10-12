@@ -6,8 +6,9 @@ import { RiAddCircleLine } from 'react-icons/ri';
 
 import Modal from '@/assets/modal';
 import CustomerNew from './customer-new';
-import ReactTable from '@/assets/react-table';
-import { COLUMNS } from './resources';
+import Table from '@/assets/table';
+import { header } from './resources';
+import apiRequest from '@/lib/axios';
 import styles from './customer.module.css';
 
 const CustomersList = ({}) => {
@@ -18,17 +19,11 @@ const CustomersList = ({}) => {
 
   const customersQuery = useQuery({
     queryKey: ['customers'],
-    queryFn: () => fetch('http://localhost:3000/api/customers').then((res) => res.json()),
+    queryFn: () => apiRequest({ url: 'customers', method: 'GET' }).then((res) => res.data),
   });
 
   const newCustomerMutation = useMutation({
-    mutationFn: (newCustomer) => {
-      fetch('http://localhost:3000/api/customers', {
-        method: 'POST',
-        body: JSON.stringify(newCustomer),
-        headers: { 'Content-type': 'application/json; charset=UTF-8' },
-      });
-    },
+    mutationFn: (payload) => apiRequest({ url: 'customers', method: 'POST', data: payload }),
     onSuccess: () => {
       toast.success('Customer added successfully.');
       queryClient.invalidateQueries({ queryKey: ['customers'] });
@@ -36,25 +31,18 @@ const CustomersList = ({}) => {
   });
 
   const deleteCustomerMutation = useMutation({
-    mutationFn: (id) => {
-      fetch(`http://localhost:3000/api/customers/${id}`, {
-        method: 'DELETE',
-      });
-    },
+    mutationFn: (id) => apiRequest({ url: `customers/${id}`, method: 'DELETE' }),
     onSuccess: () => {
       toast.success('Customer deleted successfully.');
       queryClient.invalidateQueries({ queryKey: ['customers'] });
     },
+    onError: () => {
+      toast.error('Failed to delete customer');
+    },
   });
 
   const updateCustomerMutation = useMutation({
-    mutationFn: (updatedCustomer) => {
-      fetch(`http://localhost:3000/api/customers/${updatedCustomer.id}`, {
-        method: 'PUT',
-        body: JSON.stringify(updatedCustomer.data),
-        headers: { 'Content-type': 'application/json; charset=UTF-8' },
-      });
-    },
+    mutationFn: (payload) => apiRequest({ url: `customers/${payload.id}`, method: 'PUT', data: payload.data }),
     onSuccess: () => {
       toast.success('Customer updated successfully.');
       queryClient.invalidateQueries({ queryKey: ['customers'] });
@@ -66,6 +54,7 @@ const CustomersList = ({}) => {
   };
 
   const addNewCustomerHandler = (data) => {
+    console.log('ADD NEW CUSTOMER DATA: ', data);
     newCustomerMutation.mutate(data);
     onCancel();
   };
@@ -107,14 +96,9 @@ const CustomersList = ({}) => {
       <Modal open={modalOpen}>
         <CustomerNew onClose={onCancel} action={action} data={customerData} onAdd={addNewCustomerHandler} onEdit={editCustomerHandler} />
       </Modal>
-
-      <ReactTable
-        COLUMNS={COLUMNS}
-        DATA={customersQuery.data.data}
-        onDelete={onDeleteCustomer}
-        onEdit={onEditCustomer}
-        enableActions={true}
-      />
+      {customersQuery.data.data && (
+        <Table headers={header} data={customersQuery.data.data} onDelete={onDeleteCustomer} onEdit={onEditCustomer} enableActions={true} />
+      )}
     </>
   );
 };

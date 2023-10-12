@@ -2,7 +2,7 @@ import dbConnect from '@/lib/dbConnect';
 import Customer from '@/model/customer';
 
 export default async function handler(req, res) {
-  const { method } = req;
+  const { method, body } = req;
   await dbConnect();
 
   switch (method) {
@@ -16,7 +16,7 @@ export default async function handler(req, res) {
       break;
     case 'POST':
       try {
-        const customer = await Customer.create(req.body);
+        const customer = await Customer.create(body);
         res.status(201).json({ success: true, data: customer });
       } catch (error) {
         res.status(400).json({ success: false, error: error });
