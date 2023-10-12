@@ -42,6 +42,7 @@
   display: flex;
   justify-content: space-around;
   align-items: center;
+  max-width: 100px;
 }
 
 .delete_icon_holder {

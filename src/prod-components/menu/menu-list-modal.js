@@ -1,15 +1,18 @@
 'use client';
 import { useEffect, useState } from 'react';
+import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { RiCloseCircleLine, RiEditLine, RiAddCircleLine } from 'react-icons/ri';
 import styles from '@/assets/modal.module.css';
+import styles2 from './menu.module.css';
 
 import ReactForm from '@/assets/react-form';
-import ReactTable from '@/assets/react-table';
-import Card from '@/assets/card';
+import Table from '@/assets/table';
 import Modal2 from '@/assets/Modal2';
-import { MENU_INPUT, MENU_SCHEMA, VARIATION_INPUT, VARIATION_SCHEMA, VARIATION_COLUMNS } from './resources';
+import apiRequest from '@/lib/axios';
+import { MENU_INPUT, MENU_SCHEMA, VARIATION_INPUT, VARIATION_SCHEMA, VARIATION_HEADERS } from './resources';
 
-const MenuListModal = ({ action, onClose, data }) => {
+const MenuListModal = ({ action, onClose, data, id }) => {
+  const queryClient = useQueryClient();
   const DEFAULT_VARIATION = { size: '', qty: 1, price: 0 };
   const [modalOpen, setModalOpen] = useState(false);
   const [onEdit, setOnEdit] = useState(false);
@@ -18,22 +21,53 @@ const MenuListModal = ({ action, onClose, data }) => {
   const [editVariation, setEditVariation] = useState(false);
   const [currentVariation, setCurrentVariation] = useState(DEFAULT_VARIATION);
   const [action2, setAction2] = useState('');
+  console.log('ID: ', id);
+
+  const menuDataQuery = useQuery({
+    queryKey: [id],
+    queryFn: () => apiRequest({ url: `menu/${id}`, method: 'GET' }).then((res) => res.data),
+  });
+
+  const newMenuMutation = useMutation({
+    mutationFn: (payload) => apiRequest({ url: 'menu', method: 'POST', data: payload }),
+    onSuccess: () => {
+      toast.success('Customer added successfully.');
+      queryClient.invalidateQueries({ queryKey: ['menu'] });
+    },
+  });
+
+  const updateMenuMutation = useMutation({
+    mutationFn: (payload) => apiRequest({ url: `menu/${payload.id}`, method: 'PUT', data: payload.data }),
+    onSuccess: () => {
+      toast.success('Menu updated successfully.');
+      queryClient.invalidateQueries({ queryKey: [id] });
+    },
+  });
 
   useEffect(() => {
     if (action === 'Add new') {
-      setOnAddNew(true);
       setCurrentVariation(DEFAULT_VARIATION);
+      setOnAddNew(true);
     }
   }, [action]);
 
   const onUpdateHandler = (formData) => {
-    console.log(formData);
+    updateMenuMutation.mutate({
+      id: formData._id,
+      data: {
+        item_name: formData.item_name,
+        image_url: formData.image_url,
+        description: formData.description,
+        variation: formData.variation,
+      },
+    });
     setOnEdit(false);
     setOnAddNew(false);
   };
 
   const onSaveHandler = (formData) => {
-    setCurrentData({ ...formData, variation: [], id: Date.now() });
+    setCurrentData({ ...formData, variation: [] });
+    newMenuMutation.mutate({ ...formData, variation: [] });
     console.log(formData);
     setOnAddNew(false);
     setOnEdit(false);
@@ -74,6 +108,11 @@ const MenuListModal = ({ action, onClose, data }) => {
     setModalOpen(true);
   };
 
+  if (menuDataQuery.isLoading) return <h1>Loading...</h1>;
+
+  if (menuDataQuery.isError) return <pre> {JSON.stringify(menuDataQuery.error)}</pre>;
+
+  console.log('MENU DATA QUERY: ', menuDataQuery.data.data.variation);
   return (
     <div>
       <Modal2 open={modalOpen}>
@@ -115,7 +154,13 @@ const MenuListModal = ({ action, onClose, data }) => {
             onCancel={() => setOnEdit(false)}
           />
         ) : (
-          <Card data={currentData} solo={true} option="big" />
+          <div className={styles2.big_card}>
+            <img src={menuDataQuery.data.data.image_url} className={styles2.big_card_image} />
+            <div className={styles2.big_card_text_container}>
+              <h2 className={styles2.big_card_name}>{menuDataQuery.data.data.item_name}</h2>
+              <p className={styles2.big_card_description}>{menuDataQuery.data.data.description}</p>
+            </div>
+          </div>
         )}
         {!onAddNew && (
           <div className={styles.modal_sub_header}>
@@ -127,9 +172,9 @@ const MenuListModal = ({ action, onClose, data }) => {
         )}
 
         {!editVariation && (
-          <ReactTable
-            COLUMNS={VARIATION_COLUMNS}
-            DATA={currentData.variation}
+          <Table
+            headers={VARIATION_HEADERS}
+            data={menuDataQuery.data.data.variation}
             onDelete={onDeleteVariation}
             onEdit={onEditVariation}
             enableActions={true}

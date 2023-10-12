@@ -7,7 +7,7 @@ const Card = ({ size, data, onSelect, solo, isPrice }) => {
     <>
       {solo ? (
         <div className={styles.big_card}>
-          <img src={data.image} className={styles.big_card_image} />
+          <img src={data.image_url} className={styles.big_card_image} />
           <div className={styles.big_card_text_container}>
             <h2 className={styles.big_card_name}>{data.item_name}</h2>
             <p className={styles.big_card_description}>{data.description}</p>
@@ -37,7 +37,7 @@ const Card = ({ size, data, onSelect, solo, isPrice }) => {
                 return (
                   <div key={index} className={styles.cards_container}>
                     <div className={size === 'big' ? styles.big_card : styles.card} onClick={() => onSelect(item)}>
-                      <img src={item.image} className={size === 'big' ? styles.big_image : styles.image} />
+                      <img src={item.image_url} className={size === 'big' ? styles.big_image : styles.image} />
                       <h2 className={size === 'big' ? styles.big_card_name : styles.card_name}>{item.item_name}</h2>
                       <p className={size === 'big' ? styles.big_card_description : styles.card_description}>{item.description}</p>
                     </div>
