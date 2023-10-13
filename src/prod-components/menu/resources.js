@@ -39,3 +39,6 @@ export const VARIATION_HEADERS = [
   { display: 'Qty', name: 'qty' },
   { display: 'Price', name: 'price' },
 ];
+
+export const DEFAULT_MENU_ITEM = { item_name: '', description: '', image: '' };
+export const DEFAULT_VARIATION_DATA = { size: 'small', qty: 1, price: 100 };
