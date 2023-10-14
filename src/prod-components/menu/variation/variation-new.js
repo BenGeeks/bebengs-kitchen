@@ -4,7 +4,7 @@ import { toast } from 'react-toastify';
 
 import ReactForm from '@/assets/react-form';
 import apiRequest from '@/lib/axios';
-import { VARIATION_INPUT, VARIATION_SCHEMA, DEFAULT_VARIATION_DATA } from '../resources';
+import { VARIATION_INPUT, VARIATION_SCHEMA, DEFAULT_VARIATION_DATA } from '@/resources/menu';
 
 const NewVariation = ({ onCancel, menu_id }) => {
   const queryClient = useQueryClient();

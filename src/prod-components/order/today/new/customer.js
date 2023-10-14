@@ -4,7 +4,7 @@ import { RiAddCircleLine, RiSearchLine } from 'react-icons/ri';
 import { BsPersonFillGear } from 'react-icons/bs';
 
 import CustomerNew from '@/prod-components/customer/customer-new';
-import { DATA } from '@/prod-components/customer/resources';
+// import { DATA } from '@/prod-components/customer/resources';
 import { CUSTOMER_COLUMNS } from './resources';
 
 import styles from './order-new.module.css';
@@ -15,6 +15,7 @@ const Customer = ({ selectedCustomer, setSelectedCustomer }) => {
   const [changeCustomer, setChangeCustomer] = useState(false);
   const [customerData, setCustomerData] = useState(DATA);
   const [searchValue, setSearchValue] = useState('');
+  const DATA = [];
 
   useEffect(() => {
     let tempData = DATA.filter((customer) => {

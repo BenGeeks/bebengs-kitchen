@@ -7,11 +7,11 @@ import Modal from '@/assets/modal';
 import MenuViewModal from './menu-view-modal';
 import MenuNewModal from './menu-new-modal';
 import apiRequest from '@/lib/axios';
-
-import styles from './menu.module.css';
+import { DEFAULT_MENU_ITEM } from '@/resources/menu';
+import pageStyles from '@/styles/page.module.css';
+import cardStyles from '@/styles/card.module.css';
 
 const MenuList = () => {
-  const DEFAULT_MENU_ITEM = { item_name: '', description: '', image: '', variation: [] };
   const [modalOpen, setModalOpen] = useState(false);
   const [openNewModal, setOpenNewModal] = useState(false);
   const [action, setAction] = useState('');
@@ -40,8 +40,8 @@ const MenuList = () => {
   if (menuQuery.isLoading) return <h1>Loading...</h1>;
   if (menuQuery.isError) return <pre> {JSON.stringify(menuQuery.error)}</pre>;
   return (
-    <>
-      <div className={styles.floating_icon} onClick={onAddMenu}>
+    <div className={pageStyles.page_container}>
+      <div className={pageStyles.floating_icon} onClick={onAddMenu}>
         <RiAddCircleLine />
       </div>
       <Modal open={modalOpen}>
@@ -52,15 +52,15 @@ const MenuList = () => {
       </Modal>
       {menuQuery.data.data.map((item, index) => {
         return (
-          <div key={index} className={styles.menu_cards_container}>
-            <div className={styles.menu_card} onClick={() => onViewMenu(item)}>
-              <img src={item.image_url} className={styles.menu_image} />
-              <h3 className={styles.menu_card_name}>{item.item_name}</h3>
+          <div key={index} className={cardStyles.menu_cards_container}>
+            <div className={cardStyles.menu_card} onClick={() => onViewMenu(item)}>
+              <img src={item.image_url} className={cardStyles.menu_card_image} />
+              <h3 className={cardStyles.menu_card_name}>{item.item_name}</h3>
             </div>
           </div>
         );
       })}
-    </>
+    </div>
   );
 };
 

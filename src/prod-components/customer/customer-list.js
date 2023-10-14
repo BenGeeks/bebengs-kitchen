@@ -7,9 +7,9 @@ import { RiAddCircleLine } from 'react-icons/ri';
 import Modal from '@/assets/modal';
 import CustomerNew from './customer-new';
 import Table from '@/assets/table';
-import { header } from './resources';
+import { HEADER } from '@/resources/customers';
 import apiRequest from '@/lib/axios';
-import styles from './customer.module.css';
+import pageStyles from '@/styles/page.module.css';
 
 const CustomersList = ({}) => {
   const queryClient = useQueryClient();
@@ -89,17 +89,17 @@ const CustomersList = ({}) => {
   if (customersQuery.isError) return <pre> {JSON.stringify(customersQuery.error)}</pre>;
 
   return (
-    <>
-      <div className={styles.floating_icon} onClick={onAddCustomer}>
+    <div className={pageStyles.page_container}>
+      <div className={pageStyles.floating_icon} onClick={onAddCustomer}>
         <RiAddCircleLine />
       </div>
       <Modal open={modalOpen}>
         <CustomerNew onClose={onCancel} action={action} data={customerData} onAdd={addNewCustomerHandler} onEdit={editCustomerHandler} />
       </Modal>
       {customersQuery.data.data && (
-        <Table headers={header} data={customersQuery.data.data} onDelete={onDeleteCustomer} onEdit={onEditCustomer} enableActions={true} />
+        <Table headers={HEADER} data={customersQuery.data.data} onDelete={onDeleteCustomer} onEdit={onEditCustomer} enableActions={true} />
       )}
-    </>
+    </div>
   );
 };
 

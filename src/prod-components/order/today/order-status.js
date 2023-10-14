@@ -14,7 +14,7 @@ const OrderStatus = ({ order, index, onUpdate }) => {
   const [gCash, setGCash] = useState(order && order.isGcash ? order.isGcash : false);
 
   const onSubmitHandler = () => {
-    onUpdate({ isDelivered: delivered, isPaid: paid, isGcash: gCash, id: order.id });
+    onUpdate({ isDelivered: delivered, isPaid: paid, isGcash: gCash, _id: order._id });
     setModalOpen(false);
   };
 

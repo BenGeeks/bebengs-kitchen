@@ -3,13 +3,13 @@ import React, { useState } from 'react';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { RiCloseCircleLine, RiEditLine, RiDeleteBin4Line } from 'react-icons/ri';
 import { toast } from 'react-toastify';
-import styles from '@/assets/modal.module.css';
-import styles2 from './menu.module.css';
 
 import ReactForm from '@/assets/react-form';
 import Variation from './variation/variation';
 import apiRequest from '@/lib/axios';
-import { MENU_INPUT, MENU_SCHEMA } from './resources';
+import { MENU_INPUT, MENU_SCHEMA } from '@/resources/menu';
+import modalStyles from '@/styles/modal.module.css';
+import cardStyles from '@/styles/card.module.css';
 
 const MenuViewModal = ({ onClose, id }) => {
   const queryClient = useQueryClient();
@@ -59,24 +59,24 @@ const MenuViewModal = ({ onClose, id }) => {
   if (menuDataQuery.isError) return <pre> {JSON.stringify(menuDataQuery.error)}</pre>;
   return (
     <div>
-      <div className={styles.modal_header_bar}>
-        <h2 className={styles.modal_header_text}>View Menu Details</h2>
-        <div className={styles.modal_header_icon_container}>
+      <div className={modalStyles.modal_header_bar}>
+        <h2 className={modalStyles.modal_header_text}>View Menu Details</h2>
+        <div className={modalStyles.modal_header_icon_container}>
           {onEdit ? (
             <>
-              <div className={styles.modal_header_icon} onClick={() => deleteMenuHandler(id)}>
+              <div className={modalStyles.modal_header_icon} onClick={() => deleteMenuHandler(id)}>
                 <RiDeleteBin4Line />
               </div>
-              <div className={styles.modal_header_icon} onClick={() => setOnEdit(false)}>
+              <div className={modalStyles.modal_header_icon} onClick={() => setOnEdit(false)}>
                 <RiCloseCircleLine />
               </div>
             </>
           ) : (
             <>
-              <div className={styles.modal_header_icon} onClick={() => setOnEdit(true)}>
+              <div className={modalStyles.modal_header_icon} onClick={() => setOnEdit(true)}>
                 <RiEditLine />
               </div>
-              <div className={styles.modal_header_icon} onClick={onClose}>
+              <div className={modalStyles.modal_header_icon} onClick={onClose}>
                 <RiCloseCircleLine />
               </div>
             </>
@@ -84,7 +84,7 @@ const MenuViewModal = ({ onClose, id }) => {
         </div>
       </div>
 
-      <div className={styles.modal_body}>
+      <div className={modalStyles.modal_body}>
         {onEdit ? (
           <ReactForm
             layout={MENU_INPUT}
@@ -94,11 +94,11 @@ const MenuViewModal = ({ onClose, id }) => {
             onCancel={() => setOnEdit(false)}
           />
         ) : (
-          <div className={styles2.big_card}>
-            <img src={menuDataQuery.data.data.image_url} className={styles2.big_card_image} />
-            <div className={styles2.big_card_text_container}>
-              <h2 className={styles2.big_card_name}>{menuDataQuery.data.data.item_name}</h2>
-              <p className={styles2.big_card_description}>{menuDataQuery.data.data.description}</p>
+          <div className={cardStyles.big_card}>
+            <img src={menuDataQuery.data.data.image_url} className={cardStyles.big_card_image} />
+            <div className={cardStyles.big_card_text_container}>
+              <h2 className={cardStyles.big_card_name}>{menuDataQuery.data.data.item_name}</h2>
+              <p className={cardStyles.big_card_description}>{menuDataQuery.data.data.description}</p>
             </div>
           </div>
         )}

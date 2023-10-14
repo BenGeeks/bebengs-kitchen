@@ -38,6 +38,7 @@
 .modal_header_icon_container {
   display: flex;
 }
+
 .modal_header_icon {
   height: 40px;
   padding: 0px 10px;

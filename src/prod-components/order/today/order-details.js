@@ -1,20 +1,13 @@
 import React, { useState } from 'react';
 import moment from 'moment';
 import { RiEyeLine, RiEyeOffLine } from 'react-icons/ri';
-import ReactTable from '@/assets/react-table';
 
+import ReactTable from '@/assets/react-table';
+import { ITEM_HEADER } from '@/resources/orders';
 import styles from './order-today.module.css';
 
 const OrderDetails = ({ order, onView }) => {
   const [show, setShow] = useState(false);
-
-  let ITEM_HEADER = [
-    { Header: 'item', accessor: 'item_name' },
-    { Header: 'size', accessor: 'size' },
-    { Header: 'qty', accessor: 'qty' },
-    { Header: 'price', accessor: 'price' },
-    { Header: 'total', accessor: 'sub_total' },
-  ];
 
   return (
     <div className={styles.cell_order_container}>

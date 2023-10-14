@@ -6,8 +6,8 @@ import { RiCloseCircleLine } from 'react-icons/ri';
 
 import ReactForm from '@/assets/react-form';
 import apiRequest from '@/lib/axios';
-import styles from '@/assets/modal.module.css';
-import { MENU_INPUT, MENU_SCHEMA, DEFAULT_MENU_ITEM } from './resources';
+import { MENU_INPUT, MENU_SCHEMA, DEFAULT_MENU_ITEM } from '@/resources/menu';
+import modalStyles from '@/styles/modal.module.css';
 
 const MenuNewModal = ({ onClose }) => {
   const queryClient = useQueryClient();
@@ -27,13 +27,13 @@ const MenuNewModal = ({ onClose }) => {
   };
   return (
     <>
-      <div className={styles.modal_header_bar}>
-        <h2 className={styles.modal_header_text}>Add new menu:</h2>
-        <div className={styles.modal_header_icon} onClick={onClose} title="close">
+      <div className={modalStyles.modal_header_bar}>
+        <h2 className={modalStyles.modal_header_text}>Add new menu:</h2>
+        <div className={modalStyles.modal_header_icon} onClick={onClose} title="close">
           <RiCloseCircleLine />
         </div>
       </div>
-      <div className={styles.modal_body}>
+      <div className={modalStyles.modal_body}>
         <ReactForm
           layout={MENU_INPUT}
           schema={MENU_SCHEMA}

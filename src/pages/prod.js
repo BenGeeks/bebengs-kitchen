@@ -2,9 +2,9 @@
 import { useState } from 'react';
 
 import NavigationBar from '@/prod-components/navigation';
-import OrderPage from '@/prod-components/order/order';
-import MenuPage from '@/prod-components/menu/menu';
-import CustomerPage from '@/prod-components/customer/customer';
+import CustomersList from '@/prod-components/customer/customer-list';
+import MenuList from '@/prod-components/menu/menu-list';
+import OrderToday from '@/prod-components/order/today/order-today';
 import styles from '@/styles/prod.module.css';
 
 const ProdPage = () => {
@@ -16,9 +16,9 @@ const ProdPage = () => {
     <div className={styles.page_holder}>
       <NavigationBar currentPage={currentPage} setCurrentPage={setCurrentPage} showNav={showNav} setShowNav={setShowNav} />
 
-      {currentPage === 'orders' && <OrderPage />}
-      {currentPage === 'menu' && <MenuPage />}
-      {currentPage === 'customers' && <CustomerPage />}
+      {currentPage === 'orders' && <OrderToday />}
+      {currentPage === 'menu' && <MenuList />}
+      {currentPage === 'customers' && <CustomersList />}
     </div>
   );
 };

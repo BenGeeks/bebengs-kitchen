@@ -1,0 +1,39 @@
+.page_container {
+  width: 100%;
+  max-width: 1000px;
+  border: 1px solid beige;
+  background-color: aliceblue;
+  min-height: 300px;
+  padding: 10px;
+}
+
+.floating_icon {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 50px;
+  width: 50px;
+  padding-left: 2px;
+  font-size: 2rem;
+  color: #374151;
+  cursor: pointer;
+  transition: 0.3s;
+  border-radius: 8px;
+  background-color: lightgreen;
+  border: 1px solid white;
+  position: fixed;
+  top: 55px;
+  right: 20px;
+}
+
+.floating_icon:hover {
+  color: beige;
+  background-color: #374151;
+}
+
+@media (max-width: 768px) {
+  .floating_icon {
+    top: 50px;
+    right: 10px;
+  }
+}

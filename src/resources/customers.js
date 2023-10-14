@@ -30,7 +30,7 @@ export const INPUT = [
   { type: 'number', name: 'lot', label: 'Lot' },
 ];
 
-export const header = [
+export const HEADER = [
   { display: 'Name', name: 'name' },
   { display: 'G-Cash', name: 'phone' },
   { display: 'Address', name: 'address' },

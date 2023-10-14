@@ -5,8 +5,8 @@ import { toast } from 'react-toastify';
 import Table from '@/assets/table';
 import ReactForm from '@/assets/react-form';
 import apiRequest from '@/lib/axios';
-import { VARIATION_INPUT, VARIATION_SCHEMA, VARIATION_HEADERS } from '../resources';
-import styles from '@/assets/modal.module.css';
+import { VARIATION_INPUT, VARIATION_SCHEMA, VARIATION_HEADERS } from '@/resources/menu';
+import modalStyles from '@/styles/modal.module.css';
 
 const ViewVariationList = ({ menu_id }) => {
   const [onEdit, setOnEdit] = useState(false);
@@ -52,7 +52,7 @@ const ViewVariationList = ({ menu_id }) => {
   if (variationQuery.isLoading) return <h1>Loading...</h1>;
   if (variationQuery.isError) return <pre> {JSON.stringify(variationQuery.error)}</pre>;
   return (
-    <div className={styles.modal_body}>
+    <div className={modalStyles.modal_body}>
       {onEdit ? (
         <ReactForm
           layout={VARIATION_INPUT}
