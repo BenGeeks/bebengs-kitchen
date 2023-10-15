@@ -28,6 +28,9 @@ const CustomersList = ({}) => {
       toast.success('Customer added successfully.');
       queryClient.invalidateQueries({ queryKey: ['customers'] });
     },
+    onError: (error) => {
+      toast.error(error.response.data.error.message);
+    },
   });
 
   const deleteCustomerMutation = useMutation({
@@ -36,8 +39,8 @@ const CustomersList = ({}) => {
       toast.success('Customer deleted successfully.');
       queryClient.invalidateQueries({ queryKey: ['customers'] });
     },
-    onError: () => {
-      toast.error('Failed to delete customer');
+    onError: (error) => {
+      toast.error(error.response.data.error.message);
     },
   });
 
@@ -47,6 +50,9 @@ const CustomersList = ({}) => {
       toast.success('Customer updated successfully.');
       queryClient.invalidateQueries({ queryKey: ['customers'] });
     },
+    onError: (error) => {
+      toast.error(error.response.data.error.message);
+    },
   });
 
   const onDeleteCustomer = (id) => {
@@ -54,7 +60,6 @@ const CustomersList = ({}) => {
   };
 
   const addNewCustomerHandler = (data) => {
-    console.log('ADD NEW CUSTOMER DATA: ', data);
     newCustomerMutation.mutate(data);
     onCancel();
   };
@@ -62,7 +67,6 @@ const CustomersList = ({}) => {
   const editCustomerHandler = (data) => {
     let _id = data._id;
     let newData = { name: data.name, phone: data.phone, address: data.address, block: data.block, lot: data.lot };
-    console.log('Edit Customer has been triggered: ', data);
     updateCustomerMutation.mutate({ id: _id, data: newData });
     onCancel();
   };
@@ -85,7 +89,6 @@ const CustomersList = ({}) => {
   };
 
   if (customersQuery.isLoading) return <h1>Loading...</h1>;
-
   if (customersQuery.isError) return <pre> {JSON.stringify(customersQuery.error)}</pre>;
 
   return (
@@ -96,9 +99,14 @@ const CustomersList = ({}) => {
       <Modal open={modalOpen}>
         <CustomerNew onClose={onCancel} action={action} data={customerData} onAdd={addNewCustomerHandler} onEdit={editCustomerHandler} />
       </Modal>
-      {customersQuery.data.data && (
-        <Table headers={HEADER} data={customersQuery.data.data} onDelete={onDeleteCustomer} onEdit={onEditCustomer} enableActions={true} />
-      )}
+      <Table
+        headers={HEADER}
+        data={customersQuery.data}
+        enableDelete={true}
+        enableEdit={true}
+        onDelete={onDeleteCustomer}
+        onEdit={onEditCustomer}
+      />
     </div>
   );
 };

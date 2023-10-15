@@ -12,7 +12,7 @@ export default async function handler(req, res) {
   switch (method) {
     case 'GET':
       try {
-        const variationList = await Variation.find({ menu_id: id });
+        const variationList = await Variation.find({ menuId: id });
         res.status(200).json({ data: variationList });
       } catch (error) {
         res.status(400).json({ error });

@@ -12,6 +12,7 @@ const ViewVariationList = ({ menu_id }) => {
   const [onEdit, setOnEdit] = useState(false);
   const [editData, setEditData] = useState({});
   const queryClient = useQueryClient();
+
   const variationQuery = useQuery({
     queryKey: ['variation'],
     queryFn: () => apiRequest({ url: `variations/${menu_id}`, method: 'GET' }).then((res) => res.data),
@@ -23,13 +24,10 @@ const ViewVariationList = ({ menu_id }) => {
       toast.success('Successfully delete a variation.');
       queryClient.invalidateQueries({ queryKey: ['variation'] });
     },
+    onError: (error) => {
+      toast.error(error.response.data.error.message);
+    },
   });
-
-  const deleteVariationHandler = (id) => {
-    if (confirm('Are you sure you want to delete this variation?') == true) {
-      deleteVariationMutation.mutate(id);
-    }
-  };
 
   const updateVariationMutation = useMutation({
     mutationFn: (payload) => apiRequest({ url: `variations/${payload.id}`, method: 'PUT', data: payload.data }),
@@ -37,7 +35,16 @@ const ViewVariationList = ({ menu_id }) => {
       toast.success('Successfully updated.');
       queryClient.invalidateQueries({ queryKey: ['variation'] });
     },
+    onError: (error) => {
+      toast.error(error.response.data.error.message);
+    },
   });
+
+  const deleteVariationHandler = (id) => {
+    if (confirm('Are you sure you want to delete this variation?') == true) {
+      deleteVariationMutation.mutate(id);
+    }
+  };
 
   const saveVariationHandler = (data) => {
     updateVariationMutation.mutate({ id: editData._id, data: data });
@@ -65,7 +72,7 @@ const ViewVariationList = ({ menu_id }) => {
       ) : (
         <Table
           headers={VARIATION_HEADERS}
-          data={variationQuery.data.data}
+          data={variationQuery.data}
           onDelete={deleteVariationHandler}
           onEdit={onEditVariation}
           enableActions={true}

@@ -37,3 +37,10 @@ export const HEADER = [
   { display: 'Block', name: 'block' },
   { display: 'Lot', name: 'lot' },
 ];
+
+export const SELECT_CUSTOMER_LIST = [
+  { display: 'Name', name: 'name' },
+  { display: 'Address', name: 'address' },
+  { display: 'Block', name: 'block' },
+  { display: 'Lot', name: 'lot' },
+];

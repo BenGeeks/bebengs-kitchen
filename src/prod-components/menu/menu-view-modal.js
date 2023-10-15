@@ -25,14 +25,21 @@ const MenuViewModal = ({ onClose, id }) => {
     onSuccess: () => {
       toast.success('Menu updated successfully.');
       queryClient.invalidateQueries({ queryKey: ['menu', id] });
+      queryClient.invalidateQueries({ queryKey: ['menu'] });
+    },
+    onError: (error) => {
+      toast.error(error.response.data.error.message);
     },
   });
 
   const deleteMenuMutation = useMutation({
     mutationFn: (id) => apiRequest({ url: `menu/${id}`, method: 'DELETE' }),
     onSuccess: () => {
-      toast.success('Menu updated successfully.');
+      toast.success('Menu deleted successfully.');
       queryClient.invalidateQueries({ queryKey: 'menu' });
+    },
+    onError: (error) => {
+      toast.error(error.response.data.error.message);
     },
   });
 
@@ -40,8 +47,8 @@ const MenuViewModal = ({ onClose, id }) => {
     updateMenuMutation.mutate({
       id: formData._id,
       data: {
-        item_name: formData.item_name,
-        image_url: formData.image_url,
+        itemName: formData.itemName,
+        imageUrl: formData.imageUrl,
         description: formData.description,
       },
     });
@@ -89,16 +96,16 @@ const MenuViewModal = ({ onClose, id }) => {
           <ReactForm
             layout={MENU_INPUT}
             schema={MENU_SCHEMA}
-            defaultValues={menuDataQuery.data.data}
+            defaultValues={menuDataQuery.data}
             onSubmit={onUpdateHandler}
             onCancel={() => setOnEdit(false)}
           />
         ) : (
           <div className={cardStyles.big_card}>
-            <img src={menuDataQuery.data.data.image_url} className={cardStyles.big_card_image} />
+            <img src={menuDataQuery.data.imageUrl} className={cardStyles.big_card_image} />
             <div className={cardStyles.big_card_text_container}>
-              <h2 className={cardStyles.big_card_name}>{menuDataQuery.data.data.item_name}</h2>
-              <p className={cardStyles.big_card_description}>{menuDataQuery.data.data.description}</p>
+              <h2 className={cardStyles.big_card_name}>{menuDataQuery.data.itemName}</h2>
+              <p className={cardStyles.big_card_description}>{menuDataQuery.data.description}</p>
             </div>
           </div>
         )}

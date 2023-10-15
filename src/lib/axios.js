@@ -14,10 +14,10 @@ const apiRequest = (payload) => {
 
   return Axios(config)
     .then(function (response) {
-      return response;
+      return response.data;
     })
     .catch(function (error) {
-      return error;
+      return Promise.reject(error);
     });
 };
 

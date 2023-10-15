@@ -4,7 +4,6 @@ import Variation from '@/model/variation';
 export default async function handler(req, res) {
   const { method, body } = req;
   await dbConnect();
-  console.log(body);
 
   switch (method) {
     case 'GET':

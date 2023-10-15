@@ -8,11 +8,15 @@ import { VARIATION_INPUT, VARIATION_SCHEMA, DEFAULT_VARIATION_DATA } from '@/res
 
 const NewVariation = ({ onCancel, menu_id }) => {
   const queryClient = useQueryClient();
+
   const newVariationMutation = useMutation({
     mutationFn: (payload) => apiRequest({ url: 'variations', method: 'POST', data: payload }),
     onSuccess: () => {
       toast.success('A new variation item has been added successfully.');
       queryClient.invalidateQueries({ queryKey: ['variation'] });
+    },
+    onError: (error) => {
+      toast.error(error.response.data.error.message);
     },
   });
 

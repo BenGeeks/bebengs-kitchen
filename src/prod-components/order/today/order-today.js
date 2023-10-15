@@ -8,6 +8,7 @@ import apiRequest from '@/lib/axios';
 
 import Modal from '@/assets/modal';
 import OrderNew from './new/order-new';
+import OrderEdit from './new/order-edit';
 import OrderStatus from './order-status';
 import OrderDetails from './order-details';
 import { ORDER_COLUMNS } from '@/resources/orders';
@@ -23,7 +24,7 @@ const OrderToday = () => {
 
   const orderQuery = useQuery({
     queryKey: ['orders'],
-    queryFn: () => apiRequest({ url: 'orders', method: 'GET' }).then((res) => res.data),
+    queryFn: () => apiRequest({ url: 'orders/today', method: 'GET' }).then((res) => res.data),
   });
 
   const updateOrderMutation = useMutation({
@@ -31,6 +32,9 @@ const OrderToday = () => {
     onSuccess: () => {
       toast.success('Order updated successfully.');
       queryClient.invalidateQueries({ queryKey: ['orders'] });
+    },
+    onError: (error) => {
+      toast.error(error.response.data.error.message);
     },
   });
 
@@ -40,25 +44,13 @@ const OrderToday = () => {
   };
 
   const onUpdateHandler = (updatedData) => {
-    console.log('UPDATED DATA: ', updatedData);
-    let updatedOrder = [];
-    orderQuery.data.data.forEach((order) => {
-      order._id === updatedData._id ? updatedOrder.push(updatedData) : updatedOrder.push(order);
-    });
-    console.log('UPDATED ORDER LIST', updatedOrder);
-    setData(updatedOrder);
+    updateOrderMutation.mutate(updatedData);
   };
 
   const statusUpdateHandler = (status) => {
-    console.log('STATUS: ', status);
     let orderData = orderQuery.data.data.filter((order) => order._id === status._id)[0];
     let updatedData = { ...orderData, isDelivered: status.isDelivered, isPaid: status.isPaid, isGcash: status.isGcash };
     updateOrderMutation.mutate({ id: status._id, data: updatedData });
-    console.log('UPDATED ORDER: ', updatedData);
-    // let updatedOrder = [];
-    // orderQuery.data.data.forEach((order) => {
-    //   order._id === status._id ? updatedOrder.push({ ...order, ...status }) : updatedOrder.push(order);
-    // });
   };
 
   const veiwOrderHandler = (data) => {
@@ -68,7 +60,7 @@ const OrderToday = () => {
 
   if (orderQuery.isLoading) return <h1>Loading...</h1>;
   if (orderQuery.isError) return <pre> {JSON.stringify(orderQuery.error)}</pre>;
-  console.log('DATABASE: ', orderQuery.data.data);
+
   return (
     <div className={pageStyles.page_container}>
       <div className={pageStyles.floating_icon} onClick={() => setNewModal(true)}>
@@ -76,10 +68,10 @@ const OrderToday = () => {
       </div>
       {/* <Modal open={newModal}>
         <OrderNew onClose={() => setNewModal(false)} onSave={onSaveHandler} />
-      </Modal>
-      <Modal open={viewModal}>
-        <OrderNew onClose={() => setViewModal(false)} onSave={onUpdateHandler} order={viewData} />
       </Modal> */}
+      <Modal open={viewModal}>
+        <OrderEdit onClose={() => setViewModal(false)} onSave={onUpdateHandler} order={viewData} />
+      </Modal>
       <table className={tableStyles.table}>
         <thead>
           <tr className={tableStyles.table_head_row}>
@@ -93,7 +85,7 @@ const OrderToday = () => {
           </tr>
         </thead>
         <tbody>
-          {orderQuery.data.data.map((order, index) => {
+          {orderQuery.data.map((order, index) => {
             return (
               <tr key={index} className={tableStyles.table_row}>
                 <td className={tableStyles.cell}>

@@ -18,10 +18,12 @@ const MenuNewModal = ({ onClose }) => {
       toast.success('A new menu item has been added successfully.');
       queryClient.invalidateQueries({ queryKey: ['menu'] });
     },
+    onError: (error) => {
+      toast.error(error.response.data.error.message);
+    },
   });
 
   const addNewMenuHandler = (data) => {
-    console.log(data);
     newMenuMutation.mutate(data);
     onClose();
   };

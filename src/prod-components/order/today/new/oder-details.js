@@ -4,10 +4,10 @@ import moment from 'moment';
 import { RiCloseCircleLine, RiEditLine } from 'react-icons/ri';
 
 import ReactForm from '@/assets/react-form';
-import { INPUT, SCHEMA } from './resources';
-import styles from './order-new.module.css';
+import { ORDER_DETAILS_INPUT, ORDER_DETAILS_SCHEMA } from '@/resources/menu';
+import pageStyles from '@/styles/page.module.css';
 
-const OrderDetails = ({ orderDetails, setOrderDetails }) => {
+const OrderDetails = ({ orderDetails, setOrderDetails, onEdit, edited }) => {
   const [updateDetails, setUpdateDetails] = useState(false);
 
   const updateDetailsHandler = (data) => {
@@ -18,44 +18,61 @@ const OrderDetails = ({ orderDetails, setOrderDetails }) => {
     };
     setOrderDetails(tempData);
     setUpdateDetails(false);
+    edited(true);
+    onEdit(null);
   };
 
   return (
-    <div className={styles.sub_container}>
+    <div className={pageStyles.sub_container}>
       {updateDetails ? (
-        <div className={styles.sub_body}>
-          <div className={styles.sub_header_bar}>
+        <div className={pageStyles.sub_body}>
+          <div className={pageStyles.sub_header_bar}>
             <h2>Update Order Details:</h2>
-            <div className={styles.sub_header_icon_container}>
-              <div className={styles.sub_header_icon} onClick={() => setUpdateDetails(false)}>
+            <div className={pageStyles.sub_header_icon_container}>
+              <div
+                className={pageStyles.sub_header_icon}
+                onClick={() => {
+                  setUpdateDetails(false);
+                  onEdit(null);
+                }}
+              >
                 <RiCloseCircleLine />
               </div>
             </div>
           </div>
           <ReactForm
-            layout={INPUT}
-            schema={SCHEMA}
-            defaultValues={orderDetails}
+            layout={ORDER_DETAILS_INPUT}
+            schema={ORDER_DETAILS_SCHEMA}
+            defaultValues={{
+              ...orderDetails,
+              deliveryDate: moment(orderDetails.deliveryDate).format('yyyy-MM-DD'),
+            }}
             onSubmit={updateDetailsHandler}
-            onCancel={() => setUpdateDetails(false)}
+            onCancel={() => {
+              setUpdateDetails(false);
+              onEdit(null);
+            }}
           />
         </div>
       ) : (
-        <div className={styles.selected_data}>
+        <div className={pageStyles.selected_data}>
           {orderDetails ? (
             <>
               <div>
                 <p>Delivery Date:</p>
-                <h2>{moment(orderDetails.deliveryDate).format('MMM DD, YYYY')}</h2>
+                <h2>{moment(orderDetails.deliveryDate).format('MMM DD')}</h2>
               </div>
               <div>
                 <p>Delivery Time:</p>
                 <h2>{orderDetails.deliveryTime === null ? 'Anytime' : moment(orderDetails.deliveryTime, 'HH:mm').format('h:mm a')}</h2>
               </div>
-
               <div>
                 <p>Down Payment:</p>
                 <h2>{`₱ ${orderDetails.downPayment}.00`}</h2>
+              </div>
+              <div>
+                <p>Date Paid:</p>
+                <h2>{orderDetails.datePaid ? moment(orderDetails.datePaid).format('MMM DD, YYYY') : 'n/a'}</h2>
               </div>
             </>
           ) : (
@@ -66,8 +83,14 @@ const OrderDetails = ({ orderDetails, setOrderDetails }) => {
             </>
           )}
 
-          <div className={styles.sub_header_icon_container}>
-            <div className={styles.sub_header_icon} onClick={() => setUpdateDetails(true)}>
+          <div className={pageStyles.sub_header_icon_container}>
+            <div
+              className={pageStyles.sub_header_icon}
+              onClick={() => {
+                setUpdateDetails(true);
+                onEdit('details');
+              }}
+            >
               <RiEditLine />
             </div>
           </div>

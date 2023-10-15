@@ -1,0 +1,83 @@
+/* ================================ */
+/* =======  ORDER DETAILS  ======== */
+/* ================================ */
+
+.cell_order_container {
+  padding: 5px;
+  border: 1px solid #3e5569;
+  background-color: #f7f7ec;
+}
+
+.cell_customer {
+  padding: 10px 5px;
+  font-size: 1.2rem;
+  font-weight: 700;
+  cursor: pointer;
+  background-color: beige;
+  border: 1px solid white;
+  border-radius: 5px;
+}
+
+.cell_customer:hover {
+  background-color: aliceblue;
+}
+
+.cell_order_details {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 5px;
+}
+
+.cell_delivery_time {
+  font-size: 1.2rem;
+  display: block;
+}
+
+.cell_edit_icon {
+  width: 30px;
+  height: 30px;
+  display: flex;
+  color: #374151;
+  background-color: aliceblue;
+  border: 1px solid #374151;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+.cell_edit_icon:hover {
+  color: aliceblue;
+  background-color: #374151;
+  border: 1px solid aliceblue;
+}
+
+.hide_details {
+  max-height: 0px;
+  overflow: hidden;
+  transition: all 0.5s ease-in-out;
+}
+
+.show {
+  max-height: 200px;
+  overflow: auto;
+}
+
+.cell_total {
+  border-top: 1px solid #3e5569;
+  padding: 5px;
+  text-align: center;
+  vertical-align: text-top;
+  padding-left: 10px;
+  font-weight: 700;
+  font-size: 1.4rem;
+  width: 70px;
+}
+
+@media (max-width: 768px) {
+  .cell_delivery_time {
+    display: none;
+  }
+}

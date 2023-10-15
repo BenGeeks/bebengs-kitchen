@@ -7,6 +7,7 @@ const orderSchema = new Schema({
   orderDate: { type: String, required: true },
   datePaid: { type: String, required: false },
   deliveryTime: { type: String, required: false },
+  deliveryDate: { type: String, required: true, index: true },
   downPayment: { type: Number, required: false },
   total: { type: Number, required: true },
   isGcash: { type: Boolean, required: true },
@@ -20,6 +21,7 @@ const orderSchema = new Schema({
     items: [
       {
         _id: { type: String, required: true },
+        menuId: { type: String, required: true },
         itemName: { type: String, required: true },
         size: { type: String, required: true },
         qty: { type: Number, required: true },

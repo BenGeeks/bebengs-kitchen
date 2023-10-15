@@ -9,9 +9,9 @@ import styles from './order-today.module.css';
 
 const OrderStatus = ({ order, index, onUpdate }) => {
   const [modalOpen, setModalOpen] = useState(false);
-  const [delivered, setDelivered] = useState(order && order.isDelivered ? order.isDelivered : false);
-  const [paid, setPaid] = useState(order && order.paid ? order.paid : false);
-  const [gCash, setGCash] = useState(order && order.isGcash ? order.isGcash : false);
+  const [delivered, setDelivered] = useState(order.isDelivered);
+  const [paid, setPaid] = useState(order.isPaid);
+  const [gCash, setGCash] = useState(order.isGcash);
 
   const onSubmitHandler = () => {
     onUpdate({ isDelivered: delivered, isPaid: paid, isGcash: gCash, _id: order._id });

@@ -10,7 +10,6 @@ import styles from '@/styles/prod.module.css';
 const ProdPage = () => {
   const [currentPage, setCurrentPage] = useState('orders');
   const [showNav, setShowNav] = useState(false);
-  console.log(currentPage);
 
   return (
     <div className={styles.page_holder}>

@@ -50,12 +50,12 @@ const MenuList = () => {
       <Modal open={openNewModal}>
         <MenuNewModal onClose={() => setOpenNewModal(false)} />
       </Modal>
-      {menuQuery.data.data.map((item, index) => {
+      {menuQuery.data.map((item, index) => {
         return (
           <div key={index} className={cardStyles.menu_cards_container}>
             <div className={cardStyles.menu_card} onClick={() => onViewMenu(item)}>
-              <img src={item.image_url} className={cardStyles.menu_card_image} />
-              <h3 className={cardStyles.menu_card_name}>{item.item_name}</h3>
+              <img src={item.imageUrl} className={cardStyles.menu_card_image} />
+              <h3 className={cardStyles.menu_card_name}>{item.itemName}</h3>
             </div>
           </div>
         );
