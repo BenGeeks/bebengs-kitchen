@@ -81,3 +81,138 @@
     display: none;
   }
 }
+
+/* ================================ */
+/* ========  ORDER STATUS  ======== */
+/* ================================ */
+
+.cell_order_number_container {
+  display: flex;
+  justify-content: center;
+}
+
+.cell_order_number {
+  font-size: 1.8rem;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  width: 45px;
+  height: 45px;
+  margin: 3px;
+  cursor: pointer;
+}
+
+.orange {
+  background-color: orange;
+}
+
+.red {
+  background-color: red;
+  color: white;
+}
+
+.purple {
+  background-color: purple;
+  color: white;
+}
+
+.blue {
+  background-color: blue;
+  color: white;
+}
+
+.green {
+  background-color: green;
+  color: white;
+}
+.status_icon_container {
+  width: 100%;
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.status_icon {
+  background-color: beige;
+  border: 1px solid white;
+  color: #374151;
+  border-radius: 5px;
+  cursor: pointer;
+  width: 30%;
+  font-size: 48px;
+  padding: 20px 10px 10px 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.status_icon:hover {
+  border: 1px solid #374151;
+}
+
+.status_icon_green {
+  background-color: green;
+  color: white;
+}
+
+.status_icon_blue {
+  background-color: blue;
+  color: white;
+}
+
+.status_icon_red {
+  background-color: red;
+  color: white;
+}
+
+.status_icon_text {
+  font-size: 1.2rem;
+  padding-top: 15px;
+}
+
+.button_container {
+  display: flex;
+  flex-direction: row;
+}
+
+.button_cancel {
+  width: 50%;
+  border: 1px solid #374151;
+  border-radius: 5px;
+  color: #374151;
+  background-color: rgb(222, 92, 92);
+  padding: 10px;
+  text-align: center;
+  margin: 10px;
+  transition: 0.3s;
+  cursor: pointer;
+  font-size: 1.2rem;
+}
+
+.button_cancel:hover {
+  background-color: #374151;
+  color: rgb(222, 92, 92);
+  border: 1px solid rgb(222, 92, 92);
+}
+
+.button_save {
+  width: 50%;
+  border: 1px solid #374151;
+  border-radius: 5px;
+  color: #374151;
+  background-color: rgb(90, 216, 90);
+  padding: 10px;
+  text-align: center;
+  margin: 10px;
+  transition: 0.3s;
+  cursor: pointer;
+  font-size: 1.2rem;
+}
+
+.button_save:hover {
+  background-color: #374151;
+  color: rgb(90, 216, 90);
+  border: 1px solid rgb(90, 216, 90);
+}

@@ -3,11 +3,10 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const orderSchema = new Schema({
-  createdAt: { type: String, required: true },
-  orderDate: { type: String, required: true },
-  datePaid: { type: String, required: false },
+  createdAt: { type: Date, required: true },
+  paymentDate: { type: Date, required: false },
+  deliveryDate: { type: Date, required: true, index: true },
   deliveryTime: { type: String, required: false },
-  deliveryDate: { type: String, required: true, index: true },
   downPayment: { type: Number, required: false },
   total: { type: Number, required: true },
   isGcash: { type: Boolean, required: true },

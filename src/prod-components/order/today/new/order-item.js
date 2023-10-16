@@ -7,17 +7,29 @@ import { ORDER_ITEMS_HEADER } from '@/resources/orders';
 import Table from '@/assets/table';
 import pageStyles from '@/styles/page.module.css';
 
-const OrderItem = ({ items, setItems, onEdit, edited }) => {
-  const [addEnabled, setAddEnabled] = useState(false);
+const OrderItem = ({ items, setItems, onEdit, edited, isNew, setCompleted }) => {
+  const [addEnabled, setAddEnabled] = useState(isNew ? true : false);
   const [step, setStep] = useState(1);
 
   const addToCartHandler = (newItem) => {
-    edited(true);
-    setItems([...items, newItem]);
+    let tempList = [];
+    let updated = false;
+    items.forEach((item) => {
+      if (item._id === newItem._id) {
+        tempList.push({ ...item, qty: item.qty + newItem.qty, subTotal: (item.qty + newItem.qty) * item.price });
+        updated = true;
+      } else {
+        tempList.push(item);
+      }
+    });
+    !updated && tempList.push(newItem);
+    setItems(tempList);
+    !isNew && edited(true);
   };
 
   const onSave = () => {
     onEdit(null);
+    isNew && setCompleted(true);
     setAddEnabled(false);
   };
 
@@ -37,16 +49,19 @@ const OrderItem = ({ items, setItems, onEdit, edited }) => {
           <div className={pageStyles.sub_header_icon_container}>
             {addEnabled ? (
               <>
-                <div
-                  className={pageStyles.sub_header_icon}
-                  onClick={() => {
-                    setAddEnabled(false);
-                    onEdit(null);
-                  }}
-                  title="cancel"
-                >
-                  <RiCloseCircleLine />
-                </div>
+                {!isNew && (
+                  <div
+                    className={pageStyles.sub_header_icon}
+                    onClick={() => {
+                      setAddEnabled(false);
+                      !isNew && onEdit(null);
+                    }}
+                    title="cancel"
+                  >
+                    <RiCloseCircleLine />
+                  </div>
+                )}
+
                 <div className={pageStyles.sub_header_icon} title="save" onClick={onSave}>
                   <RiCheckboxCircleLine />
                 </div>
@@ -56,7 +71,7 @@ const OrderItem = ({ items, setItems, onEdit, edited }) => {
                 className={pageStyles.sub_header_icon}
                 onClick={() => {
                   setAddEnabled(true);
-                  onEdit('items');
+                  isNew ? onEdit(true) : onEdit('items');
                 }}
                 title="add"
               >

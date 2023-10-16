@@ -49,15 +49,3 @@ export const CUSTOMER_HEADERS = [
 
 export const DEFAULT_MENU_ITEM = { itemName: '', description: '', imageUrl: '' };
 export const DEFAULT_VARIATION_DATA = { size: 'small', qty: 1, price: 100 };
-
-export const ORDER_DETAILS_SCHEMA = yup.object().shape({
-  deliveryDate: yup.string(),
-  deliveryTime: yup.string(),
-  downPayment: yup.string(),
-});
-
-export const ORDER_DETAILS_INPUT = [
-  { type: 'date', name: 'deliveryDate', label: 'Date' },
-  { type: 'time', name: 'deliveryTime', label: 'Time' },
-  { type: 'number', name: 'downPayment', label: 'Down Payment' },
-];

@@ -1,43 +1,37 @@
 'use client';
 import React, { useState } from 'react';
-import moment from 'moment';
 import { RiCloseCircleLine, RiCheckboxCircleLine } from 'react-icons/ri';
 
 import Customer from './customer';
 import OrderDetails from './oder-details';
+import { DEFAULT_ORDER_DETAILS } from '@/resources/orders';
 import OrderItem from './order-item';
 import modalStyles from '@/styles/modal.module.css';
 
-const OrderNew = ({ onClose, onSave, order }) => {
-  const [selectedCustomer, setSelectedCustomer] = useState(order && order.orderDetails.customer ? order.orderDetails.customer : null);
-  const [items, setItems] = useState(order && order.orderDetails.items ? order.orderDetails.items : []);
-  const [orderDetails, setOrderDetails] = useState(order ? order : null);
+const OrderNew = ({ onClose, onSave }) => {
+  const [selectedCustomer, setSelectedCustomer] = useState(null);
+  const [items, setItems] = useState([]);
+  const [orderDetails, setOrderDetails] = useState(DEFAULT_ORDER_DETAILS);
+  const [step, setStep] = useState(1);
+  const [completed, setCompleted] = useState(false);
   const [onEdit, setOnEdit] = useState(null);
 
   const onCancelhandler = () => {
     setSelectedCustomer(null);
     setItems([]);
-    setOrderDetails(null);
+    setOrderDetails(DEFAULT_ORDER_DETAILS);
     onClose();
   };
 
   const onSaveHandler = () => {
-    if (selectedCustomer === null) return alert('Please select a customer.');
-    if (items.length === 0) return alert('Order cart cannot be empty.');
-    let total = items.reduce((total, data) => data.sub_total + total, 0);
-    let status = { delivered: false, paid: false, isGcash: false };
-    let details = {
-      deliveryDate: orderDetails && orderDetails.deliveryDate ? orderDetails.deliveryDate : moment(),
-      deliveryTime: orderDetails && orderDetails.deliveryTime ? orderDetails.deliveryTime : null,
-      downPayment: orderDetails && orderDetails.downPayment ? orderDetails.downPayment : 0,
-    };
-    let displayName = `${selectedCustomer.name} - ${selectedCustomer.address} ${selectedCustomer.block} ${selectedCustomer.lot}`;
+    let total = items.reduce((total, data) => data.subTotal + total, 0) - +orderDetails.downPayment;
     let tempData = {
-      ...details,
-      ...status,
-      id: order && order.id ? order.id : Date.now(),
-      total: total - (orderDetails && orderDetails.downPayment ? orderDetails.downPayment : 0),
-      orderDetails: { customer: { ...selectedCustomer, displayName }, items: items },
+      ...orderDetails,
+      isGcash: false,
+      isDelivered: false,
+      isPaid: false,
+      total: total,
+      orderDetails: { customer: { _id: selectedCustomer._id, displayName: selectedCustomer.displayName }, items },
     };
     onSave(tempData);
     onCancelhandler();
@@ -46,25 +40,35 @@ const OrderNew = ({ onClose, onSave, order }) => {
   return (
     <>
       <div className={modalStyles.modal_header_bar}>
-        {order && order._id ? <h2>Order Details: {order.id}</h2> : <h2>Create New Order</h2>}
-        {onEdit === null && (
-          <div className={modalStyles.modal_header_icon_container}>
+        <h2>Create New Order: Step {step}</h2>
+        <div className={modalStyles.modal_header_icon_container}>
+          {selectedCustomer && items.length !== 0 && completed && !onEdit && (
             <div className={modalStyles.modal_header_icon} title="save" onClick={onSaveHandler}>
               <RiCheckboxCircleLine />
             </div>
-            <div className={modalStyles.modal_header_icon} title="cancel" onClick={onCancelhandler}>
-              <RiCloseCircleLine />
-            </div>
+          )}
+
+          <div className={modalStyles.modal_header_icon} title="cancel" onClick={onCancelhandler}>
+            <RiCloseCircleLine />
           </div>
-        )}
+        </div>
       </div>
-      {(onEdit === 'customer' || onEdit === null) && (
-        <Customer selectedCustomer={selectedCustomer} setSelectedCustomer={setSelectedCustomer} onEdit={setOnEdit} />
+      {step === 1 && (
+        <Customer selectedCustomer={selectedCustomer} setSelectedCustomer={setSelectedCustomer} setStep={setStep} isNew={true} />
       )}
-      {(onEdit === 'details' || onEdit === null) && (
-        <OrderDetails orderDetails={orderDetails} setOrderDetails={setOrderDetails} onEdit={setOnEdit} />
+      {step === 2 && (
+        <>
+          <Customer selectedCustomer={selectedCustomer} setSelectedCustomer={setSelectedCustomer} setStep={setStep} isNew={false} />
+          <OrderDetails orderDetails={orderDetails} setOrderDetails={setOrderDetails} setStep={setStep} isNew={true} />
+        </>
       )}
-      {(onEdit === 'items' || onEdit === null) && <OrderItem items={items} setItems={setItems} onEdit={setOnEdit} />}
+      {step === 3 && (
+        <>
+          <Customer selectedCustomer={selectedCustomer} setSelectedCustomer={setSelectedCustomer} setStep={setStep} isNew={false} />
+          <OrderDetails orderDetails={orderDetails} setOrderDetails={setOrderDetails} setStep={setStep} isNew={false} />
+          <OrderItem items={items} setItems={setItems} isNew={true} setCompleted={setCompleted} onEdit={setOnEdit} />
+        </>
+      )}
     </>
   );
 };

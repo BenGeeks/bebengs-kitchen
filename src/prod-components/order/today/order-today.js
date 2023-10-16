@@ -38,9 +38,19 @@ const OrderToday = () => {
     },
   });
 
+  const newOrderMutation = useMutation({
+    mutationFn: (data) => apiRequest({ url: `orders`, method: 'POST', data: data }),
+    onSuccess: () => {
+      toast.success('Order added successfully.');
+      queryClient.invalidateQueries({ queryKey: ['orders'] });
+    },
+    onError: (error) => {
+      toast.error(error.response.data.error.message);
+    },
+  });
   const onSaveHandler = (newData) => {
-    let tempData = [...data, newData];
-    setData(tempData);
+    newOrderMutation.mutate(newData);
+    setNewModal(false);
   };
 
   const onUpdateHandler = (updatedData) => {
@@ -48,7 +58,7 @@ const OrderToday = () => {
   };
 
   const statusUpdateHandler = (status) => {
-    let orderData = orderQuery.data.data.filter((order) => order._id === status._id)[0];
+    let orderData = orderQuery.data.filter((order) => order._id === status._id)[0];
     let updatedData = { ...orderData, isDelivered: status.isDelivered, isPaid: status.isPaid, isGcash: status.isGcash };
     updateOrderMutation.mutate({ id: status._id, data: updatedData });
   };
@@ -66,9 +76,9 @@ const OrderToday = () => {
       <div className={pageStyles.floating_icon} onClick={() => setNewModal(true)}>
         <RiAddCircleLine />
       </div>
-      {/* <Modal open={newModal}>
+      <Modal open={newModal}>
         <OrderNew onClose={() => setNewModal(false)} onSave={onSaveHandler} />
-      </Modal> */}
+      </Modal>
       <Modal open={viewModal}>
         <OrderEdit onClose={() => setViewModal(false)} onSave={onUpdateHandler} order={viewData} />
       </Modal>

@@ -4,7 +4,6 @@ import { RiEyeLine, RiEyeOffLine } from 'react-icons/ri';
 
 import Table from '@/assets/table';
 import { ORDER_ITEMS_HEADER } from '@/resources/orders';
-import styles from './order-today.module.css';
 import orderStyles from '@/styles/order.module.css';
 
 const OrderDetails = ({ order, onView }) => {

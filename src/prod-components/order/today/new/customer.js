@@ -1,6 +1,7 @@
 'use client';
 import React, { useEffect, useState } from 'react';
-import { useQuery } from '@tanstack/react-query';
+import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
+import { toast } from 'react-toastify';
 import { RiAddCircleLine, RiCloseCircleLine } from 'react-icons/ri';
 import { BsPersonFillGear } from 'react-icons/bs';
 
@@ -10,7 +11,8 @@ import { SELECT_CUSTOMER_LIST } from '@/resources/customers';
 import apiRequest from '@/lib/axios';
 import pageStyles from '@/styles/page.module.css';
 
-const Customer = ({ selectedCustomer, setSelectedCustomer, onEdit, edited }) => {
+const Customer = ({ selectedCustomer, setSelectedCustomer, onEdit, setEdited, setStep, isNew }) => {
+  const queryClient = useQueryClient();
   const [addCustomer, setAddCustomer] = useState(false);
   const [changeCustomer, setChangeCustomer] = useState(false);
   const [customerData, setCustomerData] = useState([]);
@@ -19,6 +21,24 @@ const Customer = ({ selectedCustomer, setSelectedCustomer, onEdit, edited }) => 
   const customersQuery = useQuery({
     queryKey: ['customers'],
     queryFn: () => apiRequest({ url: 'customers', method: 'GET' }).then((res) => res.data),
+  });
+
+  const newCustomerMutation = useMutation({
+    mutationFn: (payload) => apiRequest({ url: 'customers', method: 'POST', data: payload }),
+    onSuccess: (data) => {
+      setSelectedCustomer({
+        ...data.data,
+        displayName: `${data.data.name} - ${data.data.address} B-${data.data.block} L-${data.data.lot}`,
+      });
+      setAddCustomer(false);
+      setChangeCustomer(false);
+      isNew && setStep(2);
+      toast.success('Customer added successfully.');
+      queryClient.invalidateQueries({ queryKey: ['customers'] });
+    },
+    onError: (error) => {
+      toast.error(error.response.data.error.message);
+    },
   });
 
   useEffect(
@@ -35,16 +55,11 @@ const Customer = ({ selectedCustomer, setSelectedCustomer, onEdit, edited }) => 
   );
 
   const selectCustomerHandler = (data) => {
-    setSelectedCustomer({ _id: data._id, displayName: `${data.name} - ${data.address} ${data.block} ${data.lot}` });
-    setChangeCustomer(false);
-    onEdit(null);
-    edited(true);
-  };
-
-  const addNewCustomerHandler = (data) => {
-    setSelectedCustomer(data);
-    setAddCustomer(false);
-    setChangeCustomer(false);
+    setSelectedCustomer({ ...data, displayName: `${data.name} - ${data.address} B-${data.block} L-${data.lot}` });
+    !isNew && setChangeCustomer(false);
+    isNew && setStep(2);
+    !isNew && onEdit(null);
+    !isNew && setEdited(true);
   };
 
   if (customersQuery.isLoading) return <h1>Loading...</h1>;
@@ -56,23 +71,26 @@ const Customer = ({ selectedCustomer, setSelectedCustomer, onEdit, edited }) => 
         <div className={pageStyles.sub_body}>
           {addCustomer ? (
             <>
-              <CustomerNew onClose={() => setAddCustomer(false)} action="Add" onAdd={addNewCustomerHandler} />
+              <CustomerNew onClose={() => setAddCustomer(false)} action="Add" onAdd={(data) => newCustomerMutation.mutate(data)} />
             </>
           ) : (
             <>
               <div className={pageStyles.sub_header_bar}>
-                <h2>Select Customer:</h2>
+                <h3>Select Customer:</h3>
                 <div className={pageStyles.sub_header_icon_container}>
-                  <div
-                    className={pageStyles.sub_header_icon}
-                    title="cancel"
-                    onClick={() => {
-                      setChangeCustomer(false);
-                      onEdit(null);
-                    }}
-                  >
-                    <RiCloseCircleLine />
-                  </div>
+                  {!isNew && (
+                    <div
+                      className={pageStyles.sub_header_icon}
+                      title="cancel"
+                      onClick={() => {
+                        setChangeCustomer(false);
+                        onEdit(null);
+                      }}
+                    >
+                      <RiCloseCircleLine />
+                    </div>
+                  )}
+
                   <div className={pageStyles.sub_header_icon} title="add customer" onClick={() => setAddCustomer(true)}>
                     <RiAddCircleLine />
                   </div>

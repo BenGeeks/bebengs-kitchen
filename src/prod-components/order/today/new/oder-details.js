@@ -1,13 +1,13 @@
 'use client';
 import React, { useState } from 'react';
 import moment from 'moment';
-import { RiCloseCircleLine, RiEditLine } from 'react-icons/ri';
+import { RiCloseCircleLine, RiEditLine, RiSkipForwardLine, RiShareForward2Line } from 'react-icons/ri';
 
 import ReactForm from '@/assets/react-form';
-import { ORDER_DETAILS_INPUT, ORDER_DETAILS_SCHEMA } from '@/resources/menu';
+import { ORDER_DETAILS_INPUT, ORDER_DETAILS_SCHEMA } from '@/resources/orders';
 import pageStyles from '@/styles/page.module.css';
 
-const OrderDetails = ({ orderDetails, setOrderDetails, onEdit, edited }) => {
+const OrderDetails = ({ orderDetails, setOrderDetails, onEdit, edited, setStep, isNew }) => {
   const [updateDetails, setUpdateDetails] = useState(false);
 
   const updateDetailsHandler = (data) => {
@@ -18,8 +18,9 @@ const OrderDetails = ({ orderDetails, setOrderDetails, onEdit, edited }) => {
     };
     setOrderDetails(tempData);
     setUpdateDetails(false);
-    edited(true);
-    onEdit(null);
+    !isNew && edited(true);
+    !isNew && onEdit(null);
+    isNew && setStep(3);
   };
 
   return (
@@ -27,13 +28,13 @@ const OrderDetails = ({ orderDetails, setOrderDetails, onEdit, edited }) => {
       {updateDetails ? (
         <div className={pageStyles.sub_body}>
           <div className={pageStyles.sub_header_bar}>
-            <h2>Update Order Details:</h2>
+            <h3>Update Order Details:</h3>
             <div className={pageStyles.sub_header_icon_container}>
               <div
                 className={pageStyles.sub_header_icon}
                 onClick={() => {
                   setUpdateDetails(false);
-                  onEdit(null);
+                  !isNew && onEdit(null);
                 }}
               >
                 <RiCloseCircleLine />
@@ -50,49 +51,44 @@ const OrderDetails = ({ orderDetails, setOrderDetails, onEdit, edited }) => {
             onSubmit={updateDetailsHandler}
             onCancel={() => {
               setUpdateDetails(false);
-              onEdit(null);
+              !isNew && onEdit(null);
             }}
           />
         </div>
       ) : (
         <div className={pageStyles.selected_data}>
-          {orderDetails ? (
-            <>
-              <div>
-                <p>Delivery Date:</p>
-                <h2>{moment(orderDetails.deliveryDate).format('MMM DD')}</h2>
-              </div>
-              <div>
-                <p>Delivery Time:</p>
-                <h2>{orderDetails.deliveryTime === null ? 'Anytime' : moment(orderDetails.deliveryTime, 'HH:mm').format('h:mm a')}</h2>
-              </div>
-              <div>
-                <p>Down Payment:</p>
-                <h2>{`₱ ${orderDetails.downPayment}.00`}</h2>
-              </div>
-              <div>
-                <p>Date Paid:</p>
-                <h2>{orderDetails.datePaid ? moment(orderDetails.datePaid).format('MMM DD, YYYY') : 'n/a'}</h2>
-              </div>
-            </>
-          ) : (
-            <>
-              <h2>Today</h2>
-              <h2>Anytime</h2>
-              <h2>₱ 0.00</h2>
-            </>
-          )}
+          <div>
+            <p>Delivery Date:</p>
+            <h2>{moment(orderDetails.deliveryDate).format('MMM DD')}</h2>
+          </div>
+          <div>
+            <p>Delivery Time:</p>
+            <h2>{orderDetails.deliveryTime === null ? 'Anytime' : moment(orderDetails.deliveryTime, 'HH:mm').format('h:mm a')}</h2>
+          </div>
+          <div>
+            <p>Down Payment:</p>
+            <h2>{`₱ ${orderDetails.downPayment}.00`}</h2>
+          </div>
+          <div>
+            <p>Date Paid:</p>
+            <h2>{orderDetails.datePaid ? moment(orderDetails.datePaid).format('MMM DD, YYYY') : 'n/a'}</h2>
+          </div>
 
           <div className={pageStyles.sub_header_icon_container}>
             <div
               className={pageStyles.sub_header_icon}
               onClick={() => {
                 setUpdateDetails(true);
-                onEdit('details');
+                !isNew && onEdit('details');
               }}
             >
               <RiEditLine />
             </div>
+            {isNew && (
+              <div className={pageStyles.sub_header_icon} onClick={() => setStep(3)}>
+                <RiShareForward2Line />
+              </div>
+            )}
           </div>
         </div>
       )}
