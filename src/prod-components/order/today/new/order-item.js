@@ -10,6 +10,8 @@ import pageStyles from '@/styles/page.module.css';
 const OrderItem = ({ items, setItems, onEdit, edited, isNew, setCompleted }) => {
   const [addEnabled, setAddEnabled] = useState(isNew ? true : false);
   const [step, setStep] = useState(1);
+  const [editData, setEditData] = useState(null);
+  const [isEdit, setIsEdit] = useState(false);
 
   const addToCartHandler = (newItem) => {
     let tempList = [];
@@ -27,6 +29,11 @@ const OrderItem = ({ items, setItems, onEdit, edited, isNew, setCompleted }) => 
     !isNew && edited(true);
   };
 
+  const updateHandler = (updatedItem) => {
+    let tempData = items.map((item) => (item._id === updatedItem._id ? updatedItem : item));
+    setItems(tempData);
+  };
+
   const onSave = () => {
     onEdit(null);
     isNew && setCompleted(true);
@@ -35,9 +42,15 @@ const OrderItem = ({ items, setItems, onEdit, edited, isNew, setCompleted }) => 
 
   const handleDelete = (id) => {
     if (confirm('Confirm delete menu item?') == true) {
-      let tempData = items.filter((order) => order.id !== id);
+      let tempData = items.filter((order) => order._id !== id);
       setItems(tempData);
     }
+  };
+
+  const editHandler = (data) => {
+    setEditData(data);
+    setIsEdit(true);
+    setStep(3);
   };
 
   return (
@@ -61,10 +74,11 @@ const OrderItem = ({ items, setItems, onEdit, edited, isNew, setCompleted }) => 
                     <RiCloseCircleLine />
                   </div>
                 )}
-
-                <div className={pageStyles.sub_header_icon} title="save" onClick={onSave}>
-                  <RiCheckboxCircleLine />
-                </div>
+                {items.length !== 0 && (
+                  <div className={pageStyles.sub_header_icon} title="save" onClick={onSave}>
+                    <RiCheckboxCircleLine />
+                  </div>
+                )}
               </>
             ) : (
               <div
@@ -80,8 +94,25 @@ const OrderItem = ({ items, setItems, onEdit, edited, isNew, setCompleted }) => 
             )}
           </div>
         </div>
-        <Table headers={ORDER_ITEMS_HEADER} data={items} enableDelete={addEnabled} enableEdit={addEnabled} onDelete={handleDelete} />
-        {addEnabled && <SelectItem setItems={setItems} step={step} setStep={setStep} onSubmit={addToCartHandler} />}
+        <Table
+          headers={ORDER_ITEMS_HEADER}
+          data={items}
+          enableDelete={addEnabled}
+          enableEdit={addEnabled}
+          onDelete={handleDelete}
+          onEdit={editHandler}
+        />
+        {addEnabled && (
+          <SelectItem
+            setItems={setItems}
+            step={step}
+            setStep={setStep}
+            onSubmit={addToCartHandler}
+            onUpdate={updateHandler}
+            isEdit={isEdit}
+            editData={editData}
+          />
+        )}
       </div>
     </div>
   );

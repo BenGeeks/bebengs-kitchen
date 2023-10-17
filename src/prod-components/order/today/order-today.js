@@ -1,6 +1,6 @@
 'use client';
 import React, { useState } from 'react';
-import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { toast } from 'react-toastify';
 import { RiAddCircleLine } from 'react-icons/ri';
 
@@ -16,16 +16,11 @@ import { ORDER_COLUMNS } from '@/resources/orders';
 import pageStyles from '@/styles/page.module.css';
 import tableStyles from '@/styles/table.module.css';
 
-const OrderToday = () => {
+const OrderToday = ({ orderQuery }) => {
   const queryClient = useQueryClient();
   const [newModal, setNewModal] = useState(false);
   const [viewModal, setViewModal] = useState(false);
   const [viewData, setViewData] = useState({});
-
-  const orderQuery = useQuery({
-    queryKey: ['orders'],
-    queryFn: () => apiRequest({ url: 'orders/today', method: 'GET' }).then((res) => res.data),
-  });
 
   const updateOrderMutation = useMutation({
     mutationFn: (payload) => apiRequest({ url: `orders/${payload.id}`, method: 'PUT', data: payload.data }),

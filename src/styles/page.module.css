@@ -1,6 +1,5 @@
 .page_container {
-  width: 100%;
-  max-width: 1000px;
+  width: 70%;
   border: 1px solid beige;
   background-color: aliceblue;
   min-height: 300px;

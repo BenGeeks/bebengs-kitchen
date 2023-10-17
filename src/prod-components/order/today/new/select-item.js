@@ -6,9 +6,9 @@ import apiRequest from '@/lib/axios';
 import pageStyles from '@/styles/page.module.css';
 import cardStyles from '@/styles/card.module.css';
 
-const SelectItem = ({ step, setStep, onSubmit }) => {
-  const [selectedItem, setSelectedItem] = useState(null);
-  const [selectedVariation, setSelectedVariation] = useState(null);
+const SelectItem = ({ step, setStep, onSubmit, onUpdate, isEdit, editData }) => {
+  const [selectedItem, setSelectedItem] = useState(isEdit ? editData : null);
+  const [selectedVariation, setSelectedVariation] = useState(isEdit ? editData : null);
 
   const menuQuery = useQuery({
     queryKey: ['menu'],
@@ -33,7 +33,9 @@ const SelectItem = ({ step, setStep, onSubmit }) => {
 
   const selectQuantityHandler = (num) => {
     setStep(1);
-    onSubmit({ ...selectedVariation, qty: num, subTotal: num * selectedVariation.price });
+    isEdit
+      ? onUpdate({ ...selectedVariation, qty: num, subTotal: num * selectedVariation.price })
+      : onSubmit({ ...selectedVariation, qty: num, subTotal: num * selectedVariation.price });
   };
 
   if (menuQuery.isLoading) return <h1>Loading...</h1>;

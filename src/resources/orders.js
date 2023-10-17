@@ -20,7 +20,6 @@ export const DEFAULT_ORDER_DETAILS = {
 export const ORDER_DETAILS_SCHEMA = yup.object().shape({
   deliveryDate: yup.string(),
   deliveryTime: yup.string(),
-  paymentDate: yup.string(),
   downPayment: yup.number(),
 });
 

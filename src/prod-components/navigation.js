@@ -6,7 +6,7 @@ import { GiHamburgerMenu } from 'react-icons/gi';
 
 const NavigationBar = ({ showNav, setShowNav, currentPage, setCurrentPage }) => {
   const pages = [
-    { name: 'orders', display: 'Orders' },
+    { name: 'orders', display: 'Sales' },
     { name: 'menu', display: 'Menu' },
     { name: 'customers', display: 'Customers' },
   ];

@@ -1,6 +1,6 @@
 'use client';
 import React, { useState } from 'react';
-import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { toast } from 'react-toastify';
 import { RiAddCircleLine } from 'react-icons/ri';
 
@@ -11,16 +11,11 @@ import { HEADER } from '@/resources/customers';
 import apiRequest from '@/lib/axios';
 import pageStyles from '@/styles/page.module.css';
 
-const CustomersList = ({}) => {
+const CustomersList = ({ customersQuery }) => {
   const queryClient = useQueryClient();
   const [modalOpen, setModalOpen] = useState(false);
   const [action, setAction] = useState('');
   const [customerData, setCustomerData] = useState({ name: '', address: '', block: '', lot: '' });
-
-  const customersQuery = useQuery({
-    queryKey: ['customers'],
-    queryFn: () => apiRequest({ url: 'customers', method: 'GET' }).then((res) => res.data),
-  });
 
   const newCustomerMutation = useMutation({
     mutationFn: (payload) => apiRequest({ url: 'customers', method: 'POST', data: payload }),

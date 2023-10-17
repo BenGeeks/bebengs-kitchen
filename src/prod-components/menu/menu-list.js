@@ -1,26 +1,19 @@
 'use client';
 import React, { useState } from 'react';
-import { useQuery } from '@tanstack/react-query';
 import { RiAddCircleLine } from 'react-icons/ri';
 
 import Modal from '@/assets/modal';
 import MenuViewModal from './menu-view-modal';
 import MenuNewModal from './menu-new-modal';
-import apiRequest from '@/lib/axios';
 import { DEFAULT_MENU_ITEM } from '@/resources/menu';
 import pageStyles from '@/styles/page.module.css';
 import cardStyles from '@/styles/card.module.css';
 
-const MenuList = () => {
+const MenuList = ({ menuQuery }) => {
   const [modalOpen, setModalOpen] = useState(false);
   const [openNewModal, setOpenNewModal] = useState(false);
   const [action, setAction] = useState('');
   const [menuData, setMenuData] = useState(DEFAULT_MENU_ITEM);
-
-  const menuQuery = useQuery({
-    queryKey: ['menu'],
-    queryFn: () => apiRequest({ url: 'menu', method: 'GET' }).then((res) => res.data),
-  });
 
   const onAddMenu = () => {
     setOpenNewModal(true);
