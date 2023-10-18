@@ -15,7 +15,7 @@
 }
 
 .modal_header_icon {
-  height: 40px;
+  height: 50px;
   padding: 0px 10px;
   font-size: 2rem;
   color: #374151;
@@ -25,6 +25,7 @@
   align-items: center;
   border-radius: 5px;
   margin: 5px;
+  border: 1px solid #374151;
 }
 
 .modal_header_icon:hover {

@@ -8,13 +8,13 @@ const SideBar = ({ salesCount, salesData }) => {
     <div className={sideStyles.container}>
       <div className={sideStyles.box}>
         <div className={sideStyles.header_box}>
-          <h2>DAILY SALES SUMMARY</h2>
+          <h2>Sales Summary</h2>
         </div>
         <div className={sideStyles.table_container}>
           <Table headers={SALES_HEADER} data={salesData} />
         </div>
         <div className={sideStyles.header_box}>
-          <h2>DAILY COUNT SUMMARY</h2>
+          <h2>Sales Count Summary</h2>
         </div>
         <div className={sideStyles.table_container}>
           <Table headers={COUNT_HEADER} data={salesCount} />

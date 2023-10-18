@@ -33,3 +33,9 @@
   border-right: 1px solid #374151;
   margin: 5px;
 }
+
+@media (max-width: 1200px) {
+  .container {
+    display: none;
+  }
+}

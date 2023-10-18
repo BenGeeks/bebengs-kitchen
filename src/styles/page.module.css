@@ -2,8 +2,16 @@
   width: 70%;
   border: 1px solid beige;
   background-color: aliceblue;
-  min-height: 300px;
+  height: 1000px;
   padding: 10px;
+}
+
+.page_modal_body {
+  width: 100%;
+  border: 1px solid beige;
+  padding: 10px;
+  margin-top: 5px;
+  border-radius: 5px;
 }
 
 .floating_icon {
@@ -48,7 +56,7 @@
 }
 
 .sub_header_icon {
-  height: 40px;
+  height: 50px;
   padding: 0px 10px;
   font-size: 2rem;
   color: #374151;
@@ -58,6 +66,7 @@
   align-items: center;
   border-radius: 5px;
   margin: 5px;
+  border: 1px solid #374151;
 }
 
 .sub_header_icon:hover {
@@ -87,6 +96,17 @@
   border: 1px solid #374151;
   background-color: beige;
   border-radius: 5px;
+}
+
+.sub_title {
+  margin: 5px;
+  text-decoration: underline;
+}
+
+@media (max-width: 1200px) {
+  .page_container {
+    width: 100%;
+  }
 }
 
 @media (max-width: 768px) {

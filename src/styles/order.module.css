@@ -16,6 +16,7 @@
   background-color: beige;
   border: 1px solid white;
   border-radius: 5px;
+  width: 400px;
 }
 
 .cell_customer:hover {
@@ -79,6 +80,9 @@
 @media (max-width: 768px) {
   .cell_delivery_time {
     display: none;
+  }
+  .cell_customer {
+    width: 250px;
   }
 }
 

@@ -99,7 +99,7 @@ const OrderToday = ({ orderQuery }) => {
                 <td className={tableStyles.cell}>
                   <OrderDetails order={order} onView={veiwOrderHandler} />
                 </td>
-                <td className={tableStyles.cell_total}>{order.total}</td>
+                <td className={tableStyles.cell_total}>{order.total.toLocaleString('en-US')}</td>
               </tr>
             );
           })}
