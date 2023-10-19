@@ -30,7 +30,7 @@ const OrderMainPage = ({
   refresh,
 }) => {
   if (orderQuery.isLoading) return <LoadingPage />;
-  if (orderQuery.isError) return <LoadingPage error={orderQuery.error} />;
+  if (orderQuery.isError) return <ErrorPage error={orderQuery.error} />;
 
   return (
     <div className={pageStyles.page_container}>
