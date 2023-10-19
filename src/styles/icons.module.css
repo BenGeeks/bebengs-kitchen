@@ -1,0 +1,82 @@
+.icons_container {
+  display: flex;
+  align-items: center;
+}
+
+.icons_container_vertical {
+  width: 80px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+  padding: 5px 0px 0px 5px;
+  border-right: 1px solid #374151;
+  border-top: 1px solid #374151;
+  border-bottom: 1px solid #374151;
+}
+
+.icon_box {
+  cursor: pointer;
+  width: 70px;
+  height: 50px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  color: #374151;
+  border: 1px solid #374151;
+  margin: 2px 5px 2px 0px;
+  background-color: beige;
+  transition: all 0.3s ease-in-out;
+}
+
+.icon_box:hover {
+  color: beige;
+  border: 1px solid beige;
+  background-color: #374151;
+}
+
+.icon_box_active {
+  cursor: pointer;
+  width: 70px;
+  height: 50px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-right: 5px;
+  color: beige;
+  border: 1px solid beige;
+  background-color: #374151;
+}
+.icon {
+  font-size: 1.6rem;
+  padding: 0px;
+  margin-bottom: -5px;
+}
+
+.icon_text {
+  font-size: 0.8rem;
+  padding: 0px;
+  margin: 0px;
+}
+
+.small_icon {
+  width: 40px;
+  height: 40px;
+  display: flex;
+  color: #374151;
+  background-color: aliceblue;
+  border: 1px solid #374151;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+  cursor: pointer;
+  margin-left: 3px;
+}
+
+.small_icon:hover {
+  color: aliceblue;
+  background-color: #374151;
+  border: 1px solid aliceblue;
+}

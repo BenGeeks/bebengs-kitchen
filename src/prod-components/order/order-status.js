@@ -26,10 +26,15 @@ const OrderStatus = ({ order, index, onUpdate }) => {
     setModalOpen(false);
   };
   const getStatusColor = (data) => {
+    if (data && !data.isPaid && data.isDelivered && data.isGcash) return orderStyles.red;
+    if (data && !data.isPaid && data.isDelivered && !data.isGcash) return orderStyles.purple;
+
+    if (data && data.isPaid && !data.isDelivered && !data.isGcash) return orderStyles.turquoise;
+    if (data && data.isPaid && !data.isDelivered && data.isGcash) return orderStyles.pink;
+
     if (data && data.isPaid && data.isDelivered && data.isGcash) return orderStyles.blue;
     if (data && data.isPaid && data.isDelivered && !data.isGcash) return orderStyles.green;
-    if (data && !data.isPaid && data.isDelivered) return orderStyles.red;
-    if (data && data.isPaid && !data.isDelivered) return orderStyles.purple;
+
     return orderStyles.orange;
   };
 
@@ -78,8 +83,8 @@ const OrderStatus = ({ order, index, onUpdate }) => {
           </div>
         </div>
       </Modal>
-      <div className={orderStyles.cell_order_number_container} onClick={() => setModalOpen(true)}>
-        <div className={`${orderStyles.cell_order_number} ${getStatusColor(order)}`}>{index + 1}</div>
+      <div className={`${orderStyles.cell_order_number_container} ${getStatusColor(order)}`} onClick={() => setModalOpen(true)}>
+        {index + 1}
       </div>
     </>
   );

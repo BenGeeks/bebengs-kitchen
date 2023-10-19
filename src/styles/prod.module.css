@@ -1,20 +1,56 @@
-.page_holder {
+.main_container {
   display: flex;
   width: 100%;
   flex-direction: column;
   align-items: center;
-  min-height: 100vh;
+  height: 100vh;
 }
 
-.main_bar {
-  background-color: beige;
+.page_container {
+  display: flex;
+  width: 100%;
+  background-color: #374151;
+  padding: 5px;
+}
+
+.icons_container {
   display: flex;
   align-items: center;
-  flex-direction: row;
-  justify-content: space-between;
-  padding: 5px 20px;
-  margin-bottom: 5px;
-  width: 100%;
+}
+
+.icon {
+  cursor: pointer;
+  width: 50px;
+  height: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 2rem;
+  color: #374151;
+  border: 1px solid #374151;
+  margin-right: 10px;
+  background-color: beige;
+  transition: all 0.3s ease-in-out;
+}
+
+.icon:hover {
+  color: beige;
+  border: 1px solid beige;
+  background-color: #374151;
+}
+
+.icon_active {
+  width: 50px;
+  height: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 2rem;
+  margin-right: 10px;
+  transition: all 0.3s ease-in-out;
+  color: aliceblue;
+  border: 1px solid aliceblue;
+  background-color: #374151;
 }
 
 .nav_bar {
@@ -73,14 +109,6 @@
   z-index: 10;
 }
 
-.logo {
-  position: relative;
-  font-family: 'Kaushan Script', cursive;
-  color: #374151;
-  font-size: 24px;
-  padding-left: 40px;
-}
-
 .header_button {
   height: 40px;
   padding: 0px 10px;
@@ -109,11 +137,6 @@
 .header_text {
   padding: 10px 5px;
   color: #282829;
-}
-
-.main_container {
-  display: flex;
-  width: 100%;
 }
 
 @media (max-width: 768px) {

@@ -7,10 +7,10 @@ import { RiAddCircleLine } from 'react-icons/ri';
 import apiRequest from '@/lib/axios';
 
 import Modal from '@/assets/modal';
-import OrderNew from './new/order-new';
-import OrderEdit from './new/order-edit';
-import OrderStatus from './order-status';
-import OrderDetails from './order-details';
+import OrderNew from '../new/order-new';
+import OrderEdit from '../new/order-edit';
+import OrderStatus from '../order-status';
+import OrderDetails from '../order-details';
 import { ORDER_COLUMNS } from '@/resources/orders';
 
 import pageStyles from '@/styles/page.module.css';
