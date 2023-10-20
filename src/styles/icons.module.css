@@ -1,3 +1,166 @@
+/* ================================ */
+/* =======  ORDER ICON BAR  ======= */
+/* ================================ */
+
+.order_bar_icon_container {
+  position: static;
+  width: 75px;
+  padding: 0px 5px;
+  transition: all 0.3s ease-in-out;
+}
+
+.order_bar_icon_container_hidden {
+  position: static;
+  width: 75px;
+  padding: 0px 5px;
+  transition: all 0.3s ease-in-out;
+}
+
+.order_bar_hamburger_icon {
+  display: none;
+}
+
+.add_order_icon_box {
+  cursor: pointer;
+  width: 70px;
+  height: 50px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  color: #374151;
+  border: 1px solid #374151;
+  margin-bottom: 5px;
+  background-color: beige;
+  transition: all 0.3s ease-in-out;
+}
+
+.add_order_icon_box:hover {
+  color: beige;
+  border: 1px solid beige;
+  background-color: #374151;
+}
+
+.icon_box_add_mobile {
+  display: none;
+}
+
+.add_order_icon_box_mobile {
+  display: none;
+}
+
+.order_right_icon_box {
+  cursor: pointer;
+  width: 70px;
+  height: 50px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  color: #374151;
+  border: 1px solid #374151;
+  margin-bottom: 5px;
+  background-color: beige;
+  transition: all 0.3s ease-in-out;
+}
+
+.order_right_icon_box:hover {
+  color: beige;
+  border: 1px solid beige;
+  background-color: #374151;
+}
+
+.order_right_icon_text {
+  font-size: 0.8rem;
+  padding: 0px;
+  margin: 0px;
+}
+
+.order_right_icon {
+  font-size: 1.6rem;
+  padding: 0px;
+  margin-bottom: -5px;
+}
+
+@media (max-width: 768px) {
+  .order_bar_hamburger_icon {
+    position: fixed;
+    top: 2px;
+    right: 2px;
+    display: block;
+    cursor: pointer;
+    width: 70px;
+    height: 50px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: #374151;
+    border: 1px solid #374151;
+    margin: 2px 5px 2px 0px;
+    background-color: beige;
+    transition: all 0.3s ease-in-out;
+  }
+
+  .order_bar_hamburger_icon:active {
+    color: beige;
+    border: 1px solid beige;
+    margin: 2px 5px 2px 0px;
+    background-color: #374151;
+    transition: all 0.3s ease-in-out;
+  }
+
+  .order_bar_icon_container {
+    position: fixed;
+    top: 61px;
+    right: 0px;
+    width: 80px;
+    padding: 0px 5px;
+    transition: all 0.3s ease-in-out;
+    background-color: #374151;
+  }
+
+  .order_bar_icon_container_hidden {
+    position: fixed;
+    top: 61px;
+    right: 0px;
+    width: 0px;
+    padding: 0px;
+    transition: all 0.3s ease-in-out;
+    background-color: #374151;
+  }
+
+  .add_order_icon_box_mobile {
+    display: block;
+    cursor: pointer;
+    width: 70px;
+    height: 50px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: #374151;
+    border: 1px solid #374151;
+    margin-bottom: 5px;
+    background-color: beige;
+    transition: all 0.3s ease-in-out;
+  }
+
+  .add_order_icon_box_mobile:hover {
+    color: beige;
+    border: 1px solid beige;
+    background-color: #374151;
+  }
+
+  .add_order_icon_box {
+    display: none;
+  }
+}
+
+/* ================================ */
+/* =========  TOP BAR ICON  ======= */
+/* ================================ */
+
 .icons_container {
   display: flex;
   align-items: center;
@@ -6,18 +169,6 @@
 .icons_container_top_bar {
   display: flex;
   align-items: center;
-}
-
-.icons_container_vertical {
-  width: 80px;
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  justify-content: flex-start;
-  padding: 5px 0px 0px 5px;
-  border-right: 1px solid #374151;
-  border-top: 1px solid #374151;
-  border-bottom: 1px solid #374151;
 }
 
 .icon_box {
@@ -55,10 +206,6 @@
   background-color: #374151;
 }
 
-.icon_box_fixed {
-  display: none;
-}
-
 .icon {
   font-size: 1.6rem;
   padding: 0px;
@@ -70,6 +217,10 @@
   padding: 0px;
   margin: 0px;
 }
+
+/* ================================ */
+/* ==========  TABLE ICONS  ======= */
+/* ================================ */
 
 .small_icon {
   width: 40px;
@@ -135,66 +286,5 @@
 
   .icon_box_active {
     margin-bottom: 5px;
-  }
-  .icons_container_vertical {
-    position: fixed;
-    top: 60px;
-    right: -5px;
-    width: 0px;
-    padding: 5px 0px 5px 0px;
-    overflow: hidden;
-    transition: all 0.2s ease-out;
-  }
-
-  .icons_container_vertical_show {
-    position: fixed;
-    top: 60px;
-    right: 0px;
-    width: 90px;
-    display: flex;
-    flex-direction: column-reverse;
-    justify-content: center;
-    align-items: center;
-    overflow: hidden;
-    padding: 5px 0px 5px 5px;
-    background-color: beige;
-    border: 1px solid #374151;
-    transition: all 0.2s ease-out;
-  }
-
-  .icon_box_fixed {
-    position: fixed;
-    top: 3px;
-    right: 3px;
-    cursor: pointer;
-    width: 70px;
-    height: 50px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    color: #374151;
-    border: 1px solid #374151;
-    margin: 2px 5px 2px 0px;
-    background-color: beige;
-    transition: all 0.3s ease-in-out;
-  }
-
-  .icon_box_fixed:active {
-    position: fixed;
-    top: 3px;
-    right: 3px;
-    cursor: pointer;
-    width: 70px;
-    height: 50px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    color: beige;
-    border: 1px solid beige;
-    margin: 2px 5px 2px 0px;
-    background-color: #374151;
-    transition: all 0.3s ease-in-out;
   }
 }
