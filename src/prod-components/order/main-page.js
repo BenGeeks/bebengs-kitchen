@@ -1,7 +1,8 @@
 'use client';
-
-import { RiAddCircleLine, RiPrinterLine, RiCalendar2Line, RiRefreshLine } from 'react-icons/ri';
+import { useState } from 'react';
+import { RiAddCircleLine, RiPrinterLine, RiCalendar2Line, RiRefreshLine, RiMenuLine } from 'react-icons/ri';
 import { PiCalendar } from 'react-icons/pi';
+import { GoGraph } from 'react-icons/go';
 
 import Modal from '@/assets/modal';
 import OrderNew from './new/order-new';
@@ -27,20 +28,28 @@ const OrderMainPage = ({
   viewData,
   viewModal,
   setViewModal,
-  refresh,
+  viewReport,
+  setViewReport,
 }) => {
+  const [showIcons, setShowIcons] = useState(false);
   if (orderQuery.isLoading) return <LoadingPage />;
   if (orderQuery.isError) return <ErrorPage error={orderQuery.error} />;
 
   return (
-    <div className={pageStyles.page_container}>
+    <div className={viewReport ? pageStyles.page_container_hidden : pageStyles.page_container}>
+      <div className={iconStyles.icon_box_fixed} title="Actions" onClick={() => setShowIcons(!showIcons)}>
+        <div className={iconStyles.icon}>
+          <RiMenuLine />
+        </div>
+        <p className={iconStyles.icon_text}>Actions</p>
+      </div>
       <Modal open={onAdd}>
         <OrderNew onClose={() => setOnAdd(false)} onSave={onSaveHandler} />
       </Modal>
       <Modal open={viewModal}>
         <OrderEdit onClose={() => setViewModal(false)} onSave={onUpdateHandler} order={viewData} />
       </Modal>
-      <div className={tableStyles.table_container}>
+      <div className={`${tableStyles.table_container} ${viewReport && pageStyles.hidden}`}>
         <table className={tableStyles.table}>
           <thead>
             <tr className={tableStyles.table_head_row}>
@@ -56,7 +65,7 @@ const OrderMainPage = ({
           <tbody>
             {orderQuery.data.map((order, index) => {
               return (
-                <tr key={index} className={tableStyles.table_row}>
+                <tr key={index}>
                   <td className={tableStyles.cell_status}>
                     <OrderStatus order={order} index={index} onUpdate={statusUpdateHandler} />
                   </td>
@@ -70,18 +79,21 @@ const OrderMainPage = ({
           </tbody>
         </table>
       </div>
-      <div className={iconStyles.icons_container_vertical}>
+      <div
+        className={showIcons ? iconStyles.icons_container_vertical_show : iconStyles.icons_container_vertical}
+        onClick={() => setShowIcons(false)}
+      >
         <div className={iconStyles.icon_box} title="Add order" onClick={() => setOnAdd(true)}>
           <div className={iconStyles.icon}>
             <RiAddCircleLine />
           </div>
           <p className={iconStyles.icon_text}>Add</p>
         </div>
-        <div className={iconStyles.icon_box} title="refresh" onClick={() => refresh(true)}>
+        <div className={iconStyles.icon_box} title="Report" onClick={() => setViewReport(!viewReport)}>
           <div className={iconStyles.icon}>
-            <RiRefreshLine />
+            <GoGraph />
           </div>
-          <p className={iconStyles.icon_text}>Refresh</p>
+          <p className={iconStyles.icon_text}>Report</p>
         </div>
         <div className={iconStyles.icon_box} title="Today">
           <div className={iconStyles.icon}>

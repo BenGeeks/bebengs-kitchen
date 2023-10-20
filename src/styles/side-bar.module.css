@@ -8,6 +8,7 @@
   justify-content: center;
   flex-direction: column;
   justify-content: flex-start;
+  overflow: auto;
 }
 
 .summary_box {
@@ -38,5 +39,10 @@
 @media (max-width: 1200px) {
   .container {
     display: none;
+  }
+
+  .show {
+    display: block;
+    width: 100%;
   }
 }

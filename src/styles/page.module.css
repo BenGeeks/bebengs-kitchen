@@ -8,6 +8,16 @@
   justify-content: center;
 }
 
+.page_container_hidden {
+  width: 70%;
+  height: calc(100vh - 70px);
+  border: 1px solid beige;
+  background-color: aliceblue;
+  padding: 5px 0px;
+  display: flex;
+  justify-content: center;
+}
+
 .top_bar {
   background-color: beige;
   display: block;
@@ -160,12 +170,36 @@
   .page_container {
     width: 100%;
   }
+
+  .page_container_hidden {
+    width: 90px;
+  }
+
+  .hidden {
+    display: none;
+  }
 }
 
 @media (max-width: 768px) {
+  .page_container {
+    width: 100%;
+  }
+
+  .page_container_hidden {
+    width: 0px;
+  }
+}
+@media (max-width: 500px) {
   .floating_icon {
     height: 44px;
     width: 44px;
     padding-left: 0px;
+  }
+
+  .company_logo {
+    cursor: pointer;
+  }
+  .company_name {
+    font-size: 1.6rem;
   }
 }

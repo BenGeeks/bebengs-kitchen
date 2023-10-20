@@ -4,9 +4,9 @@ import Table from '@/assets/table';
 import { SALES_HEADER, COUNT_HEADER } from '@/resources/side-bar';
 import sideStyles from '@/styles/side-bar.module.css';
 
-const SideBar = ({ salesCount, collectibleData, collectibleCount, salesData }) => {
+const SideBar = ({ salesCount, collectibleData, collectibleCount, salesData, viewReport }) => {
   return (
-    <div className={sideStyles.container}>
+    <div className={`${sideStyles.container} ${viewReport && sideStyles.show}`}>
       <div className={sideStyles.summary_box}>
         <div className={sideStyles.header_box}>
           <h2 className={sideStyles.header}>Today's Sales</h2>

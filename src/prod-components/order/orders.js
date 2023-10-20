@@ -14,10 +14,10 @@ const Orders = () => {
   const [salesCount, setSalesCount] = useState([]);
   const [collectibleData, setCollectibleData] = useState([{ cashTotal: 0, gCashTotal: 0, dailyTotal: 0 }]);
   const [collectibleCount, setCollectibleCount] = useState([]);
-  const [refetchData, setRefetchData] = useState(true);
   const [onAdd, setOnAdd] = useState(false);
   const [viewData, setViewData] = useState({});
   const [viewModal, setViewModal] = useState(false);
+  const [viewReport, setViewReport] = useState(false);
 
   const summarizeReport = (sales) => {
     let tempArray = [];
@@ -70,10 +70,10 @@ const Orders = () => {
   const orderQuery = useQuery({
     queryKey: ['orders'],
     queryFn: () => apiRequest({ url: 'orders/today', method: 'GET' }).then((res) => res.data),
-    enabled: refetchData,
+    staleTime: 20000,
+    refetchInterval: 20000,
     onSuccess: (orders) => {
       summarizeReport(orders);
-      setRefetchData(false);
     },
   });
 
@@ -81,7 +81,6 @@ const Orders = () => {
     mutationFn: (data) => apiRequest({ url: `orders`, method: 'POST', data: data }),
     onSuccess: () => {
       toast.success('Order added successfully.');
-      setRefetchData(true);
       queryClient.invalidateQueries({ queryKey: ['orders'] });
     },
     onError: (error) => {
@@ -93,7 +92,6 @@ const Orders = () => {
     mutationFn: (payload) => apiRequest({ url: `orders/${payload.id}`, method: 'PUT', data: payload.data }),
     onSuccess: () => {
       toast.success('Order updated successfully.');
-      setRefetchData(true);
       queryClient.invalidateQueries({ queryKey: ['orders'] });
     },
     onError: (error) => {
@@ -123,7 +121,13 @@ const Orders = () => {
 
   return (
     <>
-      <SideBar salesData={salesData} salesCount={salesCount} collectibleData={collectibleData} collectibleCount={collectibleCount} />
+      <SideBar
+        salesData={salesData}
+        salesCount={salesCount}
+        collectibleData={collectibleData}
+        collectibleCount={collectibleCount}
+        viewReport={viewReport}
+      />
       <OrderMainPage
         orderQuery={orderQuery}
         onSaveHandler={onSaveHandler}
@@ -135,7 +139,8 @@ const Orders = () => {
         viewData={viewData}
         viewModal={viewModal}
         setViewModal={setViewModal}
-        refresh={setRefetchData}
+        viewReport={viewReport}
+        setViewReport={setViewReport}
       />
     </>
   );
