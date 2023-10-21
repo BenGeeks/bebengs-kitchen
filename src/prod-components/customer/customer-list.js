@@ -1,107 +1,60 @@
 'use client';
-import React, { useState } from 'react';
-import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { toast } from 'react-toastify';
-import { RiAddCircleLine } from 'react-icons/ri';
+import React, { useState, useEffect } from 'react';
 
-import Modal from '@/assets/modal';
-import CustomerNew from './customer-new';
 import Table from '@/assets/table';
-import { HEADER } from '@/resources/customers';
-import apiRequest from '@/lib/axios';
-import pageStyles from '@/styles/page.module.css';
+import LoadingPage from '@/assets/loading';
+import ErrorPage from '@/assets/error';
+import { CUSTOMER_HEADER } from '@/resources/customers';
+import customerStyles from '@/styles/customer.module.css';
 
-const CustomersList = ({ customersQuery }) => {
-  const queryClient = useQueryClient();
-  const [modalOpen, setModalOpen] = useState(false);
-  const [action, setAction] = useState('');
-  const [customerData, setCustomerData] = useState({ name: '', address: '', block: '', lot: '' });
+const CustomersList = ({ onSelectCustomer, customersQuery }) => {
+  const [customerData, setCustomerData] = useState([]);
+  const [searchValue, setSearchValue] = useState('');
 
-  const newCustomerMutation = useMutation({
-    mutationFn: (payload) => apiRequest({ url: 'customers', method: 'POST', data: payload }),
-    onSuccess: () => {
-      toast.success('Customer added successfully.');
-      queryClient.invalidateQueries({ queryKey: ['customers'] });
-    },
-    onError: (error) => {
-      toast.error(error.response.data.error.message);
-    },
-  });
-
-  const deleteCustomerMutation = useMutation({
-    mutationFn: (id) => apiRequest({ url: `customers/${id}`, method: 'DELETE' }),
-    onSuccess: () => {
-      toast.success('Customer deleted successfully.');
-      queryClient.invalidateQueries({ queryKey: ['customers'] });
-    },
-    onError: (error) => {
-      toast.error(error.response.data.error.message);
-    },
-  });
-
-  const updateCustomerMutation = useMutation({
-    mutationFn: (payload) => apiRequest({ url: `customers/${payload.id}`, method: 'PUT', data: payload.data }),
-    onSuccess: () => {
-      toast.success('Customer updated successfully.');
-      queryClient.invalidateQueries({ queryKey: ['customers'] });
-    },
-    onError: (error) => {
-      toast.error(error.response.data.error.message);
-    },
-  });
-
-  const onDeleteCustomer = (id) => {
-    confirm('Confirm delete this user?') == true && deleteCustomerMutation.mutate(id);
+  const sortData = (customer) => {
+    let sortedData = customer.sort((a, b) => {
+      if (a.name.toLowerCase() > b.name.toLowerCase()) return 1;
+      if (a.name.toLowerCase() < b.name.toLowerCase()) return -1;
+      return 0;
+    });
+    return sortedData;
   };
 
-  const addNewCustomerHandler = (data) => {
-    newCustomerMutation.mutate(data);
-    onCancel();
-  };
+  useEffect(() => {
+    let data = customersQuery && customersQuery.data ? customersQuery.data : [];
+    let tempData = data.filter((customer) => {
+      let searchFrom = `${customer.name.toLowerCase()} ${customer.address} ${customer.block} ${customer.lot}`;
+      return searchFrom.includes(searchValue.toLowerCase());
+    });
+    searchValue.length === 0 ? setCustomerData(data) : setCustomerData([...tempData]);
+  }, [searchValue, customersQuery]);
 
-  const editCustomerHandler = (data) => {
-    let _id = data._id;
-    let newData = { name: data.name, phone: data.phone, address: data.address, block: data.block, lot: data.lot };
-    updateCustomerMutation.mutate({ id: _id, data: newData });
-    onCancel();
-  };
-
-  const onAddCustomer = () => {
-    setCustomerData({ name: '', address: '', block: '', lot: '' });
-    setAction('Add');
-    setModalOpen(true);
-  };
-
-  const onEditCustomer = (data) => {
-    setModalOpen(true);
-    setAction('Edit');
-    setCustomerData(data);
-  };
-
-  const onCancel = () => {
-    setCustomerData({ name: '', address: '', block: '', lot: '' });
-    setModalOpen(false);
-  };
-
-  if (customersQuery.isLoading) return <h1>Loading...</h1>;
-  if (customersQuery.isError) return <pre> {JSON.stringify(customersQuery.error)}</pre>;
+  if (customersQuery.isLoading) return <LoadingPage />;
+  if (customersQuery.isError) return <ErrorPage error={JSON.stringify(customersQuery.error)} />;
 
   return (
-    <div className={pageStyles.page_container}>
-      <div className={pageStyles.floating_icon} onClick={onAddCustomer}>
-        <RiAddCircleLine />
+    <div className={customerStyles.page_container}>
+      <div className={customerStyles.main_page}>
+        <div className={customerStyles.header_bar}>
+          <h3 className={customerStyles.header_bar_title}>Select Customer:</h3>
+          <input
+            className={customerStyles.search_input}
+            type="text"
+            placeholder="Search"
+            value={searchValue}
+            onChange={(e) => setSearchValue(e.target.value)}
+          />
+        </div>
+
+        <Table
+          headers={CUSTOMER_HEADER}
+          data={sortData(customerData)}
+          enableDelete={false}
+          enableEdit={false}
+          enableRowClick={true}
+          onRowClick={onSelectCustomer}
+        />
       </div>
-      <Modal open={modalOpen}>
-        <CustomerNew onClose={onCancel} action={action} data={customerData} onAdd={addNewCustomerHandler} onEdit={editCustomerHandler} />
-      </Modal>
-      <Table
-        headers={HEADER}
-        data={customersQuery.data}
-        enableDelete={true}
-        enableEdit={true}
-        onDelete={onDeleteCustomer}
-        onEdit={onEditCustomer}
-      />
     </div>
   );
 };

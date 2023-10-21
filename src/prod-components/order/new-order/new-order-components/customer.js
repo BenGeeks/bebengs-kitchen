@@ -1,5 +1,5 @@
 'use client';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useQuery } from '@tanstack/react-query';
 
 import Table from '@/assets/table';
@@ -11,6 +11,7 @@ import newOrderStyles from '@/styles/new-order.module.css';
 
 const Customer = ({ setSelectedCustomer, setStep, setEdit }) => {
   const [searchValue, setSearchValue] = useState('');
+  const [customerData, setCustomerData] = useState([]);
 
   const customersQuery = useQuery({
     queryKey: ['customers'],
@@ -34,6 +35,15 @@ const Customer = ({ setSelectedCustomer, setStep, setEdit }) => {
     return sortedData;
   };
 
+  useEffect(() => {
+    let data = customersQuery && customersQuery.data ? customersQuery.data : [];
+    let tempData = data.filter((customer) => {
+      let searchFrom = `${customer.name.toLowerCase()} ${customer.address} ${customer.block} ${customer.lot}`;
+      return searchFrom.includes(searchValue.toLowerCase());
+    });
+    searchValue.length === 0 ? setCustomerData(data) : setCustomerData([...tempData]);
+  }, [searchValue, customersQuery]);
+
   if (customersQuery.isLoading) return <LoadingPage />;
   if (customersQuery.isError) return <ErrorPage error={JSON.stringify(customersQuery.error)} />;
 
@@ -52,7 +62,7 @@ const Customer = ({ setSelectedCustomer, setStep, setEdit }) => {
 
       <Table
         headers={SELECT_CUSTOMER_LIST}
-        data={sortData(customersQuery.data)}
+        data={sortData(customerData)}
         enableDelete={false}
         enableEdit={false}
         enableRowClick={true}

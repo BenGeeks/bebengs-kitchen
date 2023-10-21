@@ -10,14 +10,13 @@ import { INPUT, SCHEMA } from '@/resources/customers';
 import apiRequest from '@/lib/axios';
 import modalStyles from '@/styles/modal.module.css';
 
-const CustomerEdit = ({ close, onAddCustomerSuccess, data }) => {
+const CustomerEdit = ({ close, customer }) => {
   const queryClient = useQueryClient();
 
   const editCustomerMutation = useMutation({
-    mutationFn: (payload) => apiRequest({ url: 'customers', method: 'POST', data: payload }),
-    onSuccess: (response) => {
-      onAddCustomerSuccess(response.data);
-      toast.success('Customer added successfully.');
+    mutationFn: (payload) => apiRequest({ url: `customers/${payload.id}`, method: 'PUT', data: payload.data }),
+    onSuccess: () => {
+      toast.success('Customer updated successfully.');
       queryClient.invalidateQueries({ queryKey: ['customers'] });
       close();
     },
@@ -43,8 +42,8 @@ const CustomerEdit = ({ close, onAddCustomerSuccess, data }) => {
         <ReactForm
           layout={INPUT}
           schema={SCHEMA}
-          defaultValues={data}
-          onSubmit={(data) => editCustomerMutation.mutate(data)}
+          defaultValues={customer}
+          onSubmit={(data) => editCustomerMutation.mutate({ id: data._id, data: data })}
           onCancel={close}
           action="Add"
         />

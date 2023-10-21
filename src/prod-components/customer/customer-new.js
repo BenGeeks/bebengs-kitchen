@@ -1,17 +1,24 @@
 'use client';
-import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { RiCloseCircleLine } from 'react-icons/ri';
 import { toast } from 'react-toastify';
 
 import ReactForm from '@/assets/react-form';
 import LoadingPage from '@/assets/loading';
 import ErrorPage from '@/assets/error';
-import { INPUT, SCHEMA } from '@/resources/customers';
+import { SCHEMA } from '@/resources/customers';
 import apiRequest from '@/lib/axios';
 import modalStyles from '@/styles/modal.module.css';
 
-const CustomerNew = ({ close, onAddCustomerSuccess }) => {
+const CustomerNew = ({ close }) => {
   const queryClient = useQueryClient();
+
+  const addressQuery = useQuery({
+    queryKey: ['address'],
+    queryFn: () => apiRequest({ url: 'address', method: 'GET' }).then((res) => res.data),
+    staleTime: 0,
+    refetchInterval: 20000,
+  });
 
   const newCustomerMutation = useMutation({
     mutationFn: (payload) => apiRequest({ url: 'customers', method: 'POST', data: payload }),
@@ -25,6 +32,14 @@ const CustomerNew = ({ close, onAddCustomerSuccess }) => {
       toast.error(error.response.data.error.message);
     },
   });
+
+  const INPUT = [
+    { type: 'text', name: 'name', label: 'Name' },
+    { type: 'text', name: 'phone', label: 'G-cash number' },
+    { type: 'text', name: 'address', label: 'Address', list: addressQuery.data },
+    { type: 'number', name: 'block', label: 'Block' },
+    { type: 'number', name: 'lot', label: 'Lot' },
+  ];
 
   if (newCustomerMutation.isLoading) return <LoadingPage />;
   if (newCustomerMutation.isError) return <ErrorPage error={JSON.stringify(newCustomerMutation.error)} />;

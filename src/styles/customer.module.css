@@ -1,0 +1,145 @@
+/* ================================ */
+/* ==========  MAIN PAGE  ========= */
+/* ================================ */
+
+.page_container {
+  width: 100%;
+  height: calc(100vh - 80px);
+  border: 1px solid beige;
+  background-color: aliceblue;
+  padding: 5px 0px;
+  display: flex;
+  justify-content: center;
+}
+
+.main_page {
+  width: 100%;
+  margin: 0px 5px;
+  border: 1px solid #374151;
+  padding: 5px;
+  overflow-y: auto;
+}
+
+.header_bar {
+  height: 40px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-bottom: 5px;
+  border-bottom: 1px solid #374151;
+  margin-bottom: 5px;
+}
+
+.header_bar_title {
+  margin-left: 15px;
+  color: #374151;
+}
+
+.search_input {
+  width: 50%;
+  height: 40px;
+  margin-right: 5px;
+  border: 1px solid #374151;
+  padding: 5px;
+}
+
+/* ================================ */
+/* ==========  CARDS  ============= */
+/* ================================ */
+
+.cards_container {
+  width: 100%;
+  height: auto;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+  display: flex;
+  justify-content: space-around;
+  padding: 30px;
+}
+
+.card_edit {
+  width: 150px;
+  height: 150px;
+  border: 1px solid #374151;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  background-color: white;
+  transition: all 0.3s ease-out;
+  color: green;
+}
+
+.card_edit:hover {
+  background-color: green;
+  color: white;
+}
+
+.card_delete {
+  width: 150px;
+  height: 150px;
+  border: 1px solid #374151;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  background-color: white;
+  transition: all 0.3s ease-out;
+  color: red;
+}
+
+.card_delete:hover {
+  background-color: red;
+  color: white;
+}
+
+.card_cancel {
+  width: 150px;
+  height: 150px;
+  border: 1px solid #374151;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  background-color: white;
+  transition: all 0.3s ease-out;
+  color: blue;
+}
+
+.card_cancel:hover {
+  background-color: blue;
+  color: white;
+}
+.card_icon {
+  font-size: 4rem;
+}
+
+.card_name {
+  font-size: 1.2rem;
+}
+
+/* ================================ */
+/* ==========  SIDE BAR  ========== */
+/* ================================ */
+
+.container {
+  background-color: #f7f7ec;
+  border-right: 1px solid #374151;
+  width: 30%;
+  height: calc(100vh - 80px);
+  padding: 5px;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  justify-content: space-between;
+  overflow: auto;
+}
+
+.main_box {
+  border: 1px solid #374151;
+  padding: 5px;
+}

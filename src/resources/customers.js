@@ -7,35 +7,17 @@ export const SCHEMA = yup.object().shape({
   lot: yup.string(),
 });
 
-export const INPUT = [
-  { type: 'text', name: 'name', label: 'Name' },
-  { type: 'text', name: 'phone', label: 'G-cash number' },
-  {
-    type: 'text',
-    name: 'address',
-    label: 'Address',
-    list: [
-      'Sta. Rosa Hills',
-      'Sta. Rosa Heights',
-      'Morning View',
-      'Buklod Bahayan',
-      'Mandara',
-      'Imperial',
-      'Verona',
-      'Cinta Dessa',
-      'Saddleback',
-    ],
-  },
-  { type: 'number', name: 'block', label: 'Block' },
-  { type: 'number', name: 'lot', label: 'Lot' },
-];
-
-export const HEADER = [
+export const CUSTOMER_HEADER = [
   { display: 'Name', name: 'name' },
   { display: 'G-Cash', name: 'phone' },
   { display: 'Address', name: 'address' },
   { display: 'Block', name: 'block' },
   { display: 'Lot', name: 'lot' },
+];
+
+export const ADDRESS_HEADER = [
+  { display: 'ID', name: '_id' },
+  { display: 'Address', name: 'address' },
 ];
 
 export const SELECT_CUSTOMER_LIST = [
@@ -44,3 +26,7 @@ export const SELECT_CUSTOMER_LIST = [
   { display: 'Block', name: 'block' },
   { display: 'Lot', name: 'lot' },
 ];
+
+export const ADDRESS_SCHEMA = yup.object().shape({ address: yup.string().required('Customer address is required') });
+
+export const ADDRESS_INPUT = [{ type: 'text', name: 'address', label: 'Address' }];

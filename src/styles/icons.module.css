@@ -71,6 +71,21 @@
   background-color: #374151;
 }
 
+.order_right_icon_box_active {
+  cursor: pointer;
+  width: 80px;
+  height: 60px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  color: beige;
+  border: 1px solid beige;
+  margin-bottom: 5px;
+  background-color: #374151;
+  transition: all 0.3s ease-in-out;
+}
+
 .order_right_icon_text {
   font-size: 0.9rem;
   padding: 0px;

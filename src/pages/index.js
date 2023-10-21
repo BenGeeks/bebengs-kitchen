@@ -1,9 +1,11 @@
+import { useRouter } from 'next/navigation';
 import styles from '@/styles/Home.module.css';
 
 export default function Home() {
+  const router = useRouter();
   return (
     <main className={styles.main}>
-      <div className={styles.logo_container}>
+      <div className={styles.logo_container} onClick={() => router.push('/prod')}>
         <h1 className={styles.logo}>Bebeng's Kitchen</h1>
         <p className={styles.description}>~ Where every bite is a delight! ~</p>
       </div>
