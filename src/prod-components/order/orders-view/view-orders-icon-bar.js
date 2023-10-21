@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { RiAddCircleLine, RiPrinterLine, RiCalendar2Line, RiMenuLine } from 'react-icons/ri';
 import { PiCalendar } from 'react-icons/pi';
 import { GoGraph } from 'react-icons/go';
+import { LuFilter } from 'react-icons/lu';
 
 import iconStyles from '@/styles/icons.module.css';
 
@@ -47,6 +48,12 @@ const OrdersIconBar = ({ viewReport, setViewReport, setCurrentPage, addNewOderMo
           <RiCalendar2Line />
         </div>
         <p className={iconStyles.order_right_icon_text}>History</p>
+      </div>
+      <div className={iconStyles.order_right_icon_box} title="Filter">
+        <div className={iconStyles.order_right_icon}>
+          <LuFilter />
+        </div>
+        <p className={iconStyles.order_right_icon_text}>Filter</p>
       </div>
       <div className={iconStyles.order_right_icon_box} title="Print">
         <div className={iconStyles.order_right_icon}>

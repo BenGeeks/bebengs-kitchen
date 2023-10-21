@@ -4,14 +4,15 @@
 
 .order_bar_icon_container {
   position: static;
-  width: 75px;
+  width: 85px;
   padding: 0px 5px;
   transition: all 0.3s ease-in-out;
+  padding-bottom: 100px;
 }
 
 .order_bar_icon_container_hidden {
   position: static;
-  width: 75px;
+  width: 85px;
   padding: 0px 5px;
   transition: all 0.3s ease-in-out;
 }
@@ -22,8 +23,8 @@
 
 .add_order_icon_box {
   cursor: pointer;
-  width: 70px;
-  height: 50px;
+  width: 80px;
+  height: 60px;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -51,8 +52,8 @@
 
 .order_right_icon_box {
   cursor: pointer;
-  width: 70px;
-  height: 50px;
+  width: 80px;
+  height: 60px;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -71,13 +72,13 @@
 }
 
 .order_right_icon_text {
-  font-size: 0.8rem;
+  font-size: 0.9rem;
   padding: 0px;
   margin: 0px;
 }
 
 .order_right_icon {
-  font-size: 1.6rem;
+  font-size: 1.8rem;
   padding: 0px;
   margin-bottom: -5px;
 }
@@ -112,9 +113,9 @@
 
   .order_bar_icon_container {
     position: fixed;
-    top: 61px;
+    top: 70px;
     right: 0px;
-    width: 80px;
+    width: 90px;
     padding: 0px 5px;
     transition: all 0.3s ease-in-out;
     background-color: #374151;
@@ -122,7 +123,7 @@
 
   .order_bar_icon_container_hidden {
     position: fixed;
-    top: 61px;
+    top: 70px;
     right: 0px;
     width: 0px;
     padding: 0px;
@@ -173,8 +174,8 @@
 
 .icon_box {
   cursor: pointer;
-  width: 70px;
-  height: 50px;
+  width: 80px;
+  height: 60px;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -194,26 +195,25 @@
 
 .icon_box_active {
   cursor: pointer;
-  width: 70px;
-  height: 50px;
+  width: 80px;
+  height: 60px;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   margin-right: 5px;
   color: beige;
-  border: 1px solid beige;
   background-color: #374151;
 }
 
 .icon {
-  font-size: 1.6rem;
+  font-size: 1.8rem;
   padding: 0px;
   margin-bottom: -5px;
 }
 
 .icon_text {
-  font-size: 0.8rem;
+  font-size: 0.9rem;
   padding: 0px;
   margin: 0px;
 }

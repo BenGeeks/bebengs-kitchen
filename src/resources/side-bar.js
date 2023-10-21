@@ -1,7 +1,6 @@
-export const SALES_HEADER = [
-  { display: 'Cash', name: 'cashTotal' },
-  { display: 'G-Cash', name: 'gCashTotal' },
-  { display: 'Total', name: 'dailyTotal' },
+export const COLLECTIBLE_HEADER = [
+  { display: 'Customer Name', name: 'name' },
+  { display: 'Amount', name: 'amount' },
 ];
 
 export const COUNT_HEADER = [

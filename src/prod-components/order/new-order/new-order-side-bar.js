@@ -4,14 +4,23 @@ import Table from '@/assets/table';
 import { ORDER_ITEMS_HEADER } from '@/resources/orders';
 import newOrderStyles from '@/styles/new-order.module.css';
 
-const NewOrderSideBar = ({ selectedCustomer, orderDetails, items, step, setStep, onCancel, onSave }) => {
+const NewOrderSideBar = ({ selectedCustomer, orderDetails, items, step, setStep, onCancel, onSave, edit, setEdit }) => {
   let total = items.reduce((total, data) => data.subTotal + total, 0) - +orderDetails.downPayment;
+
+  const customerClickHandler = () => {
+    if (step === 1) {
+      setStep(2);
+      setEdit(2);
+    } else {
+      setEdit(1);
+    }
+  };
   return (
     <div className={newOrderStyles.container}>
       <div className={newOrderStyles.main_box}>
         <h2 className={newOrderStyles.header}>New Order</h2>
         {selectedCustomer && (
-          <div className={newOrderStyles.customer_box} onClick={() => (setStep === 2 ? setStep(1) : setStep(2))}>
+          <div className={newOrderStyles.customer_box} onClick={customerClickHandler}>
             <div className={newOrderStyles.sub_header}>Customer's Info:</div>
             <div className={newOrderStyles.info_container}>
               <div className={newOrderStyles.title}>Name: </div>
@@ -32,7 +41,7 @@ const NewOrderSideBar = ({ selectedCustomer, orderDetails, items, step, setStep,
           </div>
         )}
         {orderDetails && step >= 2 && (
-          <div className={newOrderStyles.customer_box} onClick={() => setStep(2)}>
+          <div className={newOrderStyles.customer_box} onClick={() => setEdit(2)}>
             <div className={newOrderStyles.sub_header}>Order Details:</div>
             <div className={newOrderStyles.info_container}>
               <div className={newOrderStyles.title}>Delivery Date: </div>
@@ -53,7 +62,7 @@ const NewOrderSideBar = ({ selectedCustomer, orderDetails, items, step, setStep,
           </div>
         )}
         {step === 3 && (
-          <div className={newOrderStyles.customer_box} onClick={() => setStep(1)}>
+          <div className={newOrderStyles.customer_box} onClick={() => (edit === 3 ? setEdit(4) : setEdit(3))}>
             <div className={newOrderStyles.sub_header}>Shopping Cart:</div>
             <div className={newOrderStyles.table_container}>
               <Table headers={ORDER_ITEMS_HEADER} data={items} />

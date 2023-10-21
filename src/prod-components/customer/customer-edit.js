@@ -10,10 +10,10 @@ import { INPUT, SCHEMA } from '@/resources/customers';
 import apiRequest from '@/lib/axios';
 import modalStyles from '@/styles/modal.module.css';
 
-const CustomerNew = ({ close, onAddCustomerSuccess }) => {
+const CustomerEdit = ({ close, onAddCustomerSuccess, data }) => {
   const queryClient = useQueryClient();
 
-  const newCustomerMutation = useMutation({
+  const editCustomerMutation = useMutation({
     mutationFn: (payload) => apiRequest({ url: 'customers', method: 'POST', data: payload }),
     onSuccess: (response) => {
       onAddCustomerSuccess(response.data);
@@ -26,8 +26,8 @@ const CustomerNew = ({ close, onAddCustomerSuccess }) => {
     },
   });
 
-  if (newCustomerMutation.isLoading) return <LoadingPage />;
-  if (newCustomerMutation.isError) return <ErrorPage error={JSON.stringify(newCustomerMutation.error)} />;
+  if (editCustomerMutation.isLoading) return <LoadingPage />;
+  if (editCustomerMutation.isError) return <ErrorPage error={JSON.stringify(editCustomerMutation.error)} />;
 
   return (
     <>
@@ -40,10 +40,17 @@ const CustomerNew = ({ close, onAddCustomerSuccess }) => {
         </div>
       </div>
       <div className={modalStyles.modal_body}>
-        <ReactForm layout={INPUT} schema={SCHEMA} onSubmit={(data) => newCustomerMutation.mutate(data)} onCancel={close} action="Add" />
+        <ReactForm
+          layout={INPUT}
+          schema={SCHEMA}
+          defaultValues={data}
+          onSubmit={(data) => editCustomerMutation.mutate(data)}
+          onCancel={close}
+          action="Add"
+        />
       </div>
     </>
   );
 };
 
-export default CustomerNew;
+export default CustomerEdit;

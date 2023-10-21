@@ -2,12 +2,13 @@ import moment from 'moment';
 
 import Customer from './new-order-components/customer';
 import NewOrderSelectItem from './new-order-components/select-item';
+import EditShoppingCart from './new-order-components/edit-cart';
 import ReactForm from '@/assets/react-form';
 import { ORDER_DETAILS_INPUT, ORDER_DETAILS_SCHEMA } from '@/resources/orders';
 import pageStyles from '@/styles/page.module.css';
 import newOrderStyles from '@/styles/new-order.module.css';
 
-const NewOrderMainPage = ({ setSelectedCustomer, setOrderDetails, orderDetails, step, setStep, onAddItem }) => {
+const NewOrderMainPage = ({ setSelectedCustomer, setOrderDetails, orderDetails, setEdit, edit, setStep, onAddItem, items, setItems }) => {
   const updateDetailsHandler = (data) => {
     let tempData = {
       deliveryDate: data && data.deliveryDate ? data.deliveryDate : moment().format('YYYY-MM-DD'),
@@ -16,41 +17,38 @@ const NewOrderMainPage = ({ setSelectedCustomer, setOrderDetails, orderDetails, 
     };
     setOrderDetails(tempData);
     setStep(3);
+    setEdit(3);
+  };
+
+  const cancelHandler = () => {
+    setStep(1);
+    setEdit(1);
   };
 
   return (
-    <>
-      {step === 1 && (
-        <div className={pageStyles.page_container}>
-          <Customer setSelectedCustomer={setSelectedCustomer} setStep={setStep} />
-        </div>
-      )}
-      {step === 2 && orderDetails && (
-        <div className={pageStyles.page_container}>
-          <div className={newOrderStyles.main_page}>
-            <div className={newOrderStyles.header_bar}>
-              <h3 className={newOrderStyles.header_bar_title}>Order Details:</h3>
-            </div>
-            <ReactForm
-              layout={ORDER_DETAILS_INPUT}
-              schema={ORDER_DETAILS_SCHEMA}
-              action={'Add'}
-              defaultValues={{
-                ...orderDetails,
-                deliveryDate: moment(orderDetails.deliveryDate).format('yyyy-MM-DD'),
-              }}
-              onSubmit={updateDetailsHandler}
-              onCancel={() => setStep(1)}
-            />
+    <div className={pageStyles.page_container}>
+      {edit === 1 && <Customer setSelectedCustomer={setSelectedCustomer} setStep={setStep} setEdit={setEdit} />}
+      {edit === 2 && orderDetails && (
+        <div className={newOrderStyles.main_page}>
+          <div className={newOrderStyles.header_bar}>
+            <h3 className={newOrderStyles.header_bar_title}>Order Details:</h3>
           </div>
+          <ReactForm
+            layout={ORDER_DETAILS_INPUT}
+            schema={ORDER_DETAILS_SCHEMA}
+            action={'Add'}
+            defaultValues={{
+              ...orderDetails,
+              deliveryDate: moment(orderDetails.deliveryDate).format('yyyy-MM-DD'),
+            }}
+            onSubmit={updateDetailsHandler}
+            onCancel={cancelHandler}
+          />
         </div>
       )}
-      {step === 3 && (
-        <div className={pageStyles.page_container}>
-          <NewOrderSelectItem onAddItem={onAddItem} />
-        </div>
-      )}
-    </>
+      {edit === 3 && <NewOrderSelectItem onAddItem={onAddItem} />}
+      {edit === 4 && <EditShoppingCart setEdit={setEdit} items={items} setItems={setItems} />}
+    </div>
   );
 };
 

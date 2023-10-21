@@ -35,7 +35,7 @@ const TopBar = ({ currentPage, setCurrentPage }) => {
               title="Add order"
               onClick={() => setCurrentPage(icon.name)}
             >
-              <div className={iconStyles.icon2}>{icon.icon}</div>
+              <div className={iconStyles.icon}>{icon.icon}</div>
               <p className={iconStyles.icon_text}>{icon.title}</p>
             </div>
           );

@@ -6,7 +6,7 @@ import { IoFastFoodOutline } from 'react-icons/io5';
 
 import iconStyles from '@/styles/icons.module.css';
 
-const NewOrderIconBar = ({ setCurrentPage, reset, step }) => {
+const NewOrderIconBar = ({ reset, step, onCancel, addCustomer }) => {
   const [showIcons, setShowIcons] = useState(false);
 
   return (
@@ -18,7 +18,7 @@ const NewOrderIconBar = ({ setCurrentPage, reset, step }) => {
         <p className={iconStyles.order_right_icon_text}>Actions</p>
       </div>
 
-      <div className={iconStyles.order_right_icon_box} title="Cancel" onClick={() => setCurrentPage('order-list')}>
+      <div className={iconStyles.order_right_icon_box} title="Cancel" onClick={() => onCancel()}>
         <div className={iconStyles.order_right_icon}>
           <ImCancelCircle />
         </div>
@@ -31,7 +31,7 @@ const NewOrderIconBar = ({ setCurrentPage, reset, step }) => {
         <p className={iconStyles.order_right_icon_text}>Reset</p>
       </div>
       {step === 1 && (
-        <div className={iconStyles.order_right_icon_box} title="Add customer">
+        <div className={iconStyles.order_right_icon_box} title="Add customer" onClick={addCustomer}>
           <div className={iconStyles.order_right_icon}>
             <BiUserPlus />
           </div>

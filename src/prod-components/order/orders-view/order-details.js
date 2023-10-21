@@ -14,10 +14,13 @@ const OrderDetails = ({ order, onView }) => {
     <>
       <div className={orderStyles.cell_order_details}>
         <div className={orderStyles.cell_customer}>{order && order.orderDetails.customer.displayName}</div>
-        <div className={orderStyles.cell_delivery_time}>
-          {order && order.deliveryTime && moment(order.deliveryTime, 'HH:mm').format('h:mm a')}
-        </div>
-        <div className={orderStyles.cell_delivery_time}>₱ {order && order.downPayment}</div>
+        {order.deliveryTime !== '00:00' && (
+          <div className={orderStyles.cell_delivery_time}>
+            {order && order.deliveryTime && moment(order.deliveryTime, 'HH:mm').format('h:mm a')}
+          </div>
+        )}
+        {order.downPayment !== 0 && <div className={orderStyles.cell_delivery_time}>₱ {order && order.downPayment}</div>}
+
         <div className={iconStyles.icons_container}>
           <div className={iconStyles.small_icon} onClick={() => onView(order)}>
             <RiEditLine />

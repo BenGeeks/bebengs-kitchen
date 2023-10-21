@@ -1,5 +1,5 @@
 'use client';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { toast } from 'react-toastify';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 
@@ -11,10 +11,9 @@ import apiRequest from '@/lib/axios';
 
 const DailyOrderListView = ({ setCurrentPage }) => {
   const queryClient = useQueryClient();
-  const [salesData, setSalesData] = useState([{ cashTotal: 0, gCashTotal: 0, dailyTotal: 0 }]);
+  const [salesData, setSalesData] = useState({ cashTotal: 0, gCashTotal: 0, dailyTotal: 0 });
   const [salesCount, setSalesCount] = useState([]);
-  const [collectibleData, setCollectibleData] = useState([{ cashTotal: 0, gCashTotal: 0, dailyTotal: 0 }]);
-  const [collectibleCount, setCollectibleCount] = useState([]);
+  const [collectibleData, setCollectibleData] = useState([]);
   const [onAdd, setOnAdd] = useState(false);
   const [viewData, setViewData] = useState({});
   const [viewModal, setViewModal] = useState(false);
@@ -25,11 +24,8 @@ const DailyOrderListView = ({ setCurrentPage }) => {
     let summary = {};
     let cash = 0;
     let gCash = 0;
-    let tempArrayCollectible = [];
-    let summaryCollectible = {};
-    let cashCollectible = 0;
-    let gCashCollectible = 0;
-    sales.forEach((order) => {
+    let collectibles = [];
+    sales?.forEach((order) => {
       if (order.isPaid) {
         if (order.isGcash) gCash = gCash + order.total;
         if (!order.isGcash) cash = cash + order.total;
@@ -40,43 +36,33 @@ const DailyOrderListView = ({ setCurrentPage }) => {
             summary[item._id] = item;
           }
         });
-      } else {
-        if (order.isGcash) gCashCollectible = gCashCollectible + order.total;
-        if (!order.isGcash) cashCollectible = cashCollectible + order.total;
-        order.orderDetails.items.forEach((item) => {
-          if (summaryCollectible[item._id]) {
-            summaryCollectible[item._id] = { ...item, qty: summaryCollectible[item._id].qty + item.qty };
-          } else {
-            summaryCollectible[item._id] = item;
-          }
-        });
+      }
+
+      if (order.isDelivered && !order.isPaid) {
+        collectibles.push({ name: order.orderDetails.customer.displayName, amount: order.total });
       }
     });
     const keys = Object.keys(summary);
     keys.forEach((key) => {
       tempArray.push(summary[key]);
     });
+
+    setSalesData({ cashTotal: cash, gCashTotal: gCash, dailyTotal: cash + gCash });
     setSalesCount(tempArray);
-
-    const keysCollectible = Object.keys(summaryCollectible);
-    keysCollectible.forEach((key) => {
-      tempArrayCollectible.push(summaryCollectible[key]);
-    });
-    setCollectibleCount(tempArrayCollectible);
-
-    setSalesData([{ cashTotal: cash, gCashTotal: gCash, dailyTotal: cash + gCash }]);
-    setCollectibleData([{ cashTotal: cashCollectible, gCashTotal: gCashCollectible, dailyTotal: cashCollectible + gCashCollectible }]);
+    setCollectibleData(collectibles);
   };
 
   const orderQuery = useQuery({
     queryKey: ['orders'],
     queryFn: () => apiRequest({ url: 'orders/today', method: 'GET' }).then((res) => res.data),
-    staleTime: 20000,
+    staleTime: 0,
     refetchInterval: 20000,
     onSuccess: (orders) => {
       summarizeReport(orders);
     },
   });
+
+  useEffect(() => summarizeReport(orderQuery.data), []);
 
   const newOrderMutation = useMutation({
     mutationFn: (data) => apiRequest({ url: `orders`, method: 'POST', data: data }),
@@ -122,13 +108,7 @@ const DailyOrderListView = ({ setCurrentPage }) => {
 
   return (
     <>
-      <OrdersSideBar
-        salesData={salesData}
-        salesCount={salesCount}
-        collectibleData={collectibleData}
-        collectibleCount={collectibleCount}
-        viewReport={viewReport}
-      />
+      <OrdersSideBar salesData={salesData} salesCount={salesCount} collectibleData={collectibleData} viewReport={viewReport} />
       <OrdersMainPage
         orderQuery={orderQuery}
         onSaveHandler={onSaveHandler}

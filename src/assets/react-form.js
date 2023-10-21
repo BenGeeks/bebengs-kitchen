@@ -2,7 +2,7 @@ import React from 'react';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 
-import styles from './react-form.module.css';
+import styles from '@/styles/react-form.module.css';
 
 const ReactForm = ({ layout, schema, defaultValues, onSubmit, onCancel, action }) => {
   const {

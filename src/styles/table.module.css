@@ -1,9 +1,8 @@
 .table_container {
   width: 99%;
-  border-right: 1px solid #374151;
-  border-left: 1px solid #374151;
-  border-bottom: 1px solid #374151;
+  border: 1px solid #374151;
   overflow: auto;
+  padding: 5px;
 }
 
 .table {
@@ -11,6 +10,7 @@
   border-spacing: 0px;
   background-color: white;
   border-bottom: 1px solid #374151;
+  border-left: 1px solid #374151;
 }
 
 .table_head_row {
@@ -30,16 +30,17 @@
   padding-left: 5px;
   display: flex;
   align-items: center;
+  border-right: 1px solid #374151;
 }
 
 .table_row {
-  height: 50px;
+  height: 30px;
   margin-top: 2px;
   vertical-align: text-top;
 }
 
 .table_row_clickable {
-  height: 50px;
+  height: 40px;
   margin-top: 2px;
   cursor: pointer;
 }
@@ -50,9 +51,10 @@
 
 .cell {
   border-top: 1px solid #374151;
+  border-right: 1px solid #374151;
   padding: 5px;
   text-align: left;
-  font-size: 1.2rem;
+  font-size: 1rem;
   color: #374151;
 }
 
@@ -64,6 +66,7 @@
 
 .cell_total {
   border-top: 1px solid #374151;
+  border-right: 1px solid #374151;
   text-align: right;
   padding-right: 8px;
   font-weight: 700;

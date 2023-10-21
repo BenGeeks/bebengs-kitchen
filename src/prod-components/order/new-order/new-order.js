@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import { toast } from 'react-toastify';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 
+import ModalWide from '@/assets/modal-wide';
+import CustomerNew from '@/prod-components/customer/customer-new';
 import NewOrderIconBar from './new-order-icon-bar';
 import NewOrderMainPage from './new-order-main-page';
 import NewOrderSideBar from './new-order-side-bar';
@@ -14,6 +16,8 @@ const NewOrderPage = ({ setCurrentPage }) => {
   const [items, setItems] = useState([]);
   const [orderDetails, setOrderDetails] = useState(DEFAULT_ORDER_DETAILS);
   const [step, setStep] = useState(1);
+  const [edit, setEdit] = useState(1);
+  const [addCustomer, setAddCustomer] = useState(false);
 
   const newOrderMutation = useMutation({
     mutationFn: (data) => apiRequest({ url: `orders`, method: 'POST', data: data }),
@@ -32,6 +36,7 @@ const NewOrderPage = ({ setCurrentPage }) => {
       setItems([]);
       setOrderDetails(DEFAULT_ORDER_DETAILS);
       setStep(1);
+      setEdit(1);
     }
   };
 
@@ -80,8 +85,18 @@ const NewOrderPage = ({ setCurrentPage }) => {
     setCurrentPage('order-list');
   };
 
+  const onAddCustomerSuccess = (customer) => {
+    console.log('ON ADD CUSTOMER SUCCESS DATA: ', customer);
+    setSelectedCustomer({ ...customer, displayName: `${customer.name} - ${customer.address} B-${customer.block} L-${customer.lot}` });
+    setStep(2);
+    setEdit(2);
+  };
+
   return (
     <>
+      <ModalWide open={addCustomer} close={() => setAddCustomer(false)}>
+        <CustomerNew close={() => setAddCustomer(false)} onAddCustomerSuccess={onAddCustomerSuccess} />
+      </ModalWide>
       <NewOrderSideBar
         selectedCustomer={selectedCustomer}
         orderDetails={orderDetails}
@@ -90,6 +105,8 @@ const NewOrderPage = ({ setCurrentPage }) => {
         items={items}
         onSave={onSaveHandler}
         onCancel={onCancelHandler}
+        edit={edit}
+        setEdit={setEdit}
       />
       <NewOrderMainPage
         setSelectedCustomer={setSelectedCustomer}
@@ -98,8 +115,18 @@ const NewOrderPage = ({ setCurrentPage }) => {
         step={step}
         setStep={setStep}
         onAddItem={addToCartHandler}
+        edit={edit}
+        setEdit={setEdit}
+        items={items}
+        setItems={setItems}
       />
-      <NewOrderIconBar setCurrentPage={setCurrentPage} reset={resetFormHandler} step={step} />
+      <NewOrderIconBar
+        setCurrentPage={setCurrentPage}
+        reset={resetFormHandler}
+        step={step}
+        onCancel={onCancelHandler}
+        addCustomer={() => setAddCustomer(true)}
+      />
     </>
   );
 };
