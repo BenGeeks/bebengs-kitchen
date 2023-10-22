@@ -1,0 +1,131 @@
+.page_body {
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+  align-items: center;
+  min-height: 100vh;
+  background-image: url('/images/bebengskitchen.jpg');
+  background-position: bottom right;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.page_main {
+  width: 100%;
+  height: calc(100vh - 60px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.container {
+  padding: 40px 60px;
+  border: 1px solid #374151;
+  background-color: rgba(245, 245, 220, 0.8);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.soon_to_rise {
+  font-size: 36px;
+  font-family: 'Merienda', cursive;
+  color: #d9534f;
+}
+
+.logo {
+  font-size: 72px;
+  font-family: 'Kaushan Script', cursive;
+  color: #374151;
+}
+
+.tagline {
+  font-family: 'Josefin Sans', sans-serif;
+  color: #374151;
+  font-size: 36px;
+}
+
+.login_container {
+  padding: 20px 60px;
+  border: 1px solid #374151;
+  background-color: rgba(245, 245, 220, 0.8);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.login_form {
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+}
+.login_set {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 10px;
+}
+
+.login_label {
+  font-size: 2rem;
+}
+
+.login_input {
+  font-size: 2rem;
+  padding: 10px;
+}
+
+.login_btn {
+  font-size: 2rem;
+  padding: 10px;
+  background-color: #0275d8;
+  border: 1px solid #374151;
+  transition: all 0.3s ease-out;
+  cursor: pointer;
+}
+
+.login_btn:hover {
+  background-color: #374151;
+  border: 1px solid #0275d8;
+  color: #0275d8;
+}
+
+@media (max-width: 768px) {
+  .container {
+    padding: 20px 30px;
+    border: 1px solid #374151;
+  }
+
+  .soon_to_rise {
+    font-size: 18px;
+  }
+
+  .logo {
+    font-size: 36px;
+  }
+
+  .tagline {
+    font-size: 18px;
+  }
+
+  .login_container {
+    margin-top: 150px;
+    padding: 10px 30px;
+  }
+
+  .login_form {
+    padding: 10px;
+  }
+
+  .login_label {
+    font-size: 1.2rem;
+  }
+
+  .login_input {
+    font-size: 1.2rem;
+    padding: 5px;
+  }
+
+  .login_btn {
+    font-size: 1.2rem;
+    padding: 10px;
+  }
+}

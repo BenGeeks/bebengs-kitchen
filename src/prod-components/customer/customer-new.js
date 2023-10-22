@@ -4,8 +4,6 @@ import { RiCloseCircleLine } from 'react-icons/ri';
 import { toast } from 'react-toastify';
 
 import ReactForm from '@/assets/react-form';
-import LoadingPage from '@/assets/loading';
-import ErrorPage from '@/assets/error';
 import { SCHEMA } from '@/resources/customers';
 import apiRequest from '@/lib/axios';
 import modalStyles from '@/styles/modal.module.css';
@@ -40,9 +38,6 @@ const CustomerNew = ({ close }) => {
     { type: 'number', name: 'block', label: 'Block' },
     { type: 'number', name: 'lot', label: 'Lot' },
   ];
-
-  if (newCustomerMutation.isLoading) return <LoadingPage />;
-  if (newCustomerMutation.isError) return <ErrorPage error={JSON.stringify(newCustomerMutation.error)} />;
 
   return (
     <>

@@ -1,22 +1,10 @@
-.main {
-  display: flex;
-  width: 100%;
-  flex-direction: column;
-  align-items: center;
-  min-height: 100vh;
-  background-image: url('/images/bebengskitchen.jpg');
-  background-position: bottom right;
-  background-repeat: no-repeat;
-  background-size: cover;
-}
-
 .main_top_bar {
   background-color: beige;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 5px 10px;
-  margin-bottom: 30px;
+  padding: 0px 10px;
+  height: 60px;
   width: 100%;
 }
 
@@ -60,23 +48,11 @@
   color: beige;
 }
 
-.soon_to_rise {
-  font-size: 64px;
-  padding: 40px 60px;
-  border: 1px solid #374151;
-  background-color: rgba(245, 245, 220, 0.5);
-  margin-top: 200px;
-  font-family: 'Merienda', cursive;
-  color: #374151;
+.main_nav_active {
+  background-color: red;
 }
 
 @media (max-width: 768px) {
-  .soon_to_rise {
-    font-size: 36px;
-    padding: 20px 30px;
-    margin-top: 350px;
-  }
-
   .logo {
     font-size: 24px;
     margin-right: 10px;
@@ -84,5 +60,12 @@
 
   .description {
     display: none;
+  }
+
+  .main_nav {
+    padding: 10px 5px;
+  }
+  .main_nav:hover {
+    padding: 10px 5px;
   }
 }

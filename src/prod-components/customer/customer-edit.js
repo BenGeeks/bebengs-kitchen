@@ -4,8 +4,6 @@ import { RiCloseCircleLine } from 'react-icons/ri';
 import { toast } from 'react-toastify';
 
 import ReactForm from '@/assets/react-form';
-import LoadingPage from '@/assets/loading';
-import ErrorPage from '@/assets/error';
 import { INPUT, SCHEMA } from '@/resources/customers';
 import apiRequest from '@/lib/axios';
 import modalStyles from '@/styles/modal.module.css';
@@ -24,9 +22,6 @@ const CustomerEdit = ({ close, customer }) => {
       toast.error(error.response.data.error.message);
     },
   });
-
-  if (editCustomerMutation.isLoading) return <LoadingPage />;
-  if (editCustomerMutation.isError) return <ErrorPage error={JSON.stringify(editCustomerMutation.error)} />;
 
   return (
     <>

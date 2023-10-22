@@ -22,7 +22,7 @@ const Step1 = ({ sortedMenuList, recentItemList, selectItemHandler }) => {
                   style={
                     item.imageUrl
                       ? { backgroundImage: 'url(' + item.imageUrl + ')' }
-                      : { backgroundImage: 'url(/images/jabe_value_meal.jpeg)' }
+                      : { backgroundImage: 'url(/images/orange_travelpictdinner.png)' }
                   }
                 >
                   <div className={newOrderStyles.card_name}>{item.itemName}</div>
