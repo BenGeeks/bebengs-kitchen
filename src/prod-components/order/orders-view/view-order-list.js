@@ -11,6 +11,7 @@ import apiRequest from '@/lib/axios';
 
 const DailyOrderListView = ({ setCurrentPage }) => {
   const queryClient = useQueryClient();
+  const userData = queryClient.getQueryData(['user']);
   const [salesData, setSalesData] = useState({ cashTotal: 0, gCashTotal: 0, dailyTotal: 0 });
   const [salesCount, setSalesCount] = useState([]);
   const [collectibleData, setCollectibleData] = useState([]);
@@ -54,7 +55,7 @@ const DailyOrderListView = ({ setCurrentPage }) => {
 
   const orderQuery = useQuery({
     queryKey: ['orders'],
-    queryFn: () => apiRequest({ url: 'orders/today', method: 'GET' }).then((res) => res.data),
+    queryFn: () => apiRequest({ url: 'orders/today', method: 'GET', token: userData?.token }).then((res) => res.data),
     staleTime: 0,
     refetchInterval: 20000,
     onSuccess: (orders) => {

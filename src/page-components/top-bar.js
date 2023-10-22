@@ -1,8 +1,13 @@
 import Link from 'next/link';
+import { useRouter } from 'next/router';
+import { signIn } from 'next-auth/react';
+import GoogleButton from 'react-google-button';
 
 import topBarStyles from '@/page-styles/top-bar.module.css';
 
 const TopBar = () => {
+  const router = useRouter();
+
   return (
     <div className={topBarStyles.main_top_bar}>
       <div className={topBarStyles.logo_container}>
@@ -12,13 +17,7 @@ const TopBar = () => {
         <p className={topBarStyles.description}>~ Where every bite is a delight! ~</p>
       </div>
       <div className={topBarStyles.nav_container}>
-        <Link className={topBarStyles.main_nav} activeClassName={topBarStyles.main_nav_active} href="/">
-          HOME
-        </Link>
-
-        <Link className={topBarStyles.main_nav} href="/login">
-          LOGIN
-        </Link>
+        <GoogleButton onClick={() => signIn('google').then(() => router.push('/prod'))} />
       </div>
     </div>
   );
