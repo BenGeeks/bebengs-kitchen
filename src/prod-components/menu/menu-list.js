@@ -1,58 +1,57 @@
 'use client';
-import React, { useState } from 'react';
-import { RiAddCircleLine } from 'react-icons/ri';
+import React, { useState, useEffect } from 'react';
 
-import Modal from '@/assets/modal';
-import MenuViewModal from './menu-view-modal';
-import MenuNewModal from './menu-new-modal';
-import { DEFAULT_MENU_ITEM } from '@/resources/menu';
-import pageStyles from '@/styles/page.module.css';
-import cardStyles from '@/styles/card.module.css';
+import Table from '@/assets/table';
+import LoadingPage from '@/assets/loading';
+import ErrorPage from '@/assets/error';
+import { MENU_HEADER } from '@/resources/menu';
+import menuStyles from '@/styles/menu.module.css';
 
-const MenuList = ({ menuQuery }) => {
-  const [modalOpen, setModalOpen] = useState(false);
-  const [openNewModal, setOpenNewModal] = useState(false);
-  const [action, setAction] = useState('');
-  const [menuData, setMenuData] = useState(DEFAULT_MENU_ITEM);
+const MenuList = ({ menuQuery, onSelectMenu }) => {
+  const [menuList, setMenuList] = useState([]);
+  const [searchValue, setSearchValue] = useState('');
 
-  const onAddMenu = () => {
-    setOpenNewModal(true);
+  const sortData = (menu) => {
+    let sortedData = menu.sort((a, b) => {
+      if (a.itemName.toLowerCase() > b.itemName.toLowerCase()) return 1;
+      if (a.itemName.toLowerCase() < b.itemName.toLowerCase()) return -1;
+      return 0;
+    });
+    return sortedData;
   };
 
-  const onViewMenu = (data) => {
-    setModalOpen(true);
-    setAction('View');
-    setMenuData(data);
-  };
+  useEffect(() => {
+    let data = menuQuery?.data ? menuQuery.data : [];
+    let tempData = data.filter((menu) => menu.itemName.toLowerCase().includes(searchValue.toLowerCase()));
+    searchValue.length === 0 ? setMenuList(data) : setMenuList([...tempData]);
+  }, [searchValue, menuQuery]);
 
-  const onCancel = () => {
-    setMenuData(DEFAULT_MENU_ITEM);
-    setModalOpen(false);
-  };
+  if (menuQuery.isLoading) return <LoadingPage />;
+  if (menuQuery.isError) return <ErrorPage error={JSON.stringify(menuQuery.error)} />;
 
-  if (menuQuery.isLoading) return <h1>Loading...</h1>;
-  if (menuQuery.isError) return <pre> {JSON.stringify(menuQuery.error)}</pre>;
   return (
-    <div className={pageStyles.page_container}>
-      <div className={pageStyles.floating_icon} onClick={onAddMenu}>
-        <RiAddCircleLine />
+    <div className={menuStyles.page_container}>
+      <div className={menuStyles.main_page}>
+        <div className={menuStyles.header_bar}>
+          <h3 className={menuStyles.header_bar_title}>Menu List:</h3>
+          <input
+            className={menuStyles.search_input}
+            type="text"
+            placeholder="Search"
+            value={searchValue}
+            onChange={(e) => setSearchValue(e.target.value)}
+          />
+        </div>
+
+        <Table
+          headers={MENU_HEADER}
+          data={sortData(menuList)}
+          enableDelete={false}
+          enableEdit={false}
+          enableRowClick={true}
+          onRowClick={onSelectMenu}
+        />
       </div>
-      <Modal open={modalOpen}>
-        <MenuViewModal onClose={onCancel} action={action} data={menuData} id={menuData._id} />
-      </Modal>
-      <Modal open={openNewModal}>
-        <MenuNewModal onClose={() => setOpenNewModal(false)} />
-      </Modal>
-      {menuQuery.data.map((item, index) => {
-        return (
-          <div key={index} className={cardStyles.menu_cards_container}>
-            <div className={cardStyles.menu_card} onClick={() => onViewMenu(item)}>
-              <img src={item.imageUrl} className={cardStyles.menu_card_image} />
-              <h3 className={cardStyles.menu_card_name}>{item.itemName}</h3>
-            </div>
-          </div>
-        );
-      })}
     </div>
   );
 };

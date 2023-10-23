@@ -1,20 +1,18 @@
 import { useState } from 'react';
-import { signIn, useSession } from 'next-auth/react';
+import { signIn } from 'next-auth/react';
 import { useRouter } from 'next/router';
+
 import TopBar from '@/page-components/top-bar';
 import pageStyles from '@/page-styles/pages.module.css';
 
 const Login = () => {
-  const session = useSession();
   const router = useRouter();
   const [pin, setPin] = useState('');
 
-  const handleLogIn = async () => {
-    signIn('credentials', { redirect: false, pin: pin });
+  const handleLogIn = () => {
     setPin('');
+    signIn('credentials', { redirect: false, pin: pin }, router.push('/prod'));
   };
-
-  if (session.status === 'authenticated') return router.push('/prod');
 
   return (
     <div className={pageStyles.page_body}>

@@ -17,8 +17,12 @@ export const authOptions = {
       },
     }),
   ],
-  session: {
-    jwt: true,
+  session: { jwt: true },
+  secret: process.env.NEXTAUTH_SECRET,
+  callbacks: {
+    session: async (session) => {
+      return Promise.resolve(session);
+    },
   },
 };
 export default NextAuth(authOptions);

@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { signOut } from 'next-auth/react';
 
 import pageStyles from '@/styles/page.module.css';
 import iconStyles from '@/styles/icons.module.css';
@@ -8,7 +9,7 @@ import { BsClipboardCheck } from 'react-icons/bs';
 import { FaRegMoneyBillAlt } from 'react-icons/fa';
 import { AiOutlineDashboard } from 'react-icons/ai';
 import { PiHandCoins } from 'react-icons/pi';
-import { RiContactsBookLine } from 'react-icons/ri';
+import { RiContactsBookLine, RiLogoutCircleLine } from 'react-icons/ri';
 
 const TopBar = ({ currentPage, setCurrentPage }) => {
   const [showNavBar, setShowNavBar] = useState(true);
@@ -32,7 +33,7 @@ const TopBar = ({ currentPage, setCurrentPage }) => {
             <div
               key={icon.name}
               className={currentPage === icon.name ? iconStyles.icon_box_active : iconStyles.icon_box}
-              title="Add order"
+              title={icon.name}
               onClick={() => setCurrentPage(icon.name)}
             >
               <div className={iconStyles.icon}>{icon.icon}</div>
@@ -40,6 +41,12 @@ const TopBar = ({ currentPage, setCurrentPage }) => {
             </div>
           );
         })}
+        <div className={iconStyles.icon_box} title="logout" onClick={() => signOut()}>
+          <div className={iconStyles.icon}>
+            <RiLogoutCircleLine />
+          </div>
+          <p className={iconStyles.icon_text}>Logout</p>
+        </div>
       </div>
       <div className={showNavBar ? iconStyles.icons_top_bar_show : iconStyles.icons_top_bar_hide}>
         {ICON_LIST.map((icon) => {
@@ -53,11 +60,17 @@ const TopBar = ({ currentPage, setCurrentPage }) => {
                 setShowNavBar(false);
               }}
             >
-              <div className={iconStyles.icon2}>{icon.icon}</div>
+              <div className={iconStyles.icon}>{icon.icon}</div>
               <p className={iconStyles.icon_text}>{icon.title}</p>
             </div>
           );
         })}
+        <div className={iconStyles.icon_box} title="logout" onClick={() => signOut()}>
+          <div className={iconStyles.icon}>
+            <RiLogoutCircleLine />
+          </div>
+          <p className={iconStyles.icon_text}>Logout</p>
+        </div>
       </div>
     </div>
   );

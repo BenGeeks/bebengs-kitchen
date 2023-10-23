@@ -47,5 +47,6 @@ export const CUSTOMER_HEADERS = [
   { display: 'Lot', name: 'lot' },
 ];
 
+export const MENU_HEADER = [{ display: 'Item name', name: 'itemName' }];
 export const DEFAULT_MENU_ITEM = { itemName: '', description: '', imageUrl: '' };
 export const DEFAULT_VARIATION_DATA = { size: 'small', qty: 1, price: 100 };
