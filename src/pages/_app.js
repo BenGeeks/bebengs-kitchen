@@ -1,5 +1,6 @@
 import '@/styles/globals.css';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { SessionProvider } from 'next-auth/react';
 import { ToastContainer, Zoom } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Head from 'next/head';
@@ -42,7 +43,9 @@ export default function App({ Component, pageProps }) {
         theme={'colored'}
       />
       <QueryClientProvider client={queryClient}>
-        <Component {...pageProps} />
+        <SessionProvider session={pageProps.session}>
+          <Component {...pageProps} />
+        </SessionProvider>
       </QueryClientProvider>
     </>
   );

@@ -53,39 +53,66 @@
   align-items: center;
 }
 
-.login_form {
+.display {
+  font-size: 40px;
+  background-color: aliceblue;
   display: flex;
-  flex-direction: column;
-  padding: 20px;
-}
-.login_set {
-  display: flex;
-  flex-direction: column;
-  margin-bottom: 10px;
+  justify-content: right;
+  align-items: center;
+  letter-spacing: 5px;
+  margin: 5px;
+  border: 1px solid #374151;
+  height: 60px;
 }
 
-.login_label {
-  font-size: 2rem;
-}
-
-.login_input {
-  font-size: 2rem;
+.grid_container {
+  display: grid;
+  grid-template-columns: auto auto auto;
+  background-color: #0275d8;
   padding: 10px;
+}
+
+.login_btn_container {
+  background-color: #0275d8;
+  padding: 10px;
+  width: 100%;
+}
+
+.grid_item {
+  cursor: pointer;
+  background-color: aliceblue;
+  border: 1px solid #374151;
+  width: 60px;
+  height: 60px;
+  font-size: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 5px;
+  transition: all 0.3s ease-out;
+}
+
+.grid_item:hover {
+  background-color: #0275d8;
+  color: aliceblue;
+  border: 1px solid aliceblue;
 }
 
 .login_btn {
-  font-size: 2rem;
+  font-size: 40px;
+  width: 100%;
   padding: 10px;
-  background-color: #0275d8;
+  background-color: aliceblue;
   border: 1px solid #374151;
   transition: all 0.3s ease-out;
   cursor: pointer;
+  text-align: center;
 }
 
 .login_btn:hover {
-  background-color: #374151;
-  border: 1px solid #0275d8;
-  color: #0275d8;
+  background-color: #0275d8;
+  color: aliceblue;
+  border: 1px solid aliceblue;
 }
 
 @media (max-width: 768px) {

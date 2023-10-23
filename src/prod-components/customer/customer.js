@@ -87,7 +87,7 @@ const CustomerPage = () => {
       </ModalWide>
 
       <ModalWide open={newModal} close={() => setNewModal(false)}>
-        <CustomerNew close={cancelHandler} />
+        <CustomerNew close={cancelHandler} onAddCustomerSuccess={() => null} />
       </ModalWide>
       <ModalWide open={newAddressModal} close={() => setNewAddressModal(false)}>
         <AddressNew close={() => setNewAddressModal(false)} />

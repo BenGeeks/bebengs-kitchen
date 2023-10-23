@@ -1,15 +1,24 @@
 import NextAuth from 'next-auth';
-import GoogleProvider from 'next-auth/providers/google';
+import CredentialsProvider from 'next-auth/providers/credentials';
+
+import dbConnect from '@/lib/dbConnect';
+
+await dbConnect();
 
 export const authOptions = {
   providers: [
-    GoogleProvider({
-      clientId: process.env.GOOGLE_CLIENT_ID,
-      clientSecret: process.env.GOOGLE_CLIENT_SECRET,
+    CredentialsProvider({
+      async authorize(credentials) {
+        if (credentials.pin === process.env.DEFAULT_PIN) {
+          return { userName: 'Ben Geeks' };
+        } else {
+          throw new Error('Intruder alert');
+        }
+      },
     }),
   ],
   session: {
-    strategy: 'jwt',
+    jwt: true,
   },
 };
 export default NextAuth(authOptions);

@@ -8,7 +8,7 @@ import { SCHEMA } from '@/resources/customers';
 import apiRequest from '@/lib/axios';
 import modalStyles from '@/styles/modal.module.css';
 
-const CustomerNew = ({ close }) => {
+const CustomerNew = ({ close, onAddCustomerSuccess }) => {
   const queryClient = useQueryClient();
 
   const addressQuery = useQuery({
