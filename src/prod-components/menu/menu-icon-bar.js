@@ -4,7 +4,7 @@ import { IoFastFoodOutline } from 'react-icons/io5';
 
 import iconStyles from '@/styles/icons.module.css';
 
-const MenuIconbar = () => {
+const MenuIconbar = ({ addNewMenu }) => {
   const [showIcons, setShowIcons] = useState(false);
 
   return (
@@ -16,11 +16,18 @@ const MenuIconbar = () => {
         <p className={iconStyles.order_right_icon_text}>Actions</p>
       </div>
 
-      <div className={iconStyles.add_order_icon_box} title="Add order" onClick={() => addNewOder(true)}>
+      <div className={iconStyles.add_order_icon_box} title="Add Menu" onClick={() => addNewMenu(true)}>
         <div className={iconStyles.order_right_icon}>
           <IoFastFoodOutline />
         </div>
-        <p className={iconStyles.order_right_icon_text}>Add</p>
+        <p className={iconStyles.order_right_icon_text}>+ Menu</p>
+      </div>
+
+      <div className={iconStyles.add_order_icon_box_mobile} title="Add Menu" onClick={() => addNewMenu(true)}>
+        <div className={iconStyles.order_right_icon}>
+          <IoFastFoodOutline />
+        </div>
+        <p className={iconStyles.order_right_icon_text}>+ Menu</p>
       </div>
     </div>
   );

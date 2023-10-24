@@ -7,7 +7,7 @@ import ErrorPage from '@/assets/error';
 import { MENU_HEADER } from '@/resources/menu';
 import menuStyles from '@/styles/menu.module.css';
 
-const MenuList = ({ menuQuery, onSelectMenu }) => {
+const MenuList = ({ menuQuery, selectMenuHandler, isHalf }) => {
   const [menuList, setMenuList] = useState([]);
   const [searchValue, setSearchValue] = useState('');
 
@@ -30,7 +30,7 @@ const MenuList = ({ menuQuery, onSelectMenu }) => {
   if (menuQuery.isError) return <ErrorPage error={JSON.stringify(menuQuery.error)} />;
 
   return (
-    <div className={menuStyles.page_container}>
+    <div className={isHalf ? menuStyles.page_container_half : menuStyles.page_container_full}>
       <div className={menuStyles.main_page}>
         <div className={menuStyles.header_bar}>
           <h3 className={menuStyles.header_bar_title}>Menu List:</h3>
@@ -49,7 +49,7 @@ const MenuList = ({ menuQuery, onSelectMenu }) => {
           enableDelete={false}
           enableEdit={false}
           enableRowClick={true}
-          onRowClick={onSelectMenu}
+          onRowClick={selectMenuHandler}
         />
       </div>
     </div>

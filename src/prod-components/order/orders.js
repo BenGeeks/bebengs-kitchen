@@ -3,7 +3,7 @@ import { useState } from 'react';
 import DailyOrderListView from './orders-view/view-order-list';
 import NewOrderPage from './new-order/new-order';
 
-const Orders = () => {
+const OrdersPage = () => {
   const [currentPage, setCurrentPage] = useState('order-list');
 
   return (
@@ -14,4 +14,4 @@ const Orders = () => {
   );
 };
 
-export default Orders;
+export default OrdersPage;

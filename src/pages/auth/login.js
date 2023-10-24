@@ -1,17 +1,31 @@
 import { useState } from 'react';
 import { signIn } from 'next-auth/react';
+import { getSession } from 'next-auth/react';
 import { useRouter } from 'next/router';
 
 import TopBar from '@/page-components/top-bar';
 import pageStyles from '@/page-styles/pages.module.css';
+import { toast } from 'react-toastify';
 
 const Login = () => {
   const router = useRouter();
   const [pin, setPin] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
 
-  const handleLogIn = () => {
-    setPin('');
-    signIn('credentials', { redirect: false, pin: pin }, router.push('/prod'));
+  const handleLogIn = async () => {
+    if (pin.length === 6) {
+      setIsLoading(true);
+      setPin('');
+      const session = await signIn('credentials', { redirect: false, pin: pin });
+      if (session.ok) {
+        router.push('/prod');
+      } else {
+        setIsLoading(false);
+        toast.error(session.error);
+      }
+    } else {
+      return toast.error('Pin should be 6 characters long.');
+    }
   };
 
   return (
@@ -61,13 +75,28 @@ const Login = () => {
               🔙
             </div>
           </div>
-          <div className={pageStyles.login_btn_container} onClick={handleLogIn}>
-            <button className={pageStyles.login_btn}>ENTER</button>
+          <div className={pageStyles.login_btn_container} onClick={isLoading ? null : handleLogIn}>
+            <div className={isLoading ? pageStyles.login_btn_loading : pageStyles.login_btn}>{isLoading ? 'Verifying..' : 'ENTER'}</div>
           </div>
         </div>
       </main>
     </div>
   );
 };
+
+export async function getServerSideProps(context) {
+  const session = await getSession(context);
+
+  if (session) {
+    return {
+      redirect: {
+        destination: '/prod',
+        permanent: false,
+      },
+    };
+  }
+
+  return { props: { session } };
+}
 
 export default Login;

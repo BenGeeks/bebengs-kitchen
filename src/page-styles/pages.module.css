@@ -99,13 +99,23 @@
 }
 
 .login_btn {
-  font-size: 40px;
+  font-size: 30px;
   width: 100%;
   padding: 10px;
   background-color: aliceblue;
   border: 1px solid #374151;
   transition: all 0.3s ease-out;
   cursor: pointer;
+  text-align: center;
+}
+
+.login_btn_loading {
+  font-size: 30px;
+  width: 100%;
+  padding: 10px;
+  background-color: #374151;
+  border: 1px solid aliceblue;
+  transition: all 0.3s ease-out;
   text-align: center;
 }
 

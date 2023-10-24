@@ -2,7 +2,7 @@
 /* ==========  MAIN PAGE  ========= */
 /* ================================ */
 
-.page_container {
+.page_container_full {
   width: 100%;
   height: calc(100vh - 80px);
   border: 1px solid beige;
@@ -10,6 +10,29 @@
   padding: 5px 0px;
   display: flex;
   justify-content: center;
+  transition: all 0.5s ease-in-out;
+}
+
+.page_container_half {
+  width: 50%;
+  height: calc(100vh - 80px);
+  border: 1px solid beige;
+  background-color: aliceblue;
+  padding: 5px 0px;
+  display: flex;
+  justify-content: center;
+  transition: all 0.5s ease-in-out;
+}
+
+.page_container_closed {
+  width: 0px;
+  height: calc(100vh - 80px);
+  border: 1px solid beige;
+  background-color: aliceblue;
+  padding: 5px 0px;
+  display: flex;
+  justify-content: center;
+  transition: all 0.5s ease-in-out;
 }
 
 .main_page {
@@ -41,4 +64,45 @@
   margin-right: 5px;
   border: 1px solid #374151;
   padding: 5px;
+}
+
+.side_bar_body {
+  display: flex;
+}
+.image_container {
+  display: flex;
+  background-color: beige;
+  width: 100%;
+  border: 1px solid #374151;
+  margin-bottom: 5px;
+}
+
+.description {
+  padding: 10px;
+  font-size: 1rem;
+  text-align: justify;
+}
+/* ================================ */
+/* =============  ICONS  ========== */
+/* ================================ */
+
+.small_icon {
+  width: 40px;
+  height: 40px;
+  display: flex;
+  color: #374151;
+  background-color: beige;
+  border: 1px solid #374151;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+  cursor: pointer;
+  margin-left: 3px;
+  font-size: 1.6rem;
+}
+
+.small_icon:hover {
+  color: beige;
+  background-color: #374151;
+  border: 1px solid beige;
 }
