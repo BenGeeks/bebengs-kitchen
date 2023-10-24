@@ -1,14 +1,14 @@
-import React from 'react';
 import { RiDeleteBin4Line, RiEditLine } from 'react-icons/ri';
 import { ImCancelCircle } from 'react-icons/im';
 
+import ModalWide from '@/assets/modal-wide';
 import customerStyles from '@/styles/customer.module.css';
 
-const SelectCustomerAction = ({ onCancel, onEdit, onDelete }) => {
+const ActionModal = ({ name, open, close, onCancel, onEdit, onDelete }) => {
   return (
-    <>
+    <ModalWide open={open} close={close}>
       <div className={customerStyles.header_bar}>
-        <h2 className={customerStyles.header_bar_title}>Select an action</h2>
+        <h2 className={customerStyles.header_bar_title}>Select an action for {name}</h2>
       </div>
       <div className={customerStyles.cards_container}>
         <div className={customerStyles.card_edit} onClick={onEdit}>
@@ -30,8 +30,8 @@ const SelectCustomerAction = ({ onCancel, onEdit, onDelete }) => {
           <div className={customerStyles.card_name}>CANCEL</div>
         </div>
       </div>
-    </>
+    </ModalWide>
   );
 };
 
-export default SelectCustomerAction;
+export default ActionModal;

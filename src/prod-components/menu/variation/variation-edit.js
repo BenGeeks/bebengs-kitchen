@@ -3,15 +3,15 @@ import { toast } from 'react-toastify';
 
 import EditNewModal from '@/assets/edit-new-modal';
 import apiRequest from '@/lib/axios';
-import { VARIATION_INPUT, VARIATION_SCHEMA, DEFAULT_VARIATION_DATA } from '@/resources/menu';
+import { VARIATION_INPUT, VARIATION_SCHEMA } from '@/resources/menu';
 
-const NewVariation = ({ open, onCancel, menu }) => {
+const EditVariation = ({ open, onCancel, menu, variation }) => {
   const queryClient = useQueryClient();
 
-  const newVariationMutation = useMutation({
-    mutationFn: (payload) => apiRequest({ url: 'variations', method: 'POST', data: payload }),
+  const updateVariationMutation = useMutation({
+    mutationFn: (payload) => apiRequest({ url: `variations/${payload.id}`, method: 'PUT', data: payload.data }),
     onSuccess: () => {
-      toast.success('A new variation item has been added successfully.');
+      toast.success('Successfully updated.');
       queryClient.invalidateQueries({ queryKey: ['variation'] });
     },
     onError: (error) => {
@@ -20,21 +20,21 @@ const NewVariation = ({ open, onCancel, menu }) => {
   });
 
   const saveVariationHandler = (data) => {
-    newVariationMutation.mutate({ ...data, menuId: menu?._id });
+    updateVariationMutation.mutate({ id: data._id, data: data });
     onCancel();
   };
   return (
     <EditNewModal
-      title={`Add new ${menu?.itemName} variation`}
+      title={`Edit ${menu?.itemName} ${variation?.size} variation`}
       open={open}
       INPUT={VARIATION_INPUT}
       SCHEMA={VARIATION_SCHEMA}
-      DEFAULT={DEFAULT_VARIATION_DATA}
+      DEFAULT={variation}
       onSubmit={saveVariationHandler}
       onCancel={onCancel}
-      action={'Add'}
+      action={'Edit'}
     />
   );
 };
 
-export default NewVariation;
+export default EditVariation;

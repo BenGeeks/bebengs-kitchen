@@ -1,4 +1,3 @@
-'use client';
 import React, { useState } from 'react';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { toast } from 'react-toastify';
@@ -8,7 +7,7 @@ import CustomersList from './customer-list';
 import ModalWide from '@/assets/modal-wide';
 import CustomerEdit from './customer-edit';
 import CustomerNew from './customer-new';
-import SelectCustomerAction from './select-action';
+import ActionModal from '@/assets/action-modal';
 
 import AddressList from './address/address-list';
 import AddressNew from './address/address-new';
@@ -79,9 +78,14 @@ const CustomerPage = () => {
 
   return (
     <>
-      <ModalWide open={selectActionModal} close={() => setSelectActionModal(false)}>
-        <SelectCustomerAction onCancel={cancelHandler} onEdit={onEditHandler} onDelete={onDeleteHandler} />
-      </ModalWide>
+      <ActionModal
+        name={selectedCustomer?.name}
+        open={selectActionModal}
+        close={() => setSelectActionModal(false)}
+        onCancel={cancelHandler}
+        onEdit={onEditHandler}
+        onDelete={onDeleteHandler}
+      />
 
       <ModalWide open={editModal} close={() => setEditModal(false)}>
         <CustomerEdit close={cancelHandler} customer={selectedCustomer} />
@@ -90,9 +94,11 @@ const CustomerPage = () => {
       <ModalWide open={newModal} close={() => setNewModal(false)}>
         <CustomerNew close={cancelHandler} onAddCustomerSuccess={() => null} />
       </ModalWide>
+
       <ModalWide open={newAddressModal} close={() => setNewAddressModal(false)}>
         <AddressNew close={() => setNewAddressModal(false)} />
       </ModalWide>
+
       {currentPage === 'customer' && <CustomersList onSelectCustomer={selectCustomerHandler} customersQuery={customersQuery} />}
       {currentPage === 'address' && <AddressList />}
 

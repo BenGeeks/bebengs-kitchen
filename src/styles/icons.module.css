@@ -23,8 +23,8 @@
 
 .add_order_icon_box {
   cursor: pointer;
-  width: 70px;
-  height: 50px;
+  width: 80px;
+  height: 60px;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -52,8 +52,8 @@
 
 .order_right_icon_box {
   cursor: pointer;
-  width: 70px;
-  height: 50px;
+  width: 80px;
+  height: 60px;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -73,8 +73,8 @@
 
 .order_right_icon_box_active {
   cursor: pointer;
-  width: 70px;
-  height: 50px;
+  width: 80px;
+  height: 60px;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -93,7 +93,7 @@
 }
 
 .order_right_icon {
-  font-size: 1.4rem;
+  font-size: 1.6rem;
   padding: 0px;
   margin-bottom: -5px;
 }

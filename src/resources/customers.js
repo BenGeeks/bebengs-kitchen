@@ -9,10 +9,10 @@ export const SCHEMA = yup.object().shape({
 
 export const CUSTOMER_HEADER = [
   { display: 'Name', name: 'name' },
-  { display: 'G-Cash', name: 'phone' },
   { display: 'Address', name: 'address' },
   { display: 'Block', name: 'block' },
   { display: 'Lot', name: 'lot' },
+  { display: 'G-Cash', name: 'phone' },
 ];
 
 export const ADDRESS_HEADER = [

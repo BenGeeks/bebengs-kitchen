@@ -5,7 +5,6 @@ const Schema = mongoose.Schema;
 const variationSchema = new Schema(
   {
     menuId: { type: String, required: true },
-    menuName: { type: String, required: true },
     size: { type: String, required: true },
     qty: { type: Number, required: true },
     price: { type: Number, required: true },
