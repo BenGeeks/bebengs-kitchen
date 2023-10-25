@@ -19,6 +19,8 @@ const NewOrderPage = ({ setCurrentPage }) => {
   const [edit, setEdit] = useState(1);
   const [addCustomer, setAddCustomer] = useState(false);
 
+  console.log('ITEMS: ', items);
+
   const newOrderMutation = useMutation({
     mutationFn: (data) => apiRequest({ url: `orders`, method: 'POST', data: data }),
     onSuccess: () => {
@@ -75,7 +77,7 @@ const NewOrderPage = ({ setCurrentPage }) => {
       isDelivered: false,
       isPaid: false,
       total: total,
-      orderDetails: { customer: { _id: selectedCustomer._id, displayName: selectedCustomer.displayName }, items },
+      orderDetails: { customer: selectedCustomer, items },
     };
     newOrderMutation.mutate(tempData);
     setSelectedCustomer(null);

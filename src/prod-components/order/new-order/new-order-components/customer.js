@@ -21,7 +21,12 @@ const Customer = ({ setSelectedCustomer, setStep, setEdit }) => {
   });
 
   const selectCustomerHandler = (data) => {
-    setSelectedCustomer({ ...data, displayName: `${data.name} - ${data.address} B-${data.block} L-${data.lot}` });
+    setSelectedCustomer({
+      _id: data._id,
+      displayName: `${data.name} - ${data.address} B-${data.block} L-${data.lot}`,
+      name: data.name,
+      address: `${data.address} B-${data.block} L-${data.lot}`,
+    });
     setStep(2);
     setEdit(2);
   };

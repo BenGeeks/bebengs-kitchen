@@ -16,6 +16,8 @@ const orderSchema = new Schema(
       customer: {
         _id: { type: String, required: true },
         displayName: { type: String, required: true },
+        name: { type: String, required: true },
+        address: { type: String, required: false },
       },
       items: [
         {

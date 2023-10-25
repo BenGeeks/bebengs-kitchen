@@ -44,7 +44,7 @@
 }
 
 .header_bar {
-  height: 40px;
+  height: 60px;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -71,16 +71,18 @@
 }
 .image_container {
   display: flex;
+  justify-content: center;
   background-color: beige;
   width: 100%;
   border: 1px solid #374151;
   margin-bottom: 5px;
 }
 
-.description {
-  padding: 10px;
-  font-size: 1rem;
-  text-align: justify;
+.thumbnail {
+  width: 200px;
+  height: 200px;
+  border: 1px solid #374151;
+  margin: 10px;
 }
 /* ================================ */
 /* =============  ICONS  ========== */
@@ -91,8 +93,8 @@
 }
 
 .small_icon {
-  width: 40px;
-  height: 40px;
+  width: 50px;
+  height: 50px;
   display: flex;
   color: #374151;
   background-color: beige;
@@ -101,8 +103,8 @@
   justify-content: center;
   transition: all 0.3s ease;
   cursor: pointer;
-  margin-left: 3px;
-  font-size: 1.6rem;
+  margin-left: 10px;
+  font-size: 1.8rem;
 }
 
 .small_icon:hover {

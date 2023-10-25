@@ -55,7 +55,7 @@ const NewOrderSelectItem = ({ onAddItem }) => {
 
   const selectQuantityHandler = (num) => {
     setStep(1);
-    onAddItem({ ...selectedVariation, qty: num, subTotal: num * selectedVariation.price });
+    onAddItem({ ...selectedVariation, itemName: selectedItem.itemName, qty: num, subTotal: num * selectedVariation.price });
   };
 
   if (menuQuery.isLoading || variationQuery.isLoading) return <LoadingPage />;

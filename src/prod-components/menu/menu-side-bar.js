@@ -79,13 +79,14 @@ const MenuSideBar = ({ isHalf, selectedMenu, setSelectedMenu, variationQuery, ac
             </div>
           </div>
           <div className={menuStyles.image_container}>
-            <img src="/images/jabe_value_meal.jpeg" alt="Menu image" />
-            <p className={menuStyles.description}>{selectedMenu?.description}</p>
+            <img className={menuStyles.thumbnail} src="/images/jabe_value_meal.jpeg" alt="Menu image" />
           </div>
           <div className={menuStyles.header_bar}>
             <h3 className={menuStyles.header_bar_title}>Variations:</h3>
-            <div className={menuStyles.small_icon} onClick={() => setNewVariation(true)}>
-              <RiAddCircleLine />
+            <div className={menuStyles.icons_container}>
+              <div className={menuStyles.small_icon} onClick={() => setNewVariation(true)}>
+                <RiAddCircleLine />
+              </div>
             </div>
           </div>
           <Table

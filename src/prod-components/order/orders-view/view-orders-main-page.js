@@ -35,10 +35,12 @@ const OrdersMainPage = ({ orderQuery, statusUpdateHandler, veiwOrderHandler, vie
                   <td className={tableStyles.cell_status}>
                     <OrderStatus order={order} index={index} onUpdate={statusUpdateHandler} />
                   </td>
-                  <td className={tableStyles.cell_status}>
+                  <td className={tableStyles.cell_order_details}>
                     <OrderDetails order={order} onView={veiwOrderHandler} />
                   </td>
-                  <td className={tableStyles.cell_total}>{order.total.toLocaleString('en-US')}</td>
+                  <td className={tableStyles.cell_total_container}>
+                    <div className={tableStyles.cell_total}>{order.total.toLocaleString('en-US')}</div>
+                  </td>
                 </tr>
               );
             })}

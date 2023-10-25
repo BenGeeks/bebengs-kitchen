@@ -1,10 +1,9 @@
-'use client';
+import moment from 'moment';
 import React, { useState } from 'react';
 import { RiCloseCircleLine, RiBitCoinLine } from 'react-icons/ri';
 import { TbTruckDelivery } from 'react-icons/tb';
 import { BsCartCheck, BsCartX, BsCashCoin } from 'react-icons/bs';
-
-import Modal from '@/assets/modal';
+import ModalWide from '@/assets/modal-wide';
 import orderStyles from '@/styles/order.module.css';
 import modalStyles from '@/styles/modal.module.css';
 
@@ -15,7 +14,13 @@ const OrderStatus = ({ order, index, onUpdate }) => {
   const [gCash, setGCash] = useState(order.isGcash);
 
   const onSubmitHandler = () => {
-    onUpdate({ isDelivered: delivered, isPaid: paid, isGcash: gCash, _id: order._id });
+    onUpdate({
+      isDelivered: delivered,
+      isPaid: paid,
+      isGcash: gCash,
+      _id: order._id,
+      paymentDate: paid ? moment().add(8, 'h') : null,
+    });
     setModalOpen(false);
   };
 
@@ -40,7 +45,7 @@ const OrderStatus = ({ order, index, onUpdate }) => {
 
   return (
     <>
-      <Modal open={modalOpen}>
+      <ModalWide open={modalOpen}>
         <div className={modalStyles.modal_header_bar}>
           <h2 className={modalStyles.modal_header_text}>Update Order Status</h2>
           <div className={modalStyles.modal_header_icon_container}>
@@ -82,7 +87,7 @@ const OrderStatus = ({ order, index, onUpdate }) => {
             </button>
           </div>
         </div>
-      </Modal>
+      </ModalWide>
       <div className={`${orderStyles.cell_order_number_container} ${getStatusColor(order)}`} onClick={() => setModalOpen(true)}>
         {index + 1}
       </div>

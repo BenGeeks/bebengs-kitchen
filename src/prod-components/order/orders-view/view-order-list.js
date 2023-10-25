@@ -39,7 +39,7 @@ const DailyOrderListView = ({ setCurrentPage }) => {
       }
 
       if (order.isDelivered && !order.isPaid) {
-        collectibles.push({ name: order.orderDetails.customer.displayName, amount: order.total });
+        collectibles.push({ name: order.orderDetails.customer.name, amount: order.total });
       }
     });
     const keys = Object.keys(summary);
@@ -93,7 +93,7 @@ const DailyOrderListView = ({ setCurrentPage }) => {
 
   const statusUpdateHandler = (status) => {
     let orderData = orderQuery.data.filter((order) => order._id === status._id)[0];
-    let updatedData = { ...orderData, isDelivered: status.isDelivered, isPaid: status.isPaid, isGcash: status.isGcash };
+    let updatedData = { ...orderData, ...status };
     updateOrderMutation.mutate({ id: status._id, data: updatedData });
   };
 

@@ -1,4 +1,4 @@
-import moment from 'moment-timezone';
+import moment from 'moment';
 import * as yup from 'yup';
 
 export const ORDER_ITEMS_HEADER = [
@@ -10,8 +10,7 @@ export const ORDER_ITEMS_HEADER = [
 ];
 
 export const DEFAULT_ORDER_DETAILS = {
-  createdAt: moment().tz('Asia/Manila'),
-  deliveryDate: moment().tz('Asia/Manila'),
+  deliveryDate: moment().format(),
   deliveryTime: '00:00',
   paymentDate: null,
   downPayment: 0,

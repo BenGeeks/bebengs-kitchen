@@ -3,7 +3,6 @@ import React from 'react';
 import newOrderStyles from '@/styles/new-order.module.css';
 
 const Step2 = ({ selectedItem, variationQuery, setStep, selectVariationHandler }) => {
-  console.log('SELECTED VARIATION: ', variationQuery);
   return (
     <div className={newOrderStyles.main_page}>
       <div className={newOrderStyles.header_bar}>

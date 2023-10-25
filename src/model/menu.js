@@ -6,6 +6,7 @@ const menuSchema = new Schema(
   {
     itemName: { type: String, required: true },
     imageUrl: { type: String, required: false },
+    thumbnailUrl: { type: String, required: false },
     description: { type: String, required: false },
   },
   {
