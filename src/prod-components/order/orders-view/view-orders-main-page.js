@@ -9,13 +9,13 @@ import ErrorPage from '@/assets/error';
 import pageStyles from '@/styles/page.module.css';
 import tableStyles from '@/styles/table.module.css';
 
-const OrdersMainPage = ({ orderQuery, statusUpdateHandler, veiwOrderHandler, viewReport }) => {
+const OrdersMainPage = ({ orderQuery, statusUpdateHandler, onEdit }) => {
   if (orderQuery.isLoading) return <LoadingPage />;
   if (orderQuery.isError) return <ErrorPage error={orderQuery.error} />;
 
   return (
-    <div className={viewReport ? pageStyles.page_container_hidden : pageStyles.page_container}>
-      <div className={`${tableStyles.table_container} ${viewReport && pageStyles.hidden}`}>
+    <div className={pageStyles.page_container}>
+      <div className={tableStyles.table_container}>
         <table className={tableStyles.table}>
           <thead>
             <tr className={tableStyles.table_head_row}>
@@ -36,7 +36,7 @@ const OrdersMainPage = ({ orderQuery, statusUpdateHandler, veiwOrderHandler, vie
                     <OrderStatus order={order} index={index} onUpdate={statusUpdateHandler} />
                   </td>
                   <td className={tableStyles.cell_order_details}>
-                    <OrderDetails order={order} onView={veiwOrderHandler} />
+                    <OrderDetails order={order} onEdit={onEdit} />
                   </td>
                   <td className={tableStyles.cell_total_container}>
                     <div className={tableStyles.cell_total}>{order.total.toLocaleString('en-US')}</div>

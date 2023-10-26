@@ -10,14 +10,6 @@ export default async function handler(req, res) {
   await dbConnect();
 
   switch (method) {
-    case 'GET':
-      try {
-        const orderData = await Order.find({ menu_id: id });
-        res.status(200).json({ data: orderData });
-      } catch (error) {
-        res.status(400).json({ error });
-      }
-      break;
     case 'DELETE':
       try {
         const deletedOrder = await Order.findByIdAndDelete({ _id: id });

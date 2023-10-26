@@ -7,7 +7,8 @@ import ErrorPage from '@/assets/error';
 import { CUSTOMER_HEADER } from '@/resources/customers';
 import customerStyles from '@/styles/customer.module.css';
 
-const CustomersList = ({ onSelectCustomer, customersQuery }) => {
+const CustomersList = ({ onSelectCustomer }) => {
+  const [completeList, setCompleteList] = useState([]);
   const [customerData, setCustomerData] = useState([]);
   const [searchValue, setSearchValue] = useState('');
 
@@ -20,14 +21,24 @@ const CustomersList = ({ onSelectCustomer, customersQuery }) => {
     return sortedData;
   };
 
+  const customersQuery = useQuery({
+    queryKey: ['customers'],
+    queryFn: () => apiRequest({ url: 'customers', method: 'GET' }).then((res) => res.data),
+    onSuccess: (customers) => {
+      setCustomerData(customers);
+      setCompleteList(customers);
+    },
+    staleTime: 0,
+    refetchInterval: 20000,
+  });
+
   useEffect(() => {
-    let data = customersQuery && customersQuery.data ? customersQuery.data : [];
     let tempData = data.filter((customer) => {
       let searchFrom = `${customer.name.toLowerCase()} ${customer.address} ${customer.block} ${customer.lot}`;
       return searchFrom.includes(searchValue.toLowerCase());
     });
-    searchValue.length === 0 ? setCustomerData(data) : setCustomerData([...tempData]);
-  }, [searchValue, customersQuery]);
+    searchValue.length === 0 ? setCustomerData(completeList) : setCustomerData([...tempData]);
+  }, [searchValue, setCustomerData]);
 
   if (customersQuery.isLoading) return <LoadingPage />;
   if (customersQuery.isError) return <ErrorPage error={JSON.stringify(customersQuery.error)} />;

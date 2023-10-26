@@ -10,19 +10,19 @@ import NewOrderSideBar from './new-order-side-bar';
 import apiRequest from '@/lib/axios';
 import { DEFAULT_ORDER_DETAILS } from '@/resources/orders';
 
-const NewOrderPage = ({ setCurrentPage }) => {
+const EditOrderPage = ({ setCurrentPage, orderData }) => {
   const queryClient = useQueryClient();
-  const [selectedCustomer, setSelectedCustomer] = useState(null);
-  const [items, setItems] = useState([]);
-  const [orderDetails, setOrderDetails] = useState(DEFAULT_ORDER_DETAILS);
-  const [step, setStep] = useState(1);
-  const [edit, setEdit] = useState(1);
+  const [selectedCustomer, setSelectedCustomer] = useState(orderData?.orderDetails?.customer);
+  const [items, setItems] = useState(orderData?.orderDetails?.items);
+  const [orderDetails, setOrderDetails] = useState(orderData);
+  const [step, setStep] = useState(3);
+  const [edit, setEdit] = useState(3);
   const [addCustomer, setAddCustomer] = useState(false);
 
-  const newOrderMutation = useMutation({
-    mutationFn: (data) => apiRequest({ url: `orders`, method: 'POST', data: data }),
+  const editOrderMutation = useMutation({
+    mutationFn: (data) => apiRequest({ url: `orders/${data._id}`, method: 'PUT', data: data }),
     onSuccess: () => {
-      toast.success('Order added successfully.');
+      toast.success('Order updated successfully.');
       queryClient.invalidateQueries({ queryKey: ['orders'] });
     },
     onError: (error) => {
@@ -77,7 +77,7 @@ const NewOrderPage = ({ setCurrentPage }) => {
       total: total,
       orderDetails: { customer: selectedCustomer, items },
     };
-    newOrderMutation.mutate(tempData);
+    editOrderMutation.mutate(tempData);
     setSelectedCustomer(null);
     setItems([]);
     setOrderDetails(DEFAULT_ORDER_DETAILS);
@@ -106,7 +106,7 @@ const NewOrderPage = ({ setCurrentPage }) => {
         onCancel={onCancelHandler}
         edit={edit}
         setEdit={setEdit}
-        title={'Add New Order'}
+        title={`Edit Order: ${orderData._id} `}
       />
       <NewOrderMainPage
         setSelectedCustomer={setSelectedCustomer}
@@ -131,4 +131,4 @@ const NewOrderPage = ({ setCurrentPage }) => {
   );
 };
 
-export default NewOrderPage;
+export default EditOrderPage;

@@ -7,13 +7,18 @@ import { ORDER_ITEMS_HEADER } from '@/resources/orders';
 import orderStyles from '@/styles/order.module.css';
 import iconStyles from '@/styles/icons.module.css';
 
-const OrderDetails = ({ order, onView }) => {
+const OrderDetails = ({ order, onEdit }) => {
   const [show, setShow] = useState(false);
 
   return (
     <>
       <div className={orderStyles.cell_order_details}>
-        <div className={orderStyles.cell_customer}>{order && order.orderDetails.customer.displayName}</div>
+        <div className={orderStyles.cell_customer}>{`
+        ${order?.orderDetails?.customer?.name} - 
+        ${order?.orderDetails?.customer?.address} 
+        B${order?.orderDetails?.customer?.block}
+        L${order?.orderDetails?.customer?.lot}
+        `}</div>
         {order.deliveryTime !== '00:00' && (
           <div className={orderStyles.cell_delivery_time}>
             {order && order.deliveryTime && moment(order.deliveryTime, 'HH:mm').format('h:mm a')}
@@ -22,7 +27,7 @@ const OrderDetails = ({ order, onView }) => {
         {order.downPayment !== 0 && <div className={orderStyles.cell_delivery_time}>₱ {order && order.downPayment}</div>}
 
         <div className={iconStyles.icons_container}>
-          <div className={iconStyles.small_icon} onClick={() => onView(order)}>
+          <div className={iconStyles.small_icon} onClick={() => onEdit(order)}>
             <RiEditLine />
           </div>
           {!show && (

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { toast } from 'react-toastify';
 
 import CustomerIconBar from './customer-icon-bar';
@@ -22,13 +22,6 @@ const CustomerPage = () => {
   const [editModal, setEditModal] = useState(false);
   const [newModal, setNewModal] = useState(false);
   const [newAddressModal, setNewAddressModal] = useState(false);
-
-  const customersQuery = useQuery({
-    queryKey: ['customers'],
-    queryFn: () => apiRequest({ url: 'customers', method: 'GET' }).then((res) => res.data),
-    staleTime: 0,
-    refetchInterval: 20000,
-  });
 
   const deleteCustomerMutation = useMutation({
     mutationFn: (id) => apiRequest({ url: `customers/${id}`, method: 'DELETE' }),
@@ -99,7 +92,7 @@ const CustomerPage = () => {
         <AddressNew close={() => setNewAddressModal(false)} />
       </ModalWide>
 
-      {currentPage === 'customer' && <CustomersList onSelectCustomer={selectCustomerHandler} customersQuery={customersQuery} />}
+      {currentPage === 'customer' && <CustomersList onSelectCustomer={selectCustomerHandler} />}
       {currentPage === 'address' && <AddressList />}
 
       <CustomerIconBar

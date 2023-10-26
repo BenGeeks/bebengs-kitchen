@@ -4,8 +4,11 @@ import Table from '@/assets/table';
 import { ORDER_ITEMS_HEADER } from '@/resources/orders';
 import newOrderStyles from '@/styles/new-order.module.css';
 
-const NewOrderSideBar = ({ selectedCustomer, orderDetails, items, step, setStep, onCancel, onSave, edit, setEdit }) => {
-  let total = items.reduce((total, data) => data.subTotal + total, 0) - +orderDetails.downPayment;
+const NewOrderSideBar = ({ selectedCustomer, orderDetails, items, step, setStep, onCancel, onSave, edit, setEdit, title }) => {
+  let total = items.reduce((total, data) => +data.subTotal + total, 0) - +orderDetails.downPayment;
+
+  console.log('NEW ORDER SIDE BAR ITEM LIST: ', items);
+  console.log('NEW ORDER SIDE BAR ITEM TOTAL: ', total);
 
   const customerClickHandler = () => {
     if (step === 1) {
@@ -18,7 +21,7 @@ const NewOrderSideBar = ({ selectedCustomer, orderDetails, items, step, setStep,
   return (
     <div className={newOrderStyles.container}>
       <div className={newOrderStyles.main_box}>
-        <h2 className={newOrderStyles.header}>New Order</h2>
+        <h2 className={newOrderStyles.header}>{title}</h2>
         {selectedCustomer && (
           <div className={newOrderStyles.customer_box} onClick={customerClickHandler}>
             <div className={newOrderStyles.sub_header}>Customer's Info:</div>

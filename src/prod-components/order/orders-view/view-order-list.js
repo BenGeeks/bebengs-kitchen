@@ -9,15 +9,11 @@ import OrdersSideBar from './view-orders-side-bar';
 
 import apiRequest from '@/lib/axios';
 
-const DailyOrderListView = ({ setCurrentPage }) => {
+const DailyOrderListView = ({ setCurrentPage, onEdit }) => {
   const queryClient = useQueryClient();
   const [salesData, setSalesData] = useState({ cashTotal: 0, gCashTotal: 0, dailyTotal: 0 });
   const [salesCount, setSalesCount] = useState([]);
   const [collectibleData, setCollectibleData] = useState([]);
-  const [onAdd, setOnAdd] = useState(false);
-  const [viewData, setViewData] = useState({});
-  const [viewModal, setViewModal] = useState(false);
-  const [viewReport, setViewReport] = useState(false);
 
   const summarizeReport = (sales) => {
     let tempArray = [];
@@ -64,17 +60,6 @@ const DailyOrderListView = ({ setCurrentPage }) => {
 
   useEffect(() => summarizeReport(orderQuery.data), []);
 
-  const newOrderMutation = useMutation({
-    mutationFn: (data) => apiRequest({ url: `orders`, method: 'POST', data: data }),
-    onSuccess: () => {
-      toast.success('Order added successfully.');
-      queryClient.invalidateQueries({ queryKey: ['orders'] });
-    },
-    onError: (error) => {
-      toast.error(error.response.data.error.message);
-    },
-  });
-
   const updateOrderMutation = useMutation({
     mutationFn: (payload) => apiRequest({ url: `orders/${payload.id}`, method: 'PUT', data: payload.data }),
     onSuccess: () => {
@@ -86,43 +71,16 @@ const DailyOrderListView = ({ setCurrentPage }) => {
     },
   });
 
-  const onSaveHandler = (newData) => {
-    newOrderMutation.mutate(newData);
-    setOnAdd(false);
-  };
-
   const statusUpdateHandler = (status) => {
     let orderData = orderQuery.data.filter((order) => order._id === status._id)[0];
     let updatedData = { ...orderData, ...status };
     updateOrderMutation.mutate({ id: status._id, data: updatedData });
   };
 
-  const onUpdateHandler = (updatedData) => {
-    updateOrderMutation.mutate(updatedData);
-  };
-
-  const veiwOrderHandler = (data) => {
-    setViewData(data);
-    setViewModal(true);
-  };
-
   return (
     <>
-      <OrdersSideBar salesData={salesData} salesCount={salesCount} collectibleData={collectibleData} viewReport={viewReport} />
-      <OrdersMainPage
-        orderQuery={orderQuery}
-        onSaveHandler={onSaveHandler}
-        statusUpdateHandler={statusUpdateHandler}
-        onUpdateHandler={onUpdateHandler}
-        veiwOrderHandler={veiwOrderHandler}
-        onAdd={onAdd}
-        setOnAdd={setOnAdd}
-        viewData={viewData}
-        viewModal={viewModal}
-        setViewModal={setViewModal}
-        viewReport={viewReport}
-        setViewReport={setViewReport}
-      />
+      <OrdersSideBar salesData={salesData} salesCount={salesCount} collectibleData={collectibleData} />
+      <OrdersMainPage orderQuery={orderQuery} statusUpdateHandler={statusUpdateHandler} onEdit={onEdit} />
       <OrdersIconBar setCurrentPage={setCurrentPage} />
     </>
   );
