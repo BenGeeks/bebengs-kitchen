@@ -1,4 +1,3 @@
-'use client';
 import React, { useState, useEffect } from 'react';
 import { useQuery } from '@tanstack/react-query';
 
@@ -10,12 +9,17 @@ import apiRequest from '@/lib/axios';
 import newOrderStyles from '@/styles/new-order.module.css';
 
 const Customer = ({ setSelectedCustomer, setStep, setEdit }) => {
+  const [defaultList, setDefaultList] = useState([]);
   const [searchValue, setSearchValue] = useState('');
   const [customerData, setCustomerData] = useState([]);
 
   const customersQuery = useQuery({
     queryKey: ['customers'],
     queryFn: () => apiRequest({ url: 'customers', method: 'GET' }).then((res) => res.data),
+    onSuccess: (data) => {
+      setCustomerData(data);
+      setDefaultList(data);
+    },
     staleTime: 0,
     refetchInterval: 20000,
   });
@@ -36,13 +40,12 @@ const Customer = ({ setSelectedCustomer, setStep, setEdit }) => {
   };
 
   useEffect(() => {
-    let data = customersQuery && customersQuery.data ? customersQuery.data : [];
-    let tempData = data.filter((customer) => {
+    let tempData = customerData.filter((customer) => {
       let searchFrom = `${customer.name.toLowerCase()} ${customer.address} ${customer.block} ${customer.lot}`;
       return searchFrom.includes(searchValue.toLowerCase());
     });
-    searchValue.length === 0 ? setCustomerData(data) : setCustomerData([...tempData]);
-  }, [searchValue, customersQuery]);
+    searchValue.length === 0 ? setCustomerData(defaultList) : setCustomerData([...tempData]);
+  }, [searchValue]);
 
   if (customersQuery.isLoading) return <LoadingPage />;
   if (customersQuery.isError) return <ErrorPage error={JSON.stringify(customersQuery.error)} />;

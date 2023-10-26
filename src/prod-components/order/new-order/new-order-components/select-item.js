@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useQuery } from '@tanstack/react-query';
+import moment from 'moment';
 
 import Step1 from './step-1';
 import Step2 from './step-2';
@@ -14,6 +15,8 @@ const NewOrderSelectItem = ({ onAddItem }) => {
   const [sortedMenuList, setSortedMenuList] = useState([]);
   const [recentItemList, setRecentItemList] = useState([]);
   const [step, setStep] = useState(1);
+
+  console.log('RECENT ITEMS: ', recentItemList);
 
   const menuQuery = useQuery({
     queryKey: ['menu'],
@@ -34,17 +37,37 @@ const NewOrderSelectItem = ({ onAddItem }) => {
     queryFn: () => apiRequest({ url: `variations/${selectedItem?._id}`, method: 'GET' }).then((res) => res.data),
   });
 
-  const selectItemHandler = (item) => {
-    if (recentItemList.length === 0) {
-      setRecentItemList([{ ...selectedItem, ...item }]);
-    } else {
-      let checkList = recentItemList.filter((el) => el._id === item._id);
-      if (checkList.length === 0) {
-        setRecentItemList([...recentItemList, { ...selectedItem, ...item }]);
-        localStorage.setItem('recentItems', JSON.stringify({ recentItems: [...recentItemList, { ...selectedItem, ...item }] }));
+  // check local storage if list is available and not old then all list to recent items list
+  // clear local storage data if list is old
+  useEffect(() => {
+    let recentItems = localStorage.getItem('recentItems') ? JSON.parse(localStorage.getItem('recentItems')) : null;
+    if (recentItems) {
+      let isToday = moment(recentItems.date).isSame(moment(), 'day');
+      if (isToday) {
+        setRecentItemList(recentItems.list);
+      } else {
+        localStorage.removeItem('recentItems');
       }
     }
-    setSelectedItem(item);
+  }, []);
+
+  const selectItemHandler = (newItem) => {
+    // add new item to local storage recent items list
+    if (recentItemList.length === 0) {
+      // if recent item does not exist then add the new file to local storage with date
+      setRecentItemList(newItem);
+      localStorage.setItem('recentItems', JSON.stringify({ date: moment(), list: [newItem] }));
+    } else {
+      // if recent item is not empty, then check if the new item is already on the list - do nothing
+      let isNew = recentItemList.filter((item) => item._id === newItem._id).length === 0;
+      // if item is new then add the new item to the previous list and store in local storage with date
+      if (isNew) {
+        setRecentItemList([...recentItemList, newItem]);
+        let newLocalStorageFile = JSON.stringify({ date: moment(), list: [...recentItemList, newItem] });
+        localStorage.setItem('recentItems', newLocalStorageFile);
+      }
+    }
+    setSelectedItem(newItem);
     setStep(2);
   };
 

@@ -20,8 +20,8 @@ const Step2 = ({ selectedItem, variationQuery, setStep, selectVariationHandler }
                 className={newOrderStyles.card}
                 onClick={() => selectVariationHandler(variation)}
                 style={
-                  selectedItem.imageUrl
-                    ? { backgroundImage: 'url(' + selectedItem.imageUrl + ')' }
+                  selectedItem.thumbnailUrl
+                    ? { backgroundImage: 'url(' + selectedItem.thumbnailUrl + ')' }
                     : { backgroundImage: 'url(/images/jabe_value_meal.jpeg)' }
                 }
               >

@@ -7,9 +7,6 @@ import newOrderStyles from '@/styles/new-order.module.css';
 const NewOrderSideBar = ({ selectedCustomer, orderDetails, items, step, setStep, onCancel, onSave, edit, setEdit, title }) => {
   let total = items.reduce((total, data) => +data.subTotal + total, 0) - +orderDetails.downPayment;
 
-  console.log('NEW ORDER SIDE BAR ITEM LIST: ', items);
-  console.log('NEW ORDER SIDE BAR ITEM TOTAL: ', total);
-
   const customerClickHandler = () => {
     if (step === 1) {
       setStep(2);

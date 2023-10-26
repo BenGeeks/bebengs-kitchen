@@ -13,15 +13,15 @@ const Step1 = ({ sortedMenuList, recentItemList, selectItemHandler }) => {
         <>
           <h3>Recent Items:</h3>
           <div className={newOrderStyles.cards_container}>
-            {recentItemList.map((item, index) => {
+            {recentItemList?.map((item, index) => {
               return (
                 <div
                   key={index}
                   className={newOrderStyles.card}
                   onClick={() => selectItemHandler(item)}
                   style={
-                    item.imageUrl
-                      ? { backgroundImage: 'url(' + item.imageUrl + ')' }
+                    item.thumbnailUrl
+                      ? { backgroundImage: 'url(' + item.thumbnailUrl + ')' }
                       : { backgroundImage: 'url(/images/orange_travelpictdinner.png)' }
                   }
                 >
@@ -43,9 +43,9 @@ const Step1 = ({ sortedMenuList, recentItemList, selectItemHandler }) => {
                 className={newOrderStyles.card}
                 onClick={() => selectItemHandler(item)}
                 style={
-                  item.imageUrl
-                    ? { backgroundImage: 'url(' + item.imageUrl + ')' }
-                    : { backgroundImage: 'url(/images/jabe_value_meal.jpeg)' }
+                  item.thumbnailUrl
+                    ? { backgroundImage: 'url(' + item.thumbnailUrl + ')' }
+                    : { backgroundImage: 'url(/images/orange_travelpictdinner.png)' }
                 }
               >
                 <div className={newOrderStyles.card_name}>{item.itemName}</div>

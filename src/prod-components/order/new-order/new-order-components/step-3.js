@@ -4,6 +4,11 @@ import { QTY_NUMBER } from '@/resources/orders';
 import newOrderStyles from '@/styles/new-order.module.css';
 
 const Step3 = ({ selectedItem, selectQuantityHandler, setStep }) => {
+  const getRandomColor = () => {
+    let color = 'hsl(' + Math.random() * 360 + ', 100%, 75%)';
+    return color;
+  };
+
   return (
     <div className={newOrderStyles.main_page}>
       <div className={newOrderStyles.header_bar}>
@@ -17,15 +22,11 @@ const Step3 = ({ selectedItem, selectQuantityHandler, setStep }) => {
           return (
             <div
               key={num}
-              className={newOrderStyles.card}
+              className={newOrderStyles.number_card}
               onClick={() => selectQuantityHandler(num)}
-              style={
-                selectedItem.imageUrl
-                  ? { backgroundImage: 'url(' + selectedItem.imageUrl + ')' }
-                  : { backgroundImage: 'url(/images/jabe_value_meal.jpeg)' }
-              }
+              style={{ backgroundColor: getRandomColor() }}
             >
-              <div className={newOrderStyles.card_price}>{num}</div>
+              {num}
             </div>
           );
         })}

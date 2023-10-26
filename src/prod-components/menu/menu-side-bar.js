@@ -79,7 +79,11 @@ const MenuSideBar = ({ isHalf, selectedMenu, setSelectedMenu, variationQuery, ac
             </div>
           </div>
           <div className={menuStyles.image_container}>
-            <img className={menuStyles.thumbnail} src="/images/jabe_value_meal.jpeg" alt="Menu image" />
+            <img
+              className={menuStyles.thumbnail}
+              src={selectedMenu?.thumbnailUrl ? selectedMenu?.thumbnailUrl : '/images/orange_travelpictdinner.png'}
+              alt="Menu image"
+            />
           </div>
           <div className={menuStyles.header_bar}>
             <h3 className={menuStyles.header_bar_title}>Variations:</h3>

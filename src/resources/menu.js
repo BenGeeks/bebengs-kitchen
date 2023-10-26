@@ -2,14 +2,11 @@ import * as yup from 'yup';
 
 export const MENU_SCHEMA = yup.object().shape({
   itemName: yup.string().required('Item name is required'),
-  imageUrl: yup.string(),
-  description: yup.string(),
 });
 
 export const MENU_INPUT = [
   { type: 'text', name: 'itemName', label: 'Item name' },
-  { type: 'text', name: 'imageUrl', label: 'Image' },
-  { type: 'textarea', name: 'description', label: 'Description' },
+  { type: 'text', name: 'thumbnailUrl', label: 'Thumbnail URL' },
 ];
 
 export const VARIATION_SCHEMA = yup.object().shape({

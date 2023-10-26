@@ -147,8 +147,8 @@
 }
 
 .card {
-  width: 200px;
-  height: 200px;
+  width: 190px;
+  height: 190px;
   border: 1px solid #374151;
   background-position: center;
   background-size: cover;
@@ -159,6 +159,18 @@
   align-items: center;
   cursor: pointer;
   background-color: #374151;
+}
+
+.number_card {
+  width: 190px;
+  height: 190px;
+  border: 1px solid #374151;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  font-size: 5rem;
+  font-weight: 700;
 }
 
 .card:hover {
