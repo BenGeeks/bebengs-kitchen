@@ -16,8 +16,6 @@ const NewOrderSelectItem = ({ onAddItem }) => {
   const [recentItemList, setRecentItemList] = useState([]);
   const [step, setStep] = useState(1);
 
-  console.log('RECENT ITEMS: ', recentItemList);
-
   const menuQuery = useQuery({
     queryKey: ['menu'],
     queryFn: () => apiRequest({ url: 'menu', method: 'GET' }).then((res) => res.data),
@@ -55,7 +53,7 @@ const NewOrderSelectItem = ({ onAddItem }) => {
     // add new item to local storage recent items list
     if (recentItemList.length === 0) {
       // if recent item does not exist then add the new file to local storage with date
-      setRecentItemList(newItem);
+      setRecentItemList([newItem]);
       localStorage.setItem('recentItems', JSON.stringify({ date: moment(), list: [newItem] }));
     } else {
       // if recent item is not empty, then check if the new item is already on the list - do nothing

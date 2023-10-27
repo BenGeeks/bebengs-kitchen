@@ -2,10 +2,11 @@ import React, { useState } from 'react';
 import { RiAddCircleLine, RiPrinterLine, RiCalendar2Line, RiMenuLine } from 'react-icons/ri';
 import { PiCalendar } from 'react-icons/pi';
 import { LuFilter } from 'react-icons/lu';
+import moment from 'moment';
 
 import iconStyles from '@/styles/icons.module.css';
 
-const OrdersIconBar = ({ setCurrentPage }) => {
+const OrdersIconBar = ({ setCurrentPage, setOpenCalendar, setCalendarDate }) => {
   const [showIcons, setShowIcons] = useState(false);
 
   return (
@@ -24,13 +25,13 @@ const OrdersIconBar = ({ setCurrentPage }) => {
         <p className={iconStyles.order_right_icon_text}>Add</p>
       </div>
 
-      <div className={iconStyles.order_right_icon_box} title="Today">
+      <div className={iconStyles.order_right_icon_box} title="Today" onClick={() => setCalendarDate(moment()._d)}>
         <div className={iconStyles.order_right_icon}>
           <PiCalendar />
         </div>
         <p className={iconStyles.order_right_icon_text}>Today</p>
       </div>
-      <div className={iconStyles.order_right_icon_box} title="History">
+      <div className={iconStyles.order_right_icon_box} title="History" onClick={() => setOpenCalendar(true)}>
         <div className={iconStyles.order_right_icon}>
           <RiCalendar2Line />
         </div>

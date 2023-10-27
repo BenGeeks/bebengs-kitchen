@@ -16,7 +16,7 @@ const EditOrderPage = ({ setCurrentPage, orderData }) => {
   const [items, setItems] = useState(orderData?.orderDetails?.items);
   const [orderDetails, setOrderDetails] = useState(orderData);
   const [step, setStep] = useState(3);
-  const [edit, setEdit] = useState(3);
+  const [edit, setEdit] = useState(4);
   const [addCustomer, setAddCustomer] = useState(false);
 
   const editOrderMutation = useMutation({

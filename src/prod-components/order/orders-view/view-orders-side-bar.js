@@ -1,12 +1,13 @@
-import React from 'react';
+import moment from 'moment';
 
 import Table from '@/assets/table';
 import { COLLECTIBLE_HEADER, COUNT_HEADER } from '@/resources/side-bar';
 import sideStyles from '@/styles/side-bar.module.css';
 
-const OrdersSideBar = ({ salesCount, collectibleData, salesData, viewReport }) => {
+const OrdersSideBar = ({ salesCount, collectibleData, salesData, viewReport, calendarDate }) => {
   return (
     <div className={`${sideStyles.container} ${viewReport && sideStyles.show}`}>
+      <div className={sideStyles.date}>{moment(calendarDate).format('MMM DD, yyyy')}</div>
       <div className={sideStyles.summary_box}>
         <div className={sideStyles.total_box}>
           <div className={sideStyles.total_item_container}>

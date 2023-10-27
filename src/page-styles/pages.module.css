@@ -5,7 +5,7 @@
   align-items: center;
   min-height: 100vh;
   background-image: url('/images/bebengskitchen.jpg');
-  background-position: bottom right;
+  background-position: right;
   background-repeat: no-repeat;
   background-size: cover;
 }

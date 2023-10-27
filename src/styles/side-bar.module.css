@@ -11,9 +11,19 @@
   overflow: auto;
 }
 
+.date {
+  margin: 5px 5px 0px 5px;
+  padding: 5px;
+  text-align: center;
+  border: 1px solid #374151;
+  background-color: aliceblue;
+  font-size: 1.2rem;
+  font-weight: 700;
+}
+
 .summary_box {
   border: 1px solid #374151;
-  margin: 5px;
+  margin: 5px 5px 0px 5px;
 }
 
 .total_box {

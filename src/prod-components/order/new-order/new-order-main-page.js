@@ -11,9 +11,10 @@ import newOrderStyles from '@/styles/new-order.module.css';
 const NewOrderMainPage = ({ setSelectedCustomer, setOrderDetails, orderDetails, setEdit, edit, setStep, onAddItem, items, setItems }) => {
   const updateDetailsHandler = (data) => {
     let tempData = {
-      deliveryDate: data && data.deliveryDate ? data.deliveryDate : moment().format('YYYY-MM-DD'),
-      deliveryTime: data && data.deliveryTime ? data.deliveryTime : null,
-      downPayment: data && data.downPayment ? data.downPayment : 0,
+      deliveryDate: data?.deliveryDate ? data.deliveryDate : moment().format('YYYY-MM-DD'),
+      deliveryTime: data?.deliveryTime ? data.deliveryTime : null,
+      downPayment: data?.downPayment ? data.downPayment : 0,
+      paymentDate: data?.paymentDate ? data.paymentDate : null,
     };
     setOrderDetails(tempData);
     setStep(3);

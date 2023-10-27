@@ -6,14 +6,17 @@ export default async function handler(req, res) {
   const { method, body } = req;
   await dbConnect();
 
+  console.log('QUERY DATE FROM: ', body.dateFrom);
+  console.log('QUERY DATE TO: ', body.dateTo);
+
   if (method !== 'POST') {
     res.status(401).json({ message: 'INTRUDER ALERT!' });
   } else {
     try {
       const orderList = await Order.find({
         $or: [
-          { deliveryDate: { $gte: moment(body.dateFrom).startOf('day'), $lt: moment(body.dateTo).endOf('day') } },
-          { paymentDate: { $gte: moment(body.dateFrom).startOf('day'), $lt: moment(body.dateTo).endOf('day') } },
+          { deliveryDate: { $gte: moment(body.dateFrom), $lt: moment(body.dateTo) } },
+          { paymentDate: { $gte: moment(body.dateFrom), $lt: moment(body.dateTo) } },
         ],
       });
       res.status(201).json({ success: true, data: orderList });

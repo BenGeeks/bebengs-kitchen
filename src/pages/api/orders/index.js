@@ -5,8 +5,6 @@ export default async function handler(req, res) {
   const { method, body, query } = req;
   await dbConnect();
 
-  console.log('QUERY DATE: ', query.dateFrom);
-
   switch (method) {
     case 'GET':
       try {
