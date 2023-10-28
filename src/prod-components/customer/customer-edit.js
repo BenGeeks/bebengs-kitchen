@@ -3,8 +3,8 @@ import { RiCloseCircleLine } from 'react-icons/ri';
 import { toast } from 'react-toastify';
 
 import ReactForm from '@/assets/react-form';
-import { SCHEMA } from '@/resources/customers';
 import apiRequest from '@/lib/axios';
+import { SCHEMA } from '@/resources/customers';
 import modalStyles from '@/styles/modal.module.css';
 
 const CustomerEdit = ({ close, customer }) => {

@@ -1,9 +1,10 @@
-'use client';
 import React, { useState, useEffect } from 'react';
+import { useQuery } from '@tanstack/react-query';
 
 import Table from '@/assets/table';
 import LoadingPage from '@/assets/loading';
 import ErrorPage from '@/assets/error';
+import apiRequest from '@/lib/axios';
 import { CUSTOMER_HEADER } from '@/resources/customers';
 import customerStyles from '@/styles/customer.module.css';
 
@@ -33,12 +34,12 @@ const CustomersList = ({ onSelectCustomer }) => {
   });
 
   useEffect(() => {
-    let tempData = data.filter((customer) => {
+    let tempData = customerData?.filter((customer) => {
       let searchFrom = `${customer.name.toLowerCase()} ${customer.address} ${customer.block} ${customer.lot}`;
       return searchFrom.includes(searchValue.toLowerCase());
     });
     searchValue.length === 0 ? setCustomerData(completeList) : setCustomerData([...tempData]);
-  }, [searchValue, setCustomerData]);
+  }, [searchValue, customerData, setCustomerData]);
 
   if (customersQuery.isLoading) return <LoadingPage />;
   if (customersQuery.isError) return <ErrorPage error={JSON.stringify(customersQuery.error)} />;

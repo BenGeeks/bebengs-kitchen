@@ -1,6 +1,6 @@
 import moment from 'moment';
 
-import Customer from './new-order-components/customer';
+import Customer from './new-order-components/customer/customer';
 import NewOrderSelectItem from './new-order-components/select-item';
 import EditShoppingCart from './new-order-components/edit-cart';
 import ReactForm from '@/assets/react-form';
@@ -8,7 +8,18 @@ import { ORDER_DETAILS_INPUT, ORDER_DETAILS_SCHEMA } from '@/resources/orders';
 import pageStyles from '@/styles/page.module.css';
 import newOrderStyles from '@/styles/new-order.module.css';
 
-const NewOrderMainPage = ({ setSelectedCustomer, setOrderDetails, orderDetails, setEdit, edit, setStep, onAddItem, items, setItems }) => {
+const NewOrderMainPage = ({
+  setSelectedCustomer,
+  setOrderDetails,
+  orderDetails,
+  setEdit,
+  edit,
+  setStep,
+  onAddItem,
+  items,
+  setItems,
+  isOrderEdit,
+}) => {
   const updateDetailsHandler = (data) => {
     let tempData = {
       deliveryDate: data?.deliveryDate ? data.deliveryDate : moment().format('YYYY-MM-DD'),
@@ -22,8 +33,8 @@ const NewOrderMainPage = ({ setSelectedCustomer, setOrderDetails, orderDetails, 
   };
 
   const cancelHandler = () => {
-    setStep(1);
-    setEdit(1);
+    !isOrderEdit && setStep(1);
+    isOrderEdit ? setEdit(3) : setEdit(1);
   };
 
   return (

@@ -7,10 +7,8 @@ import LoadingPage from '@/assets/loading';
 import ErrorPage from '@/assets/error';
 import ModalWide from '@/assets/modal-wide';
 import AddressNew from './address-new';
-
-import { ADDRESS_HEADER } from '@/resources/customers';
 import apiRequest from '@/lib/axios';
-
+import { ADDRESS_HEADER } from '@/resources/customers';
 import customerStyles from '@/styles/customer.module.css';
 
 const AddressList = () => {
@@ -21,8 +19,6 @@ const AddressList = () => {
   const addressQuery = useQuery({
     queryKey: ['address'],
     queryFn: () => apiRequest({ url: 'address', method: 'GET' }).then((res) => res.data),
-    staleTime: 0,
-    refetchInterval: 20000,
   });
 
   const deleteAddressMutation = useMutation({

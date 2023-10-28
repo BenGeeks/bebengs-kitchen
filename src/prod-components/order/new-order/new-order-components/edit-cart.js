@@ -5,8 +5,9 @@ import { BsArrowDownSquare, BsArrowUpSquare } from 'react-icons/bs';
 import newOrderStyles from '@/styles/new-order.module.css';
 
 const EditShoppingCart = ({ items, setItems, setEdit }) => {
-  const initialData = items;
+  const [initialData] = useState(items);
   const EDIT_CART_HEADER = ['Item', 'Size', 'Price', 'Quantity', 'Total', 'Delete'];
+  console.log('INITIAL DATA: ', initialData);
 
   const updateItemHandler = (action, data) => {
     if (action === 'delete') {
@@ -21,7 +22,10 @@ const EditShoppingCart = ({ items, setItems, setEdit }) => {
       let tempData = items.map((item) => (item._id === data._id ? { ...item, qty: item.qty - 1 } : item));
       setItems(tempData);
     }
-    if (action === 'cancel') setItems(initialData);
+    if (action === 'cancel') {
+      setItems(initialData);
+      setEdit(3);
+    }
   };
   return (
     <div className={newOrderStyles.main_page}>

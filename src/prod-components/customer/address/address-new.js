@@ -1,11 +1,10 @@
-'use client';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { RiCloseCircleLine } from 'react-icons/ri';
 import { toast } from 'react-toastify';
 
 import ReactForm from '@/assets/react-form';
-import { ADDRESS_INPUT, ADDRESS_SCHEMA } from '@/resources/customers';
 import apiRequest from '@/lib/axios';
+import { ADDRESS_INPUT, ADDRESS_SCHEMA } from '@/resources/customers';
 import modalStyles from '@/styles/modal.module.css';
 
 const AddressNew = ({ close, isEdit, data }) => {

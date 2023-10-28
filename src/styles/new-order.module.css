@@ -20,6 +20,91 @@
   margin-left: 15px;
 }
 
+.header_bar_filter {
+  border: 1px solid #374151;
+  background-color: beige;
+  padding: 0px 20px;
+  height: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 1.2rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.3s ease-out;
+}
+
+.header_bar_filter:hover {
+  border: 1px solid beige;
+  color: beige;
+  background-color: #374151;
+}
+
+.address_selector_container {
+  display: grid;
+  grid-template-columns: auto auto auto auto;
+  background-color: aliceblue;
+  padding: 10px;
+}
+
+.address_grid {
+  font-size: 1.2rem;
+  padding: 15px 5px;
+  border: 1px solid #374151;
+  margin: 2px;
+  background-color: beige;
+  cursor: pointer;
+  transition: all 0.3s ease-out;
+}
+
+.address_grid:hover {
+  border: 1px solid beige;
+  background-color: #374151;
+  color: beige;
+}
+
+.number_selector_container {
+  display: grid;
+  grid-template-columns: auto auto auto auto auto auto auto auto auto auto;
+  background-color: aliceblue;
+  padding: 10px;
+}
+
+.number_grid {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 2rem;
+  padding: 5px;
+  margin: 2px;
+  border: 1px solid #374151;
+  background-color: beige;
+  cursor: pointer;
+  transition: all 0.3s ease-out;
+}
+
+.number_grid:hover {
+  border: 1px solid beige;
+  background-color: #374151;
+  color: beige;
+}
+
+.clear_filter_button {
+  font-size: 2rem;
+  padding: 5px;
+  margin: 5px 12px;
+  border: 1px solid #374151;
+  background-color: beige;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.3s ease-out;
+}
+.clear_filter_button:hover {
+  border: 1px solid beige;
+  background-color: #374151;
+  color: beige;
+}
+
 .search_input {
   width: 50%;
   height: 40px;

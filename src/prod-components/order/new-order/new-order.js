@@ -119,6 +119,7 @@ const NewOrderPage = ({ setCurrentPage }) => {
         setEdit={setEdit}
         items={items}
         setItems={setItems}
+        isOrderEdit={false}
       />
       <NewOrderIconBar
         setCurrentPage={setCurrentPage}

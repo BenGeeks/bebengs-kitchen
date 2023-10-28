@@ -16,14 +16,7 @@ const MenuIconbar = ({ addNewMenu }) => {
         <p className={iconStyles.order_right_icon_text}>Actions</p>
       </div>
 
-      <div className={iconStyles.add_order_icon_box} title="Add Menu" onClick={() => addNewMenu(true)}>
-        <div className={iconStyles.order_right_icon}>
-          <IoFastFoodOutline />
-        </div>
-        <p className={iconStyles.order_right_icon_text}>+ Menu</p>
-      </div>
-
-      <div className={iconStyles.add_order_icon_box_mobile} title="Add Menu" onClick={() => addNewMenu(true)}>
+      <div className={iconStyles.order_right_icon_box} title="Add Menu" onClick={() => addNewMenu(true)}>
         <div className={iconStyles.order_right_icon}>
           <IoFastFoodOutline />
         </div>

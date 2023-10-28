@@ -7,8 +7,8 @@ import Table from '@/assets/table';
 import ActionModal from '@/assets/action-modal';
 import EditVariation from './variation/variation-edit';
 import NewVariation from './variation/variation-new';
-import { VARIATION_HEADERS } from '@/resources/menu';
 import apiRequest from '@/lib/axios';
+import { VARIATION_HEADERS } from '@/resources/menu';
 import menuStyles from '@/styles/menu.module.css';
 
 const MenuSideBar = ({ isHalf, selectedMenu, setSelectedMenu, variationQuery, actionModal }) => {
