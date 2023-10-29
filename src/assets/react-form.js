@@ -2,7 +2,7 @@ import React from 'react';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 
-import styles from '@/styles/react-form.module.css';
+import assetStyles from '@/styles/assets.module.css';
 
 const ReactForm = ({ layout, schema, defaultValues, onSubmit, onCancel, action }) => {
   const {
@@ -19,20 +19,20 @@ const ReactForm = ({ layout, schema, defaultValues, onSubmit, onCancel, action }
       <form onSubmit={handleSubmit(onSubmit)}>
         {layout.map((input, index) => {
           return (
-            <div key={index} className={styles.input_container}>
-              <label htmlFor={input.name} className={styles.input_label}>
+            <div key={index} className={assetStyles.input_container}>
+              <label htmlFor={input.name} className={assetStyles.input_label}>
                 {input.label}:
               </label>
-              {errors[input.name] && <div className={styles.error_message}>{errors[input.name]?.message}</div>}
+              {errors[input.name] && <div className={assetStyles.error_message}>{errors[input.name]?.message}</div>}
 
               {input.type === 'textarea' ? (
-                <textarea {...register(input.name)} className={styles.textarea} rows={5} />
+                <textarea {...register(input.name)} className={assetStyles.textarea} rows={5} />
               ) : (
                 <>
                   <input
                     type={input.type}
                     placeholder={input.label}
-                    className={styles.input}
+                    className={assetStyles.input}
                     list={input.name}
                     {...register(input.name)}
                     autoFocus={index === 0}
@@ -49,11 +49,11 @@ const ReactForm = ({ layout, schema, defaultValues, onSubmit, onCancel, action }
             </div>
           );
         })}
-        <div className={styles.button_container}>
-          <button type="reset" className={styles.button_cancel} onClick={onCancel}>
+        <div className={assetStyles.button_container}>
+          <button type="reset" className={assetStyles.button_cancel} onClick={onCancel}>
             Cancel
           </button>
-          <button className={styles.button_save} type="submit">
+          <button className={assetStyles.button_save} type="submit">
             {action === 'Add' ? 'Save' : 'Update'}
           </button>
         </div>

@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
-import { RiMenuLine } from 'react-icons/ri';
+import { RiMenuLine, RiDeleteBin4Line } from 'react-icons/ri';
 import { ImCancelCircle } from 'react-icons/im';
 import { BiReset, BiUserPlus } from 'react-icons/bi';
 import { IoFastFoodOutline } from 'react-icons/io5';
 
 import iconStyles from '@/styles/icons.module.css';
 
-const NewOrderIconBar = ({ reset, step, onCancel, addCustomer }) => {
+const NewOrderIconBar = ({ reset, step, onCancel, addCustomer, isEdit, onDelete }) => {
   const [showIcons, setShowIcons] = useState(false);
 
   return (
@@ -44,6 +44,14 @@ const NewOrderIconBar = ({ reset, step, onCancel, addCustomer }) => {
             <IoFastFoodOutline />
           </div>
           <p className={iconStyles.order_right_icon_text}>+ Menu</p>
+        </div>
+      )}
+      {isEdit && (
+        <div className={iconStyles.order_right_icon_box} title="Delete" onClick={onDelete}>
+          <div className={iconStyles.order_right_icon}>
+            <RiDeleteBin4Line />
+          </div>
+          <p className={iconStyles.order_right_icon_text}>Delete</p>
         </div>
       )}
     </div>

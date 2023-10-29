@@ -1,6 +1,6 @@
 import moment from 'moment';
 
-import Customer from './new-order-components/customer/customer';
+import CustomersList from '@/prod-components/customer/customer-list';
 import NewOrderSelectItem from './new-order-components/select-item';
 import EditShoppingCart from './new-order-components/edit-cart';
 import ReactForm from '@/assets/react-form';
@@ -37,9 +37,15 @@ const NewOrderMainPage = ({
     isOrderEdit ? setEdit(3) : setEdit(1);
   };
 
+  const selectCustomerHandler = (data) => {
+    setSelectedCustomer(data);
+    setStep(2);
+    setEdit(2);
+  };
+
   return (
     <div className={pageStyles.page_container}>
-      {edit === 1 && <Customer setSelectedCustomer={setSelectedCustomer} setStep={setStep} setEdit={setEdit} />}
+      {edit === 1 && <CustomersList onSelectCustomer={selectCustomerHandler} />}
       {edit === 2 && orderDetails && (
         <div className={newOrderStyles.main_page}>
           <div className={newOrderStyles.header_bar}>

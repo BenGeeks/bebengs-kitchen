@@ -12,7 +12,7 @@ const OrdersSideBar = ({ salesCount, collectibleData, salesData, viewReport, cal
         <div className={sideStyles.total_box}>
           <div className={sideStyles.total_item_container}>
             <div className={sideStyles.total_item_label}>Cash</div>
-            <div className={sideStyles.total_item_value}>{salesData?.dailyTotal.toLocaleString('en-US')}</div>
+            <div className={sideStyles.total_item_value}>{salesData?.cashTotal.toLocaleString('en-US')}</div>
           </div>
           <div className={sideStyles.total_item_container}>
             <div className={sideStyles.total_item_label}>G-cash</div>
@@ -20,7 +20,7 @@ const OrdersSideBar = ({ salesCount, collectibleData, salesData, viewReport, cal
           </div>
           <div className={sideStyles.total_item_container}>
             <div className={sideStyles.total_item_label}>Total</div>
-            <div className={sideStyles.total_item_value}>{salesData?.cashTotal.toLocaleString('en-US')}</div>
+            <div className={sideStyles.total_item_value}>{salesData?.dailyTotal.toLocaleString('en-US')}</div>
           </div>
         </div>
       </div>

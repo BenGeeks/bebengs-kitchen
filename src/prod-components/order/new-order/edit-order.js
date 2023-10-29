@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { toast } from 'react-toastify';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 
-import ModalWide from '@/assets/modal-wide';
 import CustomerNew from '@/prod-components/customer/customer-new';
 import NewOrderIconBar from './new-order-icon-bar';
 import NewOrderMainPage from './new-order-main-page';
@@ -23,6 +22,17 @@ const EditOrderPage = ({ setCurrentPage, orderData }) => {
     mutationFn: (data) => apiRequest({ url: `orders/${data._id}`, method: 'PUT', data: data }),
     onSuccess: () => {
       toast.success('Order updated successfully.');
+      queryClient.invalidateQueries({ queryKey: ['orders'] });
+    },
+    onError: (error) => {
+      toast.error(error.response.data.error.message);
+    },
+  });
+
+  const deleteOrderMutation = useMutation({
+    mutationFn: (id) => apiRequest({ url: `orders/${id}`, method: 'DELETE' }),
+    onSuccess: () => {
+      toast.success('Order deleted successfully.');
       queryClient.invalidateQueries({ queryKey: ['orders'] });
     },
     onError: (error) => {
@@ -91,11 +101,17 @@ const EditOrderPage = ({ setCurrentPage, orderData }) => {
     setEdit(2);
   };
 
+  const onDeleteHandler = () => {
+    if (confirm(`Are you sure you want to delete this order?`) == true) {
+      deleteOrderMutation.mutate(orderData._id);
+      setCurrentPage('order-list');
+      console.log('ON DELETE HANDLER HAS BEEN TRIGGERED, ', orderData._id);
+    }
+  };
+
   return (
     <>
-      <ModalWide open={addCustomer} close={() => setAddCustomer(false)}>
-        <CustomerNew close={() => setAddCustomer(false)} onAddCustomerSuccess={onAddCustomerSuccess} />
-      </ModalWide>
+      <CustomerNew open={addCustomer} close={() => setAddCustomer(false)} onAddCustomerSuccess={onAddCustomerSuccess} />
       <NewOrderSideBar
         selectedCustomer={selectedCustomer}
         orderDetails={orderDetails}
@@ -106,7 +122,7 @@ const EditOrderPage = ({ setCurrentPage, orderData }) => {
         onCancel={onCancelHandler}
         edit={edit}
         setEdit={setEdit}
-        title={`Edit Order: ${orderData._id} `}
+        title={'Edit Order'}
       />
       <NewOrderMainPage
         setSelectedCustomer={setSelectedCustomer}
@@ -127,6 +143,8 @@ const EditOrderPage = ({ setCurrentPage, orderData }) => {
         step={step}
         onCancel={onCancelHandler}
         addCustomer={() => setAddCustomer(true)}
+        isEdit={true}
+        onDelete={onDeleteHandler}
       />
     </>
   );

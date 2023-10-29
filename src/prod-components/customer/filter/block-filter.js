@@ -3,7 +3,7 @@ import React from 'react';
 import ModalWide from '@/assets/modal-wide';
 import newOrderStyles from '@/styles/new-order.module.css';
 
-const BlockFilter = ({ open, onSelect }) => {
+const BlockFilterSelector = ({ open, onSelect }) => {
   const numbersArray = Array.from({ length: 50 }, (_, i) => i + 1);
 
   return (
@@ -27,4 +27,4 @@ const BlockFilter = ({ open, onSelect }) => {
   );
 };
 
-export default BlockFilter;
+export default BlockFilterSelector;

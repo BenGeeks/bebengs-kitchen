@@ -3,11 +3,12 @@ import { RiCloseCircleLine } from 'react-icons/ri';
 import { toast } from 'react-toastify';
 
 import ReactForm from '@/assets/react-form';
+import ModalWide from '@/assets/modal-wide';
 import apiRequest from '@/lib/axios';
 import { SCHEMA } from '@/resources/customers';
-import modalStyles from '@/styles/modal.module.css';
+import assetStyles from '@/styles/assets.module.css';
 
-const CustomerEdit = ({ close, customer }) => {
+const CustomerEdit = ({ open, close, customer }) => {
   const queryClient = useQueryClient();
 
   const addressQuery = useQuery({
@@ -38,16 +39,16 @@ const CustomerEdit = ({ close, customer }) => {
   ];
 
   return (
-    <>
-      <div className={modalStyles.modal_header_bar}>
-        <h2 className={modalStyles.modal_header_text}>Add customer:</h2>
-        <div className={modalStyles.modal_header_icon_container}>
-          <div className={modalStyles.modal_header_icon} onClick={close}>
+    <ModalWide open={open} close={close}>
+      <div className={assetStyles.modal_header_bar}>
+        <h2 className={assetStyles.modal_header_text}>Add customer:</h2>
+        <div className={assetStyles.modal_header_icon_container}>
+          <div className={assetStyles.modal_header_icon} onClick={close}>
             <RiCloseCircleLine />
           </div>
         </div>
       </div>
-      <div className={modalStyles.modal_body}>
+      <div className={assetStyles.modal_body}>
         <ReactForm
           layout={INPUT}
           schema={SCHEMA}
@@ -57,7 +58,7 @@ const CustomerEdit = ({ close, customer }) => {
           action="Add"
         />
       </div>
-    </>
+    </ModalWide>
   );
 };
 

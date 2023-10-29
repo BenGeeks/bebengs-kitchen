@@ -15,11 +15,15 @@ const EditShoppingCart = ({ items, setItems, setEdit }) => {
       setItems(tempData);
     }
     if (action === 'up') {
-      let tempData = items.map((item) => (item._id === data._id ? { ...item, qty: item.qty + 1 } : item));
+      let tempData = items.map((item) =>
+        item._id === data._id ? { ...item, qty: item.qty + 1, subTotal: item.price * (item.qty + 1) } : item
+      );
       setItems(tempData);
     }
     if (action === 'down') {
-      let tempData = items.map((item) => (item._id === data._id ? { ...item, qty: item.qty - 1 } : item));
+      let tempData = items.map((item) =>
+        item._id === data._id ? { ...item, qty: item.qty - 1, subTotal: item.price * (item.qty - 1) } : item
+      );
       setItems(tempData);
     }
     if (action === 'cancel') {

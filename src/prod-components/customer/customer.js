@@ -4,7 +4,6 @@ import { toast } from 'react-toastify';
 
 import CustomerIconBar from './customer-icon-bar';
 import CustomersList from './customer-list';
-import ModalWide from '@/assets/modal-wide';
 import CustomerEdit from './customer-edit';
 import CustomerNew from './customer-new';
 import ActionModal from '@/assets/action-modal';
@@ -79,22 +78,11 @@ const CustomerPage = () => {
         onEdit={onEditHandler}
         onDelete={onDeleteHandler}
       />
-
-      <ModalWide open={editModal} close={() => setEditModal(false)}>
-        <CustomerEdit close={cancelHandler} customer={selectedCustomer} />
-      </ModalWide>
-
-      <ModalWide open={newModal} close={() => setNewModal(false)}>
-        <CustomerNew close={cancelHandler} onAddCustomerSuccess={() => null} />
-      </ModalWide>
-
-      <ModalWide open={newAddressModal} close={() => setNewAddressModal(false)}>
-        <AddressNew close={() => setNewAddressModal(false)} />
-      </ModalWide>
-
+      <CustomerEdit open={editModal} close={cancelHandler} customer={selectedCustomer} />
+      <CustomerNew open={newModal} close={cancelHandler} onAddCustomerSuccess={() => null} />
+      <AddressNew open={newAddressModal} close={() => setNewAddressModal(false)} />
       {currentPage === 'customer' && <CustomersList onSelectCustomer={selectCustomerHandler} />}
       {currentPage === 'address' && <AddressList />}
-
       <CustomerIconBar
         onAdd={onAddCustomerHandler}
         currentPage={currentPage}

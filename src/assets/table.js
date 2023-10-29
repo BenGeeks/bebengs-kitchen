@@ -1,23 +1,23 @@
 import React from 'react';
 import { RiDeleteBin4Line, RiEditLine } from 'react-icons/ri';
 
-import styles from '@/styles/table.module.css';
+import assetStyles from '@/styles/assets.module.css';
 
 const Table = ({ headers, data, enableDelete, enableEdit, onDelete, onEdit, enableRowClick, onRowClick }) => {
   return (
-    <table className={styles.table}>
+    <table className={assetStyles.table}>
       <thead>
-        <tr className={styles.table_head_row}>
+        <tr className={assetStyles.table_head_row}>
           {headers.map((header) => {
             return (
-              <th className={styles.table_head} key={header.name}>
-                <div className={styles.table_head_text}>{header.display}</div>
+              <th className={assetStyles.table_head} key={header.name}>
+                <div className={assetStyles.table_head_text}>{header.display}</div>
               </th>
             );
           })}
           {(enableDelete || enableEdit) && (
-            <th className={styles.table_head}>
-              <div className={styles.table_head_text}>Actions</div>
+            <th className={assetStyles.table_head}>
+              <div className={assetStyles.table_head_text}>Actions</div>
             </th>
           )}
         </tr>
@@ -28,26 +28,26 @@ const Table = ({ headers, data, enableDelete, enableEdit, onDelete, onEdit, enab
             return (
               <tr
                 key={index}
-                className={enableRowClick ? styles.table_row_clickable : styles.table_row}
+                className={enableRowClick ? assetStyles.table_row_clickable : assetStyles.table_row}
                 onClick={enableRowClick ? () => onRowClick(row) : null}
               >
                 {headers.map((header, index) => {
                   return (
-                    <td key={index} className={styles.cell}>
+                    <td key={index} className={assetStyles.cell}>
                       {row[header.name]}
                     </td>
                   );
                 })}
                 {(enableDelete || enableEdit) && (
-                  <td className={styles.cell}>
-                    <div className={styles.icons_container}>
+                  <td className={assetStyles.cell}>
+                    <div className={assetStyles.icons_container}>
                       {enableDelete && (
-                        <div className={styles.delete_icon_holder} onClick={() => onDelete(row._id)}>
+                        <div className={assetStyles.delete_icon_holder} onClick={() => onDelete(row._id)}>
                           <RiDeleteBin4Line />
                         </div>
                       )}
                       {enableEdit && (
-                        <div className={styles.edit_icon_holder} onClick={() => onEdit(row)}>
+                        <div className={assetStyles.edit_icon_holder} onClick={() => onEdit(row)}>
                           <RiEditLine />
                         </div>
                       )}

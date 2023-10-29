@@ -3,9 +3,10 @@ import React, { useState } from 'react';
 import { RiCloseCircleLine, RiBitCoinLine } from 'react-icons/ri';
 import { TbTruckDelivery } from 'react-icons/tb';
 import { BsCartCheck, BsCartX, BsCashCoin } from 'react-icons/bs';
+
 import ModalWide from '@/assets/modal-wide';
 import orderStyles from '@/styles/order.module.css';
-import modalStyles from '@/styles/modal.module.css';
+import assetStyles from '@/styles/assets.module.css';
 
 const OrderStatus = ({ order, index, onUpdate }) => {
   const [modalOpen, setModalOpen] = useState(false);
@@ -46,15 +47,15 @@ const OrderStatus = ({ order, index, onUpdate }) => {
   return (
     <>
       <ModalWide open={modalOpen}>
-        <div className={modalStyles.modal_header_bar}>
-          <h2 className={modalStyles.modal_header_text}>Update Order Status</h2>
-          <div className={modalStyles.modal_header_icon_container}>
-            <div className={modalStyles.modal_header_icon} onClick={() => setModalOpen(false)}>
+        <div className={assetStyles.modal_header_bar}>
+          <h2 className={assetStyles.modal_header_text}>Update Order Status</h2>
+          <div className={assetStyles.modal_header_icon_container}>
+            <div className={assetStyles.modal_header_icon} onClick={() => setModalOpen(false)}>
               <RiCloseCircleLine />
             </div>
           </div>
         </div>
-        <div className={modalStyles.modal_body}>
+        <div className={assetStyles.modal_body}>
           <div className={orderStyles.status_icon_container}>
             <div
               className={`${orderStyles.status_icon} ${delivered ? orderStyles.status_icon_green : orderStyles.status_icon_red}`}

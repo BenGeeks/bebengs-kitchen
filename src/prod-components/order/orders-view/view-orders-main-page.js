@@ -1,5 +1,3 @@
-'use client';
-
 import OrderStatus from './order-status';
 import OrderDetails from './order-details';
 import { ORDER_COLUMNS } from '@/resources/orders';
@@ -7,7 +5,7 @@ import LoadingPage from '@/assets/loading';
 import ErrorPage from '@/assets/error';
 
 import pageStyles from '@/styles/page.module.css';
-import tableStyles from '@/styles/table.module.css';
+import tableStyles from '@/styles/assets.module.css';
 
 const OrdersMainPage = ({ orderQuery, statusUpdateHandler, onEdit }) => {
   if (orderQuery.isLoading) return <LoadingPage />;

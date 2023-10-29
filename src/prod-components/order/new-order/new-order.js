@@ -93,9 +93,7 @@ const NewOrderPage = ({ setCurrentPage }) => {
 
   return (
     <>
-      <ModalWide open={addCustomer} close={() => setAddCustomer(false)}>
-        <CustomerNew close={() => setAddCustomer(false)} onAddCustomerSuccess={onAddCustomerSuccess} />
-      </ModalWide>
+      <CustomerNew open={addCustomer} close={() => setAddCustomer(false)} onAddCustomerSuccess={onAddCustomerSuccess} />
       <NewOrderSideBar
         selectedCustomer={selectedCustomer}
         orderDetails={orderDetails}

@@ -22,7 +22,7 @@ const OrdersIconBar = ({ setCurrentPage, setOpenCalendar, setCalendarDate }) => 
         <div className={iconStyles.order_right_icon}>
           <RiAddCircleLine />
         </div>
-        <p className={iconStyles.order_right_icon_text}>Add</p>
+        <p className={iconStyles.order_right_icon_text}>New Order</p>
       </div>
 
       <div className={iconStyles.order_right_icon_box} title="Today" onClick={() => setCalendarDate(moment()._d)}>
@@ -31,11 +31,11 @@ const OrdersIconBar = ({ setCurrentPage, setOpenCalendar, setCalendarDate }) => 
         </div>
         <p className={iconStyles.order_right_icon_text}>Today</p>
       </div>
-      <div className={iconStyles.order_right_icon_box} title="History" onClick={() => setOpenCalendar(true)}>
+      <div className={iconStyles.order_right_icon_box} title="Calendar" onClick={() => setOpenCalendar(true)}>
         <div className={iconStyles.order_right_icon}>
           <RiCalendar2Line />
         </div>
-        <p className={iconStyles.order_right_icon_text}>History</p>
+        <p className={iconStyles.order_right_icon_text}>Calendar</p>
       </div>
       <div className={iconStyles.order_right_icon_box} title="Filter">
         <div className={iconStyles.order_right_icon}>

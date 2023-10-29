@@ -14,10 +14,10 @@ const OrderDetails = ({ order, onEdit }) => {
     <>
       <div className={orderStyles.cell_order_details}>
         <div className={orderStyles.cell_customer}>{`
-        ${order?.orderDetails?.customer?.name} - 
-        ${order?.orderDetails?.customer?.address} 
-        B${order?.orderDetails?.customer?.block}
-        L${order?.orderDetails?.customer?.lot}
+        ${order?.orderDetails?.customer?.name} (
+        ${order?.orderDetails?.customer?.address} - 
+        ${order?.orderDetails?.customer?.block}
+        ${order?.orderDetails?.customer?.lot} )
         `}</div>
         {order.deliveryTime !== '00:00' && (
           <div className={orderStyles.cell_delivery_time}>

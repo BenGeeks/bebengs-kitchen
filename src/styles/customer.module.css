@@ -35,6 +35,25 @@
   color: #374151;
 }
 
+.header_bar_filter {
+  border: 1px solid #374151;
+  background-color: beige;
+  padding: 0px 20px;
+  height: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 1.2rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.3s ease-out;
+}
+
+.header_bar_filter:hover {
+  border: 1px solid beige;
+  color: beige;
+  background-color: #374151;
+}
 .search_input {
   width: 50%;
   height: 40px;
