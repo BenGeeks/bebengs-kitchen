@@ -5,19 +5,21 @@ import { getSession } from 'next-auth/react';
 import TopBar from '@/prod-components/top-bar/top-bar';
 import CustomerPage from '@/prod-components/customer/customer';
 import MenuPage from '@/prod-components/menu/menu';
-import OrdersPage from '@/prod-components/order/orders';
+import SalesPage from '@/prod-components/sales/orders';
+import Collectibles from '@/prod-components/collectibles/collectibles';
 import styles from '@/styles/prod.module.css';
 
 const ProdPage = () => {
-  const [currentPage, setCurrentPage] = useState('orders');
+  const [currentPage, setCurrentPage] = useState('sales');
 
   return (
     <div className={styles.main_container}>
       <TopBar currentPage={currentPage} setCurrentPage={setCurrentPage} />
       <div className={styles.page_container}>
-        {currentPage === 'orders' && <OrdersPage />}
+        {currentPage === 'sales' && <SalesPage />}
         {currentPage === 'menu' && <MenuPage />}
         {currentPage === 'customers' && <CustomerPage />}
+        {currentPage === 'collectibles' && <Collectibles />}
       </div>
     </div>
   );

@@ -9,16 +9,16 @@ import { IoFastFoodOutline } from 'react-icons/io5';
 import { BsClipboardCheck } from 'react-icons/bs';
 // import { FaRegMoneyBillAlt } from 'react-icons/fa';
 // import { AiOutlineDashboard } from 'react-icons/ai';
-// import { PiHandCoins } from 'react-icons/pi';
+import { PiHandCoins } from 'react-icons/pi';
 import { RiContactsBookLine, RiLogoutCircleLine } from 'react-icons/ri';
 
 const TopBar = ({ currentPage, setCurrentPage }) => {
   const [showNavBar, setShowNavBar] = useState(false);
 
   const ICON_LIST = [
-    { name: 'orders', title: 'Orders', icon: <BsClipboardCheck /> },
+    { name: 'sales', title: 'Sales', icon: <BsClipboardCheck /> },
     // { name: 'expenses', title: 'Expenses', icon: <FaRegMoneyBillAlt /> },
-    // { name: 'collectibles', title: 'Collectibles', icon: <PiHandCoins /> },
+    { name: 'collectibles', title: 'Collectibles', icon: <PiHandCoins /> },
     { name: 'menu', title: 'Menu', icon: <IoFastFoodOutline /> },
     { name: 'customers', title: 'Customer', icon: <RiContactsBookLine /> },
     // { name: 'dashboard', title: 'Dashboard', icon: <AiOutlineDashboard /> },

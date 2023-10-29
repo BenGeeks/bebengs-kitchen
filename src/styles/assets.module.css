@@ -26,42 +26,18 @@
   margin: 2px;
 }
 
-.month_grid {
+.grid_container {
   display: grid;
   grid-template-columns: auto auto auto;
   background-color: aliceblue;
   padding: 5px;
 }
 
-.month {
-  width: 60px;
-  height: 60px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin: 2px;
-  background-color: beige;
-  border: 1px solid #374151;
-  cursor: pointer;
-  transition: all 0.3s ease-out;
-}
-
-.month:hover {
-  background-color: #374151;
-  border: 1px solid beige;
-  color: beige;
-}
-
-.month_selected {
-  width: 60px;
-  height: 60px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin: 2px;
-  background-color: #374151;
-  border: 1px solid beige;
-  color: beige;
+.month_grid {
+  display: grid;
+  grid-template-columns: auto auto auto;
+  background-color: aliceblue;
+  padding: 5px;
 }
 
 .day_grid {
@@ -71,37 +47,6 @@
   padding: 5px;
 }
 
-.day {
-  width: 40px;
-  height: 60px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin: 2px;
-  background-color: beige;
-  border: 1px solid #374151;
-  cursor: pointer;
-  transition: all 0.3s ease-out;
-}
-
-.day:hover {
-  background-color: #374151;
-  border: 1px solid beige;
-  color: beige;
-}
-
-.day_selected {
-  width: 40px;
-  height: 60px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin: 2px;
-  background-color: #374151;
-  border: 1px solid beige;
-  color: beige;
-}
-
 .year_grid {
   display: grid;
   grid-template-columns: auto;
@@ -109,7 +54,7 @@
   padding: 5px;
 }
 
-.year {
+.grid {
   width: 60px;
   height: 60px;
   display: flex;
@@ -122,13 +67,13 @@
   transition: all 0.3s ease-out;
 }
 
-.year:hover {
+.grid:hover {
   background-color: #374151;
   border: 1px solid beige;
   color: beige;
 }
 
-.year_selected {
+.grid_selected {
   width: 60px;
   height: 60px;
   display: flex;
@@ -325,7 +270,7 @@
 
 .table_head_text {
   height: 30px;
-  padding-left: 5px;
+  padding: 5px;
   display: flex;
   align-items: center;
   border-right: 1px solid #374151;

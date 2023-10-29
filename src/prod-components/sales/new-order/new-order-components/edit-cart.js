@@ -7,7 +7,6 @@ import newOrderStyles from '@/styles/new-order.module.css';
 const EditShoppingCart = ({ items, setItems, setEdit }) => {
   const [initialData] = useState(items);
   const EDIT_CART_HEADER = ['Item', 'Size', 'Price', 'Quantity', 'Total', 'Delete'];
-  console.log('INITIAL DATA: ', initialData);
 
   const updateItemHandler = (action, data) => {
     if (action === 'delete') {

@@ -3,14 +3,22 @@ import Order from '@/model/order';
 import moment from 'moment-timezone';
 
 export default async function handler(req, res) {
+  const { method, body } = req;
   await dbConnect();
-  let start = moment().tz('Asia/Manila').startOf('day');
-  let end = moment().tz('Asia/Manila').endOf('day');
 
-  try {
-    const todayOrderList = await Order.find({ deliveryDate: { $gte: new Date(start), $lt: new Date(end) } });
-    return res.status(200).json({ data: todayOrderList });
-  } catch (error) {
-    return res.status(400).json({ error });
+  if (method !== 'POST') {
+    res.status(401).json({ message: 'INTRUDER ALERT!' });
+  } else {
+    try {
+      const orderList = await Order.find({
+        $or: [
+          { deliveryDate: { $gte: moment(body.dateFrom), $lt: moment(body.dateTo) } },
+          { paymentDate: { $gte: moment(body.dateFrom), $lt: moment(body.dateTo) } },
+        ],
+      });
+      res.status(201).json({ success: true, data: orderList });
+    } catch (error) {
+      res.status(400).json({ success: false, error: error });
+    }
   }
 }

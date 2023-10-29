@@ -1,8 +1,8 @@
 import moment from 'moment';
 
-import Table from '@/assets/table';
 import { COLLECTIBLE_HEADER, COUNT_HEADER } from '@/resources/side-bar';
 import sideStyles from '@/styles/side-bar.module.css';
+import Table from '@/assets/table';
 
 const OrdersSideBar = ({ salesCount, collectibleData, salesData, viewReport, calendarDate }) => {
   return (

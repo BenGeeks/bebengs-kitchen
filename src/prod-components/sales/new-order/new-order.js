@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { toast } from 'react-toastify';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 
+import ModalWide from '@/assets/modal-wide';
 import CustomerNew from '@/prod-components/customer/customer-new';
 import NewOrderIconBar from './new-order-icon-bar';
 import NewOrderMainPage from './new-order-main-page';
@@ -9,30 +10,19 @@ import NewOrderSideBar from './new-order-side-bar';
 import apiRequest from '@/lib/axios';
 import { DEFAULT_ORDER_DETAILS } from '@/resources/orders';
 
-const EditOrderPage = ({ setCurrentPage, orderData }) => {
+const NewOrderPage = ({ setCurrentPage }) => {
   const queryClient = useQueryClient();
-  const [selectedCustomer, setSelectedCustomer] = useState(orderData?.orderDetails?.customer);
-  const [items, setItems] = useState(orderData?.orderDetails?.items);
-  const [orderDetails, setOrderDetails] = useState(orderData);
-  const [step, setStep] = useState(3);
-  const [edit, setEdit] = useState(4);
+  const [selectedCustomer, setSelectedCustomer] = useState(null);
+  const [items, setItems] = useState([]);
+  const [orderDetails, setOrderDetails] = useState(DEFAULT_ORDER_DETAILS);
+  const [step, setStep] = useState(1);
+  const [edit, setEdit] = useState(1);
   const [addCustomer, setAddCustomer] = useState(false);
 
-  const editOrderMutation = useMutation({
-    mutationFn: (data) => apiRequest({ url: `orders/${data._id}`, method: 'PUT', data: data }),
+  const newOrderMutation = useMutation({
+    mutationFn: (data) => apiRequest({ url: `orders`, method: 'POST', data: data }),
     onSuccess: () => {
-      toast.success('Order updated successfully.');
-      queryClient.invalidateQueries({ queryKey: ['orders'] });
-    },
-    onError: (error) => {
-      toast.error(error.response.data.error.message);
-    },
-  });
-
-  const deleteOrderMutation = useMutation({
-    mutationFn: (id) => apiRequest({ url: `orders/${id}`, method: 'DELETE' }),
-    onSuccess: () => {
-      toast.success('Order deleted successfully.');
+      toast.success('Order added successfully.');
       queryClient.invalidateQueries({ queryKey: ['orders'] });
     },
     onError: (error) => {
@@ -71,7 +61,7 @@ const EditOrderPage = ({ setCurrentPage, orderData }) => {
       setItems([]);
       setOrderDetails(DEFAULT_ORDER_DETAILS);
       setStep(1);
-      setCurrentPage('order-list');
+      setCurrentPage('todays-list');
     }
   };
 
@@ -87,26 +77,18 @@ const EditOrderPage = ({ setCurrentPage, orderData }) => {
       total: total,
       orderDetails: { customer: selectedCustomer, items },
     };
-    editOrderMutation.mutate(tempData);
+    newOrderMutation.mutate(tempData);
     setSelectedCustomer(null);
     setItems([]);
     setOrderDetails(DEFAULT_ORDER_DETAILS);
     setStep(1);
-    setCurrentPage('order-list');
+    setCurrentPage('todays-list');
   };
 
   const onAddCustomerSuccess = (customer) => {
     setSelectedCustomer(customer);
     setStep(2);
     setEdit(2);
-  };
-
-  const onDeleteHandler = () => {
-    if (confirm(`Are you sure you want to delete this order?`) == true) {
-      deleteOrderMutation.mutate(orderData._id);
-      setCurrentPage('order-list');
-      console.log('ON DELETE HANDLER HAS BEEN TRIGGERED, ', orderData._id);
-    }
   };
 
   return (
@@ -122,7 +104,7 @@ const EditOrderPage = ({ setCurrentPage, orderData }) => {
         onCancel={onCancelHandler}
         edit={edit}
         setEdit={setEdit}
-        title={'Edit Order'}
+        title={'Add New Order'}
       />
       <NewOrderMainPage
         setSelectedCustomer={setSelectedCustomer}
@@ -135,7 +117,7 @@ const EditOrderPage = ({ setCurrentPage, orderData }) => {
         setEdit={setEdit}
         items={items}
         setItems={setItems}
-        isOrderEdit={true}
+        isOrderEdit={false}
       />
       <NewOrderIconBar
         setCurrentPage={setCurrentPage}
@@ -143,11 +125,9 @@ const EditOrderPage = ({ setCurrentPage, orderData }) => {
         step={step}
         onCancel={onCancelHandler}
         addCustomer={() => setAddCustomer(true)}
-        isEdit={true}
-        onDelete={onDeleteHandler}
       />
     </>
   );
 };
 
-export default EditOrderPage;
+export default NewOrderPage;

@@ -1,13 +1,14 @@
-import OrderStatus from './order-status';
-import OrderDetails from './order-details';
-import { ORDER_COLUMNS } from '@/resources/orders';
 import LoadingPage from '@/assets/loading';
+import OrderDetails from './order-details';
+import OrderStatus from './order-status';
 import ErrorPage from '@/assets/error';
 
-import pageStyles from '@/styles/page.module.css';
-import tableStyles from '@/styles/assets.module.css';
+import { ORDER_COLUMNS } from '@/resources/orders';
 
-const OrdersMainPage = ({ orderQuery, statusUpdateHandler, onEdit }) => {
+import tableStyles from '@/styles/assets.module.css';
+import pageStyles from '@/styles/page.module.css';
+
+const OrdersMainPage = ({ orderQuery, onEdit }) => {
   if (orderQuery.isLoading) return <LoadingPage />;
   if (orderQuery.isError) return <ErrorPage error={orderQuery.error} />;
 
@@ -31,7 +32,7 @@ const OrdersMainPage = ({ orderQuery, statusUpdateHandler, onEdit }) => {
               return (
                 <tr key={index}>
                   <td className={tableStyles.cell_status}>
-                    <OrderStatus order={order} index={index} onUpdate={statusUpdateHandler} />
+                    <OrderStatus order={order} index={index} />
                   </td>
                   <td className={tableStyles.cell_order_details}>
                     <OrderDetails order={order} onEdit={onEdit} />

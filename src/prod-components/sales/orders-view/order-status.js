@@ -1,26 +1,45 @@
-import moment from 'moment';
-import React, { useState } from 'react';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { RiCloseCircleLine, RiBitCoinLine } from 'react-icons/ri';
-import { TbTruckDelivery } from 'react-icons/tb';
 import { BsCartCheck, BsCartX, BsCashCoin } from 'react-icons/bs';
+import { TbTruckDelivery } from 'react-icons/tb';
+import React, { useState } from 'react';
+import { toast } from 'react-toastify';
+import moment from 'moment';
 
-import ModalWide from '@/assets/modal-wide';
-import orderStyles from '@/styles/order.module.css';
+import apiRequest from '@/lib/axios';
+
 import assetStyles from '@/styles/assets.module.css';
+import orderStyles from '@/styles/order.module.css';
+import ModalWide from '@/assets/modal-wide';
 
-const OrderStatus = ({ order, index, onUpdate }) => {
+const OrderStatus = ({ order, index }) => {
+  const queryClient = useQueryClient();
   const [modalOpen, setModalOpen] = useState(false);
   const [delivered, setDelivered] = useState(order.isDelivered);
   const [paid, setPaid] = useState(order.isPaid);
   const [gCash, setGCash] = useState(order.isGcash);
 
-  const onSubmitHandler = () => {
-    onUpdate({
-      isDelivered: delivered,
-      isPaid: paid,
-      isGcash: gCash,
-      _id: order._id,
-      paymentDate: paid ? moment().add(8, 'h') : null,
+  const updateOrderMutation = useMutation({
+    mutationFn: (payload) => apiRequest({ url: `orders/${payload.id}`, method: 'PUT', data: payload.data }),
+    onSuccess: () => {
+      toast.success('Order updated successfully.');
+      queryClient.invalidateQueries({ queryKey: ['orders'] });
+    },
+    onError: (error) => {
+      toast.error(error.response.data.error.message);
+    },
+  });
+
+  const statusUpdateHandler = () => {
+    updateOrderMutation.mutate({
+      id: order._id,
+      data: {
+        ...order,
+        isDelivered: delivered,
+        isPaid: paid,
+        isGcash: gCash,
+        paymentDate: paid ? moment() : null,
+      },
     });
     setModalOpen(false);
   };
@@ -34,13 +53,10 @@ const OrderStatus = ({ order, index, onUpdate }) => {
   const getStatusColor = (data) => {
     if (data && !data.isPaid && data.isDelivered && data.isGcash) return orderStyles.red;
     if (data && !data.isPaid && data.isDelivered && !data.isGcash) return orderStyles.purple;
-
     if (data && data.isPaid && !data.isDelivered && !data.isGcash) return orderStyles.turquoise;
     if (data && data.isPaid && !data.isDelivered && data.isGcash) return orderStyles.pink;
-
     if (data && data.isPaid && data.isDelivered && data.isGcash) return orderStyles.blue;
     if (data && data.isPaid && data.isDelivered && !data.isGcash) return orderStyles.green;
-
     return orderStyles.orange;
   };
 
@@ -83,7 +99,7 @@ const OrderStatus = ({ order, index, onUpdate }) => {
             <button type="reset" className={orderStyles.button_cancel} onClick={cancelHandler}>
               Cancel
             </button>
-            <button className={orderStyles.button_save} type="submit" onClick={onSubmitHandler}>
+            <button className={orderStyles.button_save} type="submit" onClick={statusUpdateHandler}>
               Save
             </button>
           </div>
