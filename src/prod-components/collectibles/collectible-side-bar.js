@@ -1,7 +1,9 @@
 import React from 'react';
 
 import Table from '@/assets/table';
+
 import { ORDER_ITEMS_HEADER } from '@/resources/orders';
+
 import collectiblesStyles from '@/styles/collectibles.module.css';
 import sideStyles from '@/styles/side-bar.module.css';
 

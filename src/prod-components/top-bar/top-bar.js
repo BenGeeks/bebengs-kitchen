@@ -1,17 +1,16 @@
-'use client';
-import React, { useState } from 'react';
 import { signOut } from 'next-auth/react';
+import React, { useState } from 'react';
+
+import { RiContactsBookLine, RiLogoutCircleLine } from 'react-icons/ri';
+import { IoFastFoodOutline } from 'react-icons/io5';
+import { BsClipboardCheck } from 'react-icons/bs';
+import { GiChickenOven } from 'react-icons/gi';
+import { PiHandCoins } from 'react-icons/pi';
+// import { FaRegMoneyBillAlt } from 'react-icons/fa';
+// import { AiOutlineDashboard } from 'react-icons/ai';
 
 import pageStyles from '@/styles/page.module.css';
 import iconStyles from '@/styles/icons.module.css';
-
-import { IoFastFoodOutline } from 'react-icons/io5';
-import { BsClipboardCheck } from 'react-icons/bs';
-// import { FaRegMoneyBillAlt } from 'react-icons/fa';
-// import { AiOutlineDashboard } from 'react-icons/ai';
-import { PiHandCoins } from 'react-icons/pi';
-import { RiContactsBookLine, RiLogoutCircleLine } from 'react-icons/ri';
-import { GiChickenOven } from 'react-icons/gi';
 
 const TopBar = ({ currentPage, setCurrentPage }) => {
   const [showNavBar, setShowNavBar] = useState(false);

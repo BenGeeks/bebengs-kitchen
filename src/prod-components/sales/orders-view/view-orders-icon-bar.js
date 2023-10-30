@@ -5,7 +5,7 @@ import React, { useState } from 'react';
 
 import iconStyles from '@/styles/icons.module.css';
 
-const OrdersIconBar = ({ setCurrentPage, currentPage, setOpenCalendar }) => {
+const OrdersIconBar = ({ setCurrentPage, currentPage, setOpenCalendar, onPrint }) => {
   const [showIcons, setShowIcons] = useState(false);
 
   return (
@@ -50,12 +50,14 @@ const OrdersIconBar = ({ setCurrentPage, currentPage, setOpenCalendar }) => {
         </div>
         <p className={iconStyles.order_right_icon_text}>Filter</p>
       </div>
-      <div className={iconStyles.order_right_icon_box} title="Print">
-        <div className={iconStyles.order_right_icon}>
-          <RiPrinterLine />
+      {currentPage === 'history-list' && (
+        <div className={iconStyles.order_right_icon_box} title="Print" onClick={onPrint}>
+          <div className={iconStyles.order_right_icon}>
+            <RiPrinterLine />
+          </div>
+          <p className={iconStyles.order_right_icon_text}>Print</p>
         </div>
-        <p className={iconStyles.order_right_icon_text}>Print</p>
-      </div>
+      )}
     </div>
   );
 };

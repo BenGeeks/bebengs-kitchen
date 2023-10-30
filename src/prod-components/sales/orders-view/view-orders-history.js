@@ -1,7 +1,9 @@
 import { useQuery } from '@tanstack/react-query';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
+import { useReactToPrint } from 'react-to-print';
 import moment from 'moment';
 
+import PrintSalesDailySummary from './print-sales-summary';
 import OrdersMainPage from './view-orders-main-page';
 import OrdersIconBar from './view-orders-icon-bar';
 import OrdersSideBar from './view-orders-side-bar';
@@ -10,10 +12,12 @@ import DatePicker from '@/assets/date-picker';
 import apiRequest from '@/lib/axios';
 
 const OrderListHistory = ({ currentPage, setCurrentPage, onEdit, calendarDate, setCalendarDate }) => {
+  const printRef = useRef();
   const [salesData, setSalesData] = useState({ cashTotal: 0, gCashTotal: 0, dailyTotal: 0 });
   const [salesCount, setSalesCount] = useState([]);
   const [collectibleData, setCollectibleData] = useState([]);
   const [openCalendar, setOpenCalendar] = useState(true);
+  const [isPrint, setIsPrint] = useState(false);
 
   const summarizeReport = (sales) => {
     let tempArray = [];
@@ -49,7 +53,7 @@ const OrderListHistory = ({ currentPage, setCurrentPage, onEdit, calendarDate, s
   };
 
   const orderQuery = useQuery({
-    queryKey: ['orders'],
+    queryKey: ['history'],
     enabled: !openCalendar,
     queryFn: () =>
       apiRequest({
@@ -71,12 +75,37 @@ const OrderListHistory = ({ currentPage, setCurrentPage, onEdit, calendarDate, s
     }, 10);
   };
 
+  const handleBeforeGetContent = () => {
+    setIsPrint(true);
+    return Promise.resolve();
+  };
+
+  const onPrintHandler = useReactToPrint({
+    onBeforeGetContent: () => handleBeforeGetContent(),
+    content: () => printRef.current,
+    documentTitle: `patient_prescription`,
+    onAfterPrint: () => setIsPrint(false),
+  });
+
   return (
     <>
       <DatePicker open={openCalendar} close={() => setOpenCalendar(false)} onSave={setCalendarHandler} />
-      <OrdersSideBar salesData={salesData} salesCount={salesCount} collectibleData={collectibleData} calendarDate={calendarDate} />
-      <OrdersMainPage orderQuery={orderQuery} onEdit={onEdit} />
-      <OrdersIconBar currentPage={currentPage} setCurrentPage={setCurrentPage} setOpenCalendar={setOpenCalendar} />
+      {isPrint ? (
+        <div ref={printRef}>
+          <PrintSalesDailySummary data={orderQuery.data} salesSummary={salesData} />
+        </div>
+      ) : (
+        <>
+          <OrdersSideBar salesData={salesData} salesCount={salesCount} collectibleData={collectibleData} calendarDate={calendarDate} />
+          <OrdersMainPage orderQuery={orderQuery} onEdit={onEdit} />
+          <OrdersIconBar
+            currentPage={currentPage}
+            setCurrentPage={setCurrentPage}
+            setOpenCalendar={setOpenCalendar}
+            onPrint={onPrintHandler}
+          />
+        </>
+      )}
     </>
   );
 };

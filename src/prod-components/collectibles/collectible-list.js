@@ -1,4 +1,3 @@
-import React from 'react';
 import moment from 'moment';
 
 import collectiblesStyles from '@/styles/collectibles.module.css';

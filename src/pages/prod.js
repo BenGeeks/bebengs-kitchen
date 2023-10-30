@@ -1,6 +1,6 @@
 'use client';
-import { useState } from 'react';
 import { getSession } from 'next-auth/react';
+import { useState } from 'react';
 
 import Collectibles from '@/prod-components/collectibles/collectibles';
 import CustomerPage from '@/prod-components/customer/customer';

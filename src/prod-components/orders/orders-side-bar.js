@@ -1,7 +1,7 @@
-import React from 'react';
-
 import Table from '@/assets/table';
+
 import { ORDER_ITEMS_HEADER } from '@/resources/orders';
+
 import futureOrdersStyles from '@/styles/future-orders.module.css';
 import sideStyles from '@/styles/side-bar.module.css';
 

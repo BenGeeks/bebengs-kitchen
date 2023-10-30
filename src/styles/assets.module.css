@@ -152,7 +152,7 @@
 .modal_wide {
   position: fixed;
   width: 100%;
-  top: 50px;
+  top: 30px;
   background-color: aliceblue;
   min-height: 50vh;
   z-index: 1000;
