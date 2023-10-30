@@ -22,9 +22,9 @@ const NewOrderMainPage = ({
 }) => {
   const updateDetailsHandler = (data) => {
     let tempData = {
+      ...data,
       deliveryDate: data?.deliveryDate ? data.deliveryDate : moment().format('YYYY-MM-DD'),
       deliveryTime: data?.deliveryTime ? data.deliveryTime : null,
-      downPayment: data?.downPayment ? data.downPayment : 0,
       paymentDate: data?.paymentDate ? data.paymentDate : null,
     };
     setOrderDetails(tempData);

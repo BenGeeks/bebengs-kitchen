@@ -7,6 +7,7 @@ import newOrderStyles from '@/styles/new-order.module.css';
 const NewOrderSideBar = ({ selectedCustomer, orderDetails, items, step, setStep, onCancel, onSave, edit, setEdit, title }) => {
   let total = items.reduce((total, data) => +data.subTotal + total, 0) - +orderDetails.downPayment;
 
+  console.log('ORDER DETAILS: ', orderDetails);
   const customerClickHandler = () => {
     if (step === 1) {
       setStep(2);
@@ -52,13 +53,23 @@ const NewOrderSideBar = ({ selectedCustomer, orderDetails, items, step, setStep,
               {orderDetails?.deliveryTime}
             </div>
             <div className={newOrderStyles.info_container}>
-              <div className={newOrderStyles.title}>Down Payment: </div>
-              {orderDetails?.downPayment}
+              <div className={newOrderStyles.title}>Is Delivered: </div>
+              {orderDetails?.isDelivered ? '🟢' : '🔴'}
             </div>
             <div className={newOrderStyles.info_container}>
-              <div className={newOrderStyles.title}>Payment Date: </div>
-              {orderDetails.paymentDate ? moment(orderDetails.paymentDate).format('yyyy-MM-DD') : 'n/a'}
+              <div className={newOrderStyles.title}>Is G-Cash: </div>
+              {orderDetails?.isGcash ? '🟢' : '🔴'}
             </div>
+            <div className={newOrderStyles.info_container}>
+              <div className={newOrderStyles.title}>Is Paid: </div>
+              {orderDetails?.isPaid ? '🟢' : '🔴'}
+            </div>
+            {orderDetails.isPaid && (
+              <div className={newOrderStyles.info_container}>
+                <div className={newOrderStyles.title}>Payment Date: </div>
+                {orderDetails.paymentDate && moment(orderDetails.paymentDate).format('MMM DD, yyyy')}
+              </div>
+            )}
           </div>
         )}
         {step === 3 && (

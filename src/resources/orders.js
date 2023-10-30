@@ -25,7 +25,9 @@ export const ORDER_DETAILS_SCHEMA = yup.object().shape({
 export const ORDER_DETAILS_INPUT = [
   { type: 'date', name: 'deliveryDate', label: 'Delivery Date' },
   { type: 'time', name: 'deliveryTime', label: 'Time' },
-  { type: 'number', name: 'downPayment', label: 'Down Payment' },
+  { type: 'checkbox', name: 'isDelivered', label: 'Is Delivered' },
+  { type: 'checkbox', name: 'isGcash', label: 'Is G-Cash' },
+  { type: 'checkbox', name: 'isPaid', label: 'Is Paid' },
   { type: 'date', name: 'paymentDate', label: 'Payment Date' },
 ];
 

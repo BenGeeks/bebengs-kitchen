@@ -75,21 +75,21 @@ const OrderStatus = ({ order, index }) => {
           <div className={orderStyles.status_icon_container}>
             <div
               className={`${orderStyles.status_icon} ${delivered ? orderStyles.status_icon_green : orderStyles.status_icon_red}`}
-              onClick={() => setDelivered(!delivered)}
+              onClick={() => setDelivered((prev) => !prev)}
             >
               <TbTruckDelivery />
               <span className={orderStyles.status_icon_text}>{delivered ? 'Delivered' : 'Ordered'}</span>
             </div>
             <div
               className={`${orderStyles.status_icon} ${gCash ? orderStyles.status_icon_blue : orderStyles.status_icon_green}`}
-              onClick={() => setGCash(!gCash)}
+              onClick={() => setGCash((prev) => !prev)}
             >
               {gCash ? <RiBitCoinLine /> : <BsCashCoin />}
               <span className={orderStyles.status_icon_text}>{gCash ? 'G-Cash' : 'Cash'}</span>
             </div>
             <div
               className={`${orderStyles.status_icon} ${paid ? orderStyles.status_icon_green : orderStyles.status_icon_red}`}
-              onClick={() => setPaid(!paid)}
+              onClick={() => setPaid((prev) => !prev)}
             >
               {paid ? <BsCartCheck /> : <BsCartX />}
               <span className={orderStyles.status_icon_text}>{paid ? 'Paid' : 'Not Paid'}</span>

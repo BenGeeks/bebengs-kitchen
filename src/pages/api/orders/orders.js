@@ -6,7 +6,6 @@ export default async function handler(req, res) {
   const { method, body } = req;
   await dbConnect();
 
-  console.log('DATE TODAY: ', body.dateToday);
   if (method !== 'POST') {
     res.status(401).json({ message: 'INTRUDER ALERT!' });
   } else {

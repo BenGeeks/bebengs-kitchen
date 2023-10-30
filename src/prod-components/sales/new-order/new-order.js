@@ -1,13 +1,14 @@
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 import React, { useState } from 'react';
 import { toast } from 'react-toastify';
-import { useMutation, useQueryClient } from '@tanstack/react-query';
 
-import ModalWide from '@/assets/modal-wide';
 import CustomerNew from '@/prod-components/customer/customer-new';
-import NewOrderIconBar from './new-order-icon-bar';
 import NewOrderMainPage from './new-order-main-page';
+import NewOrderIconBar from './new-order-icon-bar';
 import NewOrderSideBar from './new-order-side-bar';
+
 import apiRequest from '@/lib/axios';
+
 import { DEFAULT_ORDER_DETAILS } from '@/resources/orders';
 
 const NewOrderPage = ({ setCurrentPage }) => {
@@ -71,10 +72,8 @@ const NewOrderPage = ({ setCurrentPage }) => {
     let total = items.reduce((total, data) => data.subTotal + total, 0) - +orderDetails.downPayment;
     let tempData = {
       ...orderDetails,
-      isGcash: false,
-      isDelivered: false,
-      isPaid: false,
       total: total,
+      paymentDate: orderDetails.isPaid ? paymentDate : null,
       orderDetails: { customer: selectedCustomer, items },
     };
     newOrderMutation.mutate(tempData);

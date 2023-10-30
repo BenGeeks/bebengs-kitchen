@@ -29,20 +29,29 @@ const ReactForm = ({ layout, schema, defaultValues, onSubmit, onCancel, action }
                 <textarea {...register(input.name)} className={assetStyles.textarea} rows={5} />
               ) : (
                 <>
-                  <input
-                    type={input.type}
-                    placeholder={input.label}
-                    className={assetStyles.input}
-                    list={input.name}
-                    {...register(input.name)}
-                    autoFocus={index === 0}
-                  />
-                  {input.list && (
-                    <datalist id={input.name}>
-                      {input.list.map((el) => {
-                        return <option value={el.address} key={el.address} />;
-                      })}
-                    </datalist>
+                  {input.type === 'checkbox' ? (
+                    <label className={assetStyles.switch}>
+                      <input type="checkbox" {...register(input.name)} />
+                      <span className={`${assetStyles.slider} ${assetStyles.round}`}></span>
+                    </label>
+                  ) : (
+                    <>
+                      <input
+                        type={input.type}
+                        placeholder={input.label}
+                        className={assetStyles.input}
+                        list={input.name}
+                        {...register(input.name)}
+                        autoFocus={index === 0}
+                      />
+                      {input.list && (
+                        <datalist id={input.name}>
+                          {input.list.map((el) => {
+                            return <option value={el.address} key={el.address} />;
+                          })}
+                        </datalist>
+                      )}
+                    </>
                   )}
                 </>
               )}

@@ -1,12 +1,14 @@
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 import React, { useState } from 'react';
 import { toast } from 'react-toastify';
-import { useMutation, useQueryClient } from '@tanstack/react-query';
 
 import CustomerNew from '@/prod-components/customer/customer-new';
-import NewOrderIconBar from './new-order-icon-bar';
 import NewOrderMainPage from './new-order-main-page';
+import NewOrderIconBar from './new-order-icon-bar';
 import NewOrderSideBar from './new-order-side-bar';
+
 import apiRequest from '@/lib/axios';
+
 import { DEFAULT_ORDER_DETAILS } from '@/resources/orders';
 
 const EditOrderPage = ({ setCurrentPage, orderData }) => {
@@ -19,7 +21,7 @@ const EditOrderPage = ({ setCurrentPage, orderData }) => {
   const [addCustomer, setAddCustomer] = useState(false);
 
   const editOrderMutation = useMutation({
-    mutationFn: (data) => apiRequest({ url: `orders/${data._id}`, method: 'PUT', data: data }),
+    mutationFn: (payload) => apiRequest({ url: `orders/${payload.id}`, method: 'PUT', data: payload.data }),
     onSuccess: () => {
       toast.success('Order updated successfully.');
       queryClient.invalidateQueries({ queryKey: ['orders'] });
@@ -75,19 +77,17 @@ const EditOrderPage = ({ setCurrentPage, orderData }) => {
     }
   };
 
-  const onSaveHandler = () => {
+  const onUpdateHandler = () => {
     if (!selectedCustomer) return toast.error('Please select a customer.');
     if (items.length === 0) return toast.error('Shopping cart should not be empty.');
     let total = items.reduce((total, data) => data.subTotal + total, 0) - +orderDetails.downPayment;
     let tempData = {
       ...orderDetails,
-      isGcash: false,
-      isDelivered: false,
-      isPaid: false,
       total: total,
+      paymentDate: orderDetails.isPaid ? paymentDate : null,
       orderDetails: { customer: selectedCustomer, items },
     };
-    editOrderMutation.mutate(tempData);
+    editOrderMutation.mutate({ id: orderData._id, data: tempData });
     setSelectedCustomer(null);
     setItems([]);
     setOrderDetails(DEFAULT_ORDER_DETAILS);
@@ -118,7 +118,7 @@ const EditOrderPage = ({ setCurrentPage, orderData }) => {
         setStep={setStep}
         step={step}
         items={items}
-        onSave={onSaveHandler}
+        onSave={onUpdateHandler}
         onCancel={onCancelHandler}
         edit={edit}
         setEdit={setEdit}
