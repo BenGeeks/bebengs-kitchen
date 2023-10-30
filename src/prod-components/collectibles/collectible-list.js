@@ -40,10 +40,10 @@ const CollectibleList = ({ collectiblesQuery, selectedOrder, setSelectedOrder })
                         : setSelectedOrder(order)
                     }
                   >
-                    <td className={tableStyles.cell}>{moment().diff(order.deliveryDate, 'days')}</td>
-                    <td className={tableStyles.cell}>{moment(order.deliveryDate).format('MMM DD, YYYY')}</td>
-                    <td className={tableStyles.cell}>{order.orderDetails.customer.name}</td>
-                    <td className={tableStyles.cell}>{order.total.toLocaleString('en-US')}</td>
+                    <td className={collectiblesStyles.cell}>{moment().diff(order.deliveryDate, 'days')}</td>
+                    <td className={collectiblesStyles.cell}>{moment(order.deliveryDate).format('MMM DD, YYYY')}</td>
+                    <td className={collectiblesStyles.cell}>{order.orderDetails.customer.name}</td>
+                    <td className={collectiblesStyles.cell}>{order.total.toLocaleString('en-US')}</td>
                   </tr>
                 );
               })}

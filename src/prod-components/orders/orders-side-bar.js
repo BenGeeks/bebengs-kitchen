@@ -2,15 +2,15 @@ import React from 'react';
 
 import Table from '@/assets/table';
 import { ORDER_ITEMS_HEADER } from '@/resources/orders';
-import collectiblesStyles from '@/styles/collectibles.module.css';
+import futureOrdersStyles from '@/styles/future-orders.module.css';
 import sideStyles from '@/styles/side-bar.module.css';
 
-const CollectibleSideBar = ({ selectedOrder, collectiblesQuery }) => {
-  let total = collectiblesQuery?.data?.reduce((total, data) => data.total + total, 0);
+const FutureOrdersSideBar = ({ selectedOrder, futureOrdersQuery }) => {
+  let total = futureOrdersQuery?.data?.reduce((total, data) => data.total + total, 0);
   return (
-    <div className={collectiblesStyles.side_bar_container}>
-      <div className={sideStyles.date}>Total Collectibles</div>
-      <div className={collectiblesStyles.summary_box}>
+    <div className={futureOrdersStyles.side_bar_container}>
+      <div className={sideStyles.date}>Total Orders</div>
+      <div className={futureOrdersStyles.summary_box}>
         <div className={sideStyles.total_box}>
           <div className={sideStyles.total_item_container}>
             <div className={sideStyles.total_item_value}>{total?.toLocaleString('en-US')}</div>
@@ -31,4 +31,4 @@ const CollectibleSideBar = ({ selectedOrder, collectiblesQuery }) => {
   );
 };
 
-export default CollectibleSideBar;
+export default FutureOrdersSideBar;

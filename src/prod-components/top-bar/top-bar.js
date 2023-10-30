@@ -11,6 +11,7 @@ import { BsClipboardCheck } from 'react-icons/bs';
 // import { AiOutlineDashboard } from 'react-icons/ai';
 import { PiHandCoins } from 'react-icons/pi';
 import { RiContactsBookLine, RiLogoutCircleLine } from 'react-icons/ri';
+import { GiChickenOven } from 'react-icons/gi';
 
 const TopBar = ({ currentPage, setCurrentPage }) => {
   const [showNavBar, setShowNavBar] = useState(false);
@@ -19,6 +20,7 @@ const TopBar = ({ currentPage, setCurrentPage }) => {
     { name: 'sales', title: 'Sales', icon: <BsClipboardCheck /> },
     // { name: 'expenses', title: 'Expenses', icon: <FaRegMoneyBillAlt /> },
     { name: 'collectibles', title: 'Collectibles', icon: <PiHandCoins /> },
+    { name: 'orders', title: 'Orders', icon: <GiChickenOven /> },
     { name: 'menu', title: 'Menu', icon: <IoFastFoodOutline /> },
     { name: 'customers', title: 'Customer', icon: <RiContactsBookLine /> },
     // { name: 'dashboard', title: 'Dashboard', icon: <AiOutlineDashboard /> },

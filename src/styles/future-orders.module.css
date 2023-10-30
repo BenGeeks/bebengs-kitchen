@@ -35,6 +35,22 @@
   color: #374151;
 }
 
+.cell {
+  border-top: 1px solid #374151;
+  border-right: 1px solid #374151;
+  padding: 5px;
+  text-align: left;
+  font-size: 1.2rem;
+  font-weight: 700;
+}
+
+.cell_actions {
+  border-top: 1px solid #374151;
+  border-right: 1px solid #374151;
+  padding: 5px 13px 5px 5px;
+  width: 120px;
+}
+
 /* ================================ */
 /* ==========  SIDE BAR =========== */
 /* ================================ */
@@ -71,19 +87,37 @@
   font-size: 1.2rem;
 }
 
-.table_container {
-  margin: 5px;
-}
-
-.cell {
-  border-top: 1px solid #374151;
-  border-right: 1px solid #374151;
-  padding: 5px;
-  text-align: left;
-  font-size: 1.2rem;
-  font-weight: 700;
+.header_bar_title {
+  margin-left: 15px;
+  color: #374151;
 }
 
 /* ================================ */
-/* ==========  ICON BAR =========== */
+/* =============  ICONS =========== */
 /* ================================ */
+
+.icons_container {
+  display: flex;
+  align-items: center;
+}
+
+.small_icon {
+  width: 50px;
+  height: 50px;
+  display: flex;
+  color: #374151;
+  background-color: aliceblue;
+  border: 1px solid #374151;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+  cursor: pointer;
+  margin-left: 10px;
+  font-size: 1.6rem;
+}
+
+.small_icon:hover {
+  color: aliceblue;
+  background-color: #374151;
+  border: 1px solid aliceblue;
+}

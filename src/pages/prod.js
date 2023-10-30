@@ -2,11 +2,13 @@
 import { useState } from 'react';
 import { getSession } from 'next-auth/react';
 
-import TopBar from '@/prod-components/top-bar/top-bar';
-import CustomerPage from '@/prod-components/customer/customer';
-import MenuPage from '@/prod-components/menu/menu';
-import SalesPage from '@/prod-components/sales/orders';
 import Collectibles from '@/prod-components/collectibles/collectibles';
+import CustomerPage from '@/prod-components/customer/customer';
+import FutureOrders from '@/prod-components/orders/orders';
+import TopBar from '@/prod-components/top-bar/top-bar';
+import SalesPage from '@/prod-components/sales/orders';
+import MenuPage from '@/prod-components/menu/menu';
+
 import styles from '@/styles/prod.module.css';
 
 const ProdPage = () => {
@@ -20,6 +22,7 @@ const ProdPage = () => {
         {currentPage === 'menu' && <MenuPage />}
         {currentPage === 'customers' && <CustomerPage />}
         {currentPage === 'collectibles' && <Collectibles />}
+        {currentPage === 'orders' && <FutureOrders />}
       </div>
     </div>
   );

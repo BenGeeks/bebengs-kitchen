@@ -1,11 +1,11 @@
-import React, { useState } from 'react';
-import moment from 'moment';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
+import React, { useState } from 'react';
 import { toast } from 'react-toastify';
+import moment from 'moment';
 
-import CollectibleList from './collectible-list';
 import CollectibleSideBar from './collectible-side-bar';
 import CollectibleIconBar from './collectible-icon-bar';
+import CollectibleList from './collectible-list';
 import DatePicker from '@/assets/date-picker';
 import apiRequest from '@/lib/axios';
 
@@ -38,14 +38,13 @@ const Collectibles = () => {
   const onPaidHandler = (date) => {
     if (confirm(`Are you sure this collectible has been paid?`) == true) {
       updateOrderMutation.mutate({ id: selectedOrder._id, data: { ...selectedOrder, isPaid: true, paymentDate: moment(date) } });
-      console.log('ON PAID HANDLER HAS BEEN TRIGGERED!');
     }
   };
 
   return (
     <>
       <DatePicker open={openDatePicker} close={() => setOpenDatePicker(false)} onSave={onPaidHandler} />
-      <CollectibleSideBar selectedOrder={selectedOrder} />
+      <CollectibleSideBar selectedOrder={selectedOrder} collectiblesQuery={collectiblesQuery} />
       <CollectibleList collectiblesQuery={collectiblesQuery} selectedOrder={selectedOrder} setSelectedOrder={setSelectedOrder} />
       <CollectibleIconBar selectedOrder={selectedOrder} onPaid={() => setOpenDatePicker(true)} />
     </>
