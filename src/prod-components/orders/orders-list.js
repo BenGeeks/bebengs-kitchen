@@ -1,34 +1,11 @@
-import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { RiDeleteBin4Line, RiEditLine } from 'react-icons/ri';
-import { toast } from 'react-toastify';
 import moment from 'moment';
 import React from 'react';
-
-import apiRequest from '@/lib/axios';
 
 import futureOrdersStyles from '@/styles/future-orders.module.css';
 import tableStyles from '@/styles/assets.module.css';
 
-const FutureOrdersList = ({ futureOrdersQuery, selectedOrder, setSelectedOrder }) => {
-  const HEADERS = ['#', 'Date', 'Name', 'Total', 'Action'];
-  const queryClient = useQueryClient();
-
-  const deleteOrderMutation = useMutation({
-    mutationFn: (id) => apiRequest({ url: `orders/${id}`, method: 'DELETE' }),
-    onSuccess: () => {
-      toast.success('Order deleted successfully.');
-      queryClient.invalidateQueries({ queryKey: ['future_orders'] });
-    },
-    onError: (error) => {
-      toast.error(error.response.data.error.message);
-    },
-  });
-
-  const deleteHandler = (id) => {
-    if (confirm(`Are you sure to DELETE this order?`) == true) {
-      deleteOrderMutation.mutate(id);
-    }
-  };
+const FutureOrdersList = ({ futureOrdersQuery, onView }) => {
+  const HEADERS = ['#', 'Date', 'Name', 'Total'];
 
   return (
     <div className={futureOrdersStyles.page_container}>
@@ -52,31 +29,11 @@ const FutureOrdersList = ({ futureOrdersQuery, selectedOrder, setSelectedOrder }
             <tbody>
               {futureOrdersQuery?.data?.map((order, index) => {
                 return (
-                  <tr
-                    key={index}
-                    className={tableStyles.table_row_clickable}
-                    onClick={() =>
-                      !selectedOrder
-                        ? setSelectedOrder(order)
-                        : selectedOrder._id === order._id
-                        ? setSelectedOrder(null)
-                        : setSelectedOrder(order)
-                    }
-                  >
+                  <tr key={index} className={tableStyles.table_row_clickable} onClick={() => onView(order)}>
                     <td className={futureOrdersStyles.cell}>{index + 1}</td>
                     <td className={futureOrdersStyles.cell}>{moment(order.deliveryDate).format('MMM DD, YYYY')}</td>
                     <td className={futureOrdersStyles.cell}>{order.orderDetails.customer.name}</td>
                     <td className={futureOrdersStyles.cell}>{order.total.toLocaleString('en-US')}</td>
-                    <td className={futureOrdersStyles.cell_actions}>
-                      <div className={futureOrdersStyles.icons_container}>
-                        <div className={futureOrdersStyles.small_icon} onClick={() => deleteHandler(order._id)}>
-                          <RiDeleteBin4Line />
-                        </div>
-                        <div className={futureOrdersStyles.small_icon}>
-                          <RiEditLine />
-                        </div>
-                      </div>
-                    </td>
                   </tr>
                 );
               })}

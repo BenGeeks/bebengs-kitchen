@@ -578,3 +578,70 @@ input:checked + .slider:before {
 .slider.round:before {
   border-radius: 50%;
 }
+
+/* ================================ */
+/* =====  VIEW ORDER DETAILS  ===== */
+/* ================================ */
+
+.container {
+  background-color: #f7f7ec;
+  border-right: 1px solid #374151;
+
+  padding: 5px;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  justify-content: space-between;
+  overflow: auto;
+}
+
+.main_box {
+  border: 1px solid #374151;
+  padding: 5px;
+}
+
+.header {
+  text-align: center;
+}
+
+.customer_box {
+  border: 1px solid #374151;
+  background-color: beige;
+  padding: 5px;
+  cursor: pointer;
+  margin-bottom: 5px;
+  transition: all 0.2s ease-out;
+}
+
+.sub_header {
+  font-size: 1.2rem;
+  font-weight: 700;
+  width: 100%;
+  border-bottom: 1px solid #374151;
+  margin-bottom: 5px;
+}
+
+.info_container {
+  display: flex;
+  font-size: 1.2rem;
+  border-bottom: 1px solid #b9b9b9;
+  margin-bottom: 3px;
+}
+.title {
+  width: 150px;
+}
+
+.bottom_container {
+  width: 100%;
+  border: 1px solid #374151;
+}
+
+.total_container {
+  display: flex;
+  justify-content: space-between;
+  padding: 10px;
+}
+
+.total {
+  font-size: 2rem;
+}

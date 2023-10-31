@@ -9,6 +9,12 @@ export const ORDER_ITEMS_HEADER = [
   { display: 'total', name: 'subTotal' },
 ];
 
+export const FUTURE_ORDERS_HEADER = [
+  { display: 'item', name: 'itemName' },
+  { display: 'size', name: 'size' },
+  { display: 'qty', name: 'qty' },
+];
+
 export const DEFAULT_ORDER_DETAILS = {
   deliveryDate: moment().startOf('day').format(),
   deliveryTime: '00:00',
