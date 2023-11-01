@@ -3,7 +3,7 @@
 /* ================================ */
 
 .page_container {
-  width: 60%;
+  width: 100%;
   height: calc(100vh - 80px);
   border: 1px solid beige;
   background-color: aliceblue;
@@ -35,40 +35,9 @@
   color: #374151;
 }
 
-/* ================================ */
-/* ==========  SIDE BAR =========== */
-/* ================================ */
-
-.side_bar_container {
-  background-color: #f7f7ec;
-  border-right: 1px solid #374151;
-  width: 40%;
-  height: calc(100vh - 80px);
-  padding: 0px;
-  display: flex;
-  justify-content: center;
-  flex-direction: column;
-  justify-content: flex-start;
-  overflow: auto;
-}
-
-.summary_box {
-  border: 1px solid #374151;
-  margin: 5px 5px 0px 5px;
-}
-
-.header_box {
-  background-color: aliceblue;
-  height: 30px;
-  display: flex;
-  justify-content: left;
-  align-items: center;
-  width: 100%;
-  padding-left: 15px;
-}
-
-.header {
-  font-size: 1.2rem;
+.header_bar_total {
+  margin-right: 15px;
+  color: #374151;
 }
 
 .table_container {
@@ -83,7 +52,3 @@
   font-size: 1.2rem;
   font-weight: 700;
 }
-
-/* ================================ */
-/* ==========  ICON BAR =========== */
-/* ================================ */

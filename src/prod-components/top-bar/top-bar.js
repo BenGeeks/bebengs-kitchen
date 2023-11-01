@@ -6,7 +6,7 @@ import { IoFastFoodOutline } from 'react-icons/io5';
 import { BsClipboardCheck } from 'react-icons/bs';
 import { GiChickenOven } from 'react-icons/gi';
 import { PiHandCoins } from 'react-icons/pi';
-// import { FaRegMoneyBillAlt } from 'react-icons/fa';
+import { FaRegMoneyBillAlt } from 'react-icons/fa';
 // import { AiOutlineDashboard } from 'react-icons/ai';
 
 import pageStyles from '@/styles/page.module.css';
@@ -17,9 +17,9 @@ const TopBar = ({ currentPage, setCurrentPage }) => {
 
   const ICON_LIST = [
     { name: 'sales', title: 'Sales', icon: <BsClipboardCheck /> },
-    // { name: 'expenses', title: 'Expenses', icon: <FaRegMoneyBillAlt /> },
     { name: 'collectibles', title: 'Collectibles', icon: <PiHandCoins /> },
     { name: 'orders', title: 'Orders', icon: <GiChickenOven /> },
+    { name: 'expenses', title: 'Expenses', icon: <FaRegMoneyBillAlt /> },
     { name: 'menu', title: 'Menu', icon: <IoFastFoodOutline /> },
     { name: 'customers', title: 'Customer', icon: <RiContactsBookLine /> },
     // { name: 'dashboard', title: 'Dashboard', icon: <AiOutlineDashboard /> },

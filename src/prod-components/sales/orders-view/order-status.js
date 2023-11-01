@@ -62,7 +62,7 @@ const OrderStatus = ({ order, index }) => {
 
   return (
     <>
-      <ModalWide open={modalOpen}>
+      <ModalWide open={modalOpen} close={() => setModalOpen(false)}>
         <div className={assetStyles.modal_header_bar}>
           <h2 className={assetStyles.modal_header_text}>Update Order Status</h2>
           <div className={assetStyles.modal_header_icon_container}>

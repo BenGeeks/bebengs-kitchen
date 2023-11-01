@@ -172,6 +172,7 @@
   justify-content: space-between;
   align-items: center;
   border-bottom: 1px solid #374151;
+  margin-bottom: 5px;
 }
 
 .modal_header_text {

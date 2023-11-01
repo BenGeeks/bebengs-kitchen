@@ -84,7 +84,7 @@ const EditOrderPage = ({ setCurrentPage, orderData }) => {
     let tempData = {
       ...orderDetails,
       total: total,
-      paymentDate: orderDetails.isPaid ? paymentDate : null,
+      paymentDate: orderDetails.isPaid ? orderDetails.paymentDate : null,
       orderDetails: { customer: selectedCustomer, items },
     };
     editOrderMutation.mutate({ id: orderData._id, data: tempData });

@@ -25,7 +25,7 @@ const AddressFilterSelector = ({ open, onSelect }) => {
           );
         })}
       </div>
-      <div className={newOrderStyles.clear_filter_button} onClick={() => onSelect('address', 'Filter')}>
+      <div className={newOrderStyles.clear_filter_button} onClick={() => onSelect('address', null)}>
         Clear Filter
       </div>
     </ModalWide>

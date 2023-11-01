@@ -3,7 +3,7 @@
 /* ================================ */
 
 .page_container {
-  width: 60%;
+  width: 50%;
   height: calc(100vh - 80px);
   border: 1px solid beige;
   background-color: aliceblue;
@@ -58,7 +58,7 @@
 .side_bar_container {
   background-color: #f7f7ec;
   border-right: 1px solid #374151;
-  width: 40%;
+  width: 50%;
   height: calc(100vh - 80px);
   padding: 0px;
   display: flex;

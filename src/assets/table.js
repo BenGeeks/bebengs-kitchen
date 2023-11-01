@@ -34,7 +34,7 @@ const Table = ({ headers, data, enableDelete, enableEdit, onDelete, onEdit, enab
                 {headers.map((header, index) => {
                   return (
                     <td key={index} className={assetStyles.cell}>
-                      {row[header.name]}
+                      {typeof row[header.name] === 'boolean' ? (row[header.name] ? '🟢' : '🔴') : row[header.name]}
                     </td>
                   );
                 })}

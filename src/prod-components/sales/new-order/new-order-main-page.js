@@ -58,6 +58,7 @@ const NewOrderMainPage = ({
             defaultValues={{
               ...orderDetails,
               deliveryDate: moment(orderDetails.deliveryDate).format('yyyy-MM-DD'),
+              paymentDate: moment(orderDetails.paymentDate).format('yyyy-MM-DD'),
             }}
             onSubmit={updateDetailsHandler}
             onCancel={cancelHandler}

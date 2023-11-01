@@ -52,19 +52,18 @@ const CustomersList = ({ onSelectCustomer }) => {
     switch (type) {
       case 'address':
         setAddressSelectorIsOpen(false);
-        setAddress(data);
-        if (null) {
-          console.log(1);
-          setCustomerData(defaultList);
-        } else {
-          console.log(2);
+        if (data) {
+          setAddress(data);
           setCustomerData(defaultList.filter((customer) => customer.address === data));
+        } else {
+          setAddress(null);
+          setCustomerData(defaultList);
         }
         break;
       case 'block':
         setBlockSelectorIsOpen(false);
-        setBlock(data);
         if (data) {
+          setBlock(data);
           let filteredTemp = defaultList.filter((customer) => customer.address === address);
           setCustomerData(filteredTemp?.filter((customer) => customer.block == data));
         } else {

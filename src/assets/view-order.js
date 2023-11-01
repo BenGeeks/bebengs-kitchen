@@ -1,4 +1,5 @@
 import { RiCloseCircleLine, RiDeleteBin4Line, RiEditLine } from 'react-icons/ri';
+import { LiaMoneyBillWaveAltSolid } from 'react-icons/lia';
 import moment from 'moment';
 
 import ModalWide from './modal-wide';
@@ -7,8 +8,9 @@ import Table from '@/assets/table';
 import { ORDER_ITEMS_HEADER } from '@/resources/orders';
 
 import assetStyles from '@/styles/assets.module.css';
+import iconStyles from '@/styles/icons.module.css';
 
-const ViewOrderDetailsModal = ({ open, close, onDelete, onEdit, orderDetails }) => {
+const ViewOrderDetailsModal = ({ open, close, enableDelete, onDelete, enableEdit, onEdit, enabledPaid, onPaid, orderDetails }) => {
   let total = orderDetails?.orderDetails?.items.reduce((total, data) => +data.subTotal + total, 0);
 
   return (
@@ -17,14 +19,36 @@ const ViewOrderDetailsModal = ({ open, close, onDelete, onEdit, orderDetails }) 
         <div className={assetStyles.modal_header_bar}>
           <h2 className={assetStyles.modal_header_text}>Order Details</h2>
           <div className={assetStyles.modal_header_icon_container}>
-            <div className={assetStyles.modal_header_icon} onClick={onEdit}>
-              <RiEditLine />
-            </div>
-            <div className={assetStyles.modal_header_icon} onClick={() => onDelete(orderDetails._id)}>
-              <RiDeleteBin4Line />
-            </div>
-            <div className={assetStyles.modal_header_icon} onClick={close}>
-              <RiCloseCircleLine />
+            {enableEdit && (
+              <div className={iconStyles.icon_box} title="edit" onClick={() => onEdit(orderDetails)}>
+                <div className={iconStyles.icon}>
+                  <RiEditLine />
+                </div>
+                <p className={iconStyles.icon_text}>Edit</p>
+              </div>
+            )}
+            {enableDelete && (
+              <div className={iconStyles.icon_box} title="delete" onClick={() => onDelete(orderDetails._id)}>
+                <div className={iconStyles.icon}>
+                  <RiDeleteBin4Line />
+                </div>
+                <p className={iconStyles.icon_text}>Delete</p>
+              </div>
+            )}
+            {enabledPaid && (
+              <div className={iconStyles.icon_box} title="paid" onClick={onPaid}>
+                <div className={iconStyles.icon}>
+                  <LiaMoneyBillWaveAltSolid />
+                </div>
+                <p className={iconStyles.icon_text}>Paid</p>
+              </div>
+            )}
+
+            <div className={iconStyles.icon_box} title="close" onClick={close}>
+              <div className={iconStyles.icon}>
+                <RiCloseCircleLine />
+              </div>
+              <p className={iconStyles.icon_text}>Close</p>
             </div>
           </div>
         </div>
@@ -64,7 +88,7 @@ const ViewOrderDetailsModal = ({ open, close, onDelete, onEdit, orderDetails }) 
             </div>
             <div className={assetStyles.info_container}>
               <div className={assetStyles.title}>Is G-Cash: </div>
-              {orderDetails?.isGcash ? '🟢' : '🔴'}
+              {orderDetails?.isGcash ? '🔵' : '🟢'}
             </div>
             <div className={assetStyles.info_container}>
               <div className={assetStyles.title}>Is Paid: </div>

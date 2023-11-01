@@ -82,7 +82,13 @@ const FutureOrders = () => {
 
   return (
     <>
-      <ViewOrderDetailsModal open={viewDetails} close={onCancelHandler} orderDetails={selectedOrder} onDelete={deleteHandler} />
+      <ViewOrderDetailsModal
+        open={viewDetails}
+        close={onCancelHandler}
+        orderDetails={selectedOrder}
+        enableDelete={true}
+        onDelete={deleteHandler}
+      />
       <FutureOrdersSideBar futureOrdersQuery={futureOrdersQuery} summary={summary} />
       <FutureOrdersList futureOrdersQuery={futureOrdersQuery} onView={viewOrderHandler} />
     </>
