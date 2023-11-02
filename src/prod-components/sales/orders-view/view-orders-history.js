@@ -1,5 +1,5 @@
-import { useQuery } from '@tanstack/react-query';
 import { useEffect, useState, useRef } from 'react';
+import { useQuery } from '@tanstack/react-query';
 import { useReactToPrint } from 'react-to-print';
 import moment from 'moment';
 
@@ -83,7 +83,7 @@ const OrderListHistory = ({ currentPage, setCurrentPage, onEdit, calendarDate, s
   const onPrintHandler = useReactToPrint({
     onBeforeGetContent: () => handleBeforeGetContent(),
     content: () => printRef.current,
-    documentTitle: `patient_prescription`,
+    documentTitle: 'daily_sales',
     onAfterPrint: () => setIsPrint(false),
   });
 

@@ -1,9 +1,11 @@
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
-import React, { useState } from 'react';
+import { useReactToPrint } from 'react-to-print';
+import React, { useState, useRef } from 'react';
 import { toast } from 'react-toastify';
 import moment from 'moment';
 
 import ExpensesIconBar from './expenses-icon-bar';
+import PrintDailyExpense from './expenses-print';
 import ActionModal from '@/assets/action-modal';
 import DatePicker from '@/assets/date-picker';
 import ExpensesList from './expenses-list';
@@ -13,6 +15,7 @@ import apiRequest from '@/lib/axios';
 
 const Expenses = () => {
   const queryClient = useQueryClient();
+  const printRef = useRef();
   const [openAddExpense, setOpenAddExpense] = useState(false);
   const [openEditExpense, setOpenEditExpense] = useState(false);
   const [openDatePicker, setOpenDatePicker] = useState(false);
@@ -20,6 +23,7 @@ const Expenses = () => {
   const [expenseData, setExpenseData] = useState(null);
   const [date, setDate] = useState(moment());
   const [isLoading, setIsLoading] = useState(false);
+  const [isPrint, setIsPrint] = useState(false);
 
   const expensesQuery = useQuery({
     queryKey: ['expenses'],
@@ -73,6 +77,18 @@ const Expenses = () => {
     }
   };
 
+  const handleBeforeGetContent = () => {
+    setIsPrint(true);
+    return Promise.resolve();
+  };
+
+  const onPrintHandler = useReactToPrint({
+    onBeforeGetContent: () => handleBeforeGetContent(),
+    content: () => printRef.current,
+    documentTitle: 'daily_expense',
+    onAfterPrint: () => setIsPrint(false),
+  });
+
   return (
     <>
       <ActionModal
@@ -86,8 +102,21 @@ const Expenses = () => {
       <DatePicker open={openDatePicker} close={onCancelHandler} onSave={onSetCalendar} />
       <ExpenseEdit open={openEditExpense} close={onCancelHandler} expenseData={expenseData} />
       <ExpenseAdd open={openAddExpense} close={onCancelHandler} />
-      <ExpensesList expensesQuery={expensesQuery?.data} onRowClick={rowClickHandler} date={date} isLoading={isLoading} />
-      <ExpensesIconBar onAddExpense={() => setOpenAddExpense(true)} today={onSetCalendar} setOpenDatePicker={setOpenDatePicker} />
+      {isPrint ? (
+        <div ref={printRef}>
+          <PrintDailyExpense data={expensesQuery?.data} date={date} />
+        </div>
+      ) : (
+        <>
+          <ExpensesList expensesQuery={expensesQuery?.data} onRowClick={rowClickHandler} date={date} isLoading={isLoading} />
+          <ExpensesIconBar
+            onAddExpense={() => setOpenAddExpense(true)}
+            today={onSetCalendar}
+            setOpenDatePicker={setOpenDatePicker}
+            onPrint={onPrintHandler}
+          />
+        </>
+      )}
     </>
   );
 };
