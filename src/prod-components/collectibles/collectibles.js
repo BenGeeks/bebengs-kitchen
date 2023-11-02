@@ -69,31 +69,37 @@ const Collectibles = () => {
             </h3>
           </div>
           <div className={tableStyles.table_container}>
-            <table className={tableStyles.table}>
-              <thead>
-                <tr className={tableStyles.table_head_row}>
-                  {HEADERS.map((head) => {
+            {collectiblesQuery?.isLoading ? (
+              <div className={tableStyles.table_loader}>
+                <img src="/images/spinner.gif" alt="loader gif" />
+              </div>
+            ) : (
+              <table className={tableStyles.table}>
+                <thead>
+                  <tr className={tableStyles.table_head_row}>
+                    {HEADERS.map((head) => {
+                      return (
+                        <th className={tableStyles.table_head} key={head}>
+                          <div className={tableStyles.table_head_text}>{head}</div>
+                        </th>
+                      );
+                    })}
+                  </tr>
+                </thead>
+                <tbody>
+                  {collectiblesQuery?.data?.map((order, index) => {
                     return (
-                      <th className={tableStyles.table_head} key={head}>
-                        <div className={tableStyles.table_head_text}>{head}</div>
-                      </th>
+                      <tr key={index} className={tableStyles.table_row_clickable} onClick={() => viewOrderHandler(order)}>
+                        <td className={collectiblesStyles.cell}>{moment().diff(order.deliveryDate, 'days')}</td>
+                        <td className={collectiblesStyles.cell}>{moment(order.deliveryDate).format('MMM DD, YYYY')}</td>
+                        <td className={collectiblesStyles.cell}>{order.orderDetails.customer.name}</td>
+                        <td className={collectiblesStyles.cell}>{order.total.toLocaleString('en-US')}</td>
+                      </tr>
                     );
                   })}
-                </tr>
-              </thead>
-              <tbody>
-                {collectiblesQuery?.data?.map((order, index) => {
-                  return (
-                    <tr key={index} className={tableStyles.table_row_clickable} onClick={() => viewOrderHandler(order)}>
-                      <td className={collectiblesStyles.cell}>{moment().diff(order.deliveryDate, 'days')}</td>
-                      <td className={collectiblesStyles.cell}>{moment(order.deliveryDate).format('MMM DD, YYYY')}</td>
-                      <td className={collectiblesStyles.cell}>{order.orderDetails.customer.name}</td>
-                      <td className={collectiblesStyles.cell}>{order.total.toLocaleString('en-US')}</td>
-                    </tr>
-                  );
-                })}
-              </tbody>
-            </table>
+                </tbody>
+              </table>
+            )}
           </div>
         </div>
       </div>

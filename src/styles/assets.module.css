@@ -242,6 +242,14 @@
 /* ============  TABLE  =========== */
 /* ================================ */
 
+.table_loader {
+  background-color: white;
+  height: 500px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 .table_container {
   width: 99%;
   border: 1px solid #374151;

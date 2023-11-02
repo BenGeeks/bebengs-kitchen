@@ -1,14 +1,15 @@
 import React from 'react';
+import moment from 'moment';
 
 import printStyles from '@/styles/print.module.css';
 
-const PrintSalesDailySummary = ({ data, salesSummary }) => {
+const PrintSalesDailySummary = ({ data, salesSummary, date }) => {
   return (
     <div className={printStyles.print_container}>
       <div className={printStyles.print_head_container}>
         <div className={printStyles.print_head_logo}>Bebeng's Kitchen</div>
         <div>
-          Daily Sales Report for <u>October 29, 2023</u>
+          Daily Sales Report for <u>{moment(date).format('MMM DD, YYYY')}</u>
         </div>
         <div className={printStyles.print_head_summary}>
           <div>Total Cash: {salesSummary?.cashTotal.toLocaleString('en-US')}</div>

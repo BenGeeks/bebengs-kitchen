@@ -92,7 +92,7 @@ const OrderListHistory = ({ currentPage, setCurrentPage, onEdit, calendarDate, s
       <DatePicker open={openCalendar} close={() => setOpenCalendar(false)} onSave={setCalendarHandler} />
       {isPrint ? (
         <div ref={printRef}>
-          <PrintSalesDailySummary data={orderQuery.data} salesSummary={salesData} />
+          <PrintSalesDailySummary data={orderQuery.data} salesSummary={salesData} date={calendarDate} />
         </div>
       ) : (
         <>

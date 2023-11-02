@@ -74,7 +74,7 @@ const DatePicker = ({ open, close, onSave }) => {
           Cancel
         </button>
         <button className={assetStyles.button_save} onClick={() => onSave({ year, month, day })}>
-          Save
+          Select
         </button>
       </div>
     </ModalWide>

@@ -1,6 +1,6 @@
-const STATIC_CACHE_NAME = 'site-static-cache-v10252023';
+const STATIC_CACHE_NAME = 'site-static-cache-v10262023';
 const DYNAMIC_CACHE_NAME = 'site-dynamic-cache';
-const staticAssets = ['images/favicon.ico', '/offline.html', '/images/logo-144x144.png', '/prod', '/sw.js'];
+const staticAssets = ['/images/favicon.ico', '/offline.html', '/images/logo-144x144.png', '/prod', '/sw.js', '/images/loader.gif'];
 
 self.addEventListener('install', (event) => {
   event.waitUntil(

@@ -3,8 +3,9 @@ import { PiCalendar } from 'react-icons/pi';
 import React, { useState } from 'react';
 
 import iconStyles from '@/styles/icons.module.css';
+import moment from 'moment';
 
-const ExpensesIconBar = ({ onAddExpense, currentPage, setCurrentPage, setOpenDatePicker, onPrint }) => {
+const ExpensesIconBar = ({ onAddExpense, setOpenDatePicker, today, onPrint }) => {
   const [showIcons, setShowIcons] = useState(false);
 
   return (
@@ -23,21 +24,13 @@ const ExpensesIconBar = ({ onAddExpense, currentPage, setCurrentPage, setOpenDat
         <p className={iconStyles.order_right_icon_text}>+ Expense</p>
       </div>
 
-      <div
-        className={currentPage === 'todays-list' ? iconStyles.order_right_icon_box_active : iconStyles.order_right_icon_box}
-        title="Today"
-        onClick={() => setCurrentPage('todays-list')}
-      >
+      <div className={iconStyles.order_right_icon_box} title="Today" onClick={() => today(moment())}>
         <div className={iconStyles.order_right_icon}>
           <PiCalendar />
         </div>
         <p className={iconStyles.order_right_icon_text}>Today</p>
       </div>
-      <div
-        className={currentPage === 'history-list' ? iconStyles.order_right_icon_box_active : iconStyles.order_right_icon_box}
-        title="History"
-        onClick={() => (currentPage === 'history-list' ? setOpenDatePicker(true) : setCurrentPage('history-list'))}
-      >
+      <div className={iconStyles.order_right_icon_box} title="History" onClick={() => setOpenDatePicker(true)}>
         <div className={iconStyles.order_right_icon}>
           <RiCalendar2Line />
         </div>

@@ -3,7 +3,23 @@ import { RiDeleteBin4Line, RiEditLine } from 'react-icons/ri';
 
 import assetStyles from '@/styles/assets.module.css';
 
-const Table = ({ headers, data, enableDelete, enableEdit, onDelete, onEdit, enableRowClick, onRowClick }) => {
+const Table = ({ headers, data, enableDelete, enableEdit, onDelete, onEdit, enableRowClick, onRowClick, isLoading, isError }) => {
+  if (isError) {
+    return (
+      <div className={assetStyles.table_loader}>
+        <h2>An error occurred while fetching.</h2>
+      </div>
+    );
+  }
+
+  if (isLoading) {
+    return (
+      <div className={assetStyles.table_loader}>
+        <img src="/images/spinner.gif" alt="loader gif" />
+      </div>
+    );
+  }
+
   return (
     <table className={assetStyles.table}>
       <thead>

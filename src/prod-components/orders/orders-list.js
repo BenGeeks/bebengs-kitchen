@@ -14,31 +14,37 @@ const FutureOrdersList = ({ futureOrdersQuery, onView }) => {
           <h3 className={futureOrdersStyles.header_bar_title}>Orders</h3>
         </div>
         <div className={tableStyles.table_container}>
-          <table className={tableStyles.table}>
-            <thead>
-              <tr className={tableStyles.table_head_row}>
-                {HEADERS.map((head) => {
+          {futureOrdersQuery.isLoading ? (
+            <div className={tableStyles.table_loader}>
+              <img src="/images/spinner.gif" alt="loader gif" />
+            </div>
+          ) : (
+            <table className={tableStyles.table}>
+              <thead>
+                <tr className={tableStyles.table_head_row}>
+                  {HEADERS.map((head) => {
+                    return (
+                      <th className={tableStyles.table_head} key={head}>
+                        <div className={tableStyles.table_head_text}>{head}</div>
+                      </th>
+                    );
+                  })}
+                </tr>
+              </thead>
+              <tbody>
+                {futureOrdersQuery?.data?.map((order, index) => {
                   return (
-                    <th className={tableStyles.table_head} key={head}>
-                      <div className={tableStyles.table_head_text}>{head}</div>
-                    </th>
+                    <tr key={index} className={tableStyles.table_row_clickable} onClick={() => onView(order)}>
+                      <td className={futureOrdersStyles.cell}>{index + 1}</td>
+                      <td className={futureOrdersStyles.cell}>{moment(order.deliveryDate).format('MMM DD, YYYY')}</td>
+                      <td className={futureOrdersStyles.cell}>{order.orderDetails.customer.name}</td>
+                      <td className={futureOrdersStyles.cell}>{order.total.toLocaleString('en-US')}</td>
+                    </tr>
                   );
                 })}
-              </tr>
-            </thead>
-            <tbody>
-              {futureOrdersQuery?.data?.map((order, index) => {
-                return (
-                  <tr key={index} className={tableStyles.table_row_clickable} onClick={() => onView(order)}>
-                    <td className={futureOrdersStyles.cell}>{index + 1}</td>
-                    <td className={futureOrdersStyles.cell}>{moment(order.deliveryDate).format('MMM DD, YYYY')}</td>
-                    <td className={futureOrdersStyles.cell}>{order.orderDetails.customer.name}</td>
-                    <td className={futureOrdersStyles.cell}>{order.total.toLocaleString('en-US')}</td>
-                  </tr>
-                );
-              })}
-            </tbody>
-          </table>
+              </tbody>
+            </table>
+          )}
         </div>
       </div>
     </div>

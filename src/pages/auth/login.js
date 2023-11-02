@@ -6,6 +6,7 @@ import { useRouter } from 'next/router';
 import TopBar from '@/page-components/top-bar';
 import pageStyles from '@/page-styles/pages.module.css';
 import { toast } from 'react-toastify';
+import LoadingMain from '@/assets/loading-main';
 
 const Login = () => {
   const router = useRouter();
@@ -30,6 +31,7 @@ const Login = () => {
 
   return (
     <div className={pageStyles.page_body}>
+      <LoadingMain open={isLoading} />
       <TopBar />
       <main className={pageStyles.page_main}>
         <div className={pageStyles.container}>
@@ -75,8 +77,8 @@ const Login = () => {
               🔙
             </div>
           </div>
-          <div className={pageStyles.login_btn_container} onClick={isLoading ? null : handleLogIn}>
-            <div className={isLoading ? pageStyles.login_btn_loading : pageStyles.login_btn}>{isLoading ? 'Verifying..' : 'ENTER'}</div>
+          <div className={pageStyles.login_btn_container} onClick={handleLogIn}>
+            <div className={pageStyles.login_btn}>{'ENTER'}</div>
           </div>
         </div>
       </main>

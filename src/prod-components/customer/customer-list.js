@@ -2,13 +2,13 @@ import React, { useState, useEffect } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import { BiReset, BiFilterAlt } from 'react-icons/bi';
 
-import Table from '@/assets/table';
 import AddressFilterSelector from './filter/address-filter';
 import BlockFilterSelector from './filter/block-filter';
-import LoadingPage from '@/assets/loading';
-import ErrorPage from '@/assets/error';
-import apiRequest from '@/lib/axios';
+import Table from '@/assets/table';
+
 import { CUSTOMER_HEADER } from '@/resources/customers';
+import apiRequest from '@/lib/axios';
+
 import customerStyles from '@/styles/customer.module.css';
 
 const CustomersList = ({ onSelectCustomer }) => {
@@ -80,9 +80,6 @@ const CustomersList = ({ onSelectCustomer }) => {
     setBlock(null);
   };
 
-  if (customersQuery.isLoading) return <LoadingPage />;
-  if (customersQuery.isError) return <ErrorPage error={JSON.stringify(customersQuery.error)} />;
-
   return (
     <div className={customerStyles.page_container}>
       <AddressFilterSelector open={addressSelectorIsOpen} onSelect={filterHandler} />
@@ -123,6 +120,8 @@ const CustomersList = ({ onSelectCustomer }) => {
           enableEdit={false}
           enableRowClick={true}
           onRowClick={onSelectCustomer}
+          isLoading={customersQuery?.isLoading}
+          isError={customersQuery?.isError}
         />
       </div>
     </div>

@@ -1,13 +1,12 @@
-import React, { useState } from 'react';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
+import React, { useState } from 'react';
 import { toast } from 'react-toastify';
 
-import Table from '@/assets/table';
-import LoadingPage from '@/assets/loading';
-import ErrorPage from '@/assets/error';
 import ModalWide from '@/assets/modal-wide';
 import AddressNew from './address-new';
 import apiRequest from '@/lib/axios';
+import Table from '@/assets/table';
+
 import { ADDRESS_HEADER } from '@/resources/customers';
 import customerStyles from '@/styles/customer.module.css';
 
@@ -43,9 +42,6 @@ const AddressList = () => {
     setEditModal(true);
   };
 
-  if (addressQuery.isLoading) return <LoadingPage />;
-  if (addressQuery.isError) return <ErrorPage error={JSON.stringify(addressQuery.error)} />;
-
   return (
     <>
       <ModalWide open={editModal} close={() => setEditModal(false)}>
@@ -66,6 +62,8 @@ const AddressList = () => {
             enableEdit={true}
             onEdit={onEditHandler}
             enableRowClick={false}
+            isLoading={addressQuery?.isLoading}
+            isError={addressQuery?.isError}
           />
         </div>
       </div>
