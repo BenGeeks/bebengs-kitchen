@@ -19,6 +19,7 @@
 
 .date_picker_container {
   display: flex;
+  flex-direction: row;
   width: 100%;
 }
 
@@ -130,6 +131,59 @@
   border: 1px solid rgb(90, 216, 90);
 }
 
+@media (max-width: 768px) {
+  .date_picker_container {
+    flex-direction: column;
+  }
+
+  .month_grid {
+    grid-template-columns: auto auto auto auto auto auto;
+  }
+
+  .day_grid {
+    grid-template-columns: auto auto auto auto auto auto;
+  }
+
+  .year_grid {
+    display: flex;
+    grid-template-columns: none;
+    justify-content: space-around;
+  }
+
+  .grid_dummy {
+    display: flex;
+  }
+
+  .button_container {
+    margin-bottom: 10px;
+  }
+}
+
+@media (max-width: 375px) {
+  .date_picker_container {
+    flex-direction: column;
+  }
+
+  .month_grid {
+    grid-template-columns: auto auto auto auto auto;
+  }
+
+  .day_grid {
+    grid-template-columns: auto auto auto auto auto;
+  }
+
+  .year_grid {
+    grid-template-columns: auto auto auto auto auto;
+  }
+
+  .grid_dummy {
+    display: flex;
+  }
+
+  .button_container {
+    margin-bottom: 10px;
+  }
+}
 /* ================================ */
 /* ==========  MODAL WIDE ========= */
 /* ================================ */
@@ -162,6 +216,15 @@
   justify-content: center;
 }
 
+.modal_container {
+  background-color: aliceblue;
+  padding: 5px;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  justify-content: space-between;
+  overflow: auto;
+}
 .modal_box {
   border: 1px solid #374151;
   min-width: 50vw;
@@ -238,6 +301,21 @@
   background-color: green;
 }
 
+@media (max-width: 768px) {
+  .modal_wide {
+    top: 0px;
+    padding: 5px;
+  }
+  .modal_box {
+    width: 100%;
+    height: calc(100vh - 20px);
+    overflow-y: auto;
+  }
+
+  .modal_header_text {
+    display: none;
+  }
+}
 /* ================================ */
 /* ============  TABLE  =========== */
 /* ================================ */
@@ -378,6 +456,22 @@
 @media (max-width: 500px) {
   .table_container {
     width: 100%;
+  }
+
+  .table_head_text {
+    font-size: 0.8rem;
+    padding: 5px;
+    display: flex;
+    align-items: center;
+    border-right: 1px solid #374151;
+  }
+
+  .cell {
+    border-top: 1px solid #374151;
+    border-right: 1px solid #374151;
+    padding: 5px;
+    text-align: left;
+    font-size: 0.9rem;
   }
 
   .cell_total {
@@ -595,7 +689,6 @@ input:checked + .slider:before {
 .container {
   background-color: #f7f7ec;
   border-right: 1px solid #374151;
-
   padding: 5px;
   display: flex;
   justify-content: center;
@@ -653,4 +746,29 @@ input:checked + .slider:before {
 
 .total {
   font-size: 2rem;
+}
+
+@media (max-width: 768px) {
+  .sub_header {
+    font-size: 1rem;
+  }
+
+  .info_container {
+    font-size: 0.9rem;
+  }
+
+  .bottom_container {
+    width: 100%;
+    border: 1px solid #374151;
+  }
+
+  .total_container {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px;
+  }
+
+  .total {
+    font-size: 2rem;
+  }
 }

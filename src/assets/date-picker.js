@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 
 import ModalWide from './modal-wide';
 import assetStyles from '@/styles/assets.module.css';
+import styles from './date-picker.module.css';
 
 const DatePicker = ({ open, close, onSave }) => {
   const [day, setDay] = useState(moment().date());
@@ -29,39 +30,35 @@ const DatePicker = ({ open, close, onSave }) => {
 
   return (
     <ModalWide open={open} close={close}>
-      <div className={assetStyles.header_bar}>
-        <h2 className={assetStyles.header_bar_title}>Pick a date:</h2>
+      <div className={styles.header_bar}>
+        <h2 className={styles.header_bar_title}>Pick a date:</h2>
       </div>
-      <div className={assetStyles.date_picker_container}>
-        <div className={assetStyles.month_grid}>
+      <div className={styles.date_picker_container}>
+        <div className={styles.month_grid}>
           {MONTH.map((el) => {
             return (
-              <div
-                key={el.value}
-                className={el.value == month ? assetStyles.grid_selected : assetStyles.grid}
-                onClick={() => setMonth(el.value)}
-              >
+              <div key={el.value} className={el.value == month ? styles.grid_selected : styles.grid} onClick={() => setMonth(el.value)}>
                 {el.mmm}
               </div>
             );
           })}
         </div>
-        <div className={assetStyles.date_picker_columns}>
-          <div className={assetStyles.day_grid}>
+        <div className={styles.date_picker_columns}>
+          <div className={styles.day_grid}>
             {daysArray.map((num) => {
               return (
-                <div key={num} className={num == day ? assetStyles.grid_selected : assetStyles.grid} onClick={() => setDay(num)}>
+                <div key={num} className={num == day ? styles.grid_selected : styles.grid} onClick={() => setDay(num)}>
                   {num}
                 </div>
               );
             })}
           </div>
         </div>
-        <div className={assetStyles.date_picker_columns}>
-          <div className={assetStyles.year_grid}>
+        <div className={styles.date_picker_columns}>
+          <div className={styles.year_grid}>
             {YEAR.map((num) => {
               return (
-                <div key={num} className={year == num ? assetStyles.grid_selected : assetStyles.grid} onClick={() => setYear(num)}>
+                <div key={num} className={year == num ? styles.grid_selected : styles.grid} onClick={() => setYear(num)}>
                   {num}
                 </div>
               );
@@ -69,11 +66,11 @@ const DatePicker = ({ open, close, onSave }) => {
           </div>
         </div>
       </div>
-      <div className={assetStyles.button_container}>
-        <button className={assetStyles.button_cancel} onClick={close}>
+      <div className={styles.button_container}>
+        <button className={styles.button_cancel} onClick={close}>
           Cancel
         </button>
-        <button className={assetStyles.button_save} onClick={() => onSave({ year, month, day })}>
+        <button className={styles.button_save} onClick={() => onSave({ year, month, day })}>
           Select
         </button>
       </div>

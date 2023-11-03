@@ -1,0 +1,148 @@
+.container {
+  background-color: aliceblue;
+  padding: 5px;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  justify-content: space-between;
+  overflow: auto;
+}
+
+.header_bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid #374151;
+  margin-bottom: 5px;
+}
+
+.header_text {
+  padding: 10px 5px;
+  color: #282829;
+}
+
+.header_icon_container {
+  display: flex;
+}
+
+.icon_box {
+  cursor: pointer;
+  width: 80px;
+  height: 60px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  color: #374151;
+  border: 1px solid #374151;
+  margin: 2px 5px 2px 0px;
+  background-color: beige;
+  transition: all 0.3s ease-in-out;
+}
+
+.icon_box:hover {
+  color: beige;
+  border: 1px solid beige;
+  background-color: #374151;
+}
+
+.icon {
+  font-size: 1.4rem;
+}
+
+.icon_text {
+  font-size: 0.9rem;
+  padding: 0px;
+  margin: 0px;
+}
+
+.customer_box {
+  border: 1px solid #374151;
+  background-color: beige;
+  padding: 5px;
+  cursor: pointer;
+  margin-bottom: 5px;
+  transition: all 0.2s ease-out;
+}
+
+.sub_header {
+  font-size: 1.2rem;
+  font-weight: 700;
+  width: 100%;
+  border-bottom: 1px solid #374151;
+  margin-bottom: 5px;
+}
+
+.info_container {
+  display: flex;
+  font-size: 1.2rem;
+  border-bottom: 1px solid #b9b9b9;
+  margin-bottom: 3px;
+}
+.title {
+  width: 150px;
+}
+
+.bottom_container {
+  width: 100%;
+  border: 1px solid #374151;
+}
+
+.total_container {
+  display: flex;
+  justify-content: space-between;
+  padding: 10px;
+}
+
+.total {
+  font-size: 2rem;
+}
+
+@media (max-width: 768px) {
+  .header_text {
+    display: none;
+  }
+
+  .icon {
+    font-size: 1.2rem;
+  }
+
+  .icon_text {
+    font-size: 0.8rem;
+  }
+
+  .icon_box:hover {
+    color: beige;
+    border: 1px solid beige;
+    background-color: #374151;
+  }
+
+  .icon_box {
+    width: 70px;
+    height: 50px;
+  }
+
+  .sub_header {
+    font-size: 1rem;
+  }
+
+  .info_container {
+    font-size: 0.9rem;
+  }
+
+  .bottom_container {
+    width: 100%;
+    border: 1px solid #374151;
+  }
+
+  .total_container {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px;
+  }
+
+  .total {
+    font-size: 1.4rem;
+    font-weight: 700;
+  }
+}

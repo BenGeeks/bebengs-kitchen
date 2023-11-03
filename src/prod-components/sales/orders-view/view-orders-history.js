@@ -101,8 +101,8 @@ const OrderListHistory = ({ currentPage, setCurrentPage, onEdit, calendarDate, s
           <OrdersIconBar
             currentPage={currentPage}
             setCurrentPage={setCurrentPage}
-            setOpenCalendar={setOpenCalendar}
             onPrint={onPrintHandler}
+            setOpenCalendar={setOpenCalendar}
           />
         </>
       )}

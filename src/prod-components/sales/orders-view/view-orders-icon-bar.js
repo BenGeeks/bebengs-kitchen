@@ -1,61 +1,59 @@
-import { RiAddCircleLine, RiPrinterLine, RiCalendar2Line, RiMenuLine } from 'react-icons/ri';
-import { PiCalendar } from 'react-icons/pi';
+import { RiAddCircleLine, RiPrinterLine, RiCalendar2Line } from 'react-icons/ri';
+import { MdDisplaySettings } from 'react-icons/md';
+import { PiCalendar, PiCalendarBlank } from 'react-icons/pi';
 import { LuFilter } from 'react-icons/lu';
-import React, { useState } from 'react';
 
-import iconStyles from '@/styles/icons.module.css';
+import salesStyles from '@/styles/sales.module.css';
+import iconStyles from '@/styles/icons-bar.module.css';
 
-const OrdersIconBar = ({ setCurrentPage, currentPage, setOpenCalendar, onPrint }) => {
-  const [showIcons, setShowIcons] = useState(false);
-
+const OrdersIconBar = ({ currentPage, setCurrentPage, setOpenCalendar, onPrint }) => {
   return (
-    <div className={showIcons ? iconStyles.order_bar_icon_container : iconStyles.order_bar_icon_container_hidden}>
-      <div className={iconStyles.order_bar_hamburger_icon} title="Actions" onClick={() => setShowIcons(!showIcons)}>
-        <div className={iconStyles.order_right_icon}>
-          <RiMenuLine />
-        </div>
-        <p className={iconStyles.order_right_icon_text}>Actions</p>
-      </div>
-
-      <div className={iconStyles.order_right_icon_box} title="Add order" onClick={() => setCurrentPage('new-order')}>
-        <div className={iconStyles.order_right_icon}>
+    <div className={iconStyles.icon_bar_container}>
+      <div className={iconStyles.icon_box} title="Add order" onClick={() => setCurrentPage('new-order')}>
+        <div className={iconStyles.icon}>
           <RiAddCircleLine />
         </div>
-        <p className={iconStyles.order_right_icon_text}>New Order</p>
+        <p className={iconStyles.icon_text}>New Order</p>
+      </div>
+
+      <div className={iconStyles.icon_box} title="Today" onClick={() => setCurrentPage('todays-list')}>
+        <div className={currentPage === 'todays-list' ? iconStyles.icon_active : iconStyles.icon}>
+          <PiCalendar />
+        </div>
+        <p className={iconStyles.icon_text}>Today</p>
       </div>
 
       <div
-        className={currentPage === 'todays-list' ? iconStyles.order_right_icon_box_active : iconStyles.order_right_icon_box}
-        title="Today"
-        onClick={() => setCurrentPage('todays-list')}
-      >
-        <div className={iconStyles.order_right_icon}>
-          <PiCalendar />
-        </div>
-        <p className={iconStyles.order_right_icon_text}>Today</p>
-      </div>
-      <div
-        className={currentPage === 'history-list' ? iconStyles.order_right_icon_box_active : iconStyles.order_right_icon_box}
+        className={iconStyles.icon_box}
         title="History"
         onClick={() => (currentPage === 'history-list' ? setOpenCalendar(true) : setCurrentPage('history-list'))}
       >
-        <div className={iconStyles.order_right_icon}>
-          <RiCalendar2Line />
+        <div className={currentPage === 'history-list' ? iconStyles.icon_active : iconStyles.icon}>
+          <PiCalendarBlank />
         </div>
-        <p className={iconStyles.order_right_icon_text}>History</p>
+        <p className={iconStyles.icon_text}>History</p>
       </div>
-      <div className={iconStyles.order_right_icon_box} title="Filter">
-        <div className={iconStyles.order_right_icon}>
-          <LuFilter />
+
+      <div className={iconStyles.icon_box} title="View">
+        <div className={iconStyles.icon}>
+          <MdDisplaySettings />
         </div>
-        <p className={iconStyles.order_right_icon_text}>Filter</p>
+        <p className={iconStyles.icon_text}>View</p>
       </div>
-      {currentPage === 'history-list' && (
-        <div className={iconStyles.order_right_icon_box} title="Print" onClick={onPrint}>
-          <div className={iconStyles.order_right_icon}>
+
+      {currentPage === 'history-list' ? (
+        <div className={iconStyles.icon_box} title="Print" onClick={onPrint}>
+          <div className={iconStyles.icon}>
             <RiPrinterLine />
           </div>
-          <p className={iconStyles.order_right_icon_text}>Print</p>
+          <p className={iconStyles.icon_text}>Print</p>
+        </div>
+      ) : (
+        <div className={iconStyles.icon_box} title="Filter" onClick={onPrint}>
+          <div className={iconStyles.icon}>
+            <LuFilter />
+          </div>
+          <p className={iconStyles.icon_text}>Filter</p>
         </div>
       )}
     </div>

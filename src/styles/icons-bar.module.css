@@ -1,0 +1,102 @@
+/* ================================ */
+/* =======  SIDE BAR ICONS   ====== */
+/* ================================ */
+
+.icon_bar_container {
+  bottom: 0px;
+  left: 0px;
+  width: 80px;
+  display: flex;
+  flex-direction: column;
+  background-color: #374151;
+  justify-content: flex-start;
+  padding-left: 5px;
+  box-shadow: 2px 0px 5px #374151;
+}
+
+.icon_box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 2px;
+  cursor: pointer;
+  background-color: beige;
+  margin-bottom: 5px;
+}
+
+.icon {
+  font-size: 2rem;
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  color: #374151;
+  transition: all 0.3s ease-in-out;
+}
+
+.icon_active {
+  font-size: 3rem;
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  color: black;
+  transition: all 0.3s ease-in-out;
+}
+
+.icon_text {
+  font-size: 0.8rem;
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  text-align: center;
+}
+
+@media (max-width: 768px) {
+  .icon_bar_container {
+    position: fixed;
+    bottom: 0px;
+    left: 0px;
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    background-color: beige;
+    justify-content: space-between;
+    padding: 5px 10px;
+    box-shadow: 2px 0px 5px #374151;
+  }
+
+  .icon_box {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 2px;
+    color: #374151;
+    cursor: pointer;
+  }
+
+  .icon {
+    font-size: 2rem;
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    margin-top: 0px;
+    transition: all 0.3s ease-in-out;
+  }
+
+  .icon_active {
+    font-size: 2rem;
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    transition: all 0.3s ease-in-out;
+    margin-top: -20px;
+    background-color: beige;
+  }
+
+  .icon_text {
+    font-size: 0.8rem;
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    text-align: center;
+  }
+}

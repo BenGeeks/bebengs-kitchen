@@ -3,21 +3,19 @@ import { toast } from 'react-toastify';
 import { useState } from 'react';
 
 import ViewOrderDetailsModal from '@/assets/view-order';
-import LoadingPage from '@/assets/loading';
-import OrderStatus from './order-status';
+import OrderStatusUpdater from './order-status-updater';
 import ErrorPage from '@/assets/error';
-
-import { ORDER_COLUMNS } from '@/resources/orders';
 
 import apiRequest from '@/lib/axios';
 
 import tableStyles from '@/styles/assets.module.css';
-import orderStyles from '@/styles/order.module.css';
 import pageStyles from '@/styles/page.module.css';
+import salesStyles from '@/styles/sales.module.css';
 
 const OrdersMainPage = ({ orderQuery, onEdit }) => {
   const queryClient = useQueryClient();
   const [selectedOrder, setSelectedOrder] = useState(null);
+  const [openStatusUpdater, setOpenStatusUpdate] = useState(false);
   const [openViewDetails, setOpenViewDetails] = useState(false);
 
   const deleteOrderMutation = useMutation({
@@ -44,7 +42,21 @@ const OrdersMainPage = ({ orderQuery, onEdit }) => {
     setOpenViewDetails(true);
   };
 
-  if (orderQuery.isLoading) return <LoadingPage />;
+  const getStatusColor = (data) => {
+    if (data && !data.isPaid && data.isDelivered && data.isGcash) return salesStyles.red;
+    if (data && !data.isPaid && data.isDelivered && !data.isGcash) return salesStyles.purple;
+    if (data && data.isPaid && !data.isDelivered && !data.isGcash) return salesStyles.turquoise;
+    if (data && data.isPaid && !data.isDelivered && data.isGcash) return salesStyles.pink;
+    if (data && data.isPaid && data.isDelivered && data.isGcash) return salesStyles.blue;
+    if (data && data.isPaid && data.isDelivered && !data.isGcash) return salesStyles.green;
+    return salesStyles.orange;
+  };
+
+  const onUpdateStatus = (order) => {
+    setSelectedOrder(order);
+    setOpenStatusUpdate(true);
+  };
+
   if (orderQuery.isError) return <ErrorPage error={orderQuery.error} />;
 
   return (
@@ -58,45 +70,42 @@ const OrdersMainPage = ({ orderQuery, onEdit }) => {
         enableEdit={true}
         onEdit={onEdit}
       />
+      <OrderStatusUpdater open={openStatusUpdater} close={() => setOpenStatusUpdate(false)} order={selectedOrder} />
       <div className={pageStyles.page_container}>
         <div className={tableStyles.table_container}>
-          <table className={tableStyles.table}>
-            <thead>
-              <tr className={tableStyles.table_head_row}>
-                {ORDER_COLUMNS.map((head) => {
+          {orderQuery.isLoading ? (
+            <div className={tableStyles.table_loader}>
+              <img src="/images/spinner.gif" alt="loader gif" />
+            </div>
+          ) : (
+            <table className={salesStyles.table}>
+              <thead>
+                <tr>
+                  <th className={salesStyles.table_head}>Order#</th>
+                  <th className={salesStyles.table_head}>Order Details</th>
+                  <th className={salesStyles.table_head}>Total</th>
+                </tr>
+              </thead>
+              <tbody>
+                {orderQuery?.data?.map((order, index) => {
                   return (
-                    <th className={tableStyles.table_head} key={head}>
-                      <div className={tableStyles.table_head_text}>{head}</div>
-                    </th>
+                    <tr key={index}>
+                      <td className={`${getStatusColor(order)} ${salesStyles.table_cell_status}`} onClick={() => onUpdateStatus(order)}>
+                        {index + 1}
+                      </td>
+                      <td className={salesStyles.table_cell} onClick={() => onSelectHandler(order)}>
+                        <div className={salesStyles.table_cell_name}>{order?.orderDetails?.customer?.name}</div>
+                        <div
+                          className={salesStyles.table_cell_address}
+                        >{`${order?.orderDetails?.customer?.address} - ${order?.orderDetails?.customer?.block} ${order?.orderDetails?.customer?.lot}`}</div>
+                      </td>
+                      <td className={salesStyles.table_cell_total}>{order?.total?.toLocaleString('en-US')}</td>
+                    </tr>
                   );
                 })}
-              </tr>
-            </thead>
-            <tbody>
-              {orderQuery.data.map((order, index) => {
-                return (
-                  <tr key={index}>
-                    <td className={tableStyles.cell_status}>
-                      <OrderStatus order={order} index={index} />
-                    </td>
-                    <td className={orderStyles.cell_order_details} onClick={() => onSelectHandler(order)}>
-                      <div className={orderStyles.cell_customer}>
-                        {`
-                      ${order?.orderDetails?.customer?.name} (
-                      ${order?.orderDetails?.customer?.address} - 
-                      ${order?.orderDetails?.customer?.block}
-                      ${order?.orderDetails?.customer?.lot} )
-                      `}
-                      </div>
-                    </td>
-                    <td className={tableStyles.cell_total_container}>
-                      <div className={tableStyles.cell_total}>{order?.total?.toLocaleString('en-US')}</div>
-                    </td>
-                  </tr>
-                );
-              })}
-            </tbody>
-          </table>
+              </tbody>
+            </table>
+          )}
         </div>
       </div>
     </>
