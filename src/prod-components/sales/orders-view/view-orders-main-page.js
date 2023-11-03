@@ -12,7 +12,7 @@ import tableStyles from '@/styles/assets.module.css';
 import pageStyles from '@/styles/page.module.css';
 import salesStyles from '@/styles/sales.module.css';
 
-const OrdersMainPage = ({ orderQuery, onEdit }) => {
+const OrdersMainPage = ({ orderQuery, onEdit, width }) => {
   const queryClient = useQueryClient();
   const [selectedOrder, setSelectedOrder] = useState(null);
   const [openStatusUpdater, setOpenStatusUpdate] = useState(false);
@@ -71,7 +71,7 @@ const OrdersMainPage = ({ orderQuery, onEdit }) => {
         onEdit={onEdit}
       />
       <OrderStatusUpdater open={openStatusUpdater} close={() => setOpenStatusUpdate(false)} order={selectedOrder} />
-      <div className={pageStyles.page_container}>
+      <div className={pageStyles.page_container} style={{ width: width }}>
         <div className={tableStyles.table_container}>
           {orderQuery.isLoading ? (
             <div className={tableStyles.table_loader}>

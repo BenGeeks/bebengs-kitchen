@@ -1,12 +1,11 @@
-import { RiAddCircleLine, RiPrinterLine, RiCalendar2Line } from 'react-icons/ri';
+import { RiAddCircleLine, RiPrinterLine } from 'react-icons/ri';
 import { MdDisplaySettings } from 'react-icons/md';
 import { PiCalendar, PiCalendarBlank } from 'react-icons/pi';
 import { LuFilter } from 'react-icons/lu';
 
-import salesStyles from '@/styles/sales.module.css';
 import iconStyles from '@/styles/icons-bar.module.css';
 
-const OrdersIconBar = ({ currentPage, setCurrentPage, setOpenCalendar, onPrint }) => {
+const OrdersIconBar = ({ currentPage, setCurrentPage, setOpenCalendar, onPrint, onView }) => {
   return (
     <div className={iconStyles.icon_bar_container}>
       <div className={iconStyles.icon_box} title="Add order" onClick={() => setCurrentPage('new-order')}>
@@ -34,7 +33,7 @@ const OrdersIconBar = ({ currentPage, setCurrentPage, setOpenCalendar, onPrint }
         <p className={iconStyles.icon_text}>History</p>
       </div>
 
-      <div className={iconStyles.icon_box} title="View">
+      <div className={iconStyles.icon_box} title="View" onClick={onView}>
         <div className={iconStyles.icon}>
           <MdDisplaySettings />
         </div>

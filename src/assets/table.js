@@ -1,12 +1,12 @@
 import React from 'react';
 import { RiDeleteBin4Line, RiEditLine } from 'react-icons/ri';
 
-import assetStyles from '@/styles/assets.module.css';
+import styles from './table.module.css';
 
 const Table = ({ headers, data, enableDelete, enableEdit, onDelete, onEdit, enableRowClick, onRowClick, isLoading, isError }) => {
   if (isError) {
     return (
-      <div className={assetStyles.table_loader}>
+      <div className={styles.table_loader}>
         <h2>An error occurred while fetching.</h2>
       </div>
     );
@@ -14,26 +14,26 @@ const Table = ({ headers, data, enableDelete, enableEdit, onDelete, onEdit, enab
 
   if (isLoading) {
     return (
-      <div className={assetStyles.table_loader}>
+      <div className={styles.table_loader}>
         <img src="/images/spinner.gif" alt="loader gif" />
       </div>
     );
   }
 
   return (
-    <table className={assetStyles.table}>
+    <table className={styles.table}>
       <thead>
-        <tr className={assetStyles.table_head_row}>
+        <tr className={styles.table_head_row}>
           {headers.map((header) => {
             return (
-              <th className={assetStyles.table_head} key={header.name}>
-                <div className={assetStyles.table_head_text}>{header.display}</div>
+              <th className={styles.table_head} key={header.name}>
+                <div className={styles.table_head_text}>{header.display}</div>
               </th>
             );
           })}
           {(enableDelete || enableEdit) && (
-            <th className={assetStyles.table_head}>
-              <div className={assetStyles.table_head_text}>Actions</div>
+            <th className={styles.table_head}>
+              <div className={styles.table_head_text}>Actions</div>
             </th>
           )}
         </tr>
@@ -44,26 +44,26 @@ const Table = ({ headers, data, enableDelete, enableEdit, onDelete, onEdit, enab
             return (
               <tr
                 key={index}
-                className={enableRowClick ? assetStyles.table_row_clickable : assetStyles.table_row}
+                className={enableRowClick ? styles.table_row_clickable : styles.table_row}
                 onClick={enableRowClick ? () => onRowClick(row) : null}
               >
                 {headers.map((header, index) => {
                   return (
-                    <td key={index} className={assetStyles.cell}>
+                    <td key={index} className={styles.cell}>
                       {typeof row[header.name] === 'boolean' ? (row[header.name] ? '🟢' : '🔴') : row[header.name]}
                     </td>
                   );
                 })}
                 {(enableDelete || enableEdit) && (
-                  <td className={assetStyles.cell}>
-                    <div className={assetStyles.icons_container}>
+                  <td className={styles.cell}>
+                    <div className={styles.icons_container}>
                       {enableDelete && (
-                        <div className={assetStyles.delete_icon_holder} onClick={() => onDelete(row._id)}>
+                        <div className={styles.delete_icon_holder} onClick={() => onDelete(row._id)}>
                           <RiDeleteBin4Line />
                         </div>
                       )}
                       {enableEdit && (
-                        <div className={assetStyles.edit_icon_holder} onClick={() => onEdit(row)}>
+                        <div className={styles.edit_icon_holder} onClick={() => onEdit(row)}>
                           <RiEditLine />
                         </div>
                       )}

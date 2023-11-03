@@ -11,7 +11,7 @@ import DatePicker from '@/assets/date-picker';
 
 import apiRequest from '@/lib/axios';
 
-const OrderListHistory = ({ currentPage, setCurrentPage, onEdit, calendarDate, setCalendarDate }) => {
+const OrderListHistory = ({ currentPage, setCurrentPage, onEdit, calendarDate, setCalendarDate, getWidth, setView }) => {
   const printRef = useRef();
   const [salesData, setSalesData] = useState({ cashTotal: 0, gCashTotal: 0, dailyTotal: 0 });
   const [salesCount, setSalesCount] = useState([]);
@@ -96,13 +96,20 @@ const OrderListHistory = ({ currentPage, setCurrentPage, onEdit, calendarDate, s
         </div>
       ) : (
         <>
-          <OrdersSideBar salesData={salesData} salesCount={salesCount} collectibleData={collectibleData} calendarDate={calendarDate} />
-          <OrdersMainPage orderQuery={orderQuery} onEdit={onEdit} />
+          <OrdersSideBar
+            salesData={salesData}
+            salesCount={salesCount}
+            collectibleData={collectibleData}
+            calendarDate={calendarDate}
+            width={getWidth('left')}
+          />
+          <OrdersMainPage orderQuery={orderQuery} onEdit={onEdit} width={getWidth('right')} />
           <OrdersIconBar
             currentPage={currentPage}
             setCurrentPage={setCurrentPage}
             onPrint={onPrintHandler}
             setOpenCalendar={setOpenCalendar}
+            onView={() => setView((prev) => prev + 1)}
           />
         </>
       )}

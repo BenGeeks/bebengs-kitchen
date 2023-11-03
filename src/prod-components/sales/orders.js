@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import moment from 'moment';
 
 import OrderListHistory from './orders-view/view-orders-history';
@@ -7,9 +7,32 @@ import EditOrderPage from './new-order/edit-order';
 import NewOrderPage from './new-order/new-order';
 
 const OrdersPage = () => {
+  const [windowWidth, setWindowWidth] = useState('1000');
+  const [view, setView] = useState(1);
   const [currentPage, setCurrentPage] = useState('todays-list');
   const [orderData, setOrderData] = useState(null);
   const [calendarDate, setCalendarDate] = useState(moment());
+
+  useEffect(() => {
+    const handleResize = () => setWindowWidth(window.innerWidth);
+    window.addEventListener('load', handleResize);
+    window.addEventListener('resize', handleResize);
+    return () => {
+      window.removeEventListener('load', handleResize);
+      window.removeEventListener('resize', handleResize);
+    };
+  });
+
+  const getWidth = (pos) => {
+    if (windowWidth < 768) {
+      if (view % 2 === 0) return pos == 'left' ? '0%' : '100%';
+      if (view % 2 !== 0) return pos == 'left' ? '100%' : '0%';
+    } else {
+      if (view % 3 === 0) return pos == 'left' ? '0%' : '100%';
+      if (view % 3 === 1) return pos == 'left' ? '50%' : '50%';
+      if (view % 3 === 2) return pos == 'left' ? '100%' : '0%';
+    }
+  };
 
   const onEditHandler = (data) => {
     setOrderData(data);
@@ -18,7 +41,15 @@ const OrdersPage = () => {
 
   return (
     <>
-      {currentPage === 'todays-list' && <OrderListToday setCurrentPage={setCurrentPage} onEdit={onEditHandler} currentPage={currentPage} />}
+      {currentPage === 'todays-list' && (
+        <OrderListToday
+          setCurrentPage={setCurrentPage}
+          onEdit={onEditHandler}
+          currentPage={currentPage}
+          getWidth={getWidth}
+          setView={setView}
+        />
+      )}
       {currentPage === 'history-list' && (
         <OrderListHistory
           setCurrentPage={setCurrentPage}
@@ -26,10 +57,14 @@ const OrdersPage = () => {
           calendarDate={calendarDate}
           setCalendarDate={setCalendarDate}
           currentPage={currentPage}
+          getWidth={getWidth}
+          setView={setView}
         />
       )}
-      {currentPage === 'new-order' && <NewOrderPage setCurrentPage={setCurrentPage} />}
-      {currentPage === 'edit-order' && <EditOrderPage setCurrentPage={setCurrentPage} orderData={orderData} />}
+      {currentPage === 'new-order' && <NewOrderPage setCurrentPage={setCurrentPage} getWidth={getWidth} setView={setView} />}
+      {currentPage === 'edit-order' && (
+        <EditOrderPage setCurrentPage={setCurrentPage} orderData={orderData} getWidth={getWidth} setView={setView} />
+      )}
     </>
   );
 };

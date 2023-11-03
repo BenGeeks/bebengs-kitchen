@@ -9,6 +9,7 @@
   flex-direction: column;
   justify-content: flex-start;
   overflow: auto;
+  transition: all 0.2s ease-in-out;
 }
 
 .date {
@@ -67,15 +68,4 @@
 
 .table_container {
   margin: 5px;
-}
-
-@media (max-width: 1200px) {
-  .container {
-    display: none;
-  }
-
-  .show {
-    display: block;
-    width: 100%;
-  }
 }

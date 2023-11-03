@@ -4,9 +4,9 @@ import { COLLECTIBLE_HEADER, COUNT_HEADER } from '@/resources/side-bar';
 import sideStyles from '@/styles/side-bar.module.css';
 import Table from '@/assets/table';
 
-const OrdersSideBar = ({ salesCount, collectibleData, salesData, viewReport, calendarDate }) => {
+const OrdersSideBar = ({ salesCount, collectibleData, salesData, viewReport, calendarDate, width }) => {
   return (
-    <div className={`${sideStyles.container} ${viewReport && sideStyles.show}`}>
+    <div className={sideStyles.container} style={{ width: width }}>
       <div className={sideStyles.date}>{moment(calendarDate).format('MMM DD, yyyy')}</div>
       <div className={sideStyles.summary_box}>
         <div className={sideStyles.total_box}>
