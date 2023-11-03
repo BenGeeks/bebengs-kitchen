@@ -2,18 +2,25 @@ import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import React, { useState } from 'react';
 import { toast } from 'react-toastify';
 
-import ModalWide from '@/assets/modal-wide';
+import ActionModal from '@/assets/action-modal';
 import AddressNew from './address-new';
 import apiRequest from '@/lib/axios';
 import Table from '@/assets/table';
 
 import { ADDRESS_HEADER } from '@/resources/customers';
-import customerStyles from '@/styles/customer.module.css';
+import customerStyles from '../customer.module.css';
 
 const AddressList = () => {
   const queryClient = useQueryClient();
+  const [selectActionModal, setSelectActionModal] = useState(false);
   const [addressData, setAddressData] = useState(null);
   const [editModal, setEditModal] = useState(false);
+
+  const cancelHandler = () => {
+    setAddressData(null);
+    setSelectActionModal(false);
+    setEditModal(false);
+  };
 
   const addressQuery = useQuery({
     queryKey: ['address'],
@@ -25,28 +32,35 @@ const AddressList = () => {
     onSuccess: () => {
       toast.success('Address deleted successfully.');
       queryClient.invalidateQueries({ queryKey: ['address'] });
+      cancelHandler();
     },
     onError: (error) => {
       toast.error(error.response.data.error.message);
     },
   });
 
-  const onDeleteHandler = (id) => {
+  const onDeleteHandler = () => {
     if (confirm('Are you sure you want to delete this address?') == true) {
-      deleteAddressMutation.mutate(id);
+      deleteAddressMutation.mutate(addressData._id);
     }
   };
 
-  const onEditHandler = (address) => {
+  const onRowClick = (address) => {
     setAddressData(address);
-    setEditModal(true);
+    setSelectActionModal(true);
   };
 
   return (
     <>
-      <ModalWide open={editModal} close={() => setEditModal(false)}>
-        <AddressNew close={() => setEditModal(false)} isEdit={true} data={addressData} />
-      </ModalWide>
+      <AddressNew open={editModal} close={cancelHandler} isEdit={true} data={addressData} />
+      <ActionModal
+        name={addressData?.address}
+        open={selectActionModal}
+        close={() => setSelectActionModal(false)}
+        onCancel={cancelHandler}
+        onEdit={() => setEditModal(true)}
+        onDelete={onDeleteHandler}
+      />
 
       <div className={customerStyles.page_container}>
         <div className={customerStyles.main_page}>
@@ -57,11 +71,8 @@ const AddressList = () => {
           <Table
             headers={ADDRESS_HEADER}
             data={addressQuery.data}
-            enableDelete={true}
-            onDelete={onDeleteHandler}
-            enableEdit={true}
-            onEdit={onEditHandler}
-            enableRowClick={false}
+            enableRowClick={true}
+            onRowClick={onRowClick}
             isLoading={addressQuery?.isLoading}
             isError={addressQuery?.isError}
           />

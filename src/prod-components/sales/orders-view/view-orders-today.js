@@ -72,7 +72,7 @@ const OrderListToday = ({ setCurrentPage, onEdit, currentPage, getWidth, setView
         calendarDate={moment()}
         width={getWidth('left')}
       />
-      <OrdersMainPage orderQuery={orderQuery} onEdit={onEdit} width={getWidth('right')} />
+      <OrdersMainPage orderQuery={orderQuery} calendarDate={moment()} onEdit={onEdit} width={getWidth('right')} />
       <OrdersIconBar currentPage={currentPage} setCurrentPage={setCurrentPage} onView={() => setView((prev) => prev + 1)} />
     </>
   );

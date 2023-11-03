@@ -5,13 +5,12 @@ import LoadingMain from '@/assets/loading-main';
 import { RiContactsBookLine, RiLogoutCircleLine } from 'react-icons/ri';
 import { IoFastFoodOutline } from 'react-icons/io5';
 import { BsClipboardCheck } from 'react-icons/bs';
-import { GiChickenOven } from 'react-icons/gi';
+import { GiChickenOven, GiHamburgerMenu } from 'react-icons/gi';
 import { PiHandCoins } from 'react-icons/pi';
 import { FaRegMoneyBillAlt } from 'react-icons/fa';
 // import { AiOutlineDashboard } from 'react-icons/ai';
 
-import pageStyles from '@/styles/page.module.css';
-import iconStyles from '@/styles/icons.module.css';
+import styles from './top-bar.module.css';
 
 const TopBar = ({ currentPage, setCurrentPage }) => {
   const [showNavBar, setShowNavBar] = useState(false);
@@ -34,54 +33,60 @@ const TopBar = ({ currentPage, setCurrentPage }) => {
   return (
     <>
       <LoadingMain open={isLoading} />
-      <div className={pageStyles.top_bar}>
-        <div className={pageStyles.company_info_container}>
-          <img src="/images/logo-144x144.png" alt="logo" className={pageStyles.company_logo} onClick={() => setShowNavBar(!showNavBar)} />
-          <h1 className={pageStyles.company_name}>Bebeng's Kitchen</h1>
+      <div className={styles.top_bar}>
+        <div className={styles.company_info_container}>
+          <img src="/images/logo-144x144.png" alt="logo" className={styles.company_logo} />
+          <h1 className={styles.company_name}>Bebeng's Kitchen</h1>
         </div>
-        <div className={iconStyles.icons_container_top_bar}>
+        <div className={styles.icons_container}>
           {ICON_LIST.map((icon) => {
             return (
               <div
                 key={icon.name}
-                className={currentPage === icon.name ? iconStyles.icon_box_active : iconStyles.icon_box}
+                className={currentPage === icon.name ? styles.icon_box_active : styles.icon_box}
                 title={icon.name}
                 onClick={() => setCurrentPage(icon.name)}
               >
-                <div className={iconStyles.icon}>{icon.icon}</div>
-                <p className={iconStyles.icon_text}>{icon.title}</p>
+                <div className={styles.icon}>{icon.icon}</div>
+                <p className={styles.icon_text}>{icon.title}</p>
               </div>
             );
           })}
-          <div className={iconStyles.icon_box} title="logout" onClick={onSignOutHandler}>
-            <div className={iconStyles.icon}>
+          <div className={styles.icon_box} title="logout" onClick={onSignOutHandler}>
+            <div className={styles.icon}>
               <RiLogoutCircleLine />
             </div>
-            <p className={iconStyles.icon_text}>Logout</p>
+            <p className={styles.icon_text}>Logout</p>
           </div>
         </div>
-        <div className={showNavBar ? iconStyles.icons_top_bar_show : iconStyles.icons_top_bar_hide}>
+        <div className={styles.hamburger_icon} title="Nav" onClick={() => setShowNavBar((prev) => !prev)}>
+          <div className={styles.icon}>
+            <GiHamburgerMenu />
+          </div>
+        </div>
+
+        <div className={showNavBar ? styles.icons_top_bar_show : styles.icons_top_bar_hide}>
           {ICON_LIST.map((icon) => {
             return (
               <div
                 key={icon.name}
-                className={currentPage === icon.name ? iconStyles.icon_box_active : iconStyles.icon_box}
+                className={currentPage === icon.name ? styles.icon_box_active : styles.icon_box}
                 title="Add order"
                 onClick={() => {
                   setCurrentPage(icon.name);
                   setShowNavBar(false);
                 }}
               >
-                <div className={iconStyles.icon}>{icon.icon}</div>
-                <p className={iconStyles.icon_text}>{icon.title}</p>
+                <div className={styles.icon}>{icon.icon}</div>
+                <p className={styles.icon_text}>{icon.title}</p>
               </div>
             );
           })}
-          <div className={iconStyles.icon_box} title="logout" onClick={onSignOutHandler}>
-            <div className={iconStyles.icon}>
+          <div className={styles.icon_box_logout} title="logout" onClick={onSignOutHandler}>
+            <div className={styles.icon}>
               <RiLogoutCircleLine />
             </div>
-            <p className={iconStyles.icon_text}>Logout</p>
+            <p className={styles.icon_text}>Logout</p>
           </div>
         </div>
       </div>

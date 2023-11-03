@@ -1,6 +1,7 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { toast } from 'react-toastify';
 import { useState } from 'react';
+import moment from 'moment';
 
 import ViewOrderDetailsModal from '@/assets/view-order';
 import OrderStatusUpdater from './order-status-updater';
@@ -8,11 +9,9 @@ import ErrorPage from '@/assets/error';
 
 import apiRequest from '@/lib/axios';
 
-import tableStyles from '@/styles/assets.module.css';
-import pageStyles from '@/styles/page.module.css';
-import salesStyles from '@/styles/sales.module.css';
+import styles from '../sales.module.css';
 
-const OrdersMainPage = ({ orderQuery, onEdit, width }) => {
+const OrdersMainPage = ({ orderQuery, calendarDate, onEdit, width }) => {
   const queryClient = useQueryClient();
   const [selectedOrder, setSelectedOrder] = useState(null);
   const [openStatusUpdater, setOpenStatusUpdate] = useState(false);
@@ -43,13 +42,13 @@ const OrdersMainPage = ({ orderQuery, onEdit, width }) => {
   };
 
   const getStatusColor = (data) => {
-    if (data && !data.isPaid && data.isDelivered && data.isGcash) return salesStyles.red;
-    if (data && !data.isPaid && data.isDelivered && !data.isGcash) return salesStyles.purple;
-    if (data && data.isPaid && !data.isDelivered && !data.isGcash) return salesStyles.turquoise;
-    if (data && data.isPaid && !data.isDelivered && data.isGcash) return salesStyles.pink;
-    if (data && data.isPaid && data.isDelivered && data.isGcash) return salesStyles.blue;
-    if (data && data.isPaid && data.isDelivered && !data.isGcash) return salesStyles.green;
-    return salesStyles.orange;
+    if (data && !data.isPaid && data.isDelivered && data.isGcash) return styles.red;
+    if (data && !data.isPaid && data.isDelivered && !data.isGcash) return styles.purple;
+    if (data && data.isPaid && !data.isDelivered && !data.isGcash) return styles.turquoise;
+    if (data && data.isPaid && !data.isDelivered && data.isGcash) return styles.pink;
+    if (data && data.isPaid && data.isDelivered && data.isGcash) return styles.blue;
+    if (data && data.isPaid && data.isDelivered && !data.isGcash) return styles.green;
+    return styles.orange;
   };
 
   const onUpdateStatus = (order) => {
@@ -71,35 +70,36 @@ const OrdersMainPage = ({ orderQuery, onEdit, width }) => {
         onEdit={onEdit}
       />
       <OrderStatusUpdater open={openStatusUpdater} close={() => setOpenStatusUpdate(false)} order={selectedOrder} />
-      <div className={pageStyles.page_container} style={{ width: width }}>
-        <div className={tableStyles.table_container}>
+      <div className={styles.page_container} style={{ width: width }}>
+        <div className={styles.date}>{moment(calendarDate).format('MMM DD, yyyy')}</div>
+        <div className={styles.table_container}>
           {orderQuery.isLoading ? (
-            <div className={tableStyles.table_loader}>
+            <div className={styles.table_loader}>
               <img src="/images/spinner.gif" alt="loader gif" />
             </div>
           ) : (
-            <table className={salesStyles.table}>
+            <table className={styles.table}>
               <thead>
                 <tr>
-                  <th className={salesStyles.table_head}>Order#</th>
-                  <th className={salesStyles.table_head}>Order Details</th>
-                  <th className={salesStyles.table_head}>Total</th>
+                  <th className={styles.table_head}>Order#</th>
+                  <th className={styles.table_head}>Order Details</th>
+                  <th className={styles.table_head}>Total</th>
                 </tr>
               </thead>
               <tbody>
                 {orderQuery?.data?.map((order, index) => {
                   return (
                     <tr key={index}>
-                      <td className={`${getStatusColor(order)} ${salesStyles.table_cell_status}`} onClick={() => onUpdateStatus(order)}>
+                      <td className={`${getStatusColor(order)} ${styles.table_cell_status}`} onClick={() => onUpdateStatus(order)}>
                         {index + 1}
                       </td>
-                      <td className={salesStyles.table_cell} onClick={() => onSelectHandler(order)}>
-                        <div className={salesStyles.table_cell_name}>{order?.orderDetails?.customer?.name}</div>
+                      <td className={styles.table_cell} onClick={() => onSelectHandler(order)}>
+                        <div className={styles.table_cell_name}>{order?.orderDetails?.customer?.name}</div>
                         <div
-                          className={salesStyles.table_cell_address}
+                          className={styles.table_cell_address}
                         >{`${order?.orderDetails?.customer?.address} - ${order?.orderDetails?.customer?.block} ${order?.orderDetails?.customer?.lot}`}</div>
                       </td>
-                      <td className={salesStyles.table_cell_total}>{order?.total?.toLocaleString('en-US')}</td>
+                      <td className={styles.table_cell_total}>{order?.total?.toLocaleString('en-US')}</td>
                     </tr>
                   );
                 })}

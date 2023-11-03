@@ -2,7 +2,7 @@ import React from 'react';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 
-import assetStyles from '@/styles/assets.module.css';
+import styles from './react-form.module.css';
 
 const ReactForm = ({ layout, schema, defaultValues, onSubmit, onCancel, action }) => {
   const {
@@ -19,27 +19,27 @@ const ReactForm = ({ layout, schema, defaultValues, onSubmit, onCancel, action }
       <form onSubmit={handleSubmit(onSubmit)}>
         {layout.map((input, index) => {
           return (
-            <div key={index} className={assetStyles.input_container}>
-              <label htmlFor={input.name} className={assetStyles.input_label}>
+            <div key={index} className={styles.input_container}>
+              <label htmlFor={input.name} className={styles.input_label}>
                 {input.label}:
               </label>
-              {errors[input.name] && <div className={assetStyles.error_message}>{errors[input.name]?.message}</div>}
+              {errors[input.name] && <div className={styles.error_message}>{errors[input.name]?.message}</div>}
 
               {input.type === 'textarea' ? (
-                <textarea {...register(input.name)} className={assetStyles.textarea} rows={5} />
+                <textarea {...register(input.name)} className={styles.textarea} rows={5} />
               ) : (
                 <>
                   {input.type === 'checkbox' ? (
-                    <label className={assetStyles.switch}>
+                    <label className={styles.switch}>
                       <input type="checkbox" {...register(input.name)} />
-                      <span className={`${assetStyles.slider} ${assetStyles.round}`}></span>
+                      <span className={`${styles.slider} ${styles.round}`}></span>
                     </label>
                   ) : (
                     <>
                       <input
                         type={input.type}
                         placeholder={input.label}
-                        className={assetStyles.input}
+                        className={styles.input}
                         list={input.name}
                         {...register(input.name)}
                         autoFocus={index === 0}
@@ -58,11 +58,11 @@ const ReactForm = ({ layout, schema, defaultValues, onSubmit, onCancel, action }
             </div>
           );
         })}
-        <div className={assetStyles.button_container}>
-          <button type="reset" className={assetStyles.button_cancel} onClick={onCancel}>
+        <div className={styles.button_container}>
+          <button type="reset" className={styles.button_cancel} onClick={onCancel}>
             Cancel
           </button>
-          <button className={assetStyles.button_save} type="submit">
+          <button className={styles.button_save} type="submit">
             {action === 'Add' ? 'Save' : 'Update'}
           </button>
         </div>

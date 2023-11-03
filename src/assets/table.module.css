@@ -63,6 +63,7 @@
   padding: 5px;
   text-align: left;
   font-size: 1.4rem;
+  min-width: 50px;
 }
 
 .cell_status {
@@ -136,19 +137,19 @@
     width: 100%;
   }
 
+  .table_head {
+    padding-left: 2px;
+  }
+
   .table_head_text {
     font-size: 0.8rem;
-    padding: 5px;
+    padding: 2px;
     display: flex;
     align-items: center;
     border-right: 1px solid #374151;
   }
 
   .cell {
-    border-top: 1px solid #374151;
-    border-right: 1px solid #374151;
-    padding: 5px;
-    text-align: left;
     font-size: 0.9rem;
   }
 

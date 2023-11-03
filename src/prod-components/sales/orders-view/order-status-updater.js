@@ -8,8 +8,7 @@ import moment from 'moment';
 
 import apiRequest from '@/lib/axios';
 
-import assetStyles from '@/styles/assets.module.css';
-import salesStyles from '@/styles/sales.module.css';
+import styles from '../sales.module.css';
 import ModalWide from '@/assets/modal-wide';
 
 const OrderStatusUpdater = ({ open, close, order }) => {
@@ -52,43 +51,43 @@ const OrderStatusUpdater = ({ open, close, order }) => {
 
   return (
     <ModalWide open={open} close={close}>
-      <div className={assetStyles.modal_header_bar}>
-        <h2 className={assetStyles.modal_header_text}>Update Order Status</h2>
-        <div className={assetStyles.modal_header_icon_container}>
-          <div className={assetStyles.modal_header_icon} onClick={close}>
+      <div className={styles.header_bar}>
+        <h2 className={styles.header_text}>Update Order Status</h2>
+        <div className={styles.header_icon_container}>
+          <div className={styles.header_icon} onClick={close}>
             <RiCloseCircleLine />
           </div>
         </div>
       </div>
-      <div className={salesStyles.modal_body}>
-        <div className={salesStyles.status_icon_container}>
+      <div className={styles.body}>
+        <div className={styles.status_icon_container}>
           <div
-            className={`${salesStyles.status_icon} ${delivered ? salesStyles.status_icon_green : salesStyles.status_icon_red}`}
+            className={`${styles.status_icon} ${delivered ? styles.status_icon_green : styles.status_icon_red}`}
             onClick={() => setDelivered((prev) => !prev)}
           >
             <TbTruckDelivery />
-            <span className={salesStyles.status_icon_text}>{delivered ? 'Delivered' : 'Ordered'}</span>
+            <span className={styles.status_icon_text}>{delivered ? 'Delivered' : 'Ordered'}</span>
           </div>
           <div
-            className={`${salesStyles.status_icon} ${gCash ? salesStyles.status_icon_blue : salesStyles.status_icon_green}`}
+            className={`${styles.status_icon} ${gCash ? styles.status_icon_blue : styles.status_icon_green}`}
             onClick={() => setGCash((prev) => !prev)}
           >
             {gCash ? <RiBitCoinLine /> : <BsCashCoin />}
-            <span className={salesStyles.status_icon_text}>{gCash ? 'G-Cash' : 'Cash'}</span>
+            <span className={styles.status_icon_text}>{gCash ? 'G-Cash' : 'Cash'}</span>
           </div>
           <div
-            className={`${salesStyles.status_icon} ${paid ? salesStyles.status_icon_green : salesStyles.status_icon_red}`}
+            className={`${styles.status_icon} ${paid ? styles.status_icon_green : styles.status_icon_red}`}
             onClick={() => setPaid((prev) => !prev)}
           >
             {paid ? <BsCartCheck /> : <BsCartX />}
-            <span className={salesStyles.status_icon_text}>{paid ? 'Paid' : 'Not Paid'}</span>
+            <span className={styles.status_icon_text}>{paid ? 'Paid' : 'Not Paid'}</span>
           </div>
         </div>
-        <div className={salesStyles.button_container}>
-          <button type="reset" className={salesStyles.button_cancel} onClick={cancelHandler}>
+        <div className={styles.button_container}>
+          <button type="reset" className={styles.button_cancel} onClick={cancelHandler}>
             Cancel
           </button>
-          <button className={salesStyles.button_save} type="submit" onClick={statusUpdateHandler}>
+          <button className={styles.button_save} type="submit" onClick={statusUpdateHandler}>
             Save
           </button>
         </div>

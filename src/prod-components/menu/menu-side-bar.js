@@ -9,9 +9,9 @@ import EditVariation from './variation/variation-edit';
 import NewVariation from './variation/variation-new';
 import apiRequest from '@/lib/axios';
 import { VARIATION_HEADERS } from '@/resources/menu';
-import menuStyles from '@/styles/menu.module.css';
+import styles from './menu.module.css';
 
-const MenuSideBar = ({ isHalf, selectedMenu, setSelectedMenu, variationQuery, actionModal }) => {
+const MenuSideBar = ({ width, selectedMenu, setSelectedMenu, variationQuery, actionModal }) => {
   const queryClient = useQueryClient();
   const [openAction, setOpenAction] = useState(false);
   const [selectedVariation, setSelectedVariation] = useState(null);
@@ -65,30 +65,30 @@ const MenuSideBar = ({ isHalf, selectedMenu, setSelectedMenu, variationQuery, ac
       <EditVariation open={editVariation} onCancel={cancelHandler} menu={selectedMenu} variation={selectedVariation} />
       <NewVariation open={newVariation} onCancel={cancelHandler} menu={selectedMenu} />
 
-      <div className={isHalf ? menuStyles.page_container_half : menuStyles.page_container_closed}>
-        <div className={menuStyles.main_page}>
-          <div className={menuStyles.header_bar}>
-            <h3 className={menuStyles.header_bar_title}>{selectedMenu?.itemName}</h3>
-            <div className={menuStyles.icons_container}>
-              <div className={menuStyles.small_icon} onClick={actionModal}>
+      <div className={styles.page_container} style={{ width: width }}>
+        <div className={styles.main_page}>
+          <div className={styles.header_bar}>
+            <h3 className={styles.header_bar_title}>{selectedMenu?.itemName}</h3>
+            <div className={styles.icons_container}>
+              <div className={styles.small_icon} onClick={actionModal}>
                 <RiEditLine />
               </div>
-              <div className={menuStyles.small_icon} onClick={() => setSelectedMenu(null)}>
+              <div className={styles.small_icon} onClick={() => setSelectedMenu(null)}>
                 <RiCloseCircleLine />
               </div>
             </div>
           </div>
-          <div className={menuStyles.image_container}>
+          <div className={styles.image_container}>
             <img
-              className={menuStyles.thumbnail}
+              className={styles.thumbnail}
               src={selectedMenu?.thumbnailUrl ? selectedMenu?.thumbnailUrl : '/images/orange_travelpictdinner.png'}
               alt="Menu image"
             />
           </div>
-          <div className={menuStyles.header_bar}>
-            <h3 className={menuStyles.header_bar_title}>Variations:</h3>
-            <div className={menuStyles.icons_container}>
-              <div className={menuStyles.small_icon} onClick={() => setNewVariation(true)}>
+          <div className={styles.header_bar}>
+            <h3 className={styles.header_bar_title}>Variations:</h3>
+            <div className={styles.icons_container}>
+              <div className={styles.small_icon} onClick={() => setNewVariation(true)}>
                 <RiAddCircleLine />
               </div>
             </div>

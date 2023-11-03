@@ -3,8 +3,7 @@ import moment from 'moment';
 
 import Table from '@/assets/table';
 import { EXPENSES_TABLE_HEADER } from '@/resources/expenses';
-import collectiblesStyles from '@/styles/collectibles.module.css';
-import styles from '@/styles/expenses.module.css';
+import styles from './expenses.module.css';
 
 const ExpensesList = ({ expensesQuery, onRowClick, date, isLoading }) => {
   const [total, setTotal] = useState();

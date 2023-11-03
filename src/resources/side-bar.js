@@ -6,5 +6,7 @@ export const COLLECTIBLE_HEADER = [
 export const COUNT_HEADER = [
   { display: 'Item', name: 'itemName' },
   { display: 'Size', name: 'size' },
+  { display: 'Price', name: 'price' },
   { display: 'Qty', name: 'qty' },
+  { display: 'Total', name: 'subTotal' },
 ];

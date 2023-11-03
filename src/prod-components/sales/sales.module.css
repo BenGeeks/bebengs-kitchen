@@ -2,6 +2,42 @@
 /* =======  ORDER MAIN PAGE  ====== */
 /* ================================ */
 
+.page_container {
+  height: calc(100vh - 80px);
+  border: 1px solid beige;
+  background-color: aliceblue;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  transition: all 0.3s ease-out;
+  overflow-x: hidden;
+}
+
+.date {
+  margin-bottom: 5px;
+  padding: 5px;
+  text-align: center;
+  border: 1px solid #374151;
+  background-color: aliceblue;
+  font-size: 1.2rem;
+  font-weight: 700;
+}
+
+.table_container {
+  border: 1px solid #374151;
+  overflow: auto;
+  padding: 5px;
+  margin: 5px;
+}
+
+.table_loader {
+  background-color: white;
+  height: 500px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 .table {
   width: 100%;
   border-spacing: 1px;
@@ -59,6 +95,10 @@
 }
 
 @media (max-width: 768px) {
+  .page_container {
+    height: calc(100vh - 80px);
+  }
+
   .table {
     width: 100%;
     border-spacing: 1px;
@@ -279,4 +319,74 @@
   justify-content: center;
   width: 100%;
   text-align: center;
+}
+
+/* ================================ */
+/* ===========  SIDE BAR  ========= */
+/* ================================ */
+
+.container {
+  background-color: #f7f7ec;
+  height: calc(100vh - 80px);
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  justify-content: flex-start;
+  overflow: auto;
+  transition: all 0.3s ease-out;
+}
+
+.date {
+  margin: 5px 5px 0px 5px;
+  padding: 5px;
+  text-align: center;
+  border: 1px solid #374151;
+  background-color: aliceblue;
+  font-size: 1.2rem;
+  font-weight: 700;
+}
+
+.summary_box {
+  border: 1px solid #374151;
+  padding: 5px;
+  margin: 5px 5px 0px 5px;
+}
+
+.total_box {
+  width: 100%;
+  background-color: black;
+  color: aliceblue;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+}
+
+.total_item_container {
+  width: 33%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: #374151;
+  padding: 5px 0px;
+}
+
+.total_item_value {
+  font-size: 2.5rem;
+}
+.total_item_label {
+  font-size: 0.8rem;
+}
+
+.header_box {
+  background-color: aliceblue;
+  height: 30px;
+  display: flex;
+  justify-content: left;
+  align-items: center;
+  width: 100%;
+  padding-left: 15px;
+}
+
+.header {
+  font-size: 1.2rem;
 }

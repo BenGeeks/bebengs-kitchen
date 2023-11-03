@@ -1,13 +1,14 @@
-import React, { useState } from 'react';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
+import React, { useState } from 'react';
 import { toast } from 'react-toastify';
 
-import MenuList from './menu-list';
+import ActionModal from '@/assets/action-modal';
 import MenuIconbar from './menu-icon-bar';
 import MenuSideBar from './menu-side-bar';
+import MenuList from './menu-list';
 import NewMenu from './menu-new';
 import EditMenu from './menu-edit';
-import ActionModal from '@/assets/action-modal';
+
 import apiRequest from '@/lib/axios';
 
 const MenuPage = () => {
@@ -80,12 +81,12 @@ const MenuPage = () => {
       <EditMenu open={editMenu} onCancel={cancelHandler} menu={selectedMenu} />
       <MenuSideBar
         variationQuery={variationQuery.data}
-        isHalf={selectedMenu}
+        width={selectedMenu ? '100%' : '0px'}
         selectedMenu={selectedMenu}
         setSelectedMenu={setSelectedMenu}
         actionModal={() => setOpenAction(true)}
       />
-      <MenuList menuQuery={menuQuery} selectMenuHandler={selectMenuHandler} isHalf={selectedMenu} />
+      <MenuList menuQuery={menuQuery} selectMenuHandler={selectMenuHandler} width={selectedMenu ? '0px' : '100%'} />
       <MenuIconbar addNewMenu={() => setAddNew(true)} />
     </>
   );

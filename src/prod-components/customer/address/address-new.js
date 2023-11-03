@@ -6,7 +6,7 @@ import ReactForm from '@/assets/react-form';
 import ModalWide from '@/assets/modal-wide';
 import apiRequest from '@/lib/axios';
 import { ADDRESS_INPUT, ADDRESS_SCHEMA } from '@/resources/customers';
-import assetStyles from '@/styles/assets.module.css';
+import styles from '../customer.module.css';
 
 const AddressNew = ({ open, close, isEdit, data }) => {
   const queryClient = useQueryClient();
@@ -37,15 +37,15 @@ const AddressNew = ({ open, close, isEdit, data }) => {
 
   return (
     <ModalWide open={open} close={close}>
-      <div className={assetStyles.modal_header_bar}>
-        <h2 className={assetStyles.modal_header_text}>{isEdit ? 'Edit address:' : 'Add address:'}</h2>
-        <div className={assetStyles.modal_header_icon_container}>
-          <div className={assetStyles.modal_header_icon} onClick={close}>
+      <div className={styles.modal_header_bar}>
+        <h2 className={styles.modal_header_text}>{isEdit ? 'Edit address:' : 'Add address:'}</h2>
+        <div className={styles.modal_header_icon_container}>
+          <div className={styles.modal_header_icon} onClick={close}>
             <RiCloseCircleLine />
           </div>
         </div>
       </div>
-      <div className={assetStyles.modal_body}>
+      <div className={styles.modal_body}>
         <ReactForm
           layout={ADDRESS_INPUT}
           schema={ADDRESS_SCHEMA}

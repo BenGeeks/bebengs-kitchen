@@ -7,7 +7,7 @@ import CustomerPage from '@/prod-components/customer/customer';
 import FutureOrders from '@/prod-components/orders/orders';
 import Expenses from '@/prod-components/expenses/expenses';
 import TopBar from '@/prod-components/top-bar/top-bar';
-import SalesPage from '@/prod-components/sales/orders';
+import SalesPage from '@/prod-components/sales/sales';
 import MenuPage from '@/prod-components/menu/menu';
 
 import styles from '@/styles/prod.module.css';

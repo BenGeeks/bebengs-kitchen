@@ -1,6 +1,6 @@
+import { BiReset, BiFilterAlt } from 'react-icons/bi';
 import React, { useState, useEffect } from 'react';
 import { useQuery } from '@tanstack/react-query';
-import { BiReset, BiFilterAlt } from 'react-icons/bi';
 
 import AddressFilterSelector from './filter/address-filter';
 import BlockFilterSelector from './filter/block-filter';
@@ -9,7 +9,7 @@ import Table from '@/assets/table';
 import { CUSTOMER_HEADER } from '@/resources/customers';
 import apiRequest from '@/lib/axios';
 
-import customerStyles from '@/styles/customer.module.css';
+import styles from './customer.module.css';
 
 const CustomersList = ({ onSelectCustomer }) => {
   const [defaultList, setDefaultList] = useState([]);
@@ -81,36 +81,38 @@ const CustomersList = ({ onSelectCustomer }) => {
   };
 
   return (
-    <div className={customerStyles.page_container}>
+    <div className={styles.page_container}>
       <AddressFilterSelector open={addressSelectorIsOpen} onSelect={filterHandler} />
       <BlockFilterSelector open={blockSelectorIsOpen} onSelect={filterHandler} />
-      <div className={customerStyles.main_page}>
-        <div className={customerStyles.header_bar}>
+      <div className={styles.main_page}>
+        <div className={styles.header_bar}>
           {address ? (
             <>
-              <div className={customerStyles.header_bar_filter} onClick={resetFilter}>
+              <div className={styles.header_bar_filter} onClick={resetFilter}>
                 <BiReset />
               </div>
-              <div className={customerStyles.header_bar_filter} onClick={() => setAddressSelectorIsOpen(true)}>
+              <div className={styles.header_bar_filter} onClick={() => setAddressSelectorIsOpen(true)}>
                 {address}
               </div>
-              <div className={customerStyles.header_bar_filter} onClick={() => setBlockSelectorIsOpen(true)}>
+              <div className={styles.header_bar_filter} onClick={() => setBlockSelectorIsOpen(true)}>
                 Block: {block}
               </div>
             </>
           ) : (
-            <div className={customerStyles.header_bar_filter} onClick={() => setAddressSelectorIsOpen(true)}>
+            <div className={styles.header_bar_filter} onClick={() => setAddressSelectorIsOpen(true)}>
               <BiFilterAlt />
             </div>
           )}
 
-          <input
-            className={customerStyles.search_input}
-            type="text"
-            placeholder="Search"
-            value={searchValue}
-            onChange={(e) => setSearchValue(e.target.value)}
-          />
+          {!address && (
+            <input
+              className={styles.search_input}
+              type="text"
+              placeholder="Search"
+              value={searchValue}
+              onChange={(e) => setSearchValue(e.target.value)}
+            />
+          )}
         </div>
 
         <Table

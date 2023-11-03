@@ -4,9 +4,9 @@ import Table from '@/assets/table';
 
 import { MENU_HEADER } from '@/resources/menu';
 
-import menuStyles from '@/styles/menu.module.css';
+import styles from './menu.module.css';
 
-const MenuList = ({ menuQuery, selectMenuHandler, isHalf }) => {
+const MenuList = ({ menuQuery, selectMenuHandler, width }) => {
   const [menuList, setMenuList] = useState([]);
   const [searchValue, setSearchValue] = useState('');
 
@@ -26,12 +26,12 @@ const MenuList = ({ menuQuery, selectMenuHandler, isHalf }) => {
   }, [searchValue, menuQuery]);
 
   return (
-    <div className={isHalf ? menuStyles.page_container_half : menuStyles.page_container_full}>
-      <div className={menuStyles.main_page}>
-        <div className={menuStyles.header_bar}>
-          <h3 className={menuStyles.header_bar_title}>Menu List:</h3>
+    <div className={styles.page_container} style={{ width: width }}>
+      <div className={styles.main_page}>
+        <div className={styles.header_bar}>
+          <h3 className={styles.header_bar_title}>Menu List:</h3>
           <input
-            className={menuStyles.search_input}
+            className={styles.search_input}
             type="text"
             placeholder="Search"
             value={searchValue}

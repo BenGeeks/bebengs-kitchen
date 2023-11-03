@@ -3,7 +3,7 @@ import { useQuery } from '@tanstack/react-query';
 
 import ModalWide from '@/assets/modal-wide';
 import apiRequest from '@/lib/axios';
-import newOrderStyles from '@/styles/new-order.module.css';
+import newOrderStyles from '../customer.module.css';
 
 const AddressFilterSelector = ({ open, onSelect }) => {
   const addressQuery = useQuery({

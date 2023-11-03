@@ -1,3 +1,4 @@
+'use client';
 import { useState, useEffect } from 'react';
 import moment from 'moment';
 
@@ -7,7 +8,7 @@ import EditOrderPage from './new-order/edit-order';
 import NewOrderPage from './new-order/new-order';
 
 const OrdersPage = () => {
-  const [windowWidth, setWindowWidth] = useState('1000');
+  const [windowWidth, setWindowWidth] = useState(1024);
   const [view, setView] = useState(1);
   const [currentPage, setCurrentPage] = useState('todays-list');
   const [orderData, setOrderData] = useState(null);
@@ -21,16 +22,16 @@ const OrdersPage = () => {
       window.removeEventListener('load', handleResize);
       window.removeEventListener('resize', handleResize);
     };
-  });
+  }, []);
 
   const getWidth = (pos) => {
-    if (windowWidth < 768) {
-      if (view % 2 === 0) return pos == 'left' ? '0%' : '100%';
-      if (view % 2 !== 0) return pos == 'left' ? '100%' : '0%';
+    if (windowWidth < 1024) {
+      if (view % 2 !== 0) return pos == 'left' ? '0%' : '100%';
+      if (view % 2 === 0) return pos == 'left' ? '100%' : '0%';
     } else {
-      if (view % 3 === 0) return pos == 'left' ? '0%' : '100%';
-      if (view % 3 === 1) return pos == 'left' ? '50%' : '50%';
-      if (view % 3 === 2) return pos == 'left' ? '100%' : '0%';
+      if (view % 3 === 1) return pos == 'left' ? '0%' : '100%';
+      if (view % 3 === 2) return pos == 'left' ? '50%' : '50%';
+      if (view % 3 === 0) return pos == 'left' ? '100%' : '0%';
     }
   };
 

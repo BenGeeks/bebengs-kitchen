@@ -7,7 +7,7 @@ import ViewOrderDetailsModal from '@/assets/view-order';
 import DatePicker from '@/assets/date-picker';
 import apiRequest from '@/lib/axios';
 
-import collectiblesStyles from '@/styles/collectibles.module.css';
+import styles from './collectibles.module.css';
 import tableStyles from '@/styles/assets.module.css';
 
 const Collectibles = () => {
@@ -60,11 +60,11 @@ const Collectibles = () => {
         orderDetails={selectedOrder}
       />
       <DatePicker open={openDatePicker} close={() => setOpenDatePicker(false)} onSave={onPaidHandler} />
-      <div className={collectiblesStyles.page_container}>
-        <div className={collectiblesStyles.main_page}>
-          <div className={collectiblesStyles.header_bar}>
-            <h3 className={collectiblesStyles.header_bar_title}>Collectibles</h3>
-            <h3 className={collectiblesStyles.header_bar_total}>
+      <div className={styles.page_container}>
+        <div className={styles.main_page}>
+          <div className={styles.header_bar}>
+            <h3 className={styles.header_bar_title}>Collectibles</h3>
+            <h3 className={styles.header_bar_total}>
               {collectiblesQuery?.data?.reduce((total, data) => data.total + total, 0)?.toLocaleString('en-US')}
             </h3>
           </div>
@@ -90,10 +90,15 @@ const Collectibles = () => {
                   {collectiblesQuery?.data?.map((order, index) => {
                     return (
                       <tr key={index} className={tableStyles.table_row_clickable} onClick={() => viewOrderHandler(order)}>
-                        <td className={collectiblesStyles.cell}>{moment().diff(order.deliveryDate, 'days')}</td>
-                        <td className={collectiblesStyles.cell}>{moment(order.deliveryDate).format('MMM DD, YYYY')}</td>
-                        <td className={collectiblesStyles.cell}>{order.orderDetails.customer.name}</td>
-                        <td className={collectiblesStyles.cell}>{order.total.toLocaleString('en-US')}</td>
+                        <td className={styles.cell}>{moment().diff(order.deliveryDate, 'days')}</td>
+                        <td className={styles.cell}>{moment(order.deliveryDate).format('MMM DD, YYYY')}</td>
+                        <td className={styles.cell}>
+                          <div className={styles.cell_name}>{order?.orderDetails?.customer?.name}</div>
+                          <div
+                            className={styles.cell_address}
+                          >{`${order?.orderDetails?.customer?.address} - ${order?.orderDetails?.customer?.block} ${order?.orderDetails?.customer?.lot}`}</div>
+                        </td>
+                        <td className={styles.cell}>{order.total.toLocaleString('en-US')}</td>
                       </tr>
                     );
                   })}

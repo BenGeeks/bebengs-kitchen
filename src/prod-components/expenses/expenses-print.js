@@ -1,6 +1,6 @@
 import moment from 'moment';
 
-import styles from '@/styles/expenses.module.css';
+import styles from './expenses.module.css';
 
 const PrintDailyExpense = ({ data, date }) => {
   return (

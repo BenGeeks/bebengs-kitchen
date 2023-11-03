@@ -105,7 +105,6 @@ const EditOrderPage = ({ setCurrentPage, orderData }) => {
     if (confirm(`Are you sure you want to delete this order?`) == true) {
       deleteOrderMutation.mutate(orderData._id);
       setCurrentPage('todays-list');
-      console.log('ON DELETE HANDLER HAS BEEN TRIGGERED, ', orderData._id);
     }
   };
 

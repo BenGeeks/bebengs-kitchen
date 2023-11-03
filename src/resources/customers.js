@@ -12,13 +12,9 @@ export const CUSTOMER_HEADER = [
   { display: 'Address', name: 'address' },
   { display: 'Block', name: 'block' },
   { display: 'Lot', name: 'lot' },
-  { display: 'G-Cash', name: 'phone' },
 ];
 
-export const ADDRESS_HEADER = [
-  { display: 'ID', name: '_id' },
-  { display: 'Address', name: 'address' },
-];
+export const ADDRESS_HEADER = [{ display: 'Address', name: 'address' }];
 
 export const SELECT_CUSTOMER_LIST = [
   { display: 'Name', name: 'name' },
