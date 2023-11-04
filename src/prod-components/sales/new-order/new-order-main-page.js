@@ -5,8 +5,7 @@ import NewOrderSelectItem from './new-order-components/select-item';
 import EditShoppingCart from './new-order-components/edit-cart';
 import ReactForm from '@/assets/react-form';
 import { ORDER_DETAILS_INPUT, ORDER_DETAILS_SCHEMA } from '@/resources/orders';
-import pageStyles from '@/styles/page.module.css';
-import newOrderStyles from '@/styles/new-order.module.css';
+import styles from './new-order.module.css';
 
 const NewOrderMainPage = ({
   setSelectedCustomer,
@@ -44,12 +43,12 @@ const NewOrderMainPage = ({
   };
 
   return (
-    <div className={pageStyles.page_container}>
+    <div className={styles.page_container}>
       {edit === 1 && <CustomersList onSelectCustomer={selectCustomerHandler} />}
       {edit === 2 && orderDetails && (
-        <div className={newOrderStyles.main_page}>
-          <div className={newOrderStyles.header_bar}>
-            <h3 className={newOrderStyles.header_bar_title}>Order Details:</h3>
+        <div className={styles.main_page}>
+          <div className={styles.header_bar}>
+            <h3 className={styles.header_bar_title}>Order Details:</h3>
           </div>
           <ReactForm
             layout={ORDER_DETAILS_INPUT}
