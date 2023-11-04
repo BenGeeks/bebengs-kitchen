@@ -1,23 +1,23 @@
 import React from 'react';
 
-import newOrderStyles from '@/styles/new-order.module.css';
+import styles from '../new-order.module.css';
 
 const Step2 = ({ selectedItem, variationQuery, setStep, selectVariationHandler }) => {
   return (
-    <div className={newOrderStyles.main_page}>
-      <div className={newOrderStyles.header_bar}>
-        <h2 className={newOrderStyles.header_bar_title}>Select {selectedItem?.itemName} size:</h2>
+    <div className={styles.main_page}>
+      <div className={styles.header_bar}>
+        <h2 className={styles.header_bar_title}>Select {selectedItem?.itemName} size:</h2>
       </div>
-      <div className={newOrderStyles.cards_container}>
-        <div className={newOrderStyles.card} onClick={() => setStep(1)}>
-          <div className={newOrderStyles.card_name}>Back to ITEMS</div>
+      <div className={styles.cards_container}>
+        <div className={styles.card} onClick={() => setStep(1)}>
+          <div className={styles.card_name}>Back to ITEMS</div>
         </div>
         {variationQuery &&
           variationQuery.map((variation, index) => {
             return (
               <div
                 key={index}
-                className={newOrderStyles.card}
+                className={styles.card}
                 onClick={() => selectVariationHandler(variation)}
                 style={
                   selectedItem.thumbnailUrl
@@ -25,8 +25,8 @@ const Step2 = ({ selectedItem, variationQuery, setStep, selectVariationHandler }
                     : { backgroundImage: 'url(/images/jabe_value_meal.jpeg)' }
                 }
               >
-                <div className={newOrderStyles.card_price}>₱ {variation.price}</div>
-                <div className={newOrderStyles.card_name}>{variation.size}</div>
+                <div className={styles.card_price}>₱ {variation.price}</div>
+                <div className={styles.card_name}>{variation.size}</div>
               </div>
             );
           })}

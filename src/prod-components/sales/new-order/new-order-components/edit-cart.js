@@ -40,7 +40,7 @@ const EditShoppingCart = ({ items, setItems, setEdit }) => {
           <tr>
             {EDIT_CART_HEADER.map((header) => (
               <th className={styles.table_head} key={header}>
-                <div className={styles.table_head_text}>{header}</div>
+                <div>{header}</div>
               </th>
             ))}
           </tr>

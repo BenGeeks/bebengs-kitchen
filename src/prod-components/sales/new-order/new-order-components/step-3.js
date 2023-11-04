@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { QTY_NUMBER } from '@/resources/orders';
-import newOrderStyles from '@/styles/new-order.module.css';
+import styles from '../new-order.module.css';
 
 const Step3 = ({ selectedItem, selectQuantityHandler, setStep }) => {
   const getRandomColor = () => {
@@ -10,19 +10,19 @@ const Step3 = ({ selectedItem, selectQuantityHandler, setStep }) => {
   };
 
   return (
-    <div className={newOrderStyles.main_page}>
-      <div className={newOrderStyles.header_bar}>
-        <h2 className={newOrderStyles.header_bar_title}>Select {selectedItem?.itemName} quantity:</h2>
+    <div className={styles.main_page}>
+      <div className={styles.header_bar}>
+        <h2 className={styles.header_bar_title}>Select {selectedItem?.itemName} quantity:</h2>
       </div>
-      <div className={newOrderStyles.cards_container}>
-        <div className={newOrderStyles.card} onClick={() => setStep(2)}>
-          <div className={newOrderStyles.card_name}>Back to SIZE</div>
+      <div className={styles.cards_container}>
+        <div className={styles.number_card} onClick={() => setStep(2)}>
+          <div className={styles.card_name}>Back to SIZE</div>
         </div>
         {QTY_NUMBER.map((num) => {
           return (
             <div
               key={num}
-              className={newOrderStyles.number_card}
+              className={styles.number_card}
               onClick={() => selectQuantityHandler(num)}
               style={{ backgroundColor: getRandomColor() }}
             >

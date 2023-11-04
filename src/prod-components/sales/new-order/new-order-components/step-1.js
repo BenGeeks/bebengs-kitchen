@@ -11,7 +11,7 @@ const Step1 = ({ sortedMenuList, recentItemList, selectItemHandler }) => {
 
       {recentItemList && recentItemList.length !== 0 && (
         <>
-          <h3>Recent Items:</h3>
+          <h3 className={styles.select_item_sub_header}>Recent Items:</h3>
           <div className={styles.cards_container}>
             {recentItemList?.map((item, index) => {
               return (
@@ -33,7 +33,7 @@ const Step1 = ({ sortedMenuList, recentItemList, selectItemHandler }) => {
         </>
       )}
 
-      <h3>All items:</h3>
+      <h3 className={styles.select_item_sub_header}>All items:</h3>
       <div className={styles.cards_container}>
         {sortedMenuList &&
           sortedMenuList.map((item, index) => {

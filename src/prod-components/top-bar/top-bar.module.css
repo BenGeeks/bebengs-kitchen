@@ -148,7 +148,7 @@
     right: 0px;
     width: 100px;
     background-color: beige;
-    border: 1px solid #374151;
+    border: none;
     box-shadow: -2px 2px 5px #374151;
     max-height: 0px;
     overflow: hidden;
