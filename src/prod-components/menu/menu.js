@@ -69,14 +69,16 @@ const MenuPage = () => {
 
   return (
     <>
-      <ActionModal
-        name={selectedMenu?.itemName}
-        open={openAction}
-        close={() => setOpenAction(false)}
-        onCancel={cancelHandler}
-        onEdit={editHandler}
-        onDelete={deleteHandler}
-      />
+      {openAction && (
+        <ActionModal
+          name={selectedMenu?.itemName}
+          open={openAction}
+          close={() => setOpenAction(false)}
+          onCancel={cancelHandler}
+          onEdit={editHandler}
+          onDelete={deleteHandler}
+        />
+      )}
       <NewMenu open={addNew} onCancel={cancelHandler} />
       <EditMenu open={editMenu} onCancel={cancelHandler} menu={selectedMenu} />
       <MenuSideBar

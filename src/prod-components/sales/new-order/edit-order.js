@@ -2,25 +2,18 @@ import { useMutation, useQueryClient } from '@tanstack/react-query';
 import React, { useState } from 'react';
 import { toast } from 'react-toastify';
 
-import CustomerNew from '@/prod-components/customer/customer-new';
 import NewOrderMainPage from './new-order-main-page';
 import NewOrderIconBar from './new-order-icon-bar';
 import NewOrderSideBar from './new-order-side-bar';
 
 import apiRequest from '@/lib/axios';
 
-import { DEFAULT_ORDER_DETAILS } from '@/resources/orders';
-
-import styles from './new-order.module.css';
-
 const EditOrderPage = ({ setCurrentPage, orderData }) => {
   const queryClient = useQueryClient();
   const [selectedCustomer, setSelectedCustomer] = useState(orderData?.orderDetails?.customer);
   const [items, setItems] = useState(orderData?.orderDetails?.items);
   const [orderDetails, setOrderDetails] = useState(orderData);
-  const [step, setStep] = useState(3);
-  const [edit, setEdit] = useState(4);
-  const [addCustomer, setAddCustomer] = useState(false);
+  const [edit, setEdit] = useState(null);
 
   const editOrderMutation = useMutation({
     mutationFn: (payload) => apiRequest({ url: `orders/${payload.id}`, method: 'PUT', data: payload.data }),
@@ -46,11 +39,9 @@ const EditOrderPage = ({ setCurrentPage, orderData }) => {
 
   const resetFormHandler = () => {
     if (confirm('Are you sure to reset the data') == true) {
-      setSelectedCustomer(null);
-      setItems([]);
-      setOrderDetails(DEFAULT_ORDER_DETAILS);
-      setStep(1);
-      setEdit(1);
+      setSelectedCustomer(orderData?.orderDetails?.customer);
+      setItems(orderData?.orderDetails?.items);
+      setOrderDetails(orderData);
     }
   };
 
@@ -69,16 +60,6 @@ const EditOrderPage = ({ setCurrentPage, orderData }) => {
     setItems(tempList);
   };
 
-  const onCancelHandler = () => {
-    if (confirm('Are you sure you want to cancel this order?') == true) {
-      setSelectedCustomer(null);
-      setItems([]);
-      setOrderDetails(DEFAULT_ORDER_DETAILS);
-      setStep(1);
-      setCurrentPage('todays-list');
-    }
-  };
-
   const onUpdateHandler = () => {
     if (!selectedCustomer) return toast.error('Please select a customer.');
     if (items.length === 0) return toast.error('Shopping cart should not be empty.');
@@ -90,17 +71,7 @@ const EditOrderPage = ({ setCurrentPage, orderData }) => {
       orderDetails: { customer: selectedCustomer, items },
     };
     editOrderMutation.mutate({ id: orderData._id, data: tempData });
-    setSelectedCustomer(null);
-    setItems([]);
-    setOrderDetails(DEFAULT_ORDER_DETAILS);
-    setStep(1);
     setCurrentPage('todays-list');
-  };
-
-  const onAddCustomerSuccess = (customer) => {
-    setSelectedCustomer(customer);
-    setStep(2);
-    setEdit(2);
   };
 
   const onDeleteHandler = () => {
@@ -111,16 +82,16 @@ const EditOrderPage = ({ setCurrentPage, orderData }) => {
   };
 
   return (
-    <div className={styles.super_container}>
-      <CustomerNew open={addCustomer} close={() => setAddCustomer(false)} onAddCustomerSuccess={onAddCustomerSuccess} />
+    <>
       <NewOrderSideBar
         selectedCustomer={selectedCustomer}
         orderDetails={orderDetails}
-        setStep={setStep}
-        step={step}
+        step={3}
+        setStep={() => null}
         items={items}
+        setItems={setItems}
         onSave={onUpdateHandler}
-        onCancel={onCancelHandler}
+        onCancel={() => setCurrentPage('todays-list')}
         edit={edit}
         setEdit={setEdit}
         title={'Edit Order'}
@@ -129,25 +100,26 @@ const EditOrderPage = ({ setCurrentPage, orderData }) => {
         setSelectedCustomer={setSelectedCustomer}
         orderDetails={orderDetails}
         setOrderDetails={setOrderDetails}
-        step={step}
-        setStep={setStep}
+        step={3}
+        setStep={() => null}
         onAddItem={addToCartHandler}
         edit={edit}
         setEdit={setEdit}
         items={items}
         setItems={setItems}
         isOrderEdit={true}
+        onCancel={() => setEdit(null)}
       />
       <NewOrderIconBar
         setCurrentPage={setCurrentPage}
         reset={resetFormHandler}
-        step={step}
-        onCancel={onCancelHandler}
-        addCustomer={() => setAddCustomer(true)}
+        step={3}
+        setStep={() => null}
+        onCancel={() => setCurrentPage('todays-list')}
         isEdit={true}
         onDelete={onDeleteHandler}
       />
-    </div>
+    </>
   );
 };
 

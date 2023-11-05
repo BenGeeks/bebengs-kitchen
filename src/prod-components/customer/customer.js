@@ -70,14 +70,16 @@ const CustomerPage = () => {
 
   return (
     <>
-      <ActionModal
-        name={selectedCustomer?.name}
-        open={selectActionModal}
-        close={() => setSelectActionModal(false)}
-        onCancel={cancelHandler}
-        onEdit={onEditHandler}
-        onDelete={onDeleteHandler}
-      />
+      {selectActionModal && (
+        <ActionModal
+          name={selectedCustomer?.name}
+          open={selectActionModal}
+          close={() => setSelectActionModal(false)}
+          onCancel={cancelHandler}
+          onEdit={onEditHandler}
+          onDelete={onDeleteHandler}
+        />
+      )}
       <CustomerEdit open={editModal} close={cancelHandler} customer={selectedCustomer} />
       <CustomerNew open={newModal} close={cancelHandler} onAddCustomerSuccess={() => null} />
       <AddressNew open={newAddressModal} close={() => setNewAddressModal(false)} />

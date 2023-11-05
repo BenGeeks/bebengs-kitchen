@@ -91,17 +91,21 @@ const Expenses = () => {
 
   return (
     <>
-      <ActionModal
-        open={openActionModal}
-        close={onCancelHandler}
-        name="Expenses"
-        onCancel={onCancelHandler}
-        onEdit={() => setOpenEditExpense(true)}
-        onDelete={onDeleteHandler}
-      />
-      <DatePicker open={openDatePicker} close={onCancelHandler} onSave={onSetCalendar} />
-      <ExpenseEdit open={openEditExpense} close={onCancelHandler} expenseData={expenseData} />
-      <ExpenseAdd open={openAddExpense} close={onCancelHandler} />
+      {openActionModal && (
+        <ActionModal
+          open={openActionModal}
+          close={onCancelHandler}
+          name="Expenses"
+          onCancel={onCancelHandler}
+          onEdit={() => setOpenEditExpense(true)}
+          onDelete={onDeleteHandler}
+        />
+      )}
+
+      {openDatePicker && <DatePicker open={openDatePicker} close={onCancelHandler} onSave={onSetCalendar} />}
+      {openEditExpense && <ExpenseEdit open={openEditExpense} close={onCancelHandler} expenseData={expenseData} />}
+      {openAddExpense && <ExpenseAdd open={openAddExpense} close={onCancelHandler} />}
+
       {isPrint ? (
         <div ref={printRef}>
           <PrintDailyExpense data={expensesQuery?.data} date={date} />

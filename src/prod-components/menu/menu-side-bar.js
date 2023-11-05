@@ -54,14 +54,16 @@ const MenuSideBar = ({ width, selectedMenu, setSelectedMenu, variationQuery, act
 
   return (
     <>
-      <ActionModal
-        name={`${selectedMenu?.itemName} ${selectedVariation?.size}`}
-        open={openAction}
-        close={() => setOpenAction(false)}
-        onCancel={cancelHandler}
-        onEdit={editHandler}
-        onDelete={deleteHandler}
-      />
+      {openAction && (
+        <ActionModal
+          name={`${selectedMenu?.itemName} ${selectedVariation?.size}`}
+          open={openAction}
+          close={() => setOpenAction(false)}
+          onCancel={cancelHandler}
+          onEdit={editHandler}
+          onDelete={deleteHandler}
+        />
+      )}
       <EditVariation open={editVariation} onCancel={cancelHandler} menu={selectedMenu} variation={selectedVariation} />
       <NewVariation open={newVariation} onCancel={cancelHandler} menu={selectedMenu} />
 

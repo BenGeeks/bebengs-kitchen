@@ -53,14 +53,16 @@ const AddressList = () => {
   return (
     <>
       <AddressNew open={editModal} close={cancelHandler} isEdit={true} data={addressData} />
-      <ActionModal
-        name={addressData?.address}
-        open={selectActionModal}
-        close={() => setSelectActionModal(false)}
-        onCancel={cancelHandler}
-        onEdit={() => setEditModal(true)}
-        onDelete={onDeleteHandler}
-      />
+      {selectActionModal && (
+        <ActionModal
+          name={addressData?.address}
+          open={selectActionModal}
+          close={() => setSelectActionModal(false)}
+          onCancel={cancelHandler}
+          onEdit={() => setEditModal(true)}
+          onDelete={onDeleteHandler}
+        />
+      )}
 
       <div className={customerStyles.page_container}>
         <div className={customerStyles.main_page}>

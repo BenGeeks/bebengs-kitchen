@@ -11,8 +11,6 @@ import apiRequest from '@/lib/axios';
 
 import { DEFAULT_ORDER_DETAILS } from '@/resources/orders';
 
-import styles from './new-order.module.css';
-
 const NewOrderPage = ({ setCurrentPage }) => {
   const queryClient = useQueryClient();
   const [selectedCustomer, setSelectedCustomer] = useState(null);
@@ -93,7 +91,7 @@ const NewOrderPage = ({ setCurrentPage }) => {
   };
 
   return (
-    <div className={styles.super_container}>
+    <>
       <CustomerNew open={addCustomer} close={() => setAddCustomer(false)} onAddCustomerSuccess={onAddCustomerSuccess} />
       <NewOrderSideBar
         selectedCustomer={selectedCustomer}
@@ -119,6 +117,7 @@ const NewOrderPage = ({ setCurrentPage }) => {
         items={items}
         setItems={setItems}
         isOrderEdit={false}
+        onCancel={() => setEdit(null)}
       />
       <NewOrderIconBar
         setCurrentPage={setCurrentPage}
@@ -127,7 +126,7 @@ const NewOrderPage = ({ setCurrentPage }) => {
         onCancel={onCancelHandler}
         addCustomer={() => setAddCustomer(true)}
       />
-    </div>
+    </>
   );
 };
 

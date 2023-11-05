@@ -60,16 +60,18 @@ const OrdersMainPage = ({ orderQuery, calendarDate, onEdit, width }) => {
 
   return (
     <>
-      <ViewOrderDetailsModal
-        open={openViewDetails}
-        close={() => setOpenViewDetails(false)}
-        orderDetails={selectedOrder}
-        enableDelete={true}
-        onDelete={onDeleteHandler}
-        enableEdit={true}
-        onEdit={onEdit}
-      />
-      <OrderStatusUpdater open={openStatusUpdater} close={() => setOpenStatusUpdate(false)} order={selectedOrder} />
+      {ViewOrderDetailsModal && (
+        <ViewOrderDetailsModal
+          open={openViewDetails}
+          close={() => setOpenViewDetails(false)}
+          orderDetails={selectedOrder}
+          enableDelete={true}
+          onDelete={onDeleteHandler}
+          enableEdit={true}
+          onEdit={onEdit}
+        />
+      )}
+      {openStatusUpdater && <OrderStatusUpdater open={openStatusUpdater} close={() => setOpenStatusUpdate(false)} order={selectedOrder} />}
       <div className={styles.page_container} style={{ width: width }}>
         <div className={styles.date}>{moment(calendarDate).format('MMM DD, yyyy')}</div>
         <div className={styles.table_container}>

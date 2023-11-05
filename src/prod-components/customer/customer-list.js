@@ -1,6 +1,7 @@
 import { BiReset, BiFilterAlt } from 'react-icons/bi';
 import React, { useState, useEffect } from 'react';
 import { useQuery } from '@tanstack/react-query';
+import { ImCancelCircle } from 'react-icons/im';
 
 import AddressFilterSelector from './filter/address-filter';
 import BlockFilterSelector from './filter/block-filter';
@@ -11,7 +12,7 @@ import apiRequest from '@/lib/axios';
 
 import styles from './customer.module.css';
 
-const CustomersList = ({ onSelectCustomer }) => {
+const CustomersList = ({ onSelectCustomer, isEdit, onCancel }) => {
   const [defaultList, setDefaultList] = useState([]);
   const [customerData, setCustomerData] = useState([]);
   const [searchValue, setSearchValue] = useState('');
@@ -78,12 +79,13 @@ const CustomersList = ({ onSelectCustomer }) => {
   const resetFilter = () => {
     setAddress(null);
     setBlock(null);
+    setCustomerData(defaultList);
   };
 
   return (
     <div className={styles.page_container}>
-      <AddressFilterSelector open={addressSelectorIsOpen} onSelect={filterHandler} />
-      <BlockFilterSelector open={blockSelectorIsOpen} onSelect={filterHandler} />
+      {addressSelectorIsOpen && <AddressFilterSelector open={addressSelectorIsOpen} onSelect={filterHandler} />}
+      {blockSelectorIsOpen && <BlockFilterSelector open={blockSelectorIsOpen} onSelect={filterHandler} />}
       <div className={styles.main_page}>
         <div className={styles.header_bar}>
           {address ? (
@@ -112,6 +114,12 @@ const CustomersList = ({ onSelectCustomer }) => {
               value={searchValue}
               onChange={(e) => setSearchValue(e.target.value)}
             />
+          )}
+
+          {isEdit && (
+            <div className={styles.header_bar_filter} title="cancel" onClick={onCancel}>
+              <ImCancelCircle />
+            </div>
           )}
         </div>
 

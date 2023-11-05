@@ -59,7 +59,8 @@ const Collectibles = () => {
         onPaid={() => setOpenDatePicker(true)}
         orderDetails={selectedOrder}
       />
-      <DatePicker open={openDatePicker} close={() => setOpenDatePicker(false)} onSave={onPaidHandler} />
+      {openDatePicker && <DatePicker open={openDatePicker} close={() => setOpenDatePicker(false)} onSave={onPaidHandler} />}
+
       <div className={styles.page_container}>
         <div className={styles.main_page}>
           <div className={styles.header_bar}>

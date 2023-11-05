@@ -2,14 +2,15 @@ import React, { useEffect, useState } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import moment from 'moment';
 
+import LoadingPage from '@/assets/loading';
+import ErrorPage from '@/assets/error';
 import Step1 from './step-1';
 import Step2 from './step-2';
 import Step3 from './step-3';
-import LoadingPage from '@/assets/loading';
-import ErrorPage from '@/assets/error';
+
 import apiRequest from '@/lib/axios';
 
-const NewOrderSelectItem = ({ onAddItem }) => {
+const NewOrderSelectItem = ({ onAddItem, edit, setEdit, onCancel, isOrderEdit, items }) => {
   const [selectedItem, setSelectedItem] = useState(null);
   const [selectedVariation, setSelectedVariation] = useState(null);
   const [sortedMenuList, setSortedMenuList] = useState([]);
@@ -77,6 +78,7 @@ const NewOrderSelectItem = ({ onAddItem }) => {
   const selectQuantityHandler = (num) => {
     setStep(1);
     onAddItem({ ...selectedVariation, itemName: selectedItem.itemName, qty: num, subTotal: num * selectedVariation.price });
+    isOrderEdit && setEdit(null);
   };
 
   if (menuQuery.isLoading || variationQuery.isLoading) return <LoadingPage />;
@@ -84,16 +86,38 @@ const NewOrderSelectItem = ({ onAddItem }) => {
 
   return (
     <>
-      {step === 1 && <Step1 sortedMenuList={sortedMenuList} recentItemList={recentItemList} selectItemHandler={selectItemHandler} />}
+      {step === 1 && (
+        <Step1
+          sortedMenuList={sortedMenuList}
+          recentItemList={recentItemList}
+          selectItemHandler={selectItemHandler}
+          edit={edit}
+          onCancel={onCancel}
+          isOrderEdit={isOrderEdit}
+          items={items}
+        />
+      )}
       {step === 2 && (
         <Step2
           selectedItem={selectedItem}
           variationQuery={variationQuery.data}
           setStep={setStep}
           selectVariationHandler={selectVariationHandler}
+          edit={edit}
+          onCancel={onCancel}
+          items={items}
         />
       )}
-      {step === 3 && <Step3 selectedItem={selectedItem} selectQuantityHandler={selectQuantityHandler} setStep={setStep} />}
+      {step === 3 && (
+        <Step3
+          selectedItem={selectedItem}
+          selectQuantityHandler={selectQuantityHandler}
+          setStep={setStep}
+          edit={edit}
+          onCancel={onCancel}
+          items={items}
+        />
+      )}
     </>
   );
 };

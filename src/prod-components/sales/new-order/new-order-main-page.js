@@ -2,8 +2,8 @@ import moment from 'moment';
 
 import CustomersList from '@/prod-components/customer/customer-list';
 import NewOrderSelectItem from './new-order-components/select-item';
-import EditShoppingCart from './new-order-components/edit-cart';
 import ReactForm from '@/assets/react-form';
+
 import { ORDER_DETAILS_INPUT, ORDER_DETAILS_SCHEMA } from '@/resources/orders';
 import styles from './new-order.module.css';
 
@@ -15,9 +15,9 @@ const NewOrderMainPage = ({
   edit,
   setStep,
   onAddItem,
-  items,
-  setItems,
   isOrderEdit,
+  onCancel,
+  items,
 }) => {
   const updateDetailsHandler = (data) => {
     let tempData = {
@@ -28,23 +28,23 @@ const NewOrderMainPage = ({
     };
     setOrderDetails(tempData);
     setStep(3);
-    setEdit(3);
+    isOrderEdit ? setEdit(null) : setEdit(3);
   };
 
   const cancelHandler = () => {
     !isOrderEdit && setStep(1);
-    isOrderEdit ? setEdit(3) : setEdit(1);
+    isOrderEdit && setEdit(null);
   };
 
   const selectCustomerHandler = (data) => {
     setSelectedCustomer(data);
     setStep(2);
-    setEdit(2);
+    isOrderEdit ? setEdit(null) : setEdit(2);
   };
 
   return (
-    <div className={styles.page_container}>
-      {edit === 1 && <CustomersList onSelectCustomer={selectCustomerHandler} />}
+    <div className={edit ? styles.page_container : styles.page_container_hide}>
+      {edit === 1 && <CustomersList onSelectCustomer={selectCustomerHandler} isEdit={true} onCancel={onCancel} />}
       {edit === 2 && orderDetails && (
         <div className={styles.main_page}>
           <div className={styles.header_bar}>
@@ -64,8 +64,16 @@ const NewOrderMainPage = ({
           />
         </div>
       )}
-      {edit === 3 && <NewOrderSelectItem onAddItem={onAddItem} />}
-      {edit === 4 && <EditShoppingCart setEdit={setEdit} items={items} setItems={setItems} />}
+      {edit === 3 && (
+        <NewOrderSelectItem
+          onAddItem={onAddItem}
+          edit={edit}
+          setEdit={setEdit}
+          onCancel={onCancel}
+          isOrderEdit={isOrderEdit}
+          items={items}
+        />
+      )}
     </div>
   );
 };

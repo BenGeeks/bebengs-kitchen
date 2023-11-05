@@ -2,7 +2,6 @@ import moment from 'moment';
 import React, { useState } from 'react';
 
 import ModalWide from './modal-wide';
-import assetStyles from '@/styles/assets.module.css';
 import styles from './date-picker.module.css';
 
 const DatePicker = ({ open, close, onSave }) => {
