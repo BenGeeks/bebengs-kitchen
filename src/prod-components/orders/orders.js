@@ -9,6 +9,8 @@ import FutureOrdersList from './orders-list';
 
 import apiRequest from '@/lib/axios';
 
+import styles from './orders.module.css';
+
 const FutureOrders = () => {
   const queryClient = useQueryClient();
   const [selectedOrder, setSelectedOrder] = useState(null);
@@ -81,7 +83,7 @@ const FutureOrders = () => {
   };
 
   return (
-    <>
+    <div className={styles.super_container}>
       <ViewOrderDetailsModal
         open={viewDetails}
         close={onCancelHandler}
@@ -91,7 +93,7 @@ const FutureOrders = () => {
       />
       <FutureOrdersSideBar futureOrdersQuery={futureOrdersQuery} summary={summary} />
       <FutureOrdersList futureOrdersQuery={futureOrdersQuery} onView={viewOrderHandler} />
-    </>
+    </div>
   );
 };
 

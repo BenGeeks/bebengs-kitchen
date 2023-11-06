@@ -8,18 +8,18 @@ import EditOrderPage from './new-order/edit-order';
 import NewOrderPage from './new-order/new-order';
 
 const OrdersPage = () => {
-  const [windowWidth, setWindowWidth] = useState(1024);
+  const [windowWidth, setWindowWidth] = useState(window ? window.innerWidth : 1024);
   const [view, setView] = useState(1);
   const [currentPage, setCurrentPage] = useState('todays-list');
   const [orderData, setOrderData] = useState(null);
   const [calendarDate, setCalendarDate] = useState(moment());
 
+  console.log('WINDOW WIDTH: ', windowWidth);
+
   useEffect(() => {
     const handleResize = () => setWindowWidth(window.innerWidth);
-    window.addEventListener('load', handleResize);
     window.addEventListener('resize', handleResize);
     return () => {
-      window.removeEventListener('load', handleResize);
       window.removeEventListener('resize', handleResize);
     };
   }, []);
