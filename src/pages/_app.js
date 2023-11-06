@@ -29,9 +29,9 @@ export default function App({ Component, pageProps }) {
         <meta name="description" content="Where every bite is a delight!" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <meta name="theme-color" content="#ffefcf" />
-        <link rel="apple-touch-icon" href="/image/apple-touch-icon.png" />
+        <link rel="apple-touch-icon" href="/image/logo_192x192.png" />
         <link rel="manifest" href="/manifest.json" />
-        <link rel="icon" href="/images/favicon.ico" />
+        <link rel="icon" href="favicon.ico" />
       </Head>
       <ToastContainer
         position="top-center"
