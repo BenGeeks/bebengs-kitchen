@@ -11,7 +11,7 @@ import apiRequest from '@/lib/axios';
 
 import { DEFAULT_ORDER_DETAILS } from '@/resources/orders';
 
-const NewOrderPage = ({ setCurrentPage }) => {
+const NewOrderPage = ({ setCurrentPage, isFutureOrder }) => {
   const queryClient = useQueryClient();
   const [selectedCustomer, setSelectedCustomer] = useState(null);
   const [items, setItems] = useState([]);
@@ -24,7 +24,9 @@ const NewOrderPage = ({ setCurrentPage }) => {
     mutationFn: (data) => apiRequest({ url: `orders`, method: 'POST', data: data }),
     onSuccess: () => {
       toast.success('Order added successfully.');
-      queryClient.invalidateQueries({ queryKey: ['orders'] });
+      isFutureOrder
+        ? queryClient.invalidateQueries({ queryKey: ['future_orders'] })
+        : queryClient.invalidateQueries({ queryKey: ['orders'] });
     },
     onError: (error) => {
       toast.error(error.response.data.error.message);
@@ -62,7 +64,7 @@ const NewOrderPage = ({ setCurrentPage }) => {
       setItems([]);
       setOrderDetails(DEFAULT_ORDER_DETAILS);
       setStep(1);
-      setCurrentPage('todays-list');
+      isFutureOrder ? setCurrentPage('orders-list') : setCurrentPage('todays-list');
     }
   };
 
@@ -81,7 +83,7 @@ const NewOrderPage = ({ setCurrentPage }) => {
     setItems([]);
     setOrderDetails(DEFAULT_ORDER_DETAILS);
     setStep(1);
-    setCurrentPage('todays-list');
+    isFutureOrder ? setCurrentPage('orders-list') : setCurrentPage('todays-list');
   };
 
   const onAddCustomerSuccess = (customer) => {
@@ -119,13 +121,7 @@ const NewOrderPage = ({ setCurrentPage }) => {
         isOrderEdit={false}
         onCancel={() => setEdit(null)}
       />
-      <NewOrderIconBar
-        setCurrentPage={setCurrentPage}
-        reset={resetFormHandler}
-        step={step}
-        onCancel={onCancelHandler}
-        addCustomer={() => setAddCustomer(true)}
-      />
+      <NewOrderIconBar reset={resetFormHandler} step={step} onCancel={onCancelHandler} addCustomer={() => setAddCustomer(true)} />
     </>
   );
 };

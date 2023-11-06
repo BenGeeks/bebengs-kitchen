@@ -4,16 +4,18 @@ import { useState } from 'react';
 import moment from 'moment';
 
 import ViewOrderDetailsModal from '@/assets/view-order';
-import FutureOrdersSideBar from './orders-side-bar';
-import FutureOrdersList from './orders-list';
+import FutureOrdersMainPage from './orders-main';
+
+import EditOrderPage from '../sales/new-order/edit-order';
+import NewOrderPage from '../sales/new-order/new-order';
 
 import apiRequest from '@/lib/axios';
-
-import styles from './orders.module.css';
 
 const FutureOrders = () => {
   const queryClient = useQueryClient();
   const [selectedOrder, setSelectedOrder] = useState(null);
+  const [currentPage, setCurrentPage] = useState('orders-list');
+  const [orderData, setOrderData] = useState(null);
   const [summary, setSummary] = useState({});
   const [viewDetails, setViewDetails] = useState(false);
 
@@ -71,7 +73,7 @@ const FutureOrders = () => {
     },
   });
 
-  const deleteHandler = (id) => {
+  const deleteOrderHandler = (id) => {
     if (confirm(`Are you sure to DELETE this order?`) == true) {
       deleteOrderMutation.mutate(id);
     }
@@ -82,18 +84,38 @@ const FutureOrders = () => {
     setViewDetails(true);
   };
 
+  const editOrderHandler = (order) => {
+    setOrderData(order);
+    setCurrentPage('edit-order');
+    setViewDetails(false);
+  };
+
   return (
-    <div className={styles.super_container}>
-      <ViewOrderDetailsModal
-        open={viewDetails}
-        close={onCancelHandler}
-        orderDetails={selectedOrder}
-        enableDelete={true}
-        onDelete={deleteHandler}
-      />
-      <FutureOrdersSideBar futureOrdersQuery={futureOrdersQuery} summary={summary} />
-      <FutureOrdersList futureOrdersQuery={futureOrdersQuery} onView={viewOrderHandler} />
-    </div>
+    <>
+      {viewDetails && (
+        <ViewOrderDetailsModal
+          open={viewDetails}
+          close={onCancelHandler}
+          orderDetails={selectedOrder}
+          enableDelete={true}
+          enableEdit={true}
+          onDelete={deleteOrderHandler}
+          onEdit={editOrderHandler}
+        />
+      )}
+
+      {currentPage === 'orders-list' && (
+        <FutureOrdersMainPage
+          futureOrdersQuery={futureOrdersQuery}
+          onView={viewOrderHandler}
+          setCurrentPage={setCurrentPage}
+          setOrderData={setOrderData}
+          summary={summary}
+        />
+      )}
+      {currentPage === 'edit-order' && <EditOrderPage orderData={orderData} setCurrentPage={setCurrentPage} isFutureOrder={true} />}
+      {currentPage === 'new-order' && <NewOrderPage setCurrentPage={setCurrentPage} isFutureOrder={true} />}
+    </>
   );
 };
 

@@ -8,7 +8,7 @@ import NewOrderSideBar from './new-order-side-bar';
 
 import apiRequest from '@/lib/axios';
 
-const EditOrderPage = ({ setCurrentPage, orderData }) => {
+const EditOrderPage = ({ setCurrentPage, orderData, isFutureOrder }) => {
   const queryClient = useQueryClient();
   const [selectedCustomer, setSelectedCustomer] = useState(orderData?.orderDetails?.customer);
   const [items, setItems] = useState(orderData?.orderDetails?.items);
@@ -19,7 +19,9 @@ const EditOrderPage = ({ setCurrentPage, orderData }) => {
     mutationFn: (payload) => apiRequest({ url: `orders/${payload.id}`, method: 'PUT', data: payload.data }),
     onSuccess: () => {
       toast.success('Order updated successfully.');
-      queryClient.invalidateQueries({ queryKey: ['orders'] });
+      isFutureOrder
+        ? queryClient.invalidateQueries({ queryKey: ['future_orders'] })
+        : queryClient.invalidateQueries({ queryKey: ['orders'] });
     },
     onError: (error) => {
       toast.error(error.response.data.error.message);
@@ -30,7 +32,9 @@ const EditOrderPage = ({ setCurrentPage, orderData }) => {
     mutationFn: (id) => apiRequest({ url: `orders/${id}`, method: 'DELETE' }),
     onSuccess: () => {
       toast.success('Order deleted successfully.');
-      queryClient.invalidateQueries({ queryKey: ['orders'] });
+      isFutureOrder
+        ? queryClient.invalidateQueries({ queryKey: ['future_orders'] })
+        : queryClient.invalidateQueries({ queryKey: ['orders'] });
     },
     onError: (error) => {
       toast.error(error.response.data.error.message);
@@ -71,13 +75,13 @@ const EditOrderPage = ({ setCurrentPage, orderData }) => {
       orderDetails: { customer: selectedCustomer, items },
     };
     editOrderMutation.mutate({ id: orderData._id, data: tempData });
-    setCurrentPage('todays-list');
+    isFutureOrder ? setCurrentPage('orders-list') : setCurrentPage('todays-list');
   };
 
   const onDeleteHandler = () => {
     if (confirm(`Are you sure you want to delete this order?`) == true) {
       deleteOrderMutation.mutate(orderData._id);
-      setCurrentPage('todays-list');
+      isFutureOrder ? setCurrentPage('orders-list') : setCurrentPage('todays-list');
     }
   };
 
@@ -91,7 +95,7 @@ const EditOrderPage = ({ setCurrentPage, orderData }) => {
         items={items}
         setItems={setItems}
         onSave={onUpdateHandler}
-        onCancel={() => setCurrentPage('todays-list')}
+        onCancel={() => (isFutureOrder ? setCurrentPage('orders-list') : setCurrentPage('todays-list'))}
         edit={edit}
         setEdit={setEdit}
         title={'Edit Order'}
@@ -115,7 +119,7 @@ const EditOrderPage = ({ setCurrentPage, orderData }) => {
         reset={resetFormHandler}
         step={3}
         setStep={() => null}
-        onCancel={() => setCurrentPage('todays-list')}
+        onCancel={() => (isFutureOrder ? setCurrentPage('orders-list') : setCurrentPage('todays-list'))}
         isEdit={true}
         onDelete={onDeleteHandler}
       />

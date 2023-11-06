@@ -180,6 +180,7 @@
   .super_container {
     width: 100%;
     flex-direction: column;
+    margin-bottom: 65px;
   }
 
   .side_bar_container {

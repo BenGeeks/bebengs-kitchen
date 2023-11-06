@@ -31,7 +31,7 @@ export default function App({ Component, pageProps }) {
         <meta name="theme-color" content="#ffefcf" />
         <link rel="apple-touch-icon" href="/image/logo_192x192.png" />
         <link rel="manifest" href="/manifest.json" />
-        <link rel="icon" href="favicon.ico" />
+        <link rel="icon" href="/favicon.ico" />
       </Head>
       <ToastContainer
         position="top-center"
