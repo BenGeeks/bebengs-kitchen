@@ -25,7 +25,11 @@ const OrderListToday = ({ setCurrentPage, onEdit, currentPage, getWidth, setView
         if (!order.isGcash) cash = cash + order.total;
         order.orderDetails.items.forEach((item) => {
           if (summary[item._id]) {
-            summary[item._id] = { ...item, qty: summary[item._id].qty + item.qty };
+            summary[item._id] = {
+              ...item,
+              qty: summary[item._id].qty + item.qty,
+              subTotal: (summary[item._id].qty + item.qty) * item.price,
+            };
           } else {
             summary[item._id] = item;
           }
@@ -42,7 +46,7 @@ const OrderListToday = ({ setCurrentPage, onEdit, currentPage, getWidth, setView
     });
 
     setSalesData({ cashTotal: cash, gCashTotal: gCash, dailyTotal: cash + gCash });
-    setSalesCount(tempArray);
+    setSalesCount(tempArray.sort((a, b) => b.subTotal - a.subTotal));
     setCollectibleData(collectibles);
   };
 

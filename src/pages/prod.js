@@ -4,6 +4,7 @@ import { useState } from 'react';
 
 import Collectibles from '@/prod-components/collectibles/collectibles';
 import CustomerPage from '@/prod-components/customer/customer';
+import ReportsPage from '@/prod-components/reports.js/reports';
 import FutureOrders from '@/prod-components/orders/orders';
 import Expenses from '@/prod-components/expenses/expenses';
 import TopBar from '@/prod-components/top-bar/top-bar';
@@ -25,6 +26,7 @@ const ProdPage = () => {
         {currentPage === 'collectibles' && <Collectibles />}
         {currentPage === 'orders' && <FutureOrders />}
         {currentPage === 'expenses' && <Expenses />}
+        {currentPage === 'reports' && <ReportsPage />}
       </div>
     </div>
   );

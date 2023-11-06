@@ -50,6 +50,47 @@
   font-weight: 700;
 }
 
+.cell_status {
+  border-top: 1px solid #374151;
+  border-right: 1px solid #374151;
+  padding: 5px;
+  text-align: center;
+  font-size: 1.2rem;
+  font-weight: 700;
+}
+
+.pink {
+  background-color: pink;
+}
+
+.turquoise {
+  background-color: turquoise;
+}
+
+.orange {
+  background-color: orange;
+}
+
+.red {
+  background-color: red;
+  color: white;
+}
+
+.purple {
+  background-color: purple;
+  color: white;
+}
+
+.blue {
+  background-color: blue;
+  color: white;
+}
+
+.green {
+  background-color: green;
+  color: white;
+}
+
 /* ================================ */
 /* =========  TABLE STYLES ======== */
 /* ================================ */

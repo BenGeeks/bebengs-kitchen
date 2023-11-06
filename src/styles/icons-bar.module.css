@@ -22,6 +22,11 @@
   cursor: pointer;
   background-color: beige;
   margin-bottom: 5px;
+  transition: all 0.3s ease-out;
+}
+
+.icon_box:hover {
+  background-color: aliceblue;
 }
 
 .icon {

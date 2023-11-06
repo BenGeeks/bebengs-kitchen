@@ -4,7 +4,7 @@ import React, { useState } from 'react';
 import LoadingMain from '@/assets/loading-main';
 import { RiContactsBookLine, RiLogoutCircleLine } from 'react-icons/ri';
 import { IoFastFoodOutline } from 'react-icons/io5';
-import { BsClipboardCheck } from 'react-icons/bs';
+import { BsClipboardCheck, BsGraphUpArrow } from 'react-icons/bs';
 import { GiChickenOven, GiHamburgerMenu } from 'react-icons/gi';
 import { PiHandCoins } from 'react-icons/pi';
 import { FaRegMoneyBillAlt } from 'react-icons/fa';
@@ -28,6 +28,7 @@ const TopBar = ({ currentPage, setCurrentPage }) => {
     { name: 'expenses', title: 'Expenses', icon: <FaRegMoneyBillAlt /> },
     { name: 'menu', title: 'Menu', icon: <IoFastFoodOutline /> },
     { name: 'customers', title: 'Customer', icon: <RiContactsBookLine /> },
+    { name: 'reports', title: 'Reports', icon: <BsGraphUpArrow /> },
     // { name: 'dashboard', title: 'Dashboard', icon: <AiOutlineDashboard /> },
   ];
   return (
