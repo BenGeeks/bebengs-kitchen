@@ -1,3 +1,4 @@
+'use client';
 import moment from 'moment';
 
 import Table from '@/assets/table';

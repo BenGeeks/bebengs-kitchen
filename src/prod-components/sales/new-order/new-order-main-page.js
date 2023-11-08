@@ -1,3 +1,4 @@
+'use client';
 import moment from 'moment';
 
 import CustomersList from '@/prod-components/customer/customer-list';

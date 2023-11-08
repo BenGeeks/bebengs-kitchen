@@ -1,3 +1,4 @@
+'use client';
 import React from 'react';
 
 import ModalWide from '@/assets/modal-wide';

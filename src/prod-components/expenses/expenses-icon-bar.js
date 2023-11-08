@@ -1,3 +1,4 @@
+'use client';
 import { RiAddCircleLine, RiPrinterLine, RiCalendar2Line } from 'react-icons/ri';
 import { PiCalendar } from 'react-icons/pi';
 

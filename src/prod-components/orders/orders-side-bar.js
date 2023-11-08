@@ -1,3 +1,4 @@
+'use client';
 import Table from '@/assets/table';
 
 import { FUTURE_ORDERS_HEADER } from '@/resources/orders';

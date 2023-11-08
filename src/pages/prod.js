@@ -10,6 +10,7 @@ import Expenses from '@/prod-components/expenses/expenses';
 import TopBar from '@/prod-components/top-bar/top-bar';
 import SalesPage from '@/prod-components/sales/sales';
 import MenuPage from '@/prod-components/menu/menu';
+import DashboardPage from '@/prod-components/dashboard/dashboard';
 
 import styles from '@/styles/prod.module.css';
 
@@ -27,6 +28,7 @@ const ProdPage = () => {
         {currentPage === 'orders' && <FutureOrders />}
         {currentPage === 'expenses' && <Expenses />}
         {currentPage === 'reports' && <ReportsPage />}
+        {currentPage === 'dashboard' && <DashboardPage />}
       </div>
     </div>
   );

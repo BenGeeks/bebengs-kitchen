@@ -1,3 +1,4 @@
+'use client';
 import { RiAddCircleLine, RiPrinterLine } from 'react-icons/ri';
 import { MdDisplaySettings } from 'react-icons/md';
 import { PiCalendar, PiCalendarBlank } from 'react-icons/pi';

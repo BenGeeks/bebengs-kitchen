@@ -16,6 +16,7 @@ const OrdersPage = () => {
 
   useEffect(() => {
     const handleResize = () => setWindowWidth(window.innerWidth);
+    setWindowWidth(window.innerWidth);
     window.addEventListener('resize', handleResize);
     return () => {
       window.removeEventListener('resize', handleResize);
@@ -27,8 +28,8 @@ const OrdersPage = () => {
       if (view % 2 !== 0) return pos == 'left' ? '0%' : '100%';
       if (view % 2 === 0) return pos == 'left' ? '100%' : '0%';
     } else {
-      if (view % 3 === 1) return pos == 'left' ? '0%' : '100%';
-      if (view % 3 === 2) return pos == 'left' ? '50%' : '50%';
+      if (view % 3 === 1) return pos == 'left' ? '50%' : '50%';
+      if (view % 3 === 2) return pos == 'left' ? '0%' : '100%';
       if (view % 3 === 0) return pos == 'left' ? '100%' : '0%';
     }
   };

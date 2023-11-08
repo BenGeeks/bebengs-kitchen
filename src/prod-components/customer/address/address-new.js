@@ -1,3 +1,4 @@
+'use client';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { RiCloseCircleLine } from 'react-icons/ri';
 import { toast } from 'react-toastify';

@@ -1,3 +1,4 @@
+'use client';
 import { PiCalendar } from 'react-icons/pi';
 import { RiPrinterLine } from 'react-icons/ri';
 

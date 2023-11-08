@@ -1,3 +1,4 @@
+'use client';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { RiCloseCircleLine, RiBitCoinLine } from 'react-icons/ri';
 import { BsCartCheck, BsCartX, BsCashCoin } from 'react-icons/bs';

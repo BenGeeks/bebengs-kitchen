@@ -1,3 +1,4 @@
+'use client';
 import moment from 'moment';
 
 import styles from './expenses.module.css';

@@ -1,3 +1,4 @@
+'use client';
 import { RiAddCircleLine } from 'react-icons/ri';
 import { useState } from 'react';
 import moment from 'moment';

@@ -1,3 +1,4 @@
+'use client';
 import { BiReset, BiUserPlus } from 'react-icons/bi';
 import { IoFastFoodOutline } from 'react-icons/io5';
 import { ImCancelCircle } from 'react-icons/im';

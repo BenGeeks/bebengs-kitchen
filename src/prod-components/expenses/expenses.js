@@ -1,3 +1,4 @@
+'use client';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { useReactToPrint } from 'react-to-print';
 import React, { useState, useRef } from 'react';

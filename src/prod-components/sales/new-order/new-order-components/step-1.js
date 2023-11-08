@@ -1,3 +1,4 @@
+'use client';
 import { ImCancelCircle, ImCheckmark } from 'react-icons/im';
 
 import styles from '../new-order.module.css';

@@ -1,3 +1,4 @@
+'use client';
 import React, { useState } from 'react';
 import { BsArrowDownSquare, BsArrowUpSquare } from 'react-icons/bs';
 

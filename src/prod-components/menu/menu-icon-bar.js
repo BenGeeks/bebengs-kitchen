@@ -1,3 +1,4 @@
+'use client';
 import { IoFastFoodOutline } from 'react-icons/io5';
 
 import iconStyles from '@/styles/icons-bar.module.css';

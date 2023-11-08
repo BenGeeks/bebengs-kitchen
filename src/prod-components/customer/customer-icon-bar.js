@@ -1,3 +1,4 @@
+'use client';
 import { RiMapPin2Line, RiMapPinAddLine } from 'react-icons/ri';
 import { BiUserPlus, BiUser } from 'react-icons/bi';
 

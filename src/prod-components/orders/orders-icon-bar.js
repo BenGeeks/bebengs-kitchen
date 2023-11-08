@@ -1,3 +1,4 @@
+'use client';
 import { RiAddCircleLine } from 'react-icons/ri';
 
 import iconStyles from '@/styles/icons-bar.module.css';

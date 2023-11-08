@@ -1,3 +1,4 @@
+'use client';
 import { signOut } from 'next-auth/react';
 import React, { useState } from 'react';
 
@@ -8,7 +9,7 @@ import { BsClipboardCheck, BsGraphUpArrow } from 'react-icons/bs';
 import { GiChickenOven, GiHamburgerMenu } from 'react-icons/gi';
 import { PiHandCoins } from 'react-icons/pi';
 import { FaRegMoneyBillAlt } from 'react-icons/fa';
-// import { AiOutlineDashboard } from 'react-icons/ai';
+import { AiOutlineDashboard } from 'react-icons/ai';
 
 import styles from './top-bar.module.css';
 
@@ -29,7 +30,7 @@ const TopBar = ({ currentPage, setCurrentPage }) => {
     { name: 'menu', title: 'Menu', icon: <IoFastFoodOutline /> },
     { name: 'customers', title: 'Customer', icon: <RiContactsBookLine /> },
     { name: 'reports', title: 'Reports', icon: <BsGraphUpArrow /> },
-    // { name: 'dashboard', title: 'Dashboard', icon: <AiOutlineDashboard /> },
+    { name: 'dashboard', title: 'Dashboard', icon: <AiOutlineDashboard /> },
   ];
   return (
     <>

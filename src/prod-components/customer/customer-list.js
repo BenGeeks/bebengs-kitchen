@@ -1,3 +1,4 @@
+'use client';
 import { BiReset, BiFilterAlt } from 'react-icons/bi';
 import React, { useState, useEffect } from 'react';
 import { useQuery } from '@tanstack/react-query';
