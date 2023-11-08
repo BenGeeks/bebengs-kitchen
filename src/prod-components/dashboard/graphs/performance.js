@@ -6,7 +6,6 @@ import { PieChart, Pie, Cell } from 'recharts';
 import styles from '../dashboard.module.css';
 
 const PerformancePieGraphWithNeedle = ({ report }) => {
-  console.log('REPORT: ', report[report.length - 2].movingAverage);
   const RADIAN = Math.PI / 180;
   const data = [
     { name: 'A', value: 2000, color: '#FF8042' },

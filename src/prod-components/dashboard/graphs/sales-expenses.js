@@ -8,7 +8,7 @@ import styles from '../dashboard.module.css';
 const SalesExpensesBarGraph = ({ data }) => {
   return (
     <div className={styles.graph_container}>
-      <h2 className={styles.graph_header}>Sales vs Expense</h2>
+      <h2 className={styles.graph_header}>Sales and Expense</h2>
       <BarChart
         width={1080}
         height={230}

@@ -4,7 +4,6 @@ import { ImCancelCircle, ImCheckmark } from 'react-icons/im';
 import styles from '../new-order.module.css';
 
 const Step1 = ({ sortedMenuList, recentItemList, selectItemHandler, isOrderEdit, onCancel, items }) => {
-  console.log('ITEMS LENGTH: ', items.length > 0);
   return (
     <div className={styles.main_page}>
       <div className={styles.header_bar}>
