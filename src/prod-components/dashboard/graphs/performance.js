@@ -45,7 +45,7 @@ const PerformancePieGraphWithNeedle = ({ report }) => {
   };
   return (
     <div className={styles.graph_container}>
-      <h2 className={styles.graph_header}>Profit and Running Average</h2>
+      <h2 className={styles.graph_header}>Running Performance Meter</h2>
       <PieChart width={500} height={230}>
         <Pie
           dataKey="value"
