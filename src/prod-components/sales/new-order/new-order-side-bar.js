@@ -123,12 +123,16 @@ const NewOrderSideBar = ({ selectedCustomer, orderDetails, items, step, setStep,
           )}
           {step === 3 && (
             <div className={styles.customer_box}>
-              {/* <div className={styles.customer_box} onClick={() => (edit === 3 ? setEdit(4) : setEdit(3))}> */}
               <div className={styles.shoping_card_header_bar}>
                 <div className={styles.shoping_card_title}>Shopping Cart:</div>
-                <div className={styles.shoping_cart_add_icon} title="add" onClick={() => setEdit(3)}>
-                  <RiAddCircleLine />
-                </div>
+                {edit !== 3 && (
+                  <div className={styles.shoping_cart_add_icon} title="add" onClick={() => setEdit(3)}>
+                    <div className={styles.shoping_cart_icon}>
+                      <RiAddCircleLine />
+                    </div>
+                    <p className={styles.shoping_cart_icon_text}>Menu</p>
+                  </div>
+                )}
               </div>
               <div className={styles.table_container}>
                 <Table headers={ORDER_ITEMS_HEADER} data={items} enableRowClick={true} onRowClick={rowClickHandler} />

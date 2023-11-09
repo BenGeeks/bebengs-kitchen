@@ -18,7 +18,7 @@ const ViewOrderDetailsModal = ({ open, close, enableDelete, onDelete, enableEdit
           <h2 className={styles.header_text}>Order Details</h2>
           <div className={styles.header_icon_container}>
             {enableEdit && (
-              <div className={styles.icon_box} title="edit" onClick={() => onEdit(orderDetails)}>
+              <div className={styles.icon_box_edit} title="edit" onClick={() => onEdit(orderDetails)}>
                 <div className={styles.icon}>
                   <RiEditLine />
                 </div>
@@ -26,7 +26,7 @@ const ViewOrderDetailsModal = ({ open, close, enableDelete, onDelete, enableEdit
               </div>
             )}
             {enableDelete && (
-              <div className={styles.icon_box} title="delete" onClick={() => onDelete(orderDetails._id)}>
+              <div className={styles.icon_box_delete} title="delete" onClick={() => onDelete(orderDetails._id)}>
                 <div className={styles.icon}>
                   <RiDeleteBin4Line />
                 </div>
@@ -41,31 +41,20 @@ const ViewOrderDetailsModal = ({ open, close, enableDelete, onDelete, enableEdit
                 <p className={styles.icon_text}>Paid</p>
               </div>
             )}
-          </div>
-          <div className={styles.icon_box} title="close" onClick={close}>
-            <div className={styles.icon}>
-              <RiCloseCircleLine />
+            <div className={styles.icon_box} title="close" onClick={close}>
+              <div className={styles.icon}>
+                <RiCloseCircleLine />
+              </div>
+              <p className={styles.icon_text}>Close</p>
             </div>
-            <p className={styles.icon_text}>Close</p>
           </div>
         </div>
         <div className={styles.customer_box}>
-          <div className={styles.sub_header}>Customer's Info:</div>
-          <div className={styles.info_container}>
-            <div className={styles.title}>Name: </div>
-            {orderDetails?.orderDetails?.customer?.name}
-          </div>
-          <div className={styles.info_container}>
-            <div className={styles.title}>Address: </div>
-            {orderDetails?.orderDetails?.customer?.address}
-          </div>
-          <div className={styles.info_container}>
-            <div className={styles.title}>Block: </div>
-            {orderDetails?.orderDetails?.customer?.block}
-          </div>
-          <div className={styles.info_container}>
-            <div className={styles.title}>Lot: </div>
-            {orderDetails?.orderDetails?.customer?.lot}
+          <div className={styles.customer_info_container}>
+            <div className={styles.customer_name}>{orderDetails?.orderDetails?.customer?.name}</div>
+            <div
+              className={styles.customer_address}
+            >{`${orderDetails?.orderDetails?.customer?.address} - ${orderDetails?.orderDetails?.customer?.block} ${orderDetails?.orderDetails?.customer?.lot}`}</div>
           </div>
         </div>
         <div className={styles.customer_box}>

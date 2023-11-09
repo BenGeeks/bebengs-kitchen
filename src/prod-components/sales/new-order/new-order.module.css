@@ -31,7 +31,7 @@
 }
 
 .header_bar {
-  height: 40px;
+  height: 50px;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -62,6 +62,74 @@
   border: 1px solid beige;
   color: beige;
   background-color: #374151;
+}
+
+.header_bar_cancel {
+  border: 1px solid #374151;
+  background-color: #d9534f;
+  padding: 0px 20px;
+  height: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 1.2rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.3s ease-out;
+  color: white;
+}
+
+.header_bar_cancel:hover {
+  border: 1px solid #d9534f;
+  color: #d9534f;
+  background-color: white;
+}
+
+.header_bar_cancel_icon {
+  font-size: 1.8rem;
+  padding: 0px;
+  margin-bottom: -5px;
+  margin-right: 5px;
+}
+
+.header_bar_cancel_text {
+  font-size: 0.9rem;
+  padding: 0px;
+  margin: 0px;
+}
+
+.header_bar_save {
+  border: 1px solid #374151;
+  background-color: #5cb85c;
+  padding: 0px 20px;
+  height: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 1.2rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.3s ease-out;
+  color: white;
+}
+
+.header_bar_save:hover {
+  border: 1px solid #5cb85c;
+  color: #5cb85c;
+  background-color: white;
+}
+
+.header_bar_save_icon {
+  font-size: 1.8rem;
+  padding: 0px;
+  margin-bottom: -5px;
+  margin-right: 5px;
+}
+
+.header_bar_save_text {
+  font-size: 0.9rem;
+  padding: 0px;
+  margin: 0px;
 }
 
 .address_selector_container {
@@ -212,7 +280,6 @@
   justify-content: space-between;
   border-bottom: 1px solid #374151;
   align-items: center;
-  height: 50px;
 }
 
 .shoping_card_title {
@@ -224,17 +291,36 @@
 }
 
 .shoping_cart_add_icon {
-  border: 1px solid #374151;
-  background-color: beige;
-  padding: 0px 20px;
-  height: 40px;
+  cursor: pointer;
+  width: 80px;
+  height: 60px;
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
-  font-size: 1.2rem;
-  font-weight: 700;
-  cursor: pointer;
+  color: white;
+  border: 1px solid #374151;
+  margin: 2px 5px 2px 0px;
+  background-color: #5cb85c;
   transition: all 0.3s ease-out;
+}
+
+.shoping_cart_add_icon:hover {
+  color: #5cb85c;
+  border: 1px solid #5cb85c;
+  background-color: white;
+}
+
+.shoping_cart_icon {
+  font-size: 1.8rem;
+  padding: 0px;
+  margin-bottom: -5px;
+}
+
+.shoping_cart_icon_text {
+  font-size: 0.9rem;
+  padding: 0px;
+  margin: 0px;
 }
 
 .bottom_container {
@@ -260,32 +346,34 @@
 .save {
   display: flex;
   width: 50%;
-  background-color: green;
+  background-color: #5cb85c;
   font-size: 2rem;
   justify-content: center;
   align-items: center;
   padding: 10px 5px;
   cursor: pointer;
+  transition: all 0.3s ease-out;
 }
 
 .save:hover {
   background-color: #282929;
-  color: green;
+  color: #5cb85c;
 }
 .cancel {
   display: flex;
   width: 50%;
-  background-color: red;
+  background-color: #d9534f;
   font-size: 2rem;
   justify-content: center;
   align-items: center;
   padding: 10px 5px;
   cursor: pointer;
+  transition: all 0.3s ease-out;
 }
 
 .cancel:hover {
   background-color: #282929;
-  color: red;
+  color: #d9534f;
 }
 /* ================================ */
 /* ==========  CARDS  ============= */

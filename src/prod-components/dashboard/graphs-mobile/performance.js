@@ -5,7 +5,7 @@ import { PieChart, Pie, Cell } from 'recharts';
 
 import styles from '../dashboard.module.css';
 
-const PerformancePieGraphWithNeedle = ({ report }) => {
+const PerformancePieGraphWithNeedleMobile = ({ report }) => {
   const RADIAN = Math.PI / 180;
   const data = [
     { name: 'A', value: 1000, color: 'red' },
@@ -14,10 +14,10 @@ const PerformancePieGraphWithNeedle = ({ report }) => {
     { name: 'D', value: 1000, color: '#00C49F' },
     { name: 'E', value: 500, color: '#0088FE' },
   ];
-  const cx = 250;
-  const cy = 200;
-  const iR = 80;
-  const oR = 150;
+  const cx = 150;
+  const cy = 100;
+  const iR = 50;
+  const oR = 100;
   const value = report[report.length - 2].movingAverage;
 
   const needle = (value, data, cx, cy, iR, oR, color) => {
@@ -48,7 +48,7 @@ const PerformancePieGraphWithNeedle = ({ report }) => {
     <div className={styles.graph_container}>
       <h2 className={styles.graph_header}>Running Performance Meter</h2>
       <div className={styles.performance_value}>{report[report.length - 2].movingAverage}</div>
-      <PieChart width={500} height={230}>
+      <PieChart width={320} height={120}>
         <Pie
           dataKey="value"
           startAngle={180}
@@ -62,10 +62,10 @@ const PerformancePieGraphWithNeedle = ({ report }) => {
           stroke="none"
         >
           {data.map((entry, index) => (
-            <Cell key={`cell-${index}`} fill={entry.color} />
+            <Cell key={index} fill={entry.color} />
           ))}
         </Pie>
-        {needle(value, data, cx, cy, iR, oR, '#8884d8')}
+        {needle(value, data, cx, cy, iR, oR, '#d0d000')}
       </PieChart>
       <div className={styles.performance_0_label}>0</div>
       <div className={styles.performance_1k_label}>1000</div>
@@ -77,4 +77,4 @@ const PerformancePieGraphWithNeedle = ({ report }) => {
   );
 };
 
-export default PerformancePieGraphWithNeedle;
+export default PerformancePieGraphWithNeedleMobile;

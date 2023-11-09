@@ -45,7 +45,7 @@ const NewOrderMainPage = ({
 
   return (
     <div className={edit ? styles.page_container : styles.page_container_hide}>
-      {edit === 1 && <CustomersList onSelectCustomer={selectCustomerHandler} isEdit={true} onCancel={onCancel} />}
+      {edit === 1 && <CustomersList onSelectCustomer={selectCustomerHandler} isEdit={isOrderEdit} onCancel={onCancel} />}
       {edit === 2 && orderDetails && (
         <div className={styles.main_page}>
           <div className={styles.header_bar}>

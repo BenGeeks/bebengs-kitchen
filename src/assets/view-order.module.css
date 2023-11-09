@@ -40,14 +40,52 @@
   transition: all 0.3s ease-in-out;
 }
 
-.icon_box:hover {
-  color: beige;
-  border: 1px solid beige;
-  background-color: #374151;
+.icon_box_edit {
+  cursor: pointer;
+  width: 80px;
+  height: 60px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  color: #374151;
+  border: 1px solid #374151;
+  margin: 2px 5px 2px 0px;
+  background-color: orange;
+  transition: all 0.3s ease-in-out;
+}
+
+.icon_box_edit:hover {
+  color: orange;
+  border: 1px solid orange;
+  background-color: white;
+}
+
+.icon_box_delete {
+  cursor: pointer;
+  width: 80px;
+  height: 60px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  border: 1px solid #374151;
+  margin: 2px 5px 2px 0px;
+  background-color: red;
+  transition: all 0.3s ease-in-out;
+}
+
+.icon_box_delete:hover {
+  color: red;
+  border: 1px solid red;
+  background-color: white;
 }
 
 .icon {
-  font-size: 1.4rem;
+  font-size: 1.8rem;
+  padding: 0px;
+  margin-bottom: -5px;
 }
 
 .icon_text {
@@ -56,13 +94,25 @@
   margin: 0px;
 }
 
+.customer_info_container {
+  padding: 5px;
+}
 .customer_box {
   border: 1px solid #374151;
   background-color: beige;
   padding: 5px;
   cursor: pointer;
-  margin-bottom: 5px;
   transition: all 0.2s ease-out;
+  margin-bottom: 5px;
+}
+
+.customer_name {
+  font-size: 1.8rem;
+  font-weight: 700;
+}
+
+.customer_address {
+  font-size: 1rem;
 }
 
 .sub_header {
@@ -75,7 +125,8 @@
 
 .info_container {
   display: flex;
-  font-size: 1.2rem;
+  font-size: 1.4rem;
+  padding: 2px;
   border-bottom: 1px solid #b9b9b9;
   margin-bottom: 3px;
 }
@@ -96,30 +147,14 @@
 
 .total {
   font-size: 2rem;
+  font-weight: 700;
 }
 
 @media (max-width: 768px) {
   .header_text {
-    display: none;
-  }
-
-  .icon {
-    font-size: 1.2rem;
-  }
-
-  .icon_text {
-    font-size: 0.8rem;
-  }
-
-  .icon_box:hover {
-    color: beige;
-    border: 1px solid beige;
-    background-color: #374151;
-  }
-
-  .icon_box {
-    width: 70px;
-    height: 50px;
+    padding: 0px;
+    width: 0px;
+    overflow: hidden;
   }
 
   .sub_header {
@@ -127,7 +162,11 @@
   }
 
   .info_container {
-    font-size: 0.9rem;
+    font-size: 1rem;
+  }
+
+  .customer_address {
+    font-size: 1.4rem;
   }
 
   .bottom_container {

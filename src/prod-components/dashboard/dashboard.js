@@ -6,7 +6,11 @@ import ProfitRunningAverageLineGraph from './graphs/profit-running-average';
 import TotalSalesExpensesPieGraph from './graphs/total-sales-expenses';
 import PerformancePieGraphWithNeedle from './graphs/performance';
 import SalesExpensesBarGraph from './graphs/sales-expenses';
-import LoadingPage from '@/assets/loading';
+
+import PerformancePieGraphWithNeedleMobile from './graphs-mobile/performance';
+import TotalSalesExpensesPieGraphMobile from './graphs-mobile/total-sales-expenses';
+import ProfitRunningAverageLineGraphMobile from './graphs-mobile/profit-running-average';
+import SalesExpensesBarGraphMobile from './graphs-mobile/sales-expense';
 
 import apiRequest from '@/lib/axios';
 
@@ -34,17 +38,30 @@ const DashboardPage = () => {
     onSuccess: (data) => getTotal(data),
   });
 
-  if (dashboardQuery?.isLoading) return <LoadingPage />;
+  if (dashboardQuery?.isLoading)
+    return (
+      <div className={styles.page_container}>
+        <img className={styles.loading_gif} src="/images/loading-gif.gif" alt="loading gif" />
+      </div>
+    );
 
   return (
-    <div className={styles.page_container}>
-      <div className={styles.double}>
-        <TotalSalesExpensesPieGraph total={total} />
-        <PerformancePieGraphWithNeedle report={dashboardQuery?.data} />
+    <>
+      <div className={styles.page_container}>
+        <div className={styles.double}>
+          <TotalSalesExpensesPieGraph total={total} />
+          <PerformancePieGraphWithNeedle report={dashboardQuery?.data} />
+        </div>
+        <ProfitRunningAverageLineGraph data={dashboardQuery?.data} />
+        <SalesExpensesBarGraph data={dashboardQuery?.data} />
       </div>
-      <ProfitRunningAverageLineGraph data={dashboardQuery?.data} />
-      <SalesExpensesBarGraph data={dashboardQuery?.data} />
-    </div>
+      <div className={styles.page_container_mobile}>
+        <PerformancePieGraphWithNeedleMobile report={dashboardQuery?.data} />
+        <TotalSalesExpensesPieGraphMobile total={total} />
+        <ProfitRunningAverageLineGraphMobile data={dashboardQuery?.data} />
+        <SalesExpensesBarGraphMobile data={dashboardQuery?.data} />
+      </div>
+    </>
   );
 };
 

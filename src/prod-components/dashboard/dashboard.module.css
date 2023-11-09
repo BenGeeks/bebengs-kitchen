@@ -9,6 +9,16 @@
   overflow: auto;
 }
 
+.loading_gif {
+  width: 50px;
+  height: 50px;
+  margin-top: 100px;
+}
+
+.page_container_mobile {
+  display: none;
+}
+
 .double {
   display: flex;
   justify-content: space-between;
@@ -16,6 +26,7 @@
   width: 1080px;
 }
 .graph_container {
+  position: relative;
   border: 1px solid #374151;
   padding: 5px;
   margin: 5px auto;
@@ -24,4 +35,113 @@
 .graph_header {
   padding: 10px;
   text-align: center;
+}
+
+.performance_0_label {
+  position: absolute;
+  top: 245px;
+  left: 90px;
+}
+
+.performance_1k_label {
+  position: absolute;
+  top: 165px;
+  left: 90px;
+}
+
+.performance_2k_label {
+  position: absolute;
+  top: 95px;
+  left: 175px;
+}
+
+.performance_3k5_label {
+  position: absolute;
+  top: 120px;
+  left: 355px;
+}
+
+.performance_4k5_label {
+  position: absolute;
+  top: 200px;
+  left: 410px;
+}
+
+.performance_5k_label {
+  position: absolute;
+  top: 245px;
+  left: 415px;
+}
+
+.performance_value {
+  position: absolute;
+  top: 200px;
+  left: 260px;
+  font-weight: 700;
+  font-size: 1.8rem;
+  transform: translate(-50%, 0%);
+}
+
+@media (max-width: 768px) {
+  .page_container {
+    display: none;
+  }
+
+  .page_container_mobile {
+    width: 100%;
+    background-color: aliceblue;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 10px;
+  }
+
+  .graph_header {
+    font-size: 1.2rem;
+  }
+
+  .performance_0_label {
+    position: absolute;
+    top: 135px;
+    left: 45px;
+  }
+
+  .performance_1k_label {
+    position: absolute;
+    top: 85px;
+    left: 35px;
+  }
+
+  .performance_2k_label {
+    position: absolute;
+    top: 40px;
+    left: 90px;
+  }
+
+  .performance_3k5_label {
+    position: absolute;
+    top: 55px;
+    left: 220px;
+  }
+
+  .performance_4k5_label {
+    position: absolute;
+    top: 110px;
+    left: 260px;
+  }
+
+  .performance_5k_label {
+    position: absolute;
+    top: 140px;
+    left: 265px;
+  }
+
+  .performance_value {
+    position: absolute;
+    top: 110px;
+    left: 160px;
+    font-weight: 700;
+    font-size: 1.4rem;
+    transform: translate(-50%, 0%);
+  }
 }

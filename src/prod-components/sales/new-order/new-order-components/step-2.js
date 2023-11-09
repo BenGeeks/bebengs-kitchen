@@ -9,14 +9,20 @@ const Step2 = ({ selectedItem, variationQuery, setStep, selectVariationHandler, 
       <div className={styles.header_bar}>
         <h2 className={styles.header_bar_title}>Select {selectedItem?.itemName} size:</h2>
         {isOrderEdit ? (
-          <div className={styles.header_bar_filter} title="cancel" onClick={onCancel}>
-            <ImCancelCircle />
+          <div className={styles.header_bar_cancel} title="cancel" onClick={onCancel}>
+            <div className={styles.header_bar_cancel_icon}>
+              <ImCancelCircle />
+            </div>
+            <p className={styles.header_bar_cancel_text}>Cancel</p>
           </div>
         ) : (
           <>
             {items.length > 0 && (
-              <div className={styles.header_bar_filter} title="save" onClick={onCancel}>
-                <ImCheckmark />
+              <div className={styles.header_bar_save} title="save" onClick={onCancel}>
+                <div className={styles.header_bar_save_icon}>
+                  <ImCheckmark />
+                </div>
+                <p className={styles.header_bar_save_text}>Save</p>
               </div>
             )}
           </>

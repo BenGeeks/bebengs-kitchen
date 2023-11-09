@@ -4,12 +4,12 @@ import { PieChart, Pie, Cell } from 'recharts';
 
 import styles from '../dashboard.module.css';
 
-const TotalSalesExpensesPieGraph = ({ total }) => {
+const TotalSalesExpensesPieGraphMobile = ({ total }) => {
   const COLORS = ['#00C49F', '#FF8042'];
   const RADIAN = Math.PI / 180;
   const renderCustomizedLabel = ({ cx, cy, midAngle, innerRadius, outerRadius, percent, index }) => {
     const radius = innerRadius + (outerRadius - innerRadius) * 0.5;
-    const x = cx + radius * Math.cos(-midAngle * RADIAN);
+    const x = cx + radius * Math.cos(-midAngle * RADIAN) - 10;
     const y = cy + radius * Math.sin(-midAngle * RADIAN);
 
     return (
@@ -21,17 +21,8 @@ const TotalSalesExpensesPieGraph = ({ total }) => {
   return (
     <div className={styles.graph_container}>
       <h2 className={styles.graph_header}>Total Sales and Expenses</h2>
-      <PieChart width={500} height={230}>
-        <Pie
-          data={total}
-          cx="50%"
-          cy="50%"
-          labelLine={false}
-          label={renderCustomizedLabel}
-          outerRadius={100}
-          fill="#8884d8"
-          dataKey="value"
-        >
+      <PieChart width={320} height={150}>
+        <Pie data={total} cx="50%" cy="50%" labelLine={false} label={renderCustomizedLabel} outerRadius={70} fill="#8884d8" dataKey="value">
           {total.map((entry, index) => (
             <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
           ))}
@@ -41,4 +32,4 @@ const TotalSalesExpensesPieGraph = ({ total }) => {
   );
 };
 
-export default TotalSalesExpensesPieGraph;
+export default TotalSalesExpensesPieGraphMobile;

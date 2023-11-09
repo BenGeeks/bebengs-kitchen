@@ -83,6 +83,7 @@ const CustomersList = ({ onSelectCustomer, isEdit, onCancel }) => {
     setCustomerData(defaultList);
   };
 
+  console.log('IS EDIT: ', isEdit);
   return (
     <div className={styles.page_container}>
       {addressSelectorIsOpen && <AddressFilterSelector open={addressSelectorIsOpen} onSelect={filterHandler} />}
