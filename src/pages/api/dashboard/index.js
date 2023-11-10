@@ -1,6 +1,7 @@
 import dbConnect from '@/lib/dbConnect';
 import Expenses from '@/model/expenses';
 import Orders from '@/model/order';
+import { resolve } from 'styled-jsx/css';
 
 export default async function handler(req, res) {
   const { method } = req;
@@ -8,7 +9,7 @@ export default async function handler(req, res) {
 
   if (method !== 'GET') return res.status(401).json({ message: 'INTRUDER ALERT!' });
 
-  function mergeData(salesData, expensesData) {
+  const mergeData = (salesData, expensesData) => {
     let sum = 0;
     // Merge the data based on the date or any other common key
 
@@ -28,7 +29,7 @@ export default async function handler(req, res) {
     });
 
     return mergedData.filter((sale) => sale.name !== null);
-  }
+  };
 
   const pipelineSales = Orders.aggregate([
     {
@@ -104,10 +105,16 @@ export default async function handler(req, res) {
       const mergedData = mergeData(salesData, expensesData);
 
       // Respond with the merged data
-      res.status(200).json({ success: true, data: mergedData });
+      return res.status(200).json({ success: true, data: mergedData });
     })
     .catch((error) => {
       // Handle any errors that may occur during the queries
-      res.status(500).send('An error occurred.');
+      return res.status(500).json({ success: false, error });
     });
 }
+
+export const config = {
+  api: {
+    externalResolver: true,
+  },
+};

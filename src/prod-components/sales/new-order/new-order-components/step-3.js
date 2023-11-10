@@ -1,6 +1,7 @@
 'use client';
-import { ImCancelCircle, ImCheckmark } from 'react-icons/im';
-import { QTY_NUMBER } from '@/resources/orders';
+import { ImCheckmark } from 'react-icons/im';
+
+import { QTY_NUMBER } from '../resources';
 import styles from '../new-order.module.css';
 
 const Step3 = ({ selectedItem, selectQuantityHandler, setStep, isOrderEdit, onCancel, items }) => {
@@ -10,7 +11,7 @@ const Step3 = ({ selectedItem, selectQuantityHandler, setStep, isOrderEdit, onCa
   };
 
   return (
-    <div className={styles.main_page}>
+    <>
       <div className={styles.header_bar}>
         <h2 className={styles.header_bar_title}>Select {selectedItem?.itemName} quantity:</h2>
         {isOrderEdit ? (
@@ -50,7 +51,7 @@ const Step3 = ({ selectedItem, selectQuantityHandler, setStep, isOrderEdit, onCa
           );
         })}
       </div>
-    </div>
+    </>
   );
 };
 

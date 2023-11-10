@@ -1,0 +1,47 @@
+.container {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.loading_gif {
+  width: 50px;
+  height: 50px;
+  margin-top: 100px;
+}
+
+.error_container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 400px;
+  height: 200px;
+  margin: 100px auto;
+  padding: 20px 10px;
+  border: 1px solid #d9534f;
+  background-color: white;
+  border-radius: 5px;
+}
+
+.error_icon {
+  color: #d9534f;
+  font-size: 5rem;
+}
+.error_message {
+  color: #d9534f;
+  font-size: 1rem;
+}
+
+@media (max-width: 768px) {
+  .error_container {
+    width: 300px;
+    margin: 60px auto;
+  }
+  .error_icon {
+    font-size: 3rem;
+  }
+  .error_message {
+    font-size: 0.8rem;
+  }
+}

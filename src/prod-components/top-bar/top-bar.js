@@ -1,16 +1,15 @@
 'use client';
+import { RiContactsBookLine, RiLogoutCircleLine } from 'react-icons/ri';
+import { BsClipboardCheck, BsGraphUpArrow } from 'react-icons/bs';
+import { GiChickenOven, GiHamburgerMenu } from 'react-icons/gi';
+import { IoFastFoodOutline } from 'react-icons/io5';
+import { AiOutlineDashboard } from 'react-icons/ai';
+import { FaRegMoneyBillAlt } from 'react-icons/fa';
+import { PiHandCoins } from 'react-icons/pi';
 import { signOut } from 'next-auth/react';
 import React, { useState } from 'react';
 
 import LoadingMain from '@/assets/loading-main';
-import { RiContactsBookLine, RiLogoutCircleLine } from 'react-icons/ri';
-import { IoFastFoodOutline } from 'react-icons/io5';
-import { BsClipboardCheck, BsGraphUpArrow } from 'react-icons/bs';
-import { GiChickenOven, GiHamburgerMenu } from 'react-icons/gi';
-import { PiHandCoins } from 'react-icons/pi';
-import { FaRegMoneyBillAlt } from 'react-icons/fa';
-import { AiOutlineDashboard } from 'react-icons/ai';
-
 import styles from './top-bar.module.css';
 
 const TopBar = ({ currentPage, setCurrentPage }) => {

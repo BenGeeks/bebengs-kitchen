@@ -4,11 +4,10 @@ import { useState } from 'react';
 import moment from 'moment';
 
 import EditShoppingCartItem from './new-order-components/edit-cart-item';
+import { ORDER_ITEMS_HEADER } from './resources';
 import ActionModal from '@/assets/action-modal';
-import Table from '@/assets/table';
-
-import { ORDER_ITEMS_HEADER } from '@/resources/orders';
 import styles from './new-order.module.css';
+import Table from '@/assets/table';
 
 const NewOrderSideBar = ({ selectedCustomer, orderDetails, items, step, setStep, setItems, onCancel, onSave, edit, setEdit, title }) => {
   const [openActionModal, setOpenActionModal] = useState(false);

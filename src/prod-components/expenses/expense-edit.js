@@ -3,10 +3,8 @@ import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { toast } from 'react-toastify';
 import moment from 'moment';
 
-import ModalWide from '@/assets/modal-wide';
-import ReactForm from '@/assets/react-form';
-
-import { EXPENSES_INPUT, EXPENSES_SCHEMA } from '@/resources/expenses';
+import { EXPENSES_INPUT, EXPENSES_SCHEMA } from './resources';
+import EditNewModal from '@/assets/edit-new-modal';
 import apiRequest from '@/lib/axios';
 
 const ExpenseEdit = ({ open, close, expenseData }) => {
@@ -29,16 +27,16 @@ const ExpenseEdit = ({ open, close, expenseData }) => {
   };
 
   return (
-    <ModalWide open={open} close={close}>
-      <ReactForm
-        layout={EXPENSES_INPUT}
-        schema={EXPENSES_SCHEMA}
-        action={'Edit'}
-        defaultValues={{ ...expenseData, expenseDate: moment(expenseData?.expenseDate).format('yyyy-MM-DD') }}
-        onSubmit={EditExpenseHandler}
-        onCancel={close}
-      />
-    </ModalWide>
+    <EditNewModal
+      title={`Edit ${expenseData?.item} item`}
+      open={open}
+      INPUT={EXPENSES_INPUT}
+      SCHEMA={EXPENSES_SCHEMA}
+      DEFAULT={{ ...expenseData, expenseDate: moment(expenseData?.expenseDate).format('yyyy-MM-DD') }}
+      onSubmit={EditExpenseHandler}
+      onCancel={close}
+      action={'Edit'}
+    />
   );
 };
 

@@ -23,7 +23,7 @@ const TotalSalesExpensesPieGraphMobile = ({ total }) => {
       <h2 className={styles.graph_header}>Total Sales and Expenses</h2>
       <PieChart width={320} height={150}>
         <Pie data={total} cx="50%" cy="50%" labelLine={false} label={renderCustomizedLabel} outerRadius={70} fill="#8884d8" dataKey="value">
-          {total.map((entry, index) => (
+          {total?.map((entry, index) => (
             <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
           ))}
         </Pie>

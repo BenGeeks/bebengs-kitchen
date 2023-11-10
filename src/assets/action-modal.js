@@ -1,3 +1,4 @@
+'use client';
 import { RiDeleteBin4Line, RiEditLine } from 'react-icons/ri';
 import { ImCancelCircle } from 'react-icons/im';
 

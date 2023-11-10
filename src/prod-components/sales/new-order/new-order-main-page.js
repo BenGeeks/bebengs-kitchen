@@ -1,11 +1,10 @@
 'use client';
 import moment from 'moment';
 
+import { ORDER_DETAILS_INPUT, ORDER_DETAILS_SCHEMA } from './resources';
 import CustomersList from '@/prod-components/customer/customer-list';
 import NewOrderSelectItem from './new-order-components/select-item';
 import ReactForm from '@/assets/react-form';
-
-import { ORDER_DETAILS_INPUT, ORDER_DETAILS_SCHEMA } from '@/resources/orders';
 import styles from './new-order.module.css';
 
 const NewOrderMainPage = ({

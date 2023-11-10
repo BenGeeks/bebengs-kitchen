@@ -3,13 +3,13 @@ import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import React, { useState } from 'react';
 import { toast } from 'react-toastify';
 
+import { Loader, Error } from '@/assets/loader-error';
 import ActionModal from '@/assets/action-modal';
+import { ADDRESS_HEADER } from '../resources';
+import styles from '../customer.module.css';
 import AddressNew from './address-new';
 import apiRequest from '@/lib/axios';
 import Table from '@/assets/table';
-
-import { ADDRESS_HEADER } from '@/resources/customers';
-import customerStyles from '../customer.module.css';
 
 const AddressList = () => {
   const queryClient = useQueryClient();
@@ -51,9 +51,23 @@ const AddressList = () => {
     setSelectActionModal(true);
   };
 
+  if (addressQuery.isLoading)
+    return (
+      <div className={styles.page_container}>
+        <Loader />
+      </div>
+    );
+
+  if (addressQuery.isError)
+    return (
+      <div className={styles.page_container}>
+        <Error error={addressQuery.error} />
+      </div>
+    );
+
   return (
     <>
-      <AddressNew open={editModal} close={cancelHandler} isEdit={true} data={addressData} />
+      {editModal && <AddressNew open={editModal} close={cancelHandler} isEdit={true} data={addressData} />}
       {selectActionModal && (
         <ActionModal
           name={addressData?.address}
@@ -64,21 +78,12 @@ const AddressList = () => {
           onDelete={onDeleteHandler}
         />
       )}
-
-      <div className={customerStyles.page_container}>
-        <div className={customerStyles.main_page}>
-          <div className={customerStyles.header_bar}>
-            <h3 className={customerStyles.header_bar_title}>Address List:</h3>
+      <div className={styles.page_container}>
+        <div className={styles.main_page}>
+          <div className={styles.header_bar}>
+            <h3 className={styles.header_bar_title}>Address List:</h3>
           </div>
-
-          <Table
-            headers={ADDRESS_HEADER}
-            data={addressQuery.data}
-            enableRowClick={true}
-            onRowClick={onRowClick}
-            isLoading={addressQuery?.isLoading}
-            isError={addressQuery?.isError}
-          />
+          <Table headers={ADDRESS_HEADER} data={addressQuery.data} enableRowClick={true} onRowClick={onRowClick} />
         </div>
       </div>
     </>

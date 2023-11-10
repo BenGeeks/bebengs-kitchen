@@ -1,30 +1,34 @@
 'use client';
 import React, { useState, useEffect } from 'react';
 
-import Table from '@/assets/table';
-
-import { MENU_HEADER } from '@/resources/menu';
-
+import { Loader, Error } from '@/assets/loader-error';
+import { sortData, MENU_HEADER } from './resources';
 import styles from './menu.module.css';
+import Table from '@/assets/table';
 
 const MenuList = ({ menuQuery, selectMenuHandler, width }) => {
   const [menuList, setMenuList] = useState([]);
   const [searchValue, setSearchValue] = useState('');
-
-  const sortData = (menu) => {
-    let sortedData = menu.sort((a, b) => {
-      if (a.itemName.toLowerCase() > b.itemName.toLowerCase()) return 1;
-      if (a.itemName.toLowerCase() < b.itemName.toLowerCase()) return -1;
-      return 0;
-    });
-    return sortedData;
-  };
 
   useEffect(() => {
     let data = menuQuery?.data ? menuQuery.data : [];
     let tempData = data.filter((menu) => menu.itemName.toLowerCase().includes(searchValue.toLowerCase()));
     searchValue.length === 0 ? setMenuList(data) : setMenuList([...tempData]);
   }, [searchValue, menuQuery]);
+
+  if (menuQuery.isLoading)
+    return (
+      <div className={styles.page_container} style={{ width: width }}>
+        <Loader />
+      </div>
+    );
+
+  if (menuQuery.isError)
+    return (
+      <div className={styles.page_container} style={{ width: width }}>
+        <Error error={menuQuery.error} />
+      </div>
+    );
 
   return (
     <div className={styles.page_container} style={{ width: width }}>
@@ -47,8 +51,6 @@ const MenuList = ({ menuQuery, selectMenuHandler, width }) => {
           enableEdit={false}
           enableRowClick={true}
           onRowClick={selectMenuHandler}
-          isLoading={menuQuery?.isLoading}
-          isError={menuQuery?.isError}
         />
       </div>
     </div>

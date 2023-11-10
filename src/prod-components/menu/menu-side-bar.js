@@ -4,13 +4,14 @@ import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { RiCloseCircleLine, RiAddCircleLine, RiEditLine } from 'react-icons/ri';
 import { toast } from 'react-toastify';
 
-import Table from '@/assets/table';
-import ActionModal from '@/assets/action-modal';
 import EditVariation from './variation/variation-edit';
+import { Loader, Error } from '@/assets/loader-error';
 import NewVariation from './variation/variation-new';
-import apiRequest from '@/lib/axios';
-import { VARIATION_HEADERS } from '@/resources/menu';
+import ActionModal from '@/assets/action-modal';
+import { VARIATION_HEADERS } from './resources';
 import styles from './menu.module.css';
+import apiRequest from '@/lib/axios';
+import Table from '@/assets/table';
 
 const MenuSideBar = ({ width, selectedMenu, setSelectedMenu, variationQuery, actionModal }) => {
   const queryClient = useQueryClient();
@@ -53,6 +54,20 @@ const MenuSideBar = ({ width, selectedMenu, setSelectedMenu, variationQuery, act
     setOpenAction(true);
   };
 
+  if (variationQuery.isLoading)
+    return (
+      <div className={styles.page_container} style={{ width: width }}>
+        <Loader />
+      </div>
+    );
+
+  if (variationQuery.isError)
+    return (
+      <div className={styles.page_container} style={{ width: width }}>
+        <Error error={variationQuery.error} />
+      </div>
+    );
+
   return (
     <>
       {openAction && (
@@ -65,8 +80,8 @@ const MenuSideBar = ({ width, selectedMenu, setSelectedMenu, variationQuery, act
           onDelete={deleteHandler}
         />
       )}
-      <EditVariation open={editVariation} onCancel={cancelHandler} menu={selectedMenu} variation={selectedVariation} />
-      <NewVariation open={newVariation} onCancel={cancelHandler} menu={selectedMenu} />
+      {editVariation && <EditVariation open={editVariation} onCancel={cancelHandler} menu={selectedMenu} variation={selectedVariation} />}
+      {newVariation && <NewVariation open={newVariation} onCancel={cancelHandler} menu={selectedMenu} />}
 
       <div className={styles.page_container} style={{ width: width }}>
         <div className={styles.main_page}>
@@ -98,7 +113,7 @@ const MenuSideBar = ({ width, selectedMenu, setSelectedMenu, variationQuery, act
           </div>
           <Table
             headers={VARIATION_HEADERS}
-            data={variationQuery}
+            data={variationQuery.data}
             enableDelete={false}
             enableEdit={false}
             enableRowClick={true}

@@ -2,9 +2,9 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { toast } from 'react-toastify';
 
+import { VARIATION_INPUT, VARIATION_SCHEMA } from '../resources';
 import EditNewModal from '@/assets/edit-new-modal';
 import apiRequest from '@/lib/axios';
-import { VARIATION_INPUT, VARIATION_SCHEMA } from '@/resources/menu';
 
 const EditVariation = ({ open, onCancel, menu, variation }) => {
   const queryClient = useQueryClient();

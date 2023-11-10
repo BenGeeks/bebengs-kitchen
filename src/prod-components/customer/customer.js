@@ -4,14 +4,12 @@ import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { toast } from 'react-toastify';
 
 import CustomerIconBar from './customer-icon-bar';
+import AddressList from './address/address-list';
+import ActionModal from '@/assets/action-modal';
+import AddressNew from './address/address-new';
 import CustomersList from './customer-list';
 import CustomerEdit from './customer-edit';
 import CustomerNew from './customer-new';
-import ActionModal from '@/assets/action-modal';
-
-import AddressList from './address/address-list';
-import AddressNew from './address/address-new';
-
 import apiRequest from '@/lib/axios';
 
 const CustomerPage = () => {
@@ -81,9 +79,9 @@ const CustomerPage = () => {
           onDelete={onDeleteHandler}
         />
       )}
-      <CustomerEdit open={editModal} close={cancelHandler} customer={selectedCustomer} />
-      <CustomerNew open={newModal} close={cancelHandler} onAddCustomerSuccess={() => null} />
-      <AddressNew open={newAddressModal} close={() => setNewAddressModal(false)} />
+      {editModal && <CustomerEdit open={editModal} close={cancelHandler} customer={selectedCustomer} />}
+      {newModal && <CustomerNew open={newModal} close={cancelHandler} onAddCustomerSuccess={() => null} />}
+      {newAddressModal && <AddressNew open={newAddressModal} close={() => setNewAddressModal(false)} />}
       {currentPage === 'customer' && <CustomersList onSelectCustomer={selectCustomerHandler} />}
       {currentPage === 'address' && <AddressList />}
       <CustomerIconBar

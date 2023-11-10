@@ -1,12 +1,13 @@
 'use client';
 import React from 'react';
 
-import Table from '@/assets/table';
 import { SUMMARY_HEADER, SALES_COUNT_HEADER, EXPENSES_HEADER } from './resources';
+import { Loader, Error } from '@/assets/loader-error';
 import styles from './reports.module.css';
+import Table from '@/assets/table';
 import moment from 'moment';
 
-const ReportsMainPage = ({ salesData, salesSummary, expensesData, expensesSummary, date }) => {
+const ReportsMainPage = ({ salesData, salesSummary, expensesData, expensesSummary, date, orderQuery, expensesQuery }) => {
   const finalReportData = [
     { source: 'Sales', cash: salesSummary?.cash, gcash: salesSummary?.gcash, total: salesSummary?.total },
     { source: 'Expenses', cash: expensesSummary?.cash, gcash: expensesSummary?.gcash, total: expensesSummary?.total },
@@ -17,6 +18,21 @@ const ReportsMainPage = ({ salesData, salesSummary, expensesData, expensesSummar
       total: salesSummary?.total - expensesSummary?.total,
     },
   ];
+
+  if (orderQuery.isLoading || expensesQuery.isLoading)
+    return (
+      <div className={styles.page_container}>
+        <Loader />
+      </div>
+    );
+
+  if (orderQuery.isError || expensesQuery.isError)
+    return (
+      <div className={styles.page_container}>
+        <Error error={orderQuery.error || expensesQuery.error} />
+      </div>
+    );
+
   return (
     <div className={styles.page_container}>
       <div className={styles.summary_box}>

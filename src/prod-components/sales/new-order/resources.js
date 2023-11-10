@@ -1,6 +1,13 @@
 import moment from 'moment';
 import * as yup from 'yup';
 
+export const DEFAULT_ORDER_DETAILS = {
+  deliveryDate: moment().startOf('day').format(),
+  deliveryTime: '00:00',
+  paymentDate: null,
+  downPayment: 0,
+};
+
 export const ORDER_ITEMS_HEADER = [
   { display: 'item', name: 'itemName' },
   { display: 'size', name: 'size' },
@@ -8,19 +15,6 @@ export const ORDER_ITEMS_HEADER = [
   { display: 'price', name: 'price' },
   { display: 'total', name: 'subTotal' },
 ];
-
-export const FUTURE_ORDERS_HEADER = [
-  { display: 'item', name: 'itemName' },
-  { display: 'size', name: 'size' },
-  { display: 'qty', name: 'qty' },
-];
-
-export const DEFAULT_ORDER_DETAILS = {
-  deliveryDate: moment().startOf('day').format(),
-  deliveryTime: '00:00',
-  paymentDate: null,
-  downPayment: 0,
-};
 
 export const ORDER_DETAILS_SCHEMA = yup.object().shape({
   deliveryDate: yup.string(),
@@ -37,8 +31,6 @@ export const ORDER_DETAILS_INPUT = [
   { type: 'date', name: 'paymentDate', label: 'Payment Date' },
 ];
 
-export const ORDER_COLUMNS = ['Order#', 'Order Details', 'Total'];
-export const CUSTOMER_COLUMNS = ['Name', 'Address', 'Block', 'Lot'];
 export const QTY_NUMBER = [
   1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37,
   38, 39,

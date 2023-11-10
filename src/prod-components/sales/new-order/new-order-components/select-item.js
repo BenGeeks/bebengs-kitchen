@@ -3,8 +3,8 @@ import React, { useEffect, useState } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import moment from 'moment';
 
-import LoadingPage from '@/assets/loading';
-import ErrorPage from '@/assets/error';
+import { Loader, Error } from '@/assets/loader-error';
+import styles from '../new-order.module.css';
 import Step1 from './step-1';
 import Step2 from './step-2';
 import Step3 from './step-3';
@@ -82,11 +82,24 @@ const NewOrderSelectItem = ({ onAddItem, edit, setEdit, onCancel, isOrderEdit, i
     isOrderEdit && setEdit(null);
   };
 
-  if (menuQuery.isLoading || variationQuery.isLoading) return <LoadingPage />;
-  if (menuQuery.isError || variationQuery.isError) return <ErrorPage error={menuQuery.error} />;
+  if (menuQuery.isLoading || variationQuery.isLoading) {
+    return (
+      <div className={styles.main_page}>
+        <Loader />
+      </div>
+    );
+  }
+
+  if (menuQuery.isError || variationQuery.isError) {
+    return (
+      <div className={styles.main_page}>
+        <Error error={menuQuery.error || variationQuery.error} />
+      </div>
+    );
+  }
 
   return (
-    <>
+    <div className={styles.main_page}>
       {step === 1 && (
         <Step1
           sortedMenuList={sortedMenuList}
@@ -119,7 +132,7 @@ const NewOrderSelectItem = ({ onAddItem, edit, setEdit, onCancel, isOrderEdit, i
           items={items}
         />
       )}
-    </>
+    </div>
   );
 };
 

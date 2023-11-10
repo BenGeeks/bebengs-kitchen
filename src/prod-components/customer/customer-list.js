@@ -6,12 +6,11 @@ import { ImCancelCircle } from 'react-icons/im';
 
 import AddressFilterSelector from './filter/address-filter';
 import BlockFilterSelector from './filter/block-filter';
-import Table from '@/assets/table';
-
-import { CUSTOMER_HEADER } from '@/resources/customers';
-import apiRequest from '@/lib/axios';
-
+import { Loader, Error } from '@/assets/loader-error';
+import { CUSTOMER_HEADER } from './resources';
 import styles from './customer.module.css';
+import apiRequest from '@/lib/axios';
+import Table from '@/assets/table';
 
 const CustomersList = ({ onSelectCustomer, isEdit, onCancel }) => {
   const [defaultList, setDefaultList] = useState([]);
@@ -83,7 +82,20 @@ const CustomersList = ({ onSelectCustomer, isEdit, onCancel }) => {
     setCustomerData(defaultList);
   };
 
-  console.log('IS EDIT: ', isEdit);
+  if (customersQuery.isLoading)
+    return (
+      <div className={styles.page_container}>
+        <Loader />
+      </div>
+    );
+
+  if (customersQuery.isError)
+    return (
+      <div className={styles.page_container}>
+        <Error error={customersQuery.error} />
+      </div>
+    );
+
   return (
     <div className={styles.page_container}>
       {addressSelectorIsOpen && <AddressFilterSelector open={addressSelectorIsOpen} onSelect={filterHandler} />}
@@ -132,8 +144,6 @@ const CustomersList = ({ onSelectCustomer, isEdit, onCancel }) => {
           enableEdit={false}
           enableRowClick={true}
           onRowClick={onSelectCustomer}
-          isLoading={customersQuery?.isLoading}
-          isError={customersQuery?.isError}
         />
       </div>
     </div>

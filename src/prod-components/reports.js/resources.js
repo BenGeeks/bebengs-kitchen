@@ -1,4 +1,5 @@
 'use client';
+
 export const SALES_COUNT_HEADER = [
   { display: 'Item', name: 'itemName' },
   { display: 'Size', name: 'size' },

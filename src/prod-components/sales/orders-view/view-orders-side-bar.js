@@ -1,11 +1,26 @@
 'use client';
 import moment from 'moment';
 
-import Table from '@/assets/table';
-import { COLLECTIBLE_HEADER, COUNT_HEADER } from '@/resources/side-bar';
+import { COLLECTIBLE_HEADER, COUNT_HEADER } from '../resources';
+import { Loader, Error } from '@/assets/loader-error';
 import styles from '../sales.module.css';
+import Table from '@/assets/table';
 
-const OrdersSideBar = ({ salesCount, collectibleData, salesData, calendarDate, width }) => {
+const OrdersSideBar = ({ orderQuery, salesCount, collectibleData, salesData, calendarDate, width }) => {
+  if (orderQuery.isLoading)
+    return (
+      <div className={styles.container} style={{ width: width }}>
+        <Loader />
+      </div>
+    );
+
+  if (orderQuery.isError)
+    return (
+      <div className={styles.container} style={{ width: width }}>
+        <Error error={orderQuery.error} />
+      </div>
+    );
+
   return (
     <div className={styles.container} style={{ width: width }}>
       <div className={styles.date}>{moment(calendarDate).format('MMM DD, yyyy')}</div>

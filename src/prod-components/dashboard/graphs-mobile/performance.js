@@ -18,7 +18,7 @@ const PerformancePieGraphWithNeedleMobile = ({ report }) => {
   const cy = 100;
   const iR = 50;
   const oR = 100;
-  const value = report[report.length - 2].movingAverage;
+  const value = report[report.length - 1].movingAverage;
 
   const needle = (value, data, cx, cy, iR, oR, color) => {
     let total = 0;
@@ -47,7 +47,7 @@ const PerformancePieGraphWithNeedleMobile = ({ report }) => {
   return (
     <div className={styles.graph_container}>
       <h2 className={styles.graph_header}>Running Performance Meter</h2>
-      <div className={styles.performance_value}>{report[report.length - 2].movingAverage}</div>
+      <div className={styles.performance_value}>{report[report.length - 1].movingAverage}</div>
       <PieChart width={320} height={120}>
         <Pie
           dataKey="value"
@@ -61,11 +61,11 @@ const PerformancePieGraphWithNeedleMobile = ({ report }) => {
           fill="#8884d8"
           stroke="none"
         >
-          {data.map((entry, index) => (
+          {data?.map((entry, index) => (
             <Cell key={index} fill={entry.color} />
           ))}
         </Pie>
-        {needle(value, data, cx, cy, iR, oR, '#d0d000')}
+        {needle(value, data, cx, cy, iR, oR, '#8884d8')}
       </PieChart>
       <div className={styles.performance_0_label}>0</div>
       <div className={styles.performance_1k_label}>1000</div>

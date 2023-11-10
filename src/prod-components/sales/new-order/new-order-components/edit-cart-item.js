@@ -2,8 +2,8 @@
 import React, { useState } from 'react';
 import { BsArrowDownSquare, BsArrowUpSquare } from 'react-icons/bs';
 
-import ModalWide from '@/assets/modal-wide';
 import styles from '../new-order.module.css';
+import ModalWide from '@/assets/modal-wide';
 
 const EditShoppingCartItem = ({ item, open, close, onSave }) => {
   const [price, setPrice] = useState(item.price);

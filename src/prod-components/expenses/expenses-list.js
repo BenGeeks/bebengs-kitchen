@@ -2,20 +2,36 @@
 import React, { useEffect, useState } from 'react';
 import moment from 'moment';
 
-import Table from '@/assets/table';
-import { EXPENSES_TABLE_HEADER } from '@/resources/expenses';
+import { EXPENSES_TABLE_HEADER } from './resources';
+import { Loader, Error } from '@/assets/loader-error';
 import styles from './expenses.module.css';
+import Table from '@/assets/table';
 
-const ExpensesList = ({ expensesQuery, onRowClick, date, isLoading }) => {
+const ExpensesList = ({ expensesQuery, onRowClick, date }) => {
   const [total, setTotal] = useState();
   const [cash, setCash] = useState();
   const [gcash, setGcash] = useState();
 
   useEffect(() => {
-    setTotal(expensesQuery?.reduce((total, data) => +data.total + total, 0));
-    setCash(expensesQuery?.reduce((total, data) => (!data.isGcash ? +data.total + total : total), 0));
-    setGcash(expensesQuery?.reduce((total, data) => (data.isGcash ? +data.total + total : total), 0));
+    setTotal(expensesQuery?.data?.reduce((total, data) => +data.total + total, 0));
+    setCash(expensesQuery?.data?.reduce((total, data) => (!data.isGcash ? +data.total + total : total), 0));
+    setGcash(expensesQuery?.data?.reduce((total, data) => (data.isGcash ? +data.total + total : total), 0));
   }, [expensesQuery, setTotal, setCash, setGcash]);
+
+  if (expensesQuery.isLoading)
+    return (
+      <div className={styles.page_container}>
+        <Loader />
+      </div>
+    );
+
+  if (expensesQuery.isError)
+    return (
+      <div className={styles.page_container}>
+        <Error error={expensesQuery.error} />
+      </div>
+    );
+
   return (
     <div className={styles.page_container}>
       <div className={styles.main_page}>
@@ -29,12 +45,11 @@ const ExpensesList = ({ expensesQuery, onRowClick, date, isLoading }) => {
         </div>
         <Table
           headers={EXPENSES_TABLE_HEADER}
-          data={expensesQuery}
+          data={expensesQuery.data}
           enableDelete={false}
           enableEdit={false}
           enableRowClick={true}
           onRowClick={onRowClick}
-          isLoading={isLoading}
         />
       </div>
     </div>

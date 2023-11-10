@@ -6,7 +6,6 @@ import moment from 'moment';
 import OrdersMainPage from './view-orders-main-page';
 import OrdersIconBar from './view-orders-icon-bar';
 import OrdersSideBar from './view-orders-side-bar';
-
 import apiRequest from '@/lib/axios';
 
 const OrderListToday = ({ setCurrentPage, onEdit, currentPage, getWidth, setView }) => {
@@ -71,6 +70,7 @@ const OrderListToday = ({ setCurrentPage, onEdit, currentPage, getWidth, setView
   return (
     <>
       <OrdersSideBar
+        orderQuery={orderQuery}
         salesData={salesData}
         salesCount={salesCount}
         collectibleData={collectibleData}

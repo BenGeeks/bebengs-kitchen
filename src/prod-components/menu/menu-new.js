@@ -2,9 +2,9 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { toast } from 'react-toastify';
 
+import { MENU_INPUT, MENU_SCHEMA, DEFAULT_MENU_ITEM } from './resources';
 import EditNewModal from '@/assets/edit-new-modal';
 import apiRequest from '@/lib/axios';
-import { MENU_INPUT, MENU_SCHEMA, DEFAULT_MENU_ITEM } from '@/resources/menu';
 
 const NewMenu = ({ open, onCancel }) => {
   const queryClient = useQueryClient();

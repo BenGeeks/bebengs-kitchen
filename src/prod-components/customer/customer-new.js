@@ -1,13 +1,10 @@
 'use client';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
-import { RiCloseCircleLine } from 'react-icons/ri';
 import { toast } from 'react-toastify';
 
-import ReactForm from '@/assets/react-form';
-import ModalWide from '@/assets/modal-wide';
-import { SCHEMA } from '@/resources/customers';
+import EditNewModal from '@/assets/edit-new-modal';
+import { SCHEMA } from './resources';
 import apiRequest from '@/lib/axios';
-import styles from './customer.module.css';
 
 const CustomerNew = ({ open, close, onAddCustomerSuccess }) => {
   const queryClient = useQueryClient();
@@ -34,26 +31,21 @@ const CustomerNew = ({ open, close, onAddCustomerSuccess }) => {
 
   const INPUT = [
     { type: 'text', name: 'name', label: 'Name' },
-    { type: 'text', name: 'phone', label: 'G-cash number' },
     { type: 'text', name: 'address', label: 'Address', list: addressQuery.data },
     { type: 'number', name: 'block', label: 'Block' },
     { type: 'number', name: 'lot', label: 'Lot' },
   ];
 
   return (
-    <ModalWide open={open} close={close}>
-      <div className={styles.modal_header_bar}>
-        <h2 className={styles.modal_header_text}>Add customer:</h2>
-        <div className={styles.modal_header_icon_container}>
-          <div className={styles.modal_header_icon} onClick={close}>
-            <RiCloseCircleLine />
-          </div>
-        </div>
-      </div>
-      <div className={styles.modal_body}>
-        <ReactForm layout={INPUT} schema={SCHEMA} onSubmit={(data) => newCustomerMutation.mutate(data)} onCancel={close} action="Add" />
-      </div>
-    </ModalWide>
+    <EditNewModal
+      title={'Add customer'}
+      open={open}
+      INPUT={INPUT}
+      SCHEMA={SCHEMA}
+      onSubmit={(data) => newCustomerMutation.mutate(data)}
+      onCancel={close}
+      action={'Add'}
+    />
   );
 };
 

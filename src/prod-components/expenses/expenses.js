@@ -23,7 +23,6 @@ const Expenses = () => {
   const [openActionModal, setOpenActionModal] = useState(false);
   const [expenseData, setExpenseData] = useState(null);
   const [date, setDate] = useState(moment());
-  const [isLoading, setIsLoading] = useState(false);
   const [isPrint, setIsPrint] = useState(false);
 
   const expensesQuery = useQuery({
@@ -35,7 +34,6 @@ const Expenses = () => {
         method: 'POST',
         data: { dateFrom: moment(date).startOf('day'), dateTo: moment(date).endOf('day') },
       }).then((res) => res.data),
-    onSuccess: () => setIsLoading(false),
   });
 
   const rowClickHandler = (data) => {
@@ -44,7 +42,7 @@ const Expenses = () => {
   };
 
   const onSetCalendar = (date) => {
-    setIsLoading(true);
+    // setIsLoading(true);
     setOpenDatePicker(true);
     setDate(date);
     setTimeout(() => {
@@ -103,7 +101,7 @@ const Expenses = () => {
         />
       )}
 
-      {openDatePicker && <DatePicker open={openDatePicker} close={onCancelHandler} onSave={onSetCalendar} />}
+      {openDatePicker && <DatePicker open={openDatePicker} close={onCancelHandler} onSave={onSetCalendar} defaultDate={date} />}
       {openEditExpense && <ExpenseEdit open={openEditExpense} close={onCancelHandler} expenseData={expenseData} />}
       {openAddExpense && <ExpenseAdd open={openAddExpense} close={onCancelHandler} />}
 
@@ -113,7 +111,7 @@ const Expenses = () => {
         </div>
       ) : (
         <>
-          <ExpensesList expensesQuery={expensesQuery?.data} onRowClick={rowClickHandler} date={date} isLoading={isLoading} />
+          <ExpensesList expensesQuery={expensesQuery} onRowClick={rowClickHandler} date={date} />
           <ExpensesIconBar
             onAddExpense={() => setOpenAddExpense(true)}
             today={onSetCalendar}

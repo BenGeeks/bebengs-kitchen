@@ -5,7 +5,7 @@ import styles from '../new-order.module.css';
 
 const Step1 = ({ sortedMenuList, recentItemList, selectItemHandler, isOrderEdit, onCancel, items }) => {
   return (
-    <div className={styles.main_page}>
+    <>
       <div className={styles.header_bar}>
         <h2 className={styles.header_bar_title}>Select an item:</h2>
         {isOrderEdit ? (
@@ -74,7 +74,7 @@ const Step1 = ({ sortedMenuList, recentItemList, selectItemHandler, isOrderEdit,
             );
           })}
       </div>
-    </div>
+    </>
   );
 };
 

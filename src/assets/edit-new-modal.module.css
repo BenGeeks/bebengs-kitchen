@@ -1,0 +1,41 @@
+.header_bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid #374151;
+  margin-bottom: 5px;
+}
+
+.header_text {
+  padding: 10px 5px;
+  color: #282829;
+}
+
+.header_icon_container {
+  display: flex;
+}
+
+.header_icon {
+  height: 50px;
+  padding: 0px 10px;
+  font-size: 2rem;
+  color: #374151;
+  cursor: pointer;
+  transition: 0.3s;
+  display: flex;
+  align-items: center;
+  border-radius: 5px;
+  margin: 5px;
+  border: 1px solid #374151;
+  background-color: beige;
+}
+
+.header_icon:hover {
+  color: beige;
+  background-color: #374151;
+}
+
+.body {
+  padding: 5px;
+  background-color: beige;
+}

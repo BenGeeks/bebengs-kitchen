@@ -32,7 +32,7 @@ const TotalSalesExpensesPieGraph = ({ total }) => {
           fill="#8884d8"
           dataKey="value"
         >
-          {total.map((entry, index) => (
+          {total?.map((entry, index) => (
             <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
           ))}
         </Pie>

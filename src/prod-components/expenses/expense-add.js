@@ -1,14 +1,11 @@
 'use client';
-import React from 'react';
-import moment from 'moment';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { toast } from 'react-toastify';
+import moment from 'moment';
 
+import { EXPENSES_INPUT, EXPENSES_SCHEMA } from './resources';
+import EditNewModal from '@/assets/edit-new-modal';
 import apiRequest from '@/lib/axios';
-
-import ModalWide from '@/assets/modal-wide';
-import ReactForm from '@/assets/react-form';
-import { EXPENSES_INPUT, EXPENSES_SCHEMA } from '@/resources/expenses';
 
 const ExpenseAdd = ({ open, close }) => {
   const queryClient = useQueryClient();
@@ -29,16 +26,16 @@ const ExpenseAdd = ({ open, close }) => {
     newExpenseMutation.mutate({ ...data, total: data.price * data.qty });
   };
   return (
-    <ModalWide open={open} close={close}>
-      <ReactForm
-        layout={EXPENSES_INPUT}
-        schema={EXPENSES_SCHEMA}
-        action={'Add'}
-        defaultValues={{ expenseDate: moment().format('yyyy-MM-DD') }}
-        onSubmit={AddExpenseHandler}
-        onCancel={close}
-      />
-    </ModalWide>
+    <EditNewModal
+      title={`Add new expense item`}
+      open={open}
+      INPUT={EXPENSES_INPUT}
+      SCHEMA={EXPENSES_SCHEMA}
+      DEFAULT={{ expenseDate: moment().format('yyyy-MM-DD') }}
+      onSubmit={AddExpenseHandler}
+      onCancel={close}
+      action={'Add'}
+    />
   );
 };
 

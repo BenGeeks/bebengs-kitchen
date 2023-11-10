@@ -1,7 +1,3 @@
-/* ================================ */
-/* =========  DAILY SALES  ======== */
-/* ================================ */
-
 .print_container {
   background-color: white;
   width: 816px;
@@ -78,25 +74,4 @@
 .cell_inner {
   padding: 3px;
   font-size: 0.8rem;
-}
-
-/* ================================ */
-/* =======  DAILY EXPENSE  ======== */
-/* ================================ */
-
-.expense_table {
-  width: 100%;
-  border-spacing: 1px;
-  background-color: black;
-}
-
-.expense_cell {
-  background-color: white;
-  padding: 3px;
-}
-
-.expense_number_cell {
-  background-color: white;
-  padding: 3px;
-  text-align: center;
 }

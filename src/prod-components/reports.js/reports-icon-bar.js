@@ -1,6 +1,6 @@
 'use client';
-import { PiCalendar } from 'react-icons/pi';
 import { RiPrinterLine } from 'react-icons/ri';
+import { PiCalendar } from 'react-icons/pi';
 
 import iconStyles from '@/styles/icons-bar.module.css';
 

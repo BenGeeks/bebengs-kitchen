@@ -47,3 +47,12 @@ export const CUSTOMER_HEADERS = [
 export const MENU_HEADER = [{ display: 'Item name', name: 'itemName' }];
 export const DEFAULT_MENU_ITEM = { itemName: '', description: '', imageUrl: '' };
 export const DEFAULT_VARIATION_DATA = { size: 'small', qty: 1, price: 100 };
+
+export const sortData = (menu) => {
+  let sortedData = menu.sort((a, b) => {
+    if (a.itemName.toLowerCase() > b.itemName.toLowerCase()) return 1;
+    if (a.itemName.toLowerCase() < b.itemName.toLowerCase()) return -1;
+    return 0;
+  });
+  return sortedData;
+};

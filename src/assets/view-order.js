@@ -2,15 +2,12 @@ import { RiCloseCircleLine, RiDeleteBin4Line, RiEditLine } from 'react-icons/ri'
 import { LiaMoneyBillWaveAltSolid } from 'react-icons/lia';
 import moment from 'moment';
 
+import { ORDER_ITEMS_HEADER, getTotal } from './resources';
+import styles from './view-order.module.css';
 import ModalWide from './modal-wide';
 import Table from '@/assets/table';
 
-import { ORDER_ITEMS_HEADER } from '@/resources/orders';
-import styles from './view-order.module.css';
-
 const ViewOrderDetailsModal = ({ open, close, enableDelete, onDelete, enableEdit, onEdit, enabledPaid, onPaid, orderDetails }) => {
-  let total = orderDetails?.orderDetails?.items.reduce((total, data) => +data.subTotal + total, 0);
-
   return (
     <ModalWide open={open} close={close}>
       <div className={styles.container}>
@@ -93,7 +90,7 @@ const ViewOrderDetailsModal = ({ open, close, enableDelete, onDelete, enableEdit
         <div className={styles.bottom_container}>
           <div className={styles.total_container}>
             <div className={styles.total}>TOTAL: </div>
-            <div className={styles.total}>₱ {total?.toLocaleString()}</div>
+            <div className={styles.total}>₱ {orderDetails && getTotal(orderDetails)}</div>
           </div>
         </div>
       </div>

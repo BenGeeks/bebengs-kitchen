@@ -6,11 +6,10 @@ import moment from 'moment';
 
 import ViewOrderDetailsModal from '@/assets/view-order';
 import OrderStatusUpdater from './order-status-updater';
-import ErrorPage from '@/assets/error';
-
-import apiRequest from '@/lib/axios';
-
+import { Loader, Error } from '@/assets/loader-error';
+import { getStatusColor } from '../resources';
 import styles from '../sales.module.css';
+import apiRequest from '@/lib/axios';
 
 const OrdersMainPage = ({ orderQuery, calendarDate, onEdit, width }) => {
   const queryClient = useQueryClient();
@@ -42,22 +41,24 @@ const OrdersMainPage = ({ orderQuery, calendarDate, onEdit, width }) => {
     setOpenViewDetails(true);
   };
 
-  const getStatusColor = (data) => {
-    if (data && !data.isPaid && data.isDelivered && data.isGcash) return styles.red;
-    if (data && !data.isPaid && data.isDelivered && !data.isGcash) return styles.purple;
-    if (data && data.isPaid && !data.isDelivered && !data.isGcash) return styles.turquoise;
-    if (data && data.isPaid && !data.isDelivered && data.isGcash) return styles.pink;
-    if (data && data.isPaid && data.isDelivered && data.isGcash) return styles.blue;
-    if (data && data.isPaid && data.isDelivered && !data.isGcash) return styles.green;
-    return styles.orange;
-  };
-
   const onUpdateStatus = (order) => {
     setSelectedOrder(order);
     setOpenStatusUpdate(true);
   };
 
-  if (orderQuery.isError) return <ErrorPage error={orderQuery.error} />;
+  if (orderQuery.isLoading)
+    return (
+      <div className={styles.page_container} style={{ width: width }}>
+        <Loader />
+      </div>
+    );
+
+  if (orderQuery.isError)
+    return (
+      <div className={styles.page_container} style={{ width: width }}>
+        <Error error={orderQuery.error} />
+      </div>
+    );
 
   return (
     <>
@@ -76,39 +77,33 @@ const OrdersMainPage = ({ orderQuery, calendarDate, onEdit, width }) => {
       <div className={styles.page_container} style={{ width: width }}>
         <div className={styles.date}>{moment(calendarDate).format('MMM DD, yyyy')}</div>
         <div className={styles.table_container}>
-          {orderQuery.isLoading ? (
-            <div className={styles.table_loader}>
-              <img src="/images/spinner.gif" alt="loader gif" />
-            </div>
-          ) : (
-            <table className={styles.table}>
-              <thead>
-                <tr>
-                  <th className={styles.table_head}>Order#</th>
-                  <th className={styles.table_head}>Order Details</th>
-                  <th className={styles.table_head}>Total</th>
-                </tr>
-              </thead>
-              <tbody>
-                {orderQuery?.data?.map((order, index) => {
-                  return (
-                    <tr key={index}>
-                      <td className={`${getStatusColor(order)} ${styles.table_cell_status}`} onClick={() => onUpdateStatus(order)}>
-                        {index + 1}
-                      </td>
-                      <td className={styles.table_cell} onClick={() => onSelectHandler(order)}>
-                        <div className={styles.table_cell_name}>{order?.orderDetails?.customer?.name}</div>
-                        <div
-                          className={styles.table_cell_address}
-                        >{`${order?.orderDetails?.customer?.address} - ${order?.orderDetails?.customer?.block} ${order?.orderDetails?.customer?.lot}`}</div>
-                      </td>
-                      <td className={styles.table_cell_total}>{order?.total?.toLocaleString('en-US')}</td>
-                    </tr>
-                  );
-                })}
-              </tbody>
-            </table>
-          )}
+          <table className={styles.table}>
+            <thead>
+              <tr>
+                <th className={styles.table_head}>Order#</th>
+                <th className={styles.table_head}>Order Details</th>
+                <th className={styles.table_head}>Total</th>
+              </tr>
+            </thead>
+            <tbody>
+              {orderQuery?.data?.map((order, index) => {
+                return (
+                  <tr key={index}>
+                    <td className={`${getStatusColor(order)} ${styles.table_cell_status}`} onClick={() => onUpdateStatus(order)}>
+                      {index + 1}
+                    </td>
+                    <td className={styles.table_cell} onClick={() => onSelectHandler(order)}>
+                      <div className={styles.table_cell_name}>{order?.orderDetails?.customer?.name}</div>
+                      <div
+                        className={styles.table_cell_address}
+                      >{`${order?.orderDetails?.customer?.address} - ${order?.orderDetails?.customer?.block} ${order?.orderDetails?.customer?.lot}`}</div>
+                    </td>
+                    <td className={styles.table_cell_total}>{order?.total?.toLocaleString('en-US')}</td>
+                  </tr>
+                );
+              })}
+            </tbody>
+          </table>
         </div>
       </div>
     </>

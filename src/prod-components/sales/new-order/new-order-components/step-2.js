@@ -5,7 +5,7 @@ import styles from '../new-order.module.css';
 
 const Step2 = ({ selectedItem, variationQuery, setStep, selectVariationHandler, isOrderEdit, onCancel, items }) => {
   return (
-    <div className={styles.main_page}>
+    <>
       <div className={styles.header_bar}>
         <h2 className={styles.header_bar_title}>Select {selectedItem?.itemName} size:</h2>
         {isOrderEdit ? (
@@ -51,7 +51,7 @@ const Step2 = ({ selectedItem, variationQuery, setStep, selectVariationHandler, 
             );
           })}
       </div>
-    </div>
+    </>
   );
 };
 

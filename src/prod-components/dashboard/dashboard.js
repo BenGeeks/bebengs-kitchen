@@ -6,15 +6,14 @@ import ProfitRunningAverageLineGraph from './graphs/profit-running-average';
 import TotalSalesExpensesPieGraph from './graphs/total-sales-expenses';
 import PerformancePieGraphWithNeedle from './graphs/performance';
 import SalesExpensesBarGraph from './graphs/sales-expenses';
+import { Loader, Error } from '@/assets/loader-error';
 
-import PerformancePieGraphWithNeedleMobile from './graphs-mobile/performance';
-import TotalSalesExpensesPieGraphMobile from './graphs-mobile/total-sales-expenses';
 import ProfitRunningAverageLineGraphMobile from './graphs-mobile/profit-running-average';
+import TotalSalesExpensesPieGraphMobile from './graphs-mobile/total-sales-expenses';
+import PerformancePieGraphWithNeedleMobile from './graphs-mobile/performance';
 import SalesExpensesBarGraphMobile from './graphs-mobile/sales-expense';
-
-import apiRequest from '@/lib/axios';
-
 import styles from './dashboard.module.css';
+import apiRequest from '@/lib/axios';
 
 const DashboardPage = () => {
   const [total, setTotal] = useState([]);
@@ -38,11 +37,28 @@ const DashboardPage = () => {
     onSuccess: (data) => getTotal(data),
   });
 
-  if (dashboardQuery?.isLoading)
+  if (dashboardQuery.isLoading)
     return (
-      <div className={styles.page_container}>
-        <img className={styles.loading_gif} src="/images/loading-gif.gif" alt="loading gif" />
-      </div>
+      <>
+        <div className={styles.page_container}>
+          <Loader />
+        </div>
+        <div className={styles.page_container_mobile}>
+          <Loader />
+        </div>
+      </>
+    );
+
+  if (dashboardQuery.isError)
+    return (
+      <>
+        <div className={styles.page_container}>
+          <Error error={dashboardQuery.error} />
+        </div>
+        <div className={styles.page_container_mobile}>
+          <Error error={dashboardQuery.error} />
+        </div>
+      </>
     );
 
   return (

@@ -5,19 +5,21 @@ import { toast } from 'react-toastify';
 import moment from 'moment';
 
 import ViewOrderDetailsModal from '@/assets/view-order';
+import { Loader, Error } from '@/assets/loader-error';
 import DatePicker from '@/assets/date-picker';
+import Table from '@/assets/table';
+
+import { HEADERS, formatData } from './resources';
 import apiRequest from '@/lib/axios';
 
 import styles from './collectibles.module.css';
-import tableStyles from '@/styles/assets.module.css';
 
 const Collectibles = () => {
   const queryClient = useQueryClient();
+  const [collectiblesData, setCollectiblesData] = useState([]);
   const [selectedOrder, setSelectedOrder] = useState(null);
   const [openDatePicker, setOpenDatePicker] = useState(false);
   const [viewOrderDetails, setViewOrderDetails] = useState(false);
-
-  const HEADERS = ['Age', 'Date', 'Name', 'Total'];
 
   const collectiblesQuery = useQuery({
     queryKey: ['collectibles'],
@@ -27,19 +29,21 @@ const Collectibles = () => {
         method: 'POST',
         data: { dateToday: moment().startOf('day') },
       }).then((res) => res.data),
+    onSuccess: (data) => setCollectiblesData(formatData(data)),
   });
 
   const updateOrderMutation = useMutation({
     mutationFn: (payload) => apiRequest({ url: `orders/${payload.id}`, method: 'PUT', data: payload.data }),
     onSuccess: () => {
       toast.success('Order updated successfully.');
-      queryClient.invalidateQueries({ queryKey: ['collectibles', 'orders'] });
+      queryClient.invalidateQueries({ queryKey: ['collectibles'] });
       setOpenDatePicker(false);
     },
     onError: (error) => {
       toast.error(error.response.data.error.message);
     },
   });
+
   const onPaidHandler = (date) => {
     if (confirm(`Are you sure this collectible has been paid?`) == true) {
       updateOrderMutation.mutate({ id: selectedOrder._id, data: { ...selectedOrder, isPaid: true, paymentDate: moment(date) } });
@@ -50,6 +54,20 @@ const Collectibles = () => {
     setViewOrderDetails(true);
     setSelectedOrder(order);
   };
+
+  if (collectiblesQuery.isLoading)
+    return (
+      <div className={styles.page_container}>
+        <Loader />
+      </div>
+    );
+
+  if (collectiblesQuery.isError)
+    return (
+      <div className={styles.page_container}>
+        <Error error={collectiblesQuery.error} />
+      </div>
+    );
 
   return (
     <>
@@ -70,44 +88,14 @@ const Collectibles = () => {
               {collectiblesQuery?.data?.reduce((total, data) => data.total + total, 0)?.toLocaleString('en-US')}
             </h3>
           </div>
-          <div className={tableStyles.table_container}>
-            {collectiblesQuery?.isLoading ? (
-              <div className={tableStyles.table_loader}>
-                <img src="/images/spinner.gif" alt="loader gif" />
-              </div>
-            ) : (
-              <table className={tableStyles.table}>
-                <thead>
-                  <tr className={tableStyles.table_head_row}>
-                    {HEADERS.map((head) => {
-                      return (
-                        <th className={tableStyles.table_head} key={head}>
-                          <div className={tableStyles.table_head_text}>{head}</div>
-                        </th>
-                      );
-                    })}
-                  </tr>
-                </thead>
-                <tbody>
-                  {collectiblesQuery?.data?.map((order, index) => {
-                    return (
-                      <tr key={index} className={tableStyles.table_row_clickable} onClick={() => viewOrderHandler(order)}>
-                        <td className={styles.cell}>{moment().diff(order.deliveryDate, 'days')}</td>
-                        <td className={styles.cell}>{moment(order.deliveryDate).format('MMM DD, YYYY')}</td>
-                        <td className={styles.cell}>
-                          <div className={styles.cell_name}>{order?.orderDetails?.customer?.name}</div>
-                          <div
-                            className={styles.cell_address}
-                          >{`${order?.orderDetails?.customer?.address} - ${order?.orderDetails?.customer?.block} ${order?.orderDetails?.customer?.lot}`}</div>
-                        </td>
-                        <td className={styles.cell}>{order.total.toLocaleString('en-US')}</td>
-                      </tr>
-                    );
-                  })}
-                </tbody>
-              </table>
-            )}
-          </div>
+          <Table
+            headers={HEADERS}
+            data={collectiblesData}
+            enableDelete={false}
+            enableEdit={false}
+            enableRowClick={true}
+            onRowClick={viewOrderHandler}
+          />
         </div>
       </div>
     </>

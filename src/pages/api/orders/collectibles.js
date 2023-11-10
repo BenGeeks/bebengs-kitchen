@@ -14,10 +14,16 @@ export default async function handler(req, res) {
     })
       .sort({ deliveryDate: 1 })
       .then((data) => {
-        res.status(200).json({ success: true, data: data });
+        return res.status(200).json({ success: true, data: data });
       })
       .catch((error) => {
-        res.status(400).json({ success: false, error: error });
+        return res.status(400).json({ success: false, error: error });
       });
   }
 }
+
+export const config = {
+  api: {
+    externalResolver: true,
+  },
+};

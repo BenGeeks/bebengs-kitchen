@@ -90,7 +90,9 @@ const OrderListHistory = ({ currentPage, setCurrentPage, onEdit, calendarDate, s
 
   return (
     <>
-      {openCalendar && <DatePicker open={openCalendar} close={() => setOpenCalendar(false)} onSave={setCalendarHandler} />}
+      {openCalendar && (
+        <DatePicker open={openCalendar} close={() => setOpenCalendar(false)} onSave={setCalendarHandler} defaultDate={calendarDate} />
+      )}
       {isPrint ? (
         <div ref={printRef}>
           <PrintSalesDailySummary data={orderQuery.data} salesSummary={salesData} date={calendarDate} />
@@ -98,6 +100,7 @@ const OrderListHistory = ({ currentPage, setCurrentPage, onEdit, calendarDate, s
       ) : (
         <>
           <OrdersSideBar
+            orderQuery={orderQuery}
             salesData={salesData}
             salesCount={salesCount}
             collectibleData={collectibleData}

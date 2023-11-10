@@ -6,7 +6,6 @@ import moment from 'moment';
 import ReportsMainPage from './reports-main-page';
 import ReportsIconBar from './reports-icon-bar';
 import DatePicker from '@/assets/date-picker';
-
 import apiRequest from '@/lib/axios';
 
 const ReportsPage = () => {
@@ -107,13 +106,14 @@ const ReportsPage = () => {
 
   return (
     <>
-      {openCalendar && <DatePicker open={openCalendar} close={() => setOpenCalendar(false)} onSave={setDateHandler} />}
+      {openCalendar && <DatePicker open={openCalendar} close={() => setOpenCalendar(false)} onSave={setDateHandler} defaultDate={date} />}
       <ReportsMainPage
         salesSummary={salesSummary}
         salesData={salesData}
         expensesData={expensesData}
         expensesSummary={expensesSummary}
-        orderQuery={orderQuery?.data}
+        orderQuery={orderQuery}
+        expensesQuery={expensesQuery}
         date={date}
       />
       <ReportsIconBar setOpenCalendar={setOpenCalendar} />

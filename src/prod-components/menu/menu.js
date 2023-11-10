@@ -6,11 +6,10 @@ import { toast } from 'react-toastify';
 import ActionModal from '@/assets/action-modal';
 import MenuIconbar from './menu-icon-bar';
 import MenuSideBar from './menu-side-bar';
+import apiRequest from '@/lib/axios';
 import MenuList from './menu-list';
 import NewMenu from './menu-new';
 import EditMenu from './menu-edit';
-
-import apiRequest from '@/lib/axios';
 
 const MenuPage = () => {
   const queryClient = useQueryClient();
@@ -80,10 +79,10 @@ const MenuPage = () => {
           onDelete={deleteHandler}
         />
       )}
-      <NewMenu open={addNew} onCancel={cancelHandler} />
-      <EditMenu open={editMenu} onCancel={cancelHandler} menu={selectedMenu} />
+      {addNew && <NewMenu open={addNew} onCancel={cancelHandler} />}
+      {editMenu && <EditMenu open={editMenu} onCancel={cancelHandler} menu={selectedMenu} />}
       <MenuSideBar
-        variationQuery={variationQuery.data}
+        variationQuery={variationQuery}
         width={selectedMenu ? '100%' : '0px'}
         selectedMenu={selectedMenu}
         setSelectedMenu={setSelectedMenu}

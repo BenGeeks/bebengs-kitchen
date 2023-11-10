@@ -1,6 +1,6 @@
-import React from 'react';
-import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
+import { useForm } from 'react-hook-form';
+import React from 'react';
 
 import styles from './react-form.module.css';
 

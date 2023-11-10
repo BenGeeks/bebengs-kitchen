@@ -12,7 +12,7 @@ import SalesPage from '@/prod-components/sales/sales';
 import MenuPage from '@/prod-components/menu/menu';
 import DashboardPage from '@/prod-components/dashboard/dashboard';
 
-import styles from '@/styles/prod.module.css';
+import styles from '@/page-styles/prod.module.css';
 
 const ProdPage = () => {
   const [currentPage, setCurrentPage] = useState('dashboard');

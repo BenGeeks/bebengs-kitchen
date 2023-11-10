@@ -5,12 +5,10 @@ import { toast } from 'react-toastify';
 
 import CustomerNew from '@/prod-components/customer/customer-new';
 import NewOrderMainPage from './new-order-main-page';
+import { DEFAULT_ORDER_DETAILS } from './resources';
 import NewOrderIconBar from './new-order-icon-bar';
 import NewOrderSideBar from './new-order-side-bar';
-
 import apiRequest from '@/lib/axios';
-
-import { DEFAULT_ORDER_DETAILS } from '@/resources/orders';
 
 const NewOrderPage = ({ setCurrentPage, isFutureOrder }) => {
   const queryClient = useQueryClient();

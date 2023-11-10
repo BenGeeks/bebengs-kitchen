@@ -7,10 +7,9 @@ import React, { useState } from 'react';
 import { toast } from 'react-toastify';
 import moment from 'moment';
 
-import apiRequest from '@/lib/axios';
-
-import styles from '../sales.module.css';
 import ModalWide from '@/assets/modal-wide';
+import styles from '../sales.module.css';
+import apiRequest from '@/lib/axios';
 
 const OrderStatusUpdater = ({ open, close, order }) => {
   const queryClient = useQueryClient();

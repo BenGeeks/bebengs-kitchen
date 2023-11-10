@@ -1,7 +1,7 @@
 'use client';
 import { RiAddCircleLine, RiPrinterLine } from 'react-icons/ri';
-import { MdDisplaySettings } from 'react-icons/md';
 import { PiCalendar, PiCalendarBlank } from 'react-icons/pi';
+import { MdDisplaySettings } from 'react-icons/md';
 import { LuFilter } from 'react-icons/lu';
 
 import iconStyles from '@/styles/icons-bar.module.css';
