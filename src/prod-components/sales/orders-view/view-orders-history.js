@@ -107,7 +107,7 @@ const OrderListHistory = ({ currentPage, setCurrentPage, onEdit, calendarDate, s
             calendarDate={calendarDate}
             width={getWidth('left')}
           />
-          <OrdersMainPage orderQuery={orderQuery} onEdit={onEdit} width={getWidth('right')} />
+          <OrdersMainPage orderQuery={orderQuery} onEdit={onEdit} width={getWidth('right')} calendarDate={calendarDate} />
           <OrdersIconBar
             currentPage={currentPage}
             setCurrentPage={setCurrentPage}

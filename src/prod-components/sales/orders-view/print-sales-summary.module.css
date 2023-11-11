@@ -1,8 +1,12 @@
 .print_container {
   background-color: white;
-  width: 816px;
-  height: 1248px;
-  padding: 50px 50px;
+  width: 800px;
+  padding: 10px 50px 50px;
+}
+
+.page_number {
+  border-top: 1px solid #374151;
+  padding: 5px;
 }
 
 .print_head_container {

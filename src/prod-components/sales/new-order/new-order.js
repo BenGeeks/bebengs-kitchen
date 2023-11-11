@@ -18,6 +18,8 @@ const NewOrderPage = ({ setCurrentPage, isFutureOrder }) => {
   const [step, setStep] = useState(1);
   const [edit, setEdit] = useState(1);
   const [addCustomer, setAddCustomer] = useState(false);
+  const [deliveryCharge, setDeliveryCharge] = useState(null);
+  const [discount, setDiscount] = useState(null);
 
   const newOrderMutation = useMutation({
     mutationFn: (data) => apiRequest({ url: `orders`, method: 'POST', data: data }),
@@ -73,9 +75,11 @@ const NewOrderPage = ({ setCurrentPage, isFutureOrder }) => {
     let total = items.reduce((total, data) => data.subTotal + total, 0) - +orderDetails.downPayment;
     let tempData = {
       ...orderDetails,
-      total: total,
-      paymentDate: orderDetails.isPaid ? paymentDate : null,
+      paymentDate: orderDetails.isPaid ? orderDetails.paymentDate : null,
       orderDetails: { customer: selectedCustomer, items },
+      deliveryCharge: deliveryCharge ? +deliveryCharge : 0,
+      discount: discount ? +discount : 0,
+      total: total + deliveryCharge - discount,
     };
     newOrderMutation.mutate(tempData);
     setSelectedCustomer(null);
@@ -102,9 +106,11 @@ const NewOrderPage = ({ setCurrentPage, isFutureOrder }) => {
         items={items}
         onSave={onSaveHandler}
         onCancel={onCancelHandler}
+        setItems={setItems}
         edit={edit}
         setEdit={setEdit}
-        title={'Add New Order'}
+        deliveryCharge={deliveryCharge}
+        discount={discount}
       />
       <NewOrderMainPage
         setSelectedCustomer={setSelectedCustomer}
@@ -120,7 +126,16 @@ const NewOrderPage = ({ setCurrentPage, isFutureOrder }) => {
         isOrderEdit={false}
         onCancel={() => setEdit(null)}
       />
-      <NewOrderIconBar reset={resetFormHandler} step={step} onCancel={onCancelHandler} addCustomer={() => setAddCustomer(true)} />
+      <NewOrderIconBar
+        reset={resetFormHandler}
+        step={step}
+        onCancel={onCancelHandler}
+        addCustomer={() => setAddCustomer(true)}
+        setDeliveryCharge={setDeliveryCharge}
+        setDiscount={setDiscount}
+        deliveryCharge={deliveryCharge}
+        discount={discount}
+      />
     </>
   );
 };

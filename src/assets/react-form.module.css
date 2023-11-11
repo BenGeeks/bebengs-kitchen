@@ -17,6 +17,19 @@
   width: 70%;
   border: 1px solid #374151;
 }
+.date {
+  font-size: 1.2rem;
+  padding: 10px;
+  width: 70%;
+  background-color: white;
+  min-height: 45px;
+  border: 1px solid #374151;
+  cursor: pointer;
+}
+
+.date:hover {
+  background-color: beige;
+}
 
 .textarea {
   font-size: 1.2rem;

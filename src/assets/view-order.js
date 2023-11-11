@@ -48,10 +48,10 @@ const ViewOrderDetailsModal = ({ open, close, enableDelete, onDelete, enableEdit
         </div>
         <div className={styles.customer_box}>
           <div className={styles.customer_info_container}>
-            <div className={styles.customer_name}>{orderDetails?.orderDetails?.customer?.name}</div>
+            <div className={styles.customer_info}>{orderDetails?.orderDetails?.customer?.name}</div>
             <div
-              className={styles.customer_address}
-            >{`${orderDetails?.orderDetails?.customer?.address} - ${orderDetails?.orderDetails?.customer?.block} ${orderDetails?.orderDetails?.customer?.lot}`}</div>
+              className={styles.customer_info}
+            >{`${orderDetails?.orderDetails?.customer?.address} ${orderDetails?.orderDetails?.customer?.block} ${orderDetails?.orderDetails?.customer?.lot}`}</div>
           </div>
         </div>
         <div className={styles.customer_box}>
@@ -64,33 +64,42 @@ const ViewOrderDetailsModal = ({ open, close, enableDelete, onDelete, enableEdit
             <div className={styles.title}>Delivery Time: </div>
             {orderDetails?.deliveryTime}
           </div>
-          <div className={styles.info_container}>
-            <div className={styles.title}>Is Delivered: </div>
-            {orderDetails?.isDelivered ? '🟢' : '🔴'}
-          </div>
-          <div className={styles.info_container}>
-            <div className={styles.title}>Is G-Cash: </div>
-            {orderDetails?.isGcash ? '🔵' : '🟢'}
-          </div>
-          <div className={styles.info_container}>
-            <div className={styles.title}>Is Paid: </div>
-            {orderDetails?.isPaid ? '🟢' : '🔴'}
-          </div>
           {orderDetails?.isPaid && (
             <div className={styles.info_container}>
               <div className={styles.title}>Payment Date: </div>
               {orderDetails.paymentDate && moment(orderDetails.paymentDate).format('MMM DD, yyyy')}
             </div>
           )}
+          <div className={styles.info_container}>
+            <div className={styles.title}>Delivered: {orderDetails?.isDelivered ? '🟢' : '🔴'}</div>
+            <div className={styles.title}>G-Cash: {orderDetails?.isGcash ? '🔵' : '🟢'}</div>
+            <div className={styles.title}>Paid: {orderDetails?.isPaid ? '🟢' : '🔴'}</div>
+          </div>
         </div>
         <div className={styles.customer_box}>
           <div className={styles.sub_header}>Shopping Cart:</div>
           <Table headers={ORDER_ITEMS_HEADER} data={orderDetails?.orderDetails?.items} />
         </div>
+        {orderDetails?.deliveryCharge && (
+          <div className={styles.customer_box}>
+            <div className={styles.additional_info_container}>
+              <div>Delivery Charge:</div>
+              <div>{orderDetails?.deliveryCharge?.toLocaleString('en-US')}</div>
+            </div>
+          </div>
+        )}
+        {orderDetails?.discount && (
+          <div className={styles.customer_box}>
+            <div className={styles.additional_info_container}>
+              <div>Discount:</div>
+              <div>{orderDetails?.discount?.toLocaleString('en-US')}</div>
+            </div>
+          </div>
+        )}
         <div className={styles.bottom_container}>
           <div className={styles.total_container}>
             <div className={styles.total}>TOTAL: </div>
-            <div className={styles.total}>₱ {orderDetails && getTotal(orderDetails)}</div>
+            <div className={styles.total}>₱ {orderDetails?.total?.toLocaleString('en-US')}</div>
           </div>
         </div>
       </div>

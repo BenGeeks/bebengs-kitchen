@@ -14,6 +14,10 @@ const EditOrderPage = ({ setCurrentPage, orderData, isFutureOrder }) => {
   const [items, setItems] = useState(orderData?.orderDetails?.items);
   const [orderDetails, setOrderDetails] = useState(orderData);
   const [edit, setEdit] = useState(null);
+  const [deliveryCharge, setDeliveryCharge] = useState(orderData?.deliveryCharge);
+  const [discount, setDiscount] = useState(orderData?.discount);
+
+  console.log('ORDER DATA: ', orderData);
 
   const editOrderMutation = useMutation({
     mutationFn: (payload) => apiRequest({ url: `orders/${payload.id}`, method: 'PUT', data: payload.data }),
@@ -70,9 +74,11 @@ const EditOrderPage = ({ setCurrentPage, orderData, isFutureOrder }) => {
     let total = items.reduce((total, data) => data.subTotal + total, 0) - +orderDetails.downPayment;
     let tempData = {
       ...orderDetails,
-      total: total,
       paymentDate: orderDetails.isPaid ? orderDetails.paymentDate : null,
       orderDetails: { customer: selectedCustomer, items },
+      deliveryCharge: deliveryCharge ? +deliveryCharge : 0,
+      discount: discount ? +discount : 0,
+      total: total + deliveryCharge - discount,
     };
     editOrderMutation.mutate({ id: orderData._id, data: tempData });
     isFutureOrder ? setCurrentPage('orders-list') : setCurrentPage('todays-list');
@@ -98,7 +104,8 @@ const EditOrderPage = ({ setCurrentPage, orderData, isFutureOrder }) => {
         onCancel={() => (isFutureOrder ? setCurrentPage('orders-list') : setCurrentPage('todays-list'))}
         edit={edit}
         setEdit={setEdit}
-        title={'Edit Order'}
+        deliveryCharge={deliveryCharge}
+        discount={discount}
       />
       <NewOrderMainPage
         setSelectedCustomer={setSelectedCustomer}
@@ -122,6 +129,10 @@ const EditOrderPage = ({ setCurrentPage, orderData, isFutureOrder }) => {
         onCancel={() => (isFutureOrder ? setCurrentPage('orders-list') : setCurrentPage('todays-list'))}
         isEdit={true}
         onDelete={onDeleteHandler}
+        setDeliveryCharge={setDeliveryCharge}
+        setDiscount={setDiscount}
+        deliveryCharge={deliveryCharge}
+        discount={discount}
       />
     </>
   );

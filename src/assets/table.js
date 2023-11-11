@@ -3,7 +3,7 @@ import { RiDeleteBin4Line, RiEditLine } from 'react-icons/ri';
 
 import styles from './table.module.css';
 
-const Table = ({ headers, data, enableDelete, enableEdit, onDelete, onEdit, enableRowClick, onRowClick }) => {
+const Table = ({ headers, data, enableDelete, enableEdit, onDelete, onEdit, enableRowClick, onRowClick, small }) => {
   return (
     <table className={styles.table}>
       <thead>
@@ -33,7 +33,7 @@ const Table = ({ headers, data, enableDelete, enableEdit, onDelete, onEdit, enab
               >
                 {headers.map((header, index) => {
                   return (
-                    <td key={index} className={styles.cell}>
+                    <td key={index} className={styles.cell} style={small && { fontSize: '1rem' }}>
                       {typeof row[header.name] === 'boolean' ? (row[header.name] ? '🟢' : '🔴') : row[header.name]}
                     </td>
                   );

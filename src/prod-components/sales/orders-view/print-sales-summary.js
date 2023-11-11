@@ -8,10 +8,12 @@ const PrintSalesDailySummary = ({ data, salesSummary, date }) => {
   return (
     <div className={styles.print_container}>
       <div className={styles.print_head_container}>
-        <div className={styles.print_head_logo}>Bebeng's Kitchen</div>
-        <div>
-          Daily Sales Report for <u>{moment(date).format('MMM DD, YYYY')}</u>
-        </div>
+        <header>
+          <div className={styles.print_head_logo}>Bebeng's Kitchen</div>
+          <div>
+            Daily Sales Report for <u>{moment(date).format('MMM DD, YYYY')}</u>
+          </div>
+        </header>
         <div className={styles.print_head_summary}>
           <div>Total Cash: {salesSummary?.cashTotal.toLocaleString('en-US')}</div>
           <div>Total G-cash: {salesSummary?.gCashTotal.toLocaleString('en-US')}</div>
@@ -88,6 +90,9 @@ const PrintSalesDailySummary = ({ data, salesSummary, date }) => {
             })}
           </tbody>
         </table>
+        <footer>
+          <span class="page_number"></span>
+        </footer>
       </div>
     </div>
   );

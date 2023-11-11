@@ -1,10 +1,16 @@
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useForm } from 'react-hook-form';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 
 import styles from './react-form.module.css';
+import DatePicker from './date-picker';
+import moment from 'moment';
 
 const ReactForm = ({ layout, schema, defaultValues, onSubmit, onCancel, action }) => {
+  const [openDatePicker, setOpenDatePicker] = useState(false);
+  const [dateName, setDatename] = useState('');
+  const [calendarDates, setCalendarDates] = useState({});
+
   const {
     register,
     handleSubmit,
@@ -14,9 +20,31 @@ const ReactForm = ({ layout, schema, defaultValues, onSubmit, onCancel, action }
     defaultValues,
   });
 
+  const onDateClick = (name) => {
+    setOpenDatePicker(true);
+    setDatename(name);
+  };
+
+  const setCalendarDateHandler = (date) => {
+    console.log('DATE: ', moment(date));
+    setCalendarDates({ ...calendarDates, [dateName]: moment(date) });
+    setOpenDatePicker(false);
+  };
+
+  const onSubmitHandler = (data) => {
+    onSubmit({ ...data, ...calendarDates });
+  };
+
+  useEffect(() => {
+    layout?.forEach((item) => {
+      if (item.type === 'date') setCalendarDates((prev) => ({ ...prev, [item.name]: defaultValues[[item.name]] }));
+    });
+  }, [layout, defaultValues]);
+
   return (
     <div>
-      <form onSubmit={handleSubmit(onSubmit)}>
+      {openDatePicker && <DatePicker open={openDatePicker} close={() => setOpenDatePicker(false)} onSave={setCalendarDateHandler} />}
+      <form onSubmit={handleSubmit(onSubmitHandler)}>
         {layout.map((input, index) => {
           return (
             <div key={index} className={styles.input_container}>
@@ -36,20 +64,30 @@ const ReactForm = ({ layout, schema, defaultValues, onSubmit, onCancel, action }
                     </label>
                   ) : (
                     <>
-                      <input
-                        type={input.type}
-                        placeholder={input.label}
-                        className={styles.input}
-                        list={input.name}
-                        {...register(input.name)}
-                        autoFocus={index === 0}
-                      />
-                      {input.list && (
-                        <datalist id={input.name}>
-                          {input.list.map((el) => {
-                            return <option value={el.address} key={el.address} />;
-                          })}
-                        </datalist>
+                      {input.type === 'date' ? (
+                        <>
+                          <div type="date" {...register(input.name)} className={styles.date} onClick={() => onDateClick(input.name)}>
+                            {moment(calendarDates[input.name]).format('MMM DD, YYYY')}
+                          </div>
+                        </>
+                      ) : (
+                        <>
+                          <input
+                            type={input.type}
+                            placeholder={input.label}
+                            className={styles.input}
+                            list={input.name}
+                            {...register(input.name)}
+                            autoFocus={index === 0}
+                          />
+                          {input.list && (
+                            <datalist id={input.name}>
+                              {input.list.map((el) => {
+                                return <option value={el.address} key={el.address} />;
+                              })}
+                            </datalist>
+                          )}
+                        </>
                       )}
                     </>
                   )}

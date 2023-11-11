@@ -4,17 +4,28 @@ import { useState } from 'react';
 import moment from 'moment';
 
 import EditShoppingCartItem from './new-order-components/edit-cart-item';
-import { ORDER_ITEMS_HEADER } from './resources';
+import { ORDER_ITEMS_HEADER, getTotal } from './resources';
 import ActionModal from '@/assets/action-modal';
 import styles from './new-order.module.css';
 import Table from '@/assets/table';
 
-const NewOrderSideBar = ({ selectedCustomer, orderDetails, items, step, setStep, setItems, onCancel, onSave, edit, setEdit, title }) => {
+const NewOrderSideBar = ({
+  selectedCustomer,
+  orderDetails,
+  items,
+  step,
+  setStep,
+  setItems,
+  onCancel,
+  onSave,
+  edit,
+  setEdit,
+  deliveryCharge,
+  discount,
+}) => {
   const [openActionModal, setOpenActionModal] = useState(false);
   const [selectedCartItem, setSelectedCartItem] = useState(null);
   const [openEditHandler, setOpenEditHandler] = useState(false);
-
-  let total = items.reduce((total, data) => +data.subTotal + total, 0) - +orderDetails.downPayment;
 
   const customerClickHandler = () => {
     if (step === 1) {
@@ -67,7 +78,6 @@ const NewOrderSideBar = ({ selectedCustomer, orderDetails, items, step, setStep,
       )}
       <div className={edit ? styles.container_hide : styles.container}>
         <div className={styles.main_box}>
-          <h2 className={styles.header}>{title}</h2>
           {selectedCustomer && (
             <div className={styles.customer_box} onClick={customerClickHandler}>
               <div className={styles.sub_header}>Customer's Info:</div>
@@ -77,15 +87,7 @@ const NewOrderSideBar = ({ selectedCustomer, orderDetails, items, step, setStep,
               </div>
               <div className={styles.info_container}>
                 <div className={styles.title}>Address: </div>
-                {selectedCustomer?.address}
-              </div>
-              <div className={styles.info_container}>
-                <div className={styles.title}>Block: </div>
-                {selectedCustomer?.block}
-              </div>
-              <div className={styles.info_container}>
-                <div className={styles.title}>Lot: </div>
-                {selectedCustomer?.lot}
+                {selectedCustomer?.address} {selectedCustomer?.block} {selectedCustomer?.lot}
               </div>
             </div>
           )}
@@ -100,50 +102,61 @@ const NewOrderSideBar = ({ selectedCustomer, orderDetails, items, step, setStep,
                 <div className={styles.title}>Delivery Time: </div>
                 {orderDetails?.deliveryTime}
               </div>
-              <div className={styles.info_container}>
-                <div className={styles.title}>Is Delivered: </div>
-                {orderDetails?.isDelivered ? '🟢' : '🔴'}
-              </div>
-              <div className={styles.info_container}>
-                <div className={styles.title}>Is G-Cash: </div>
-                {orderDetails?.isGcash ? '🟢' : '🔴'}
-              </div>
-              <div className={styles.info_container}>
-                <div className={styles.title}>Is Paid: </div>
-                {orderDetails?.isPaid ? '🟢' : '🔴'}
-              </div>
               {orderDetails.isPaid && (
                 <div className={styles.info_container}>
                   <div className={styles.title}>Payment Date: </div>
                   {orderDetails.paymentDate && moment(orderDetails.paymentDate).format('MMM DD, yyyy')}
                 </div>
               )}
+              <div className={styles.boolean_container}>
+                <div>Delivered {orderDetails?.isDelivered ? '🟢' : '🔴'}</div>
+                <div>G-Cash {orderDetails?.isGcash ? '🟢' : '🔴'}</div>
+                <div>Paid: {orderDetails?.isPaid ? '🟢' : '🔴'}</div>
+              </div>
             </div>
           )}
           {step === 3 && (
-            <div className={styles.customer_box}>
-              <div className={styles.shoping_card_header_bar}>
-                <div className={styles.shoping_card_title}>Shopping Cart:</div>
-                {edit !== 3 && (
-                  <div className={styles.shoping_cart_add_icon} title="add" onClick={() => setEdit(3)}>
-                    <div className={styles.shoping_cart_icon}>
-                      <RiAddCircleLine />
+            <>
+              <div className={styles.customer_box}>
+                <div className={styles.shoping_card_header_bar}>
+                  <div className={styles.shoping_card_title}>Shopping Cart:</div>
+                  {edit !== 3 && (
+                    <div className={styles.shoping_cart_add_icon} title="add" onClick={() => setEdit(3)}>
+                      <div className={styles.shoping_cart_icon}>
+                        <RiAddCircleLine />
+                      </div>
+                      <p className={styles.shoping_cart_icon_text}>Menu</p>
                     </div>
-                    <p className={styles.shoping_cart_icon_text}>Menu</p>
+                  )}
+                </div>
+                <div className={styles.table_container}>
+                  <Table headers={ORDER_ITEMS_HEADER} data={items} enableRowClick={true} onRowClick={rowClickHandler} small={edit} />
+                </div>
+              </div>
+              {deliveryCharge && (
+                <div className={styles.customer_box}>
+                  <div className={styles.shoping_card_header_bar}>
+                    <div className={styles.shoping_card_title}>Delivery Charge:</div>
+                    <div className={styles.shoping_card_title}>{deliveryCharge?.toLocaleString('en-US')}</div>
                   </div>
-                )}
-              </div>
-              <div className={styles.table_container}>
-                <Table headers={ORDER_ITEMS_HEADER} data={items} enableRowClick={true} onRowClick={rowClickHandler} />
-              </div>
-            </div>
+                </div>
+              )}
+              {discount && (
+                <div className={styles.customer_box}>
+                  <div className={styles.shoping_card_header_bar}>
+                    <div className={styles.shoping_card_title}>Discount:</div>
+                    <div className={styles.shoping_card_title}>{discount?.toLocaleString('en-US')}</div>
+                  </div>
+                </div>
+              )}
+            </>
           )}
         </div>
         {selectedCustomer && items.length !== 0 && (
           <div className={styles.bottom_container}>
             <div className={styles.total_container}>
               <div className={styles.total}>TOTAL: </div>
-              <div className={styles.total}>₱ {total.toLocaleString('en-US')}</div>
+              <div className={styles.total}>₱ {getTotal(items, deliveryCharge, discount)}</div>
             </div>
             <div className={styles.action_container}>
               <div className={styles.cancel} onClick={onCancel}>

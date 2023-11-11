@@ -31,7 +31,17 @@ export const ORDER_DETAILS_INPUT = [
   { type: 'date', name: 'paymentDate', label: 'Payment Date' },
 ];
 
-export const QTY_NUMBER = [
-  1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37,
-  38, 39,
-];
+export const QTY_NUMBER = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '0'];
+
+export const getRandomColor = () => {
+  let color = 'hsl(' + Math.random() * 360 + ', 100%, 75%)';
+  return color;
+};
+
+export const getTotal = (items, deliveryCharge, discount) => {
+  let delivery = deliveryCharge ? +deliveryCharge : 0;
+  let disc = discount ? +discount : 0;
+  let itemTotal = items.reduce((total, data) => +data.subTotal + total, 0);
+  let total = itemTotal + delivery - disc;
+  return total.toLocaleString('en-US');
+};
