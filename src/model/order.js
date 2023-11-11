@@ -7,7 +7,7 @@ const orderSchema = new Schema(
     paymentDate: { type: Date, required: false },
     deliveryDate: { type: Date, required: true, index: true },
     deliveryTime: { type: String, required: false },
-    isDownPayment: { type: Boolean, required: true },
+    isDownPayment: { type: Boolean, required: false },
     downPayment: { type: Number, required: false },
     deliveryCharge: { type: Number, required: false },
     discount: { type: Number, required: false },
