@@ -14,8 +14,8 @@ const EditOrderPage = ({ setCurrentPage, orderData, isFutureOrder }) => {
   const [items, setItems] = useState(orderData?.orderDetails?.items);
   const [orderDetails, setOrderDetails] = useState(orderData);
   const [edit, setEdit] = useState(null);
-  const [deliveryCharge, setDeliveryCharge] = useState(orderData?.deliveryCharge);
-  const [discount, setDiscount] = useState(orderData?.discount);
+  const [deliveryCharge, setDeliveryCharge] = useState(orderData?.deliveryCharge ? orderData.deliveryCharge : 0);
+  const [discount, setDiscount] = useState(orderData?.discount ? orderData.discount : 0);
 
   console.log('ORDER DATA: ', orderData);
 
@@ -69,16 +69,13 @@ const EditOrderPage = ({ setCurrentPage, orderData, isFutureOrder }) => {
   };
 
   const onUpdateHandler = () => {
-    if (!selectedCustomer) return toast.error('Please select a customer.');
     if (items.length === 0) return toast.error('Shopping cart should not be empty.');
     let total = items.reduce((total, data) => data.subTotal + total, 0) - +orderDetails.downPayment;
     let tempData = {
       ...orderDetails,
       paymentDate: orderDetails.isPaid ? orderDetails.paymentDate : null,
       orderDetails: { customer: selectedCustomer, items },
-      deliveryCharge: deliveryCharge ? +deliveryCharge : 0,
-      discount: discount ? +discount : 0,
-      total: total + deliveryCharge - discount,
+      total: total + +deliveryCharge - +discount,
     };
     editOrderMutation.mutate({ id: orderData._id, data: tempData });
     isFutureOrder ? setCurrentPage('orders-list') : setCurrentPage('todays-list');

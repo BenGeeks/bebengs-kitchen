@@ -18,8 +18,8 @@ const NewOrderPage = ({ setCurrentPage, isFutureOrder }) => {
   const [step, setStep] = useState(1);
   const [edit, setEdit] = useState(1);
   const [addCustomer, setAddCustomer] = useState(false);
-  const [deliveryCharge, setDeliveryCharge] = useState(null);
-  const [discount, setDiscount] = useState(null);
+  const [deliveryCharge, setDeliveryCharge] = useState(0);
+  const [discount, setDiscount] = useState(0);
 
   const newOrderMutation = useMutation({
     mutationFn: (data) => apiRequest({ url: `orders`, method: 'POST', data: data }),
@@ -77,9 +77,7 @@ const NewOrderPage = ({ setCurrentPage, isFutureOrder }) => {
       ...orderDetails,
       paymentDate: orderDetails.isPaid ? orderDetails.paymentDate : null,
       orderDetails: { customer: selectedCustomer, items },
-      deliveryCharge: deliveryCharge ? +deliveryCharge : 0,
-      discount: discount ? +discount : 0,
-      total: total + deliveryCharge - discount,
+      total: total + +deliveryCharge - +discount,
     };
     newOrderMutation.mutate(tempData);
     setSelectedCustomer(null);

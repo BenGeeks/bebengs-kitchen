@@ -10,8 +10,8 @@ export default async function handler(req, res) {
     res.status(401).json({ message: 'INTRUDER ALERT!' });
   } else {
     try {
-      const orderList = await Expenses.find({ expenseDate: { $gte: moment(body.dateFrom), $lt: moment(body.dateTo) } });
-      res.status(201).json({ success: true, data: orderList });
+      const expensesList = await Expenses.find({ expenseDate: { $gte: moment(body.dateFrom), $lt: moment(body.dateTo) } });
+      res.status(201).json({ success: true, data: expensesList });
     } catch (error) {
       res.status(400).json({ success: false, error: error });
     }

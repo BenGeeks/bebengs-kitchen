@@ -12,7 +12,7 @@ export default async function handler(req, res) {
     try {
       const orderList = await Order.find({
         $or: [
-          { deliveryDate: { $gte: moment(body.dateFrom), $lt: moment(body.dateTo) } },
+          { downPaymentDate: { $gte: moment(body.dateFrom), $lt: moment(body.dateTo) } },
           { paymentDate: { $gte: moment(body.dateFrom), $lt: moment(body.dateTo) } },
         ],
       });
