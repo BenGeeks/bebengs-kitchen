@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import moment from 'moment';
 
 import styles from '@/assets/react-form.module.css';
@@ -32,8 +32,22 @@ const EditOrderDetails = ({ defaultValues, onCancel, onSubmit, action }) => {
   };
 
   const handleSubmit = () => {
-    onSubmit({ deliveryDate, deliveryTime, isDelivered, isGcash, isPaid, paymentDate, isDownPayment, downPaymentDate, downPayment });
+    if (isDownPayment && downPaymentDate === null) {
+      window.alert('Down Payment Date is required!');
+    } else if (isDownPayment && downPayment === 0) {
+      window.alert('Down Payment cannot be 0!');
+    } else if (isPaid && paymentDate === null) {
+      window.alert('Payment Date is required!');
+    } else {
+      onSubmit({ deliveryDate, deliveryTime, isDelivered, isGcash, isPaid, paymentDate, isDownPayment, downPaymentDate, downPayment });
+    }
   };
+
+  useEffect(() => {
+    !isDownPayment && setDownPaymentDate(null);
+    !isDownPayment && setDownPayment(0);
+    !isPaid && setPaymentDate(null);
+  }, [isDownPayment, isPaid]);
 
   return (
     <>
@@ -91,8 +105,13 @@ const EditOrderDetails = ({ defaultValues, onCancel, onSubmit, action }) => {
       </div>
       {isDownPayment && (
         <div className={styles.input_container}>
-          <label className={styles.input_label}>DP Date:</label>
-          <div type="date" className={styles.date} onClick={() => onDateClick('downPaymentDate')}>
+          <label className={styles.input_label}>Down Payment Date:</label>
+          <div
+            type="date"
+            className={styles.date}
+            style={{ backgroundColor: isDownPayment && downPaymentDate === null && 'pink' }}
+            onClick={() => onDateClick('downPaymentDate')}
+          >
             {moment(downPaymentDate).format('LL')}
           </div>
         </div>
@@ -100,7 +119,11 @@ const EditOrderDetails = ({ defaultValues, onCancel, onSubmit, action }) => {
       {isDownPayment && (
         <div className={styles.input_container}>
           <label className={styles.input_label}>DP Amount:</label>
-          <div className={styles.date} onClick={() => setOpenNumPad(true)}>
+          <div
+            className={styles.date}
+            style={{ backgroundColor: isDownPayment && downPayment === 0 && 'pink' }}
+            onClick={() => setOpenNumPad(true)}
+          >
             {downPayment}
           </div>
         </div>
@@ -119,7 +142,12 @@ const EditOrderDetails = ({ defaultValues, onCancel, onSubmit, action }) => {
       {isPaid && (
         <div className={styles.input_container}>
           <label className={styles.input_label}>Payment Date:</label>
-          <div type="date" className={styles.date} onClick={() => onDateClick('paymentDate')}>
+          <div
+            type="date"
+            className={styles.date}
+            style={{ backgroundColor: isPaid && paymentDate === null && 'pink' }}
+            onClick={() => onDateClick('paymentDate')}
+          >
             {moment(paymentDate).format('LL')}
           </div>
         </div>

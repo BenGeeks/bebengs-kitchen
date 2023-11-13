@@ -128,6 +128,16 @@
 }
 
 @media (max-width: 768px) {
+  .header_bar {
+    height: 25px;
+    padding-bottom: 0px;
+    margin-bottom: 0px;
+  }
+
+  .header_bar_title {
+    font-size: 1.2rem;
+  }
+
   .date_picker_container {
     flex-direction: column;
   }

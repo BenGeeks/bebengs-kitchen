@@ -16,12 +16,10 @@
 .modal_wide {
   position: fixed;
   width: 100%;
-  top: 30px;
+  top: 10px;
   background-color: aliceblue;
-  min-height: 50vh;
   z-index: 1000;
   padding: 10px;
-  overflow-y: auto;
   display: flex;
   justify-content: center;
 }
@@ -29,4 +27,20 @@
 .modal_box {
   border: 1px solid #374151;
   min-width: 50vw;
+}
+
+@media (max-width: 768px) {
+  .modal_wide {
+    top: 0px;
+    padding: 2px 2px 5px 2px;
+    height: 100vh;
+  }
+
+  .modal_box {
+    border: 1px solid #374151;
+    width: 100%;
+    height: calc(100vh - 5px);
+    overflow-y: auto;
+    margin-bottom: 5px;
+  }
 }

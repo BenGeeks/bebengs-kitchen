@@ -76,6 +76,7 @@ const NewOrderPage = ({ setCurrentPage, isFutureOrder }) => {
     let tempData = {
       ...orderDetails,
       paymentDate: orderDetails.isPaid ? orderDetails.paymentDate : null,
+      downPaymentDate: orderDetails.isDownPayment ? orderDetails.downPaymentDate : null,
       orderDetails: { customer: selectedCustomer, items },
       total: total + +deliveryCharge - +discount,
     };

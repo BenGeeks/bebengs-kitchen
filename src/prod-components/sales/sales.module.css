@@ -413,9 +413,9 @@
   width: 100%;
   background-color: black;
   color: aliceblue;
-  display: flex;
-  align-items: center;
-  justify-content: space-around;
+  display: grid;
+  grid-template-columns: auto auto auto auto;
+  padding: 1px;
 }
 
 .total_item_container {
@@ -445,4 +445,13 @@
 
 .header {
   font-size: 1.2rem;
+}
+
+@media (max-width: 768px) {
+  .total_item_value {
+    font-size: 1.4rem;
+  }
+  .total_item_label {
+    font-size: 0.7rem;
+  }
 }

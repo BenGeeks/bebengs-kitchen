@@ -27,19 +27,19 @@ const ReportsMainPage = ({ date, reportsQuery, finalReportData, salesData, expen
         <div className={styles.header_box}>
           <h2 className={styles.header}>Sales Report for {moment(date).format('LL')}</h2>
         </div>
-        <Table headers={SUMMARY_HEADER} data={finalReportData} />
+        <Table headers={SUMMARY_HEADER} data={finalReportData ? finalReportData : []} />
       </div>
       <div className={styles.summary_box}>
         <div className={styles.header_box}>
           <h2 className={styles.header}>Sales Summary</h2>
         </div>
-        <Table headers={SALES_COUNT_HEADER} data={salesData} />
+        <Table headers={SALES_COUNT_HEADER} data={salesData ? salesData : []} />
       </div>
       <div className={styles.summary_box}>
         <div className={styles.header_box}>
           <h2 className={styles.header}>Expenses Summary</h2>
         </div>
-        <Table headers={EXPENSES_HEADER} data={expenseData} />
+        <Table headers={EXPENSES_HEADER} data={expenseData ? expenseData : []} />
       </div>
     </div>
   );
