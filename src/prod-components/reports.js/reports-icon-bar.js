@@ -1,17 +1,31 @@
 'use client';
 import { RiPrinterLine } from 'react-icons/ri';
-import { PiCalendar } from 'react-icons/pi';
+import { BsCalendarDate, BsCalendarMonth } from 'react-icons/bs';
 
 import iconStyles from '@/styles/icons-bar.module.css';
 
-const ReportsIconBar = ({ setOpenCalendar }) => {
+const ReportsIconBar = ({ setOpenDailyCalendar, setOpenMonthlyCalendar, currentPage, setCurrentPage }) => {
   return (
     <div className={iconStyles.icon_bar_container}>
-      <div className={iconStyles.icon_box} title="calendar" onClick={() => setOpenCalendar(true)}>
+      <div
+        className={iconStyles.icon_box}
+        title="daily"
+        onClick={() => (currentPage === 'daily' ? setOpenDailyCalendar(true) : setCurrentPage('daily'))}
+      >
         <div className={iconStyles.icon}>
-          <PiCalendar />
+          <BsCalendarDate />
         </div>
-        <p className={iconStyles.icon_text}>Calendar</p>
+        <p className={iconStyles.icon_text}>Daily</p>
+      </div>
+      <div
+        className={iconStyles.icon_box}
+        title="monthly"
+        onClick={() => (currentPage === 'monthly' ? setOpenMonthlyCalendar(true) : setCurrentPage('monthly'))}
+      >
+        <div className={iconStyles.icon}>
+          <BsCalendarMonth />
+        </div>
+        <p className={iconStyles.icon_text}>Monthly</p>
       </div>
 
       <div className={iconStyles.icon_box} title="Print">

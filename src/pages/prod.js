@@ -15,20 +15,20 @@ import DashboardPage from '@/prod-components/dashboard/dashboard';
 import styles from '@/page-styles/prod.module.css';
 
 const ProdPage = () => {
-  const [currentPage, setCurrentPage] = useState('dashboard');
+  const [currentPage, setCurrentPage] = useState('sales');
 
   return (
     <div className={styles.main_container}>
       <TopBar currentPage={currentPage} setCurrentPage={setCurrentPage} />
       <div className={styles.page_container}>
-        {currentPage === 'dashboard' && <DashboardPage />}
         {currentPage === 'sales' && <SalesPage />}
-        {currentPage === 'menu' && <MenuPage />}
-        {currentPage === 'customers' && <CustomerPage />}
         {currentPage === 'collectibles' && <Collectibles />}
         {currentPage === 'orders' && <FutureOrders />}
         {currentPage === 'expenses' && <Expenses />}
+        {currentPage === 'menu' && <MenuPage />}
+        {currentPage === 'customers' && <CustomerPage />}
         {currentPage === 'reports' && <ReportsPage />}
+        {currentPage === 'dashboard' && <DashboardPage />}
       </div>
     </div>
   );

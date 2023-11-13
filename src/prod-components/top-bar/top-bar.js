@@ -22,7 +22,6 @@ const TopBar = ({ currentPage, setCurrentPage }) => {
   };
 
   const ICON_LIST = [
-    { name: 'dashboard', title: 'Dashboard', icon: <AiOutlineDashboard /> },
     { name: 'sales', title: 'Sales', icon: <BsClipboardCheck /> },
     { name: 'collectibles', title: 'Collectibles', icon: <PiHandCoins /> },
     { name: 'orders', title: 'Orders', icon: <GiChickenOven /> },
@@ -30,6 +29,7 @@ const TopBar = ({ currentPage, setCurrentPage }) => {
     { name: 'menu', title: 'Menu', icon: <IoFastFoodOutline /> },
     { name: 'customers', title: 'Customer', icon: <RiContactsBookLine /> },
     { name: 'reports', title: 'Reports', icon: <BsGraphUpArrow /> },
+    { name: 'dashboard', title: 'Dashboard', icon: <AiOutlineDashboard /> },
   ];
   return (
     <>
