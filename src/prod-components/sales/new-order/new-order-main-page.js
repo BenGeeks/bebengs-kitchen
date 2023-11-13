@@ -1,10 +1,9 @@
 'use client';
 import moment from 'moment';
 
-import { ORDER_DETAILS_INPUT, ORDER_DETAILS_SCHEMA } from './resources';
 import CustomersList from '@/prod-components/customer/customer-list';
 import NewOrderSelectItem from './new-order-components/select-item';
-import ReactForm from '@/assets/react-form';
+import EditOrderDetails from './new-order-components/edit-2';
 import styles from './new-order.module.css';
 
 const NewOrderMainPage = ({
@@ -25,6 +24,7 @@ const NewOrderMainPage = ({
       deliveryDate: data?.deliveryDate ? data.deliveryDate : moment().format('YYYY-MM-DD'),
       deliveryTime: data?.deliveryTime ? data.deliveryTime : null,
       paymentDate: data?.paymentDate ? data.paymentDate : null,
+      downPaymentDate: data?.downPaymentDate ? data.downPaymentDate : null,
     };
     setOrderDetails(tempData);
     setStep(3);
@@ -50,18 +50,7 @@ const NewOrderMainPage = ({
           <div className={styles.header_bar}>
             <h3 className={styles.header_bar_title}>Order Details:</h3>
           </div>
-          <ReactForm
-            layout={ORDER_DETAILS_INPUT}
-            schema={ORDER_DETAILS_SCHEMA}
-            action={'Add'}
-            defaultValues={{
-              ...orderDetails,
-              deliveryDate: moment(orderDetails.deliveryDate).format('yyyy-MM-DD'),
-              paymentDate: moment(orderDetails.paymentDate).format('yyyy-MM-DD'),
-            }}
-            onSubmit={updateDetailsHandler}
-            onCancel={cancelHandler}
-          />
+          <EditOrderDetails defaultValues={orderDetails} onCancel={cancelHandler} onSubmit={updateDetailsHandler} action={'Add'} />
         </div>
       )}
       {edit === 3 && (

@@ -75,7 +75,7 @@ const OrdersMainPage = ({ orderQuery, calendarDate, onEdit, width }) => {
       )}
       {openStatusUpdater && <OrderStatusUpdater open={openStatusUpdater} close={() => setOpenStatusUpdate(false)} order={selectedOrder} />}
       <div className={styles.page_container} style={{ width: width }}>
-        <div className={styles.date}>{moment(calendarDate).format('MMM DD, yyyy')}</div>
+        <div className={styles.date}>{moment(calendarDate).format('LL')}</div>
         <div className={styles.table_container}>
           <table className={styles.table}>
             <thead>
@@ -87,18 +87,29 @@ const OrdersMainPage = ({ orderQuery, calendarDate, onEdit, width }) => {
             </thead>
             <tbody>
               {orderQuery?.data?.map((order, index) => {
+                let downPaymentDate = order?.downPaymentDate ? moment(order?.downPaymentDate).format('LL') : null;
                 return (
                   <tr key={index}>
                     <td className={`${getStatusColor(order)} ${styles.table_cell_status}`} onClick={() => onUpdateStatus(order)}>
                       {index + 1}
                     </td>
-                    <td className={styles.table_cell} onClick={() => onSelectHandler(order)}>
+                    <td
+                      className={styles.table_cell}
+                      style={{
+                        backgroundColor: downPaymentDate === moment(calendarDate).format('LL') ? 'pink' : '',
+                      }}
+                      onClick={() => onSelectHandler(order)}
+                    >
                       <div className={styles.table_cell_name}>{order?.orderDetails?.customer?.name}</div>
                       <div
                         className={styles.table_cell_address}
                       >{`${order?.orderDetails?.customer?.address} - ${order?.orderDetails?.customer?.block} ${order?.orderDetails?.customer?.lot}`}</div>
                     </td>
-                    <td className={styles.table_cell_total}>{order?.total?.toLocaleString('en-US')}</td>
+
+                    <td className={styles.table_cell_total}>
+                      {order?.total?.toLocaleString('en-US')}
+                      {order.isDownPayment && <span> {`(${order?.downPayment?.toLocaleString('en-US')})`}</span>}
+                    </td>
                   </tr>
                 );
               })}

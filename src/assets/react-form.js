@@ -26,7 +26,6 @@ const ReactForm = ({ layout, schema, defaultValues, onSubmit, onCancel, action }
   };
 
   const setCalendarDateHandler = (date) => {
-    console.log('DATE: ', moment(date));
     setCalendarDates({ ...calendarDates, [dateName]: moment(date) });
     setOpenDatePicker(false);
   };
@@ -42,7 +41,7 @@ const ReactForm = ({ layout, schema, defaultValues, onSubmit, onCancel, action }
   }, [layout, defaultValues]);
 
   return (
-    <div>
+    <>
       {openDatePicker && <DatePicker open={openDatePicker} close={() => setOpenDatePicker(false)} onSave={setCalendarDateHandler} />}
       <form onSubmit={handleSubmit(onSubmitHandler)}>
         {layout.map((input, index) => {
@@ -67,7 +66,7 @@ const ReactForm = ({ layout, schema, defaultValues, onSubmit, onCancel, action }
                       {input.type === 'date' ? (
                         <>
                           <div type="date" {...register(input.name)} className={styles.date} onClick={() => onDateClick(input.name)}>
-                            {moment(calendarDates[input.name]).format('MMM DD, YYYY')}
+                            {moment(calendarDates[input.name]).format('LL')}
                           </div>
                         </>
                       ) : (
@@ -105,7 +104,7 @@ const ReactForm = ({ layout, schema, defaultValues, onSubmit, onCancel, action }
           </button>
         </div>
       </form>
-    </div>
+    </>
   );
 };
 

@@ -26,7 +26,7 @@ const ReportsMainPage = ({ date, reportsQuery }) => {
     <div className={styles.page_container}>
       <div className={styles.summary_box}>
         <div className={styles.header_box}>
-          <h2 className={styles.header}>Sales Report for {moment(date).format('MMM DD, YYYY')}</h2>
+          <h2 className={styles.header}>Sales Report for {moment(date).format('LL')}</h2>
         </div>
         <Table headers={SUMMARY_HEADER} data={reportsQuery?.data?.finalReportData} />
       </div>

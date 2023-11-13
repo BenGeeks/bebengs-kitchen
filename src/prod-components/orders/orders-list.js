@@ -45,7 +45,7 @@ const FutureOrdersList = ({ futureOrdersQuery, onView }) => {
               return (
                 <tr key={index} className={styles.table_row_clickable} onClick={() => onView(order)}>
                   <td className={`${getStatusColor(order)} ${styles.cell_status}`}>{index + 1}</td>
-                  <td className={styles.cell}>{moment(order.deliveryDate).format('MMM DD, YYYY')}</td>
+                  <td className={styles.cell}>{moment(order.deliveryDate).format('MMM DD')}</td>
                   <td className={styles.cell}>{order.orderDetails.customer.name}</td>
                   <td className={styles.cell}>{order.total.toLocaleString('en-US')}</td>
                 </tr>

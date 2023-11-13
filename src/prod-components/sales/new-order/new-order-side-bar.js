@@ -22,6 +22,7 @@ const NewOrderSideBar = ({
   setEdit,
   deliveryCharge,
   discount,
+  downPayment,
 }) => {
   const [openActionModal, setOpenActionModal] = useState(false);
   const [selectedCartItem, setSelectedCartItem] = useState(null);
@@ -102,6 +103,12 @@ const NewOrderSideBar = ({
                 <div className={styles.title}>Delivery Time: </div>
                 {orderDetails?.deliveryTime}
               </div>
+              {orderDetails.isDownPayment && (
+                <div className={styles.info_container}>
+                  <div className={styles.title}>DP Date: </div>
+                  {orderDetails.downPaymentDate && moment(orderDetails.downPaymentDate).format('MMM DD, yyyy')}
+                </div>
+              )}
               {orderDetails.isPaid && (
                 <div className={styles.info_container}>
                   <div className={styles.title}>Payment Date: </div>
@@ -133,7 +140,7 @@ const NewOrderSideBar = ({
                   <Table headers={ORDER_ITEMS_HEADER} data={items} enableRowClick={true} onRowClick={rowClickHandler} small={edit} />
                 </div>
               </div>
-              {deliveryCharge && (
+              {!(!deliveryCharge || deliveryCharge === 0) && (
                 <div className={styles.customer_box}>
                   <div className={styles.shoping_card_header_bar}>
                     <div className={styles.shoping_card_title}>Delivery Charge:</div>
@@ -141,11 +148,19 @@ const NewOrderSideBar = ({
                   </div>
                 </div>
               )}
-              {discount && (
+              {!(!discount || discount === 0) && (
                 <div className={styles.customer_box}>
                   <div className={styles.shoping_card_header_bar}>
                     <div className={styles.shoping_card_title}>Discount:</div>
-                    <div className={styles.shoping_card_title}>{discount?.toLocaleString('en-US')}</div>
+                    <div className={styles.shoping_card_title}>{`( ${discount?.toLocaleString('en-US')} )`}</div>
+                  </div>
+                </div>
+              )}
+              {!(!downPayment || downPayment === 0) && (
+                <div className={styles.customer_box}>
+                  <div className={styles.shoping_card_header_bar}>
+                    <div className={styles.shoping_card_title}>Down Payment:</div>
+                    <div className={styles.shoping_card_title}>{`( ${downPayment?.toLocaleString('en-US')} )`}</div>
                   </div>
                 </div>
               )}
@@ -156,7 +171,7 @@ const NewOrderSideBar = ({
           <div className={styles.bottom_container}>
             <div className={styles.total_container}>
               <div className={styles.total}>TOTAL: </div>
-              <div className={styles.total}>₱ {getTotal(items, deliveryCharge, discount)}</div>
+              <div className={styles.total}>₱ {getTotal(items, deliveryCharge, discount, downPayment)}</div>
             </div>
             <div className={styles.action_container}>
               <div className={styles.cancel} onClick={onCancel}>

@@ -36,7 +36,7 @@ const ExpensesList = ({ expensesQuery, onRowClick, date }) => {
     <div className={styles.page_container}>
       <div className={styles.main_page}>
         <div className={styles.header_bar}>
-          <h3 className={styles.header_bar_title}>Expenses: {moment(date).format('MMM DD, YYYY')}</h3>
+          <h3 className={styles.header_bar_title}>Expenses: {moment(date).format('LL')}</h3>
           <div className={styles.header_bar_total_container}>
             <h3 className={styles.header_bar_total}>Cash: {cash}</h3>
             <h3 className={styles.header_bar_total}>G-cash: {gcash}</h3>

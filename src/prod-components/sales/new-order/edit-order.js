@@ -17,8 +17,6 @@ const EditOrderPage = ({ setCurrentPage, orderData, isFutureOrder }) => {
   const [deliveryCharge, setDeliveryCharge] = useState(orderData?.deliveryCharge ? orderData.deliveryCharge : 0);
   const [discount, setDiscount] = useState(orderData?.discount ? orderData.discount : 0);
 
-  console.log('ORDER DATA: ', orderData);
-
   const editOrderMutation = useMutation({
     mutationFn: (payload) => apiRequest({ url: `orders/${payload.id}`, method: 'PUT', data: payload.data }),
     onSuccess: () => {
@@ -103,6 +101,7 @@ const EditOrderPage = ({ setCurrentPage, orderData, isFutureOrder }) => {
         setEdit={setEdit}
         deliveryCharge={deliveryCharge}
         discount={discount}
+        downPayment={orderDetails.downPayment}
       />
       <NewOrderMainPage
         setSelectedCustomer={setSelectedCustomer}

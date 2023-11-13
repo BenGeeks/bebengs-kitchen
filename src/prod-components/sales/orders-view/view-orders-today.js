@@ -16,6 +16,7 @@ const OrderListToday = ({ setCurrentPage, onEdit, currentPage, getWidth, setView
   const summarizeReport = (sales) => {
     let tempArray = [];
     let summary = {};
+    let downPayment = 0;
     let cash = 0;
     let gCash = 0;
     let collectibles = [];
@@ -36,16 +37,19 @@ const OrderListToday = ({ setCurrentPage, onEdit, currentPage, getWidth, setView
         });
       }
 
+      if (order.isDownPayment) downPayment = downPayment + order.downPayment;
+
       if (order.isDelivered && !order.isPaid) {
         collectibles.push({ name: order.orderDetails.customer.name, amount: order.total });
       }
     });
+
     const keys = Object.keys(summary);
     keys.forEach((key) => {
       tempArray.push(summary[key]);
     });
 
-    setSalesData({ cashTotal: cash, gCashTotal: gCash, dailyTotal: cash + gCash });
+    setSalesData({ cashTotal: cash, gCashTotal: gCash, dpTotal: downPayment, dailyTotal: cash + gCash + downPayment });
     setSalesCount(tempArray.sort((a, b) => b.subTotal - a.subTotal));
     setCollectibleData(collectibles);
   };

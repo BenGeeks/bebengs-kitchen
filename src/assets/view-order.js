@@ -2,7 +2,7 @@ import { RiCloseCircleLine, RiDeleteBin4Line, RiEditLine } from 'react-icons/ri'
 import { LiaMoneyBillWaveAltSolid } from 'react-icons/lia';
 import moment from 'moment';
 
-import { ORDER_ITEMS_HEADER, getTotal } from './resources';
+import { ORDER_ITEMS_HEADER } from './resources';
 import styles from './view-order.module.css';
 import ModalWide from './modal-wide';
 import Table from '@/assets/table';
@@ -58,16 +58,22 @@ const ViewOrderDetailsModal = ({ open, close, enableDelete, onDelete, enableEdit
           <div className={styles.sub_header}>Order Details:</div>
           <div className={styles.info_container}>
             <div className={styles.title}>Delivery Date: </div>
-            {moment(orderDetails?.deliveryDate).format('MMM DD, yyyy')}
+            {moment(orderDetails?.deliveryDate).format('LL')}
           </div>
           <div className={styles.info_container}>
             <div className={styles.title}>Delivery Time: </div>
             {orderDetails?.deliveryTime}
           </div>
+          {orderDetails?.isDownPayment && (
+            <div className={styles.info_container}>
+              <div className={styles.title}>DP Date: </div>
+              {moment(orderDetails?.downPaymentDate).format('LL')}
+            </div>
+          )}
           {orderDetails?.isPaid && (
             <div className={styles.info_container}>
               <div className={styles.title}>Payment Date: </div>
-              {orderDetails.paymentDate && moment(orderDetails.paymentDate).format('MMM DD, yyyy')}
+              {orderDetails.paymentDate && moment(orderDetails.paymentDate).format('LL')}
             </div>
           )}
           <div className={styles.info_container}>
@@ -80,7 +86,7 @@ const ViewOrderDetailsModal = ({ open, close, enableDelete, onDelete, enableEdit
           <div className={styles.sub_header}>Shopping Cart:</div>
           <Table headers={ORDER_ITEMS_HEADER} data={orderDetails?.orderDetails?.items} />
         </div>
-        {orderDetails?.deliveryCharge && (
+        {!(!orderDetails?.deliveryCharge || orderDetails?.deliveryCharge === 0) && (
           <div className={styles.customer_box}>
             <div className={styles.additional_info_container}>
               <div>Delivery Charge:</div>
@@ -88,11 +94,19 @@ const ViewOrderDetailsModal = ({ open, close, enableDelete, onDelete, enableEdit
             </div>
           </div>
         )}
-        {orderDetails?.discount && (
+        {!(!orderDetails?.discount || orderDetails?.discount === 0) && (
           <div className={styles.customer_box}>
             <div className={styles.additional_info_container}>
               <div>Discount:</div>
               <div>{orderDetails?.discount?.toLocaleString('en-US')}</div>
+            </div>
+          </div>
+        )}
+        {!(!orderDetails?.downPayment || orderDetails?.downPayment === 0) && (
+          <div className={styles.customer_box}>
+            <div className={styles.additional_info_container}>
+              <div>Down Payment:</div>
+              <div>{`( ${orderDetails?.downPayment?.toLocaleString('en-US')} )`}</div>
             </div>
           </div>
         )}

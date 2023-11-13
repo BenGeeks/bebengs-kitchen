@@ -109,6 +109,7 @@ const NewOrderPage = ({ setCurrentPage, isFutureOrder }) => {
         setEdit={setEdit}
         deliveryCharge={deliveryCharge}
         discount={discount}
+        downPayment={orderDetails.downPayment}
       />
       <NewOrderMainPage
         setSelectedCustomer={setSelectedCustomer}

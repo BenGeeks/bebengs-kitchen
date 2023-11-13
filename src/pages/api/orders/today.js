@@ -14,6 +14,7 @@ export default async function handler(req, res) {
         $or: [
           { deliveryDate: { $gte: moment(body.dateFrom), $lt: moment(body.dateTo) } },
           { paymentDate: { $gte: moment(body.dateFrom), $lt: moment(body.dateTo) } },
+          { downPaymentDate: { $gte: moment(body.dateFrom), $lt: moment(body.dateTo) } },
         ],
       });
       res.status(201).json({ success: true, data: orderList });

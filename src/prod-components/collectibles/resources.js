@@ -13,7 +13,7 @@ export const formatData = (data) => {
     tempData.push({
       ...item,
       age: moment().diff(item.deliveryDate, 'days'),
-      date: moment(item.deliveryDate).format('MMM DD, YYYY'),
+      date: moment(item.deliveryDate).format('LL'),
       name: item.orderDetails?.customer?.name,
       formattedTotal: item.total.toLocaleString('en-US'),
     });
