@@ -9,7 +9,7 @@ const PrintDailyExpense = ({ data, date }) => {
       <div className={styles.print_head_container}>
         <div className={styles.print_head_logo}>Bebeng's Kitchen</div>
         <div>
-          Daily Expense Report for <u>{moment(date).format('LL')}</u>
+          Daily Expense Report for <u>{moment(date).format('ll')}</u>
         </div>
         <div className={styles.print_head_summary}>
           <div>Total Cash: {data?.reduce((total, data) => (!data.isGcash ? +data.total + total : total), 0)?.toLocaleString('en-US')}</div>

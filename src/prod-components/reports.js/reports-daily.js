@@ -102,6 +102,8 @@ const DailyReportPage = ({ date, openDailyCalendar }) => {
     },
   });
 
+  console.log('REPORTS QUERY: ', reportsQuery.data.salesList);
+
   if (reportsQuery.isLoading)
     return (
       <div className={styles.page_container}>
@@ -120,7 +122,7 @@ const DailyReportPage = ({ date, openDailyCalendar }) => {
     <div className={styles.page_container}>
       <div className={styles.summary_box}>
         <div className={styles.header_box}>
-          <h2 className={styles.header}>Sales Report for {moment(date).format('LL')}</h2>
+          <h2 className={styles.header}>Sales Report for {moment(date).format('ll')}</h2>
         </div>
         <Table headers={SUMMARY_HEADER} data={finalReportData ? finalReportData : []} />
       </div>

@@ -58,7 +58,7 @@ const ViewOrderDetailsModal = ({ open, close, enableDelete, onDelete, enableEdit
           <div className={styles.sub_header}>Order Details:</div>
           <div className={styles.info_container}>
             <div className={styles.title}>Delivery Date: </div>
-            {moment(orderDetails?.deliveryDate).format('LL')}
+            {moment(orderDetails?.deliveryDate).format('ll')}
           </div>
           <div className={styles.info_container}>
             <div className={styles.title}>Delivery Time: </div>
@@ -67,13 +67,13 @@ const ViewOrderDetailsModal = ({ open, close, enableDelete, onDelete, enableEdit
           {orderDetails?.isDownPayment && (
             <div className={styles.info_container}>
               <div className={styles.title}>DP Date: </div>
-              {moment(orderDetails?.downPaymentDate).format('LL')}
+              {moment(orderDetails?.downPaymentDate).format('ll')}
             </div>
           )}
           {orderDetails?.isPaid && (
             <div className={styles.info_container}>
               <div className={styles.title}>Payment Date: </div>
-              {orderDetails.paymentDate && moment(orderDetails.paymentDate).format('LL')}
+              {orderDetails.paymentDate && moment(orderDetails.paymentDate).format('ll')}
             </div>
           )}
           <div className={styles.info_container}>

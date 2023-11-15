@@ -75,7 +75,7 @@ const OrdersMainPage = ({ orderQuery, calendarDate, onEdit, width }) => {
       )}
       {openStatusUpdater && <OrderStatusUpdater open={openStatusUpdater} close={() => setOpenStatusUpdate(false)} order={selectedOrder} />}
       <div className={styles.page_container} style={{ width: width }}>
-        <div className={styles.date}>{moment(calendarDate).format('LL')}</div>
+        <div className={styles.date}>{moment(calendarDate).format('ll')}</div>
         <div className={styles.table_container}>
           <table className={styles.table}>
             <thead>
@@ -87,7 +87,7 @@ const OrdersMainPage = ({ orderQuery, calendarDate, onEdit, width }) => {
             </thead>
             <tbody>
               {orderQuery?.data?.map((order, index) => {
-                let downPaymentDate = order?.downPaymentDate ? moment(order?.downPaymentDate).format('LL') : null;
+                let downPaymentDate = order?.downPaymentDate ? moment(order?.downPaymentDate).format('ll') : null;
                 return (
                   <tr key={index}>
                     <td className={`${getStatusColor(order)} ${styles.table_cell_status}`} onClick={() => onUpdateStatus(order)}>
@@ -96,7 +96,7 @@ const OrdersMainPage = ({ orderQuery, calendarDate, onEdit, width }) => {
                     <td
                       className={styles.table_cell}
                       style={{
-                        backgroundColor: downPaymentDate === moment(calendarDate).format('LL') ? 'pink' : '',
+                        backgroundColor: downPaymentDate === moment(calendarDate).format('ll') ? 'pink' : '',
                       }}
                       onClick={() => onSelectHandler(order)}
                     >

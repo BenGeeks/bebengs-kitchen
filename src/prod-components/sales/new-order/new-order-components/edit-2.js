@@ -58,7 +58,7 @@ const EditOrderDetails = ({ defaultValues, onCancel, onSubmit, action }) => {
       <div className={styles.input_container}>
         <label className={styles.input_label}>Delivery Date:</label>
         <div type="date" className={styles.date} onClick={() => onDateClick('deliveryDate')}>
-          {moment(deliveryDate).format('LL')}
+          {moment(deliveryDate).format('ll')}
         </div>
       </div>
       <div className={styles.input_container}>
@@ -112,7 +112,7 @@ const EditOrderDetails = ({ defaultValues, onCancel, onSubmit, action }) => {
             style={{ backgroundColor: isDownPayment && downPaymentDate === null && 'pink' }}
             onClick={() => onDateClick('downPaymentDate')}
           >
-            {moment(downPaymentDate).format('LL')}
+            {moment(downPaymentDate).format('ll')}
           </div>
         </div>
       )}
@@ -148,7 +148,7 @@ const EditOrderDetails = ({ defaultValues, onCancel, onSubmit, action }) => {
             style={{ backgroundColor: isPaid && paymentDate === null && 'pink' }}
             onClick={() => onDateClick('paymentDate')}
           >
-            {moment(paymentDate).format('LL')}
+            {moment(paymentDate).format('ll')}
           </div>
         </div>
       )}

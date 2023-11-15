@@ -9,13 +9,14 @@ import { Loader, Error } from '@/assets/loader-error';
 import DatePicker from '@/assets/date-picker';
 import Table from '@/assets/table';
 
-import { HEADERS, formatData } from './resources';
+import { SUMMARY_HEADERS, HEADERS, formatData, getSummary } from './resources';
 import apiRequest from '@/lib/axios';
 
 import styles from './collectibles.module.css';
 
 const Collectibles = () => {
   const queryClient = useQueryClient();
+  const [summary, setSummary] = useState([]);
   const [collectiblesData, setCollectiblesData] = useState([]);
   const [selectedOrder, setSelectedOrder] = useState(null);
   const [openDatePicker, setOpenDatePicker] = useState(false);
@@ -29,7 +30,10 @@ const Collectibles = () => {
         method: 'POST',
         data: { dateToday: moment().startOf('day') },
       }).then((res) => res.data),
-    onSuccess: (data) => setCollectiblesData(formatData(data)),
+    onSuccess: (data) => {
+      setCollectiblesData(formatData(data));
+      setSummary(getSummary(data));
+    },
   });
 
   const updateOrderMutation = useMutation({
@@ -88,14 +92,21 @@ const Collectibles = () => {
               {collectiblesQuery?.data?.reduce((total, data) => data.total + total, 0)?.toLocaleString('en-US')}
             </h3>
           </div>
-          <Table
-            headers={HEADERS}
-            data={collectiblesData}
-            enableDelete={false}
-            enableEdit={false}
-            enableRowClick={true}
-            onRowClick={viewOrderHandler}
-          />
+          <div className={styles.tables_container}>
+            <div className={styles.summary_container}>
+              <Table headers={SUMMARY_HEADERS} data={summary} enableDelete={false} enableEdit={false} enableRowClick={false} />
+            </div>
+            <div className={styles.main_container}>
+              <Table
+                headers={HEADERS}
+                data={collectiblesData}
+                enableDelete={false}
+                enableEdit={false}
+                enableRowClick={true}
+                onRowClick={viewOrderHandler}
+              />
+            </div>
+          </div>
         </div>
       </div>
     </>

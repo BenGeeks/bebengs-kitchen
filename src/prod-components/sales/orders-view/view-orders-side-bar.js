@@ -23,7 +23,7 @@ const OrdersSideBar = ({ orderQuery, salesCount, collectibleData, salesData, cal
 
   return (
     <div className={styles.container} style={{ width: width }}>
-      <div className={styles.date}>{moment(calendarDate).format('LL')}</div>
+      <div className={styles.date}>{moment(calendarDate).format('ll')}</div>
       <div className={styles.summary_box}>
         <div
           className={styles.total_box}

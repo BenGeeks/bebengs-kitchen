@@ -11,7 +11,7 @@ const PrintSalesDailySummary = ({ data, salesSummary, date }) => {
         <header>
           <div className={styles.print_head_logo}>Bebeng's Kitchen</div>
           <div>
-            Daily Sales Report for <u>{moment(date).format('LL')}</u>
+            Daily Sales Report for <u>{moment(date).format('ll')}</u>
           </div>
         </header>
         <div className={styles.print_head_summary}>
@@ -91,7 +91,7 @@ const PrintSalesDailySummary = ({ data, salesSummary, date }) => {
           </tbody>
         </table>
         <footer>
-          <span class="page_number"></span>
+          <span className="page_number"></span>
         </footer>
       </div>
     </div>

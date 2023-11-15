@@ -37,7 +37,7 @@ const FutureOrdersSideBar = ({ futureOrdersQuery, summary }) => {
         return (
           <div key={date} className={styles.summary_box}>
             <div className={styles.header_box}>
-              <h2 className={styles.header}>{moment(date).format('LL')}</h2>
+              <h2 className={styles.header}>{moment(date).format('ll')}</h2>
             </div>
             <Table headers={FUTURE_ORDERS_HEADER} data={summary[date]} />
           </div>

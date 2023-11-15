@@ -66,7 +66,7 @@ const ReactForm = ({ layout, schema, defaultValues, onSubmit, onCancel, action }
                       {input.type === 'date' ? (
                         <>
                           <div type="date" {...register(input.name)} className={styles.date} onClick={() => onDateClick(input.name)}>
-                            {moment(calendarDates[input.name]).format('LL')}
+                            {moment(calendarDates[input.name]).format('ll')}
                           </div>
                         </>
                       ) : (

@@ -16,7 +16,7 @@ const TopBar = () => {
         </Link>
 
         <Link className={topBarStyles.main_nav} href="/auth/login">
-          LOGIN
+          APP
         </Link>
       </div>
     </div>

@@ -37,6 +37,7 @@ footer {
     size: 216mm 330mm;
     height: 100%;
     margin: 0 !important;
+    margin-bottom: 1cm !important;
     padding: 0 !important;
     overflow: hidden;
   }
