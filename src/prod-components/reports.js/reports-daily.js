@@ -102,8 +102,6 @@ const DailyReportPage = ({ date, openDailyCalendar }) => {
     },
   });
 
-  console.log('REPORTS QUERY: ', reportsQuery.data.salesList);
-
   if (reportsQuery.isLoading)
     return (
       <div className={styles.page_container}>
