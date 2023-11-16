@@ -4,8 +4,10 @@ import React, { useState } from 'react';
 import { toast } from 'react-toastify';
 import moment from 'moment';
 
+import ViewCollectible from './collectible-view';
 import ViewOrderDetailsModal from '@/assets/view-order';
 import { Loader, Error } from '@/assets/loader-error';
+
 import DatePicker from '@/assets/date-picker';
 import Table from '@/assets/table';
 
@@ -21,6 +23,8 @@ const Collectibles = () => {
   const [selectedOrder, setSelectedOrder] = useState(null);
   const [openDatePicker, setOpenDatePicker] = useState(false);
   const [viewOrderDetails, setViewOrderDetails] = useState(false);
+  const [openViewCollectible, setOpenViewCollectible] = useState(false);
+  const [viewCollectibleData, setViewCollectibleData] = useState({});
 
   const collectiblesQuery = useQuery({
     queryKey: ['collectibles'],
@@ -59,6 +63,25 @@ const Collectibles = () => {
     setSelectedOrder(order);
   };
 
+  const viewCollectibleHandler = (order) => {
+    let tempData = collectiblesData.filter((item) => item.orderDetails.customer.name === order.name);
+    let itemArray = [];
+    let total = 0;
+
+    tempData.forEach((data) => {
+      total = total + data?.total;
+      itemArray.push({ date: moment(data.deliveryDate).format('ll'), total: data.total, items: data.orderDetails.items });
+    });
+
+    setViewCollectibleData({
+      name: tempData[0].orderDetails.customer.name,
+      total: total,
+      items: itemArray,
+    });
+
+    setOpenViewCollectible(true);
+  };
+
   if (collectiblesQuery.isLoading)
     return (
       <div className={styles.page_container}>
@@ -75,13 +98,19 @@ const Collectibles = () => {
 
   return (
     <>
-      <ViewOrderDetailsModal
-        open={viewOrderDetails}
-        close={() => setViewOrderDetails(false)}
-        enabledPaid={true}
-        onPaid={() => setOpenDatePicker(true)}
-        orderDetails={selectedOrder}
-      />
+      {viewOrderDetails && (
+        <ViewOrderDetailsModal
+          open={viewOrderDetails}
+          close={() => setViewOrderDetails(false)}
+          enabledPaid={true}
+          onPaid={() => setOpenDatePicker(true)}
+          orderDetails={selectedOrder}
+        />
+      )}
+
+      {openViewCollectible && (
+        <ViewCollectible open={openViewCollectible} close={() => setOpenViewCollectible(false)} data={viewCollectibleData} />
+      )}
       {openDatePicker && <DatePicker open={openDatePicker} close={() => setOpenDatePicker(false)} onSave={onPaidHandler} />}
 
       <div className={styles.page_container}>
@@ -94,7 +123,14 @@ const Collectibles = () => {
           </div>
           <div className={styles.tables_container}>
             <div className={styles.summary_container}>
-              <Table headers={SUMMARY_HEADERS} data={summary} enableDelete={false} enableEdit={false} enableRowClick={false} />
+              <Table
+                headers={SUMMARY_HEADERS}
+                data={summary}
+                enableDelete={false}
+                enableEdit={false}
+                enableRowClick={true}
+                onRowClick={viewCollectibleHandler}
+              />
             </div>
             <div className={styles.main_container}>
               <Table

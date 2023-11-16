@@ -12,6 +12,12 @@ export const HEADERS = [
   { display: 'Total', name: 'formattedTotal' },
 ];
 
+export const ITEMS_HEADERS = [
+  { display: 'item', name: 'itemName' },
+  { display: 'qty', name: 'qty' },
+  { display: 'price', name: 'price' },
+  { display: 'total', name: 'subTotal' },
+];
 export const formatData = (data) => {
   let tempData = [];
   data.forEach((item) => {
