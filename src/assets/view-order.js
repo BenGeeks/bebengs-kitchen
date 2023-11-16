@@ -98,7 +98,7 @@ const ViewOrderDetailsModal = ({ open, close, enableDelete, onDelete, enableEdit
           <div className={styles.customer_box}>
             <div className={styles.additional_info_container}>
               <div>Discount:</div>
-              <div>{orderDetails?.discount?.toLocaleString('en-US')}</div>
+              <div>{`( ${orderDetails?.discount?.toLocaleString('en-US')} )`}</div>
             </div>
           </div>
         )}

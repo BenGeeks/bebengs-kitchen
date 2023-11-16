@@ -9,6 +9,11 @@
   padding: 5px;
 }
 
+.print_body_table_header {
+  text-align: center;
+  margin: 20px 0px 10px 0px;
+}
+
 .print_head_container {
   width: 100%;
   display: flex;

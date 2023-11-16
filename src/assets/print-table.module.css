@@ -1,0 +1,31 @@
+.table {
+  width: 100%;
+  border-spacing: 0px;
+  background-color: white;
+  border-bottom: 1px solid #374151;
+}
+
+.table_head_row {
+  margin-top: 2px;
+}
+
+.table_head {
+  border-top: 1px solid #374151;
+  border-bottom: 1px solid #adadad;
+  padding-left: 5px;
+}
+
+.table_head_text {
+  height: 30px;
+  padding: 5px;
+  display: flex;
+  align-items: center;
+}
+
+.cell {
+  padding: 5px;
+  text-align: left;
+  font-size: 1rem;
+  min-width: 50px;
+  border-bottom: 1px solid #e0e0e0;
+}

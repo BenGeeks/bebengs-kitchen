@@ -18,10 +18,36 @@
   background-color: aliceblue;
   height: 30px;
   display: flex;
-  justify-content: left;
+  justify-content: space-between;
   align-items: center;
   width: 100%;
   padding-left: 15px;
+}
+
+.print_icon {
+  font-size: 1.6rem;
+  margin: 0px 15px 3px 0px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  transition: all 0.3s ease-out;
+  padding: 2px 10px;
+  border-radius: 2px;
+}
+
+.print_icon:hover {
+  font-size: 1.6rem;
+  margin-right: 15px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  background-color: #374151;
+  color: aliceblue;
+}
+
+.print_icon_text {
+  font-size: 1rem;
+  margin-left: 5px;
 }
 
 .header {

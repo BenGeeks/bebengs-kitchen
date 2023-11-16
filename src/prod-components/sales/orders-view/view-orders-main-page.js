@@ -60,6 +60,7 @@ const OrdersMainPage = ({ orderQuery, calendarDate, onEdit, width }) => {
       </div>
     );
 
+  console.log('SELECTED ORDER: ', selectedOrder);
   return (
     <>
       {ViewOrderDetailsModal && (

@@ -78,6 +78,8 @@ const NewOrderPage = ({ setCurrentPage, isFutureOrder }) => {
       paymentDate: orderDetails.isPaid ? orderDetails.paymentDate : null,
       downPaymentDate: orderDetails.isDownPayment ? orderDetails.downPaymentDate : null,
       orderDetails: { customer: selectedCustomer, items },
+      deliveryCharge: deliveryCharge,
+      discount: discount,
       total: total + +deliveryCharge - +discount,
     };
     newOrderMutation.mutate(tempData);

@@ -2,15 +2,15 @@
 import React, { useState } from 'react';
 import moment from 'moment';
 
-import DailyReportPage from './reports-daily';
 import MonthlyReportPage from './report-monthly';
 import ReportsIconBar from './reports-icon-bar';
 import DatePicker from '@/assets/date-picker';
+import DailyReportPage from './reports-daily';
 
 const ReportsPage = () => {
-  const [currentPage, setCurrentPage] = useState('daily');
-  const [openDailyCalendar, setOpenDailyCalendar] = useState(false);
   const [openMonthlyCalendar, setOpenMonthlyCalendar] = useState(false);
+  const [openDailyCalendar, setOpenDailyCalendar] = useState(false);
+  const [currentPage, setCurrentPage] = useState('daily');
   const [date, setDate] = useState(moment());
 
   const setDayDateHandler = (date) => {
