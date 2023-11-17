@@ -2,10 +2,10 @@
 import React from 'react';
 import moment from 'moment';
 
-import { SUMMARY_HEADER, SALES_COUNT_HEADER, EXPENSES_HEADER, DOWN_PAYMENT_HEADER } from './resources';
+import { SUMMARY_HEADER, SALES_COUNT_HEADER, EXPENSES_HEADER } from './resources';
 import PrintTable from '@/assets/print-table';
 
-import styles from '../sales/orders-view/print-sales-summary.module.css';
+import styles from './reports-daily-print.module.css';
 
 const PrintDailyReport = ({ data, salesSummary, date, finalReportData, salesData, expenseData }) => {
   return (

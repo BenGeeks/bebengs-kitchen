@@ -1,12 +1,11 @@
 'use client';
-import { RiAddCircleLine, RiPrinterLine } from 'react-icons/ri';
+import { RiAddCircleLine } from 'react-icons/ri';
 import { PiCalendar, PiCalendarBlank } from 'react-icons/pi';
 import { MdDisplaySettings } from 'react-icons/md';
-import { LuFilter } from 'react-icons/lu';
 
 import iconStyles from '@/styles/icons-bar.module.css';
 
-const OrdersIconBar = ({ currentPage, setCurrentPage, setOpenCalendar, onPrint, onView }) => {
+const OrdersIconBar = ({ currentPage, setCurrentPage, setOpenCalendar, onView }) => {
   return (
     <div className={iconStyles.icon_bar_container}>
       <div className={iconStyles.icon_box} title="Add order" onClick={() => setCurrentPage('new-order')}>
@@ -40,22 +39,6 @@ const OrdersIconBar = ({ currentPage, setCurrentPage, setOpenCalendar, onPrint, 
         </div>
         <p className={iconStyles.icon_text}>View</p>
       </div>
-
-      {currentPage === 'history-list' ? (
-        <div className={iconStyles.icon_box} title="Print" onClick={onPrint}>
-          <div className={iconStyles.icon}>
-            <RiPrinterLine />
-          </div>
-          <p className={iconStyles.icon_text}>Print</p>
-        </div>
-      ) : (
-        <div className={iconStyles.icon_box} title="Filter" onClick={onPrint}>
-          <div className={iconStyles.icon}>
-            <LuFilter />
-          </div>
-          <p className={iconStyles.icon_text}>Filter</p>
-        </div>
-      )}
     </div>
   );
 };
