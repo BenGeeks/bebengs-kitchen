@@ -8,7 +8,6 @@ import { ITEMS_HEADERS } from './resources';
 import styles from './collectibles.module.css';
 
 const ViewCollectible = ({ open, close, data }) => {
-  console.log('DATA: ', data);
   return (
     <ModalWide open={open} close={close}>
       <div className={styles.view_collectible_header_bar}>

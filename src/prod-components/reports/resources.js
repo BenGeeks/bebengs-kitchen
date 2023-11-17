@@ -1,4 +1,6 @@
 'use client';
+import moment from 'moment';
+import * as yup from 'yup';
 
 export const SALES_COUNT_HEADER = [
   { display: 'Item', name: 'itemName' },
@@ -153,4 +155,76 @@ export const getSalesCount = (sales) => {
 
   tempArray = tempArray.sort((a, b) => b.subTotal - a.subTotal);
   return tempArray;
+};
+
+/* ================================ */
+/* =======  MONTHLY REPORT  ======= */
+/* ================================ */
+
+export const MONTHLY_REPORT_HEADER = [
+  { display: 'Date', name: 'day' },
+  { display: 'Capital', name: 'capital' },
+  { display: 'Withdrawal', name: 'withdrawal' },
+  { display: 'Sales', name: 'sales' },
+  { display: 'Expenses', name: 'expenses' },
+  { display: 'Profit', name: 'profit' },
+  { display: 'Total', name: 'total' },
+];
+
+export const INPUT = [
+  { type: 'date', name: 'date', label: 'Date' },
+  { type: 'number', name: 'capital', label: 'Capital' },
+  { type: 'number', name: 'withdrawal', label: 'Withdrawal' },
+  { type: 'number', name: 'sales', label: 'Sales' },
+  { type: 'number', name: 'expenses', label: 'Expenses' },
+];
+
+export const SCHEMA = yup.object().shape({
+  date: yup.string().required('Report date is required'),
+  capital: yup.number().required('Set to 0 if blank'),
+  withdrawal: yup.number().required('Set to 0 if blank'),
+  sales: yup.number().required('Set to 0 if blank'),
+  expenses: yup.number().required('Set to 0 if blank'),
+});
+
+export const DEFAULT = {
+  date: moment(),
+  capital: 0,
+  withdrawal: 0,
+  sales: 0,
+  expenses: 0,
+};
+
+export const getReportSummary = (data) => {
+  let totalSales = 0;
+  let totalExpenses = 0;
+  let totalCapital = 0;
+  let totalWithdrawal = 0;
+
+  let list = [];
+  data.forEach((item) => {
+    totalSales = totalSales + item.sales;
+    totalExpenses = totalExpenses + item.expenses;
+    totalCapital = totalCapital + item.capital;
+    totalWithdrawal = totalWithdrawal + item.withdrawal;
+    let profit = item.sales - item.expenses;
+    let total = item.sales + item.capital - item.expenses - item.withdrawal;
+    list.push({
+      _id: item._id,
+      date: item.date,
+      day: moment(item.date).format('DD'),
+      capital: item.capital === 0 ? ' ' : item.capital.toLocaleString('en'),
+      withdrawal: item.withdrawal === 0 ? ' ' : item.withdrawal.toLocaleString('en'),
+      sales: item.sales === 0 ? ' ' : item.sales.toLocaleString('en'),
+      expenses: item.expenses === 0 ? ' ' : item.expenses.toLocaleString('en'),
+      profit: profit === 0 ? ' ' : profit.toLocaleString('en'),
+      total: total === 0 ? ' ' : total.toLocaleString('en'),
+    });
+  });
+
+  let totalProfit = totalSales - totalExpenses;
+  let averageSales = totalSales / data?.length;
+  let averageExpenses = totalExpenses / data?.length;
+  let averageProfit = (totalSales - totalExpenses) / data.length;
+  return { totalSales, totalExpenses, totalProfit, averageSales, averageExpenses, averageProfit, totalCapital, totalWithdrawal, list };
 };

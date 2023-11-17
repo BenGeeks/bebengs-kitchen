@@ -63,3 +63,63 @@
     font-size: 1rem;
   }
 }
+
+/* ================================ */
+/* =======  MONTHLY REPORT  ======= */
+/* ================================ */
+
+.total_box {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  border: 2px solid #374151;
+  background-color: beige;
+  padding: 10px;
+  margin-bottom: 10px;
+  font-size: 1.6rem;
+  font-weight: 700;
+  box-shadow: 2px 2px 10px gray;
+}
+
+.info_box {
+  width: 100%;
+  display: grid;
+  grid-template-columns: auto auto auto;
+  border: 2px solid #374151;
+  background-color: #c9daf8;
+  padding: 10px;
+  margin-bottom: 10px;
+  box-shadow: 2px 2px 10px gray;
+}
+
+.sub_info {
+  width: 100%;
+  padding: 2px;
+}
+
+.sub_info_set {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  background-color: white;
+  border: 1px solid #374151;
+  padding: 5px;
+  margin: 1px;
+}
+
+.sub_info_title {
+  font-size: 1.2rem;
+}
+
+.sub_info_value {
+  font-size: 1.2rem;
+  font-weight: 700;
+}
+
+.table_box {
+  width: 100%;
+  border: 2px solid #374151;
+  background-color: #b6d7a8;
+  padding: 10px;
+  box-shadow: 2px 2px 10px gray;
+}

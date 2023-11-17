@@ -12,6 +12,7 @@ const ReportsPage = () => {
   const [openDailyCalendar, setOpenDailyCalendar] = useState(false);
   const [currentPage, setCurrentPage] = useState('daily');
   const [date, setDate] = useState(moment());
+  const [addEntry, setAddEntry] = useState(false);
 
   const setDayDateHandler = (date) => {
     setDate(date);
@@ -48,7 +49,7 @@ const ReportsPage = () => {
         />
       )}
       {currentPage === 'daily' && <DailyReportPage date={date} openDailyCalendar={openDailyCalendar} />}
-      {currentPage === 'monthly' && <MonthlyReportPage date={date} />}
+      {currentPage === 'monthly' && <MonthlyReportPage date={date} setAddEntry={setAddEntry} addEntry={addEntry} />}
       <ReportsIconBar
         openDailyCalendar={openDailyCalendar}
         openMonthlyCalendar={openMonthlyCalendar}
@@ -56,6 +57,7 @@ const ReportsPage = () => {
         setOpenMonthlyCalendar={setOpenMonthlyCalendar}
         setCurrentPage={setCurrentPage}
         currentPage={currentPage}
+        setAddEntry={setAddEntry}
       />
     </>
   );
