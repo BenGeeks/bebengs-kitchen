@@ -11,7 +11,7 @@ import { Loader, Error } from '@/assets/loader-error';
 import DatePicker from '@/assets/date-picker';
 import Table from '@/assets/table';
 
-import { SUMMARY_HEADERS, HEADERS, formatData, getSummary } from './resources';
+import { SUMMARY_HEADERS, HEADERS, formatData, getSummary, getCollectibleData } from './resources';
 import apiRequest from '@/lib/axios';
 
 import styles from './collectibles.module.css';
@@ -56,6 +56,9 @@ const Collectibles = () => {
     if (confirm(`Are you sure this collectible has been paid?`) == true) {
       updateOrderMutation.mutate({ id: selectedOrder._id, data: { ...selectedOrder, isPaid: true, paymentDate: moment(date) } });
     }
+    setOpenDatePicker(false);
+    setViewOrderDetails(false);
+    setViewCollectibleData(false);
   };
 
   const viewOrderHandler = (order) => {
@@ -64,21 +67,7 @@ const Collectibles = () => {
   };
 
   const viewCollectibleHandler = (order) => {
-    let tempData = collectiblesData.filter((item) => item.orderDetails.customer.name === order.name);
-    let itemArray = [];
-    let total = 0;
-
-    tempData.forEach((data) => {
-      total = total + data?.total;
-      itemArray.push({ date: moment(data.deliveryDate).format('ll'), total: data.total, items: data.orderDetails.items });
-    });
-
-    setViewCollectibleData({
-      name: tempData[0].orderDetails.customer.name,
-      total: total,
-      items: itemArray,
-    });
-
+    setViewCollectibleData(getCollectibleData(order, collectiblesData));
     setOpenViewCollectible(true);
   };
 
@@ -123,6 +112,7 @@ const Collectibles = () => {
           </div>
           <div className={styles.tables_container}>
             <div className={styles.summary_container}>
+              <h2>Summary:</h2>
               <Table
                 headers={SUMMARY_HEADERS}
                 data={summary}
@@ -132,7 +122,9 @@ const Collectibles = () => {
                 onRowClick={viewCollectibleHandler}
               />
             </div>
+
             <div className={styles.main_container}>
+              <h2>Collectibles List: </h2>
               <Table
                 headers={HEADERS}
                 data={collectiblesData}

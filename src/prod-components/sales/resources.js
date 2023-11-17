@@ -40,7 +40,7 @@ export const getCollectibles = (sales) => {
     }
   });
 
-  const keys = Object.keys(tempFile);
+  let keys = Object.keys(tempFile);
   keys.forEach((key) => {
     collectibles.push(tempFile[key]);
   });
@@ -67,7 +67,7 @@ export const getSalesCount = (sales) => {
     }
   });
 
-  const keys = Object.keys(summary);
+  let keys = Object.keys(summary);
   keys.forEach((key) => {
     tempArray.push(summary[key]);
   });

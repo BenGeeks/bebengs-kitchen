@@ -146,7 +146,7 @@ export const getSalesCount = (sales) => {
     }
   });
 
-  const keys = Object.keys(summary);
+  let keys = Object.keys(summary);
   keys.forEach((key) => {
     tempArray.push(summary[key]);
   });

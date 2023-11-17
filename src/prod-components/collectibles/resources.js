@@ -44,11 +44,39 @@ export const getSummary = (data) => {
     }
   });
 
-  const keys = Object.keys(tempData);
+  let keys = Object.keys(tempData);
   keys.forEach((key) => {
     summary.push({ name: key, amount: tempData[key] });
   });
 
   summary = summary.sort((a, b) => b.amount - a.amount);
   return summary;
+};
+
+export const getCollectibleData = (order, collectiblesData) => {
+  let tempData = collectiblesData?.filter((item) => item.orderDetails.customer.name === order.name);
+  let ordersObj = {};
+  let itemArray = [];
+  let total = 0;
+
+  tempData.forEach((data) => {
+    total = total + data?.total;
+    let date = moment(data.deliveryDate).format('ll');
+    if (ordersObj[date]) {
+      ordersObj[date] = { total: ordersObj[date].total + data.total, items: [...ordersObj[date].items, ...data.orderDetails.items] };
+    } else {
+      ordersObj[date] = { total: data.total, items: data.orderDetails.items };
+    }
+  });
+
+  let keys = Object.keys(ordersObj);
+  keys.forEach((key) => {
+    itemArray.push({ date: key, total: ordersObj[key].total, items: ordersObj[key].items });
+  });
+
+  return {
+    name: tempData[0].orderDetails.customer.name,
+    total: total,
+    items: itemArray,
+  };
 };
