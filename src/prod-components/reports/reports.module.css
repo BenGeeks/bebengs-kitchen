@@ -123,3 +123,9 @@
   padding: 10px;
   box-shadow: 2px 2px 10px gray;
 }
+
+@media (max-width: 768px) {
+  .info_box {
+    grid-template-columns: auto;
+  }
+}
