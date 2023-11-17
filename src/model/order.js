@@ -18,7 +18,7 @@ const orderSchema = new Schema(
     isPaid: { type: Boolean, required: true },
     orderDetails: {
       customer: {
-        _id: { type: String, required: true },
+        _id: { type: String, required: false },
         name: { type: String, required: true },
         phone: { type: String, required: false },
         address: { type: String, required: false },
