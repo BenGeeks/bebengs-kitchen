@@ -2,7 +2,7 @@
 import React, { useState } from 'react';
 import moment from 'moment';
 
-import MonthlyReportPage from './report-monthly';
+import MonthlyReportPage from './monthly/report-monthly';
 import ReportsIconBar from './reports-icon-bar';
 import DatePicker from '@/assets/date-picker';
 import DailyReportPage from './reports-daily';
@@ -49,7 +49,15 @@ const ReportsPage = () => {
         />
       )}
       {currentPage === 'daily' && <DailyReportPage date={date} openDailyCalendar={openDailyCalendar} />}
-      {currentPage === 'monthly' && <MonthlyReportPage date={date} setAddEntry={setAddEntry} addEntry={addEntry} />}
+      {currentPage === 'monthly' && (
+        <MonthlyReportPage
+          date={date}
+          openMonthlyCalendar={openMonthlyCalendar}
+          setOpenMonthlyCalendar={setOpenMonthlyCalendar}
+          setAddEntry={setAddEntry}
+          addEntry={addEntry}
+        />
+      )}
       <ReportsIconBar
         openDailyCalendar={openDailyCalendar}
         openMonthlyCalendar={openMonthlyCalendar}

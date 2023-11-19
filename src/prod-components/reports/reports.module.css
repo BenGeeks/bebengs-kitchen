@@ -57,6 +57,7 @@
 @media (max-width: 768px) {
   .page_container {
     height: calc(100vh - 125px);
+    overflow-y: auto;
   }
 
   .header {
@@ -107,6 +108,21 @@
   margin: 1px;
 }
 
+.sub_info_set_clickable {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  background-color: white;
+  border: 1px solid #374151;
+  padding: 5px;
+  margin: 1px;
+  cursor: pointer;
+  transition: all 0.3s ease-out;
+}
+
+.sub_info_set_clickable:hover {
+  background-color: beige;
+}
 .sub_info_title {
   font-size: 1.2rem;
 }
@@ -127,5 +143,9 @@
 @media (max-width: 768px) {
   .info_box {
     grid-template-columns: auto;
+  }
+
+  .table_box {
+    width: 100%;
   }
 }
