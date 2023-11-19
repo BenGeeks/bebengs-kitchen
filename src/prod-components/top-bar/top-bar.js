@@ -3,7 +3,6 @@ import { RiContactsBookLine, RiLogoutCircleLine } from 'react-icons/ri';
 import { BsClipboardCheck, BsGraphUpArrow } from 'react-icons/bs';
 import { GiChickenOven, GiHamburgerMenu } from 'react-icons/gi';
 import { IoFastFoodOutline } from 'react-icons/io5';
-import { AiOutlineDashboard } from 'react-icons/ai';
 import { FaRegMoneyBillAlt } from 'react-icons/fa';
 import { PiHandCoins } from 'react-icons/pi';
 import { signOut } from 'next-auth/react';
@@ -29,7 +28,6 @@ const TopBar = ({ currentPage, setCurrentPage }) => {
     { name: 'menu', title: 'Menu', icon: <IoFastFoodOutline /> },
     { name: 'customers', title: 'Customer', icon: <RiContactsBookLine /> },
     { name: 'reports', title: 'Reports', icon: <BsGraphUpArrow /> },
-    { name: 'dashboard', title: 'Dashboard', icon: <AiOutlineDashboard /> },
   ];
   return (
     <>

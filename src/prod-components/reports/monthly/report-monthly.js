@@ -1,26 +1,23 @@
 'use client';
-import React, { useEffect, useState } from 'react';
-import { toast } from 'react-toastify';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
+import React, { useState } from 'react';
+import { toast } from 'react-toastify';
 
-import Table from '@/assets/table';
-import MonthlyReportTopBar from './report-monthly-top-bar';
-import EditNewModal from '@/assets/edit-new-modal';
 import { MONTHLY_REPORT_HEADER, INPUT, SCHEMA, DEFAULT, getReportSummary } from '../resources';
+import MonthlyReportSummary from './report-monthly-summary';
+import MonthlyReportTopBar from './report-monthly-top-bar';
+import { Loader, Error } from '@/assets/loader-error';
+import EditNewModal from '@/assets/edit-new-modal';
 import styles from '../reports.module.css';
 import apiRequest from '@/lib/axios';
-import MonthlyReportSummary from './report-monthly-summary';
+import Table from '@/assets/table';
 
-const MonthlyReportPage = ({ date, openMonthlyCalendar, setOpenMonthlyCalendar, setAddEntry, addEntry }) => {
+const MonthlyReportPage = ({ date, openMonthlyCalendar, setAddEntry, addEntry }) => {
   const queryClient = useQueryClient();
   const [reportSummary, setReportSummary] = useState({});
   const [editEntry, setEditEntry] = useState(false);
   const [editData, setEditData] = useState({});
   const [monthStart, setMonthStart] = useState({});
-
-  useEffect(() => {
-    setOpenMonthlyCalendar(true);
-  }, []);
 
   const reportsQuery = useQuery({
     queryKey: ['reports'],
@@ -68,6 +65,20 @@ const MonthlyReportPage = ({ date, openMonthlyCalendar, setOpenMonthlyCalendar, 
     setEditData({ _id: data._id, date: data.date, capital, withdrawal, sales, expenses });
     setEditEntry(true);
   };
+
+  if (reportsQuery.isLoading || startQuery.isError)
+    return (
+      <div className={styles.page_container} style={{ width: width }}>
+        <Loader />
+      </div>
+    );
+
+  if (reportsQuery.isError || startQuery.isError)
+    return (
+      <div className={styles.page_container} style={{ width: width }}>
+        <Error error={reportsQuery.isError || startQuery.isError} />
+      </div>
+    );
 
   return (
     <div className={styles.page_container}>

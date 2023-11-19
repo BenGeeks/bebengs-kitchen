@@ -13,22 +13,22 @@ import {
   getOtherSalesData,
   getSalesData,
   getSalesCount,
-} from './resources';
+} from '../resources';
 import PrintDailyReport from './reports-daily-print';
 import { Loader, Error } from '@/assets/loader-error';
-import styles from './reports.module.css';
+import styles from '../reports.module.css';
 import apiRequest from '@/lib/axios';
 import Table from '@/assets/table';
 import moment from 'moment';
 
 const DailyReportPage = ({ date, openDailyCalendar }) => {
   const printRef = useRef();
-  const [expensesSummary, setExpenseSummary] = useState({});
+  const [expensesSummary, setExpenseSummary] = useState(null);
   const [expenseData, setExpenseData] = useState([]);
-  const [salesSummary, setSalesSummary] = useState({});
+  const [salesSummary, setSalesSummary] = useState(null);
   const [salesData, setSalesData] = useState([]);
   const [finalReportData, setFinalReportData] = useState([]);
-  const [otherSalesData, setOtherSalesData] = useState({});
+  const [otherSalesData, setOtherSalesData] = useState(null);
   const [isPrint, setIsPrint] = useState(false);
 
   const reportsQuery = useQuery({
@@ -105,7 +105,7 @@ const DailyReportPage = ({ date, openDailyCalendar }) => {
                 <span className={styles.print_icon_text}>Print</span>
               </div>
             </div>
-            <Table headers={SUMMARY_HEADER} data={finalReportData ? finalReportData : []} />
+            <Table headers={SUMMARY_HEADER} data={finalReportData} />
           </div>
           {salesData?.length !== 0 && (
             <div className={styles.summary_box}>

@@ -16,7 +16,7 @@ import styles from './dashboard.module.css';
 import apiRequest from '@/lib/axios';
 
 const DashboardPage = () => {
-  const [total, setTotal] = useState([]);
+  const [total, setTotal] = useState(null);
 
   const getTotal = (report) => {
     let totalSales = 0;

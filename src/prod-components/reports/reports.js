@@ -3,15 +3,16 @@ import React, { useState } from 'react';
 import moment from 'moment';
 
 import MonthlyReportPage from './monthly/report-monthly';
+import DailyReportPage from './daily/reports-daily';
+import DashboardPage from './dashboard/dashboard';
 import ReportsIconBar from './reports-icon-bar';
 import DatePicker from '@/assets/date-picker';
-import DailyReportPage from './reports-daily';
 
 const ReportsPage = () => {
   const [openMonthlyCalendar, setOpenMonthlyCalendar] = useState(false);
   const [openDailyCalendar, setOpenDailyCalendar] = useState(false);
-  const [currentPage, setCurrentPage] = useState('daily');
-  const [date, setDate] = useState(moment());
+  const [currentPage, setCurrentPage] = useState('dashboard');
+  const [date, setDate] = useState({ year: moment().year(), month: moment().month(), day: moment().date() });
   const [addEntry, setAddEntry] = useState(false);
 
   const setDayDateHandler = (date) => {
@@ -48,15 +49,10 @@ const ReportsPage = () => {
           noDay={true}
         />
       )}
+      {currentPage === 'dashboard' && <DashboardPage />}
       {currentPage === 'daily' && <DailyReportPage date={date} openDailyCalendar={openDailyCalendar} />}
       {currentPage === 'monthly' && (
-        <MonthlyReportPage
-          date={date}
-          openMonthlyCalendar={openMonthlyCalendar}
-          setOpenMonthlyCalendar={setOpenMonthlyCalendar}
-          setAddEntry={setAddEntry}
-          addEntry={addEntry}
-        />
+        <MonthlyReportPage date={date} openMonthlyCalendar={openMonthlyCalendar} setAddEntry={setAddEntry} addEntry={addEntry} />
       )}
       <ReportsIconBar
         openDailyCalendar={openDailyCalendar}

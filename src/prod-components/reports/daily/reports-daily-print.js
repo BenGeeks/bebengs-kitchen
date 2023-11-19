@@ -2,7 +2,7 @@
 import React from 'react';
 import moment from 'moment';
 
-import { SUMMARY_HEADER, SALES_COUNT_HEADER, EXPENSES_HEADER } from './resources';
+import { SUMMARY_HEADER, SALES_COUNT_HEADER, EXPENSES_HEADER } from '../resources';
 import PrintTable from '@/assets/print-table';
 
 import styles from './reports-daily-print.module.css';
