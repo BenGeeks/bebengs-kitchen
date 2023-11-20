@@ -42,7 +42,14 @@ const ReactForm = ({ layout, schema, defaultValues, onSubmit, onCancel, action }
 
   return (
     <>
-      {openDatePicker && <DatePicker open={openDatePicker} close={() => setOpenDatePicker(false)} onSave={setCalendarDateHandler} />}
+      {openDatePicker && (
+        <DatePicker
+          open={openDatePicker}
+          close={() => setOpenDatePicker(false)}
+          defaultDate={calendarDates[dateName]}
+          onSave={setCalendarDateHandler}
+        />
+      )}
       <form onSubmit={handleSubmit(onSubmitHandler)}>
         {layout.map((input, index) => {
           return (

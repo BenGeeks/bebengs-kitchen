@@ -49,10 +49,16 @@ const ReportsPage = () => {
           noDay={true}
         />
       )}
-      {currentPage === 'dashboard' && <DashboardPage />}
-      {currentPage === 'daily' && <DailyReportPage date={date} openDailyCalendar={openDailyCalendar} />}
+      {currentPage === 'dashboard' && <DashboardPage date={date} />}
+      {currentPage === 'daily' && <DailyReportPage date={date} setDate={setDate} openDailyCalendar={openDailyCalendar} />}
       {currentPage === 'monthly' && (
-        <MonthlyReportPage date={date} openMonthlyCalendar={openMonthlyCalendar} setAddEntry={setAddEntry} addEntry={addEntry} />
+        <MonthlyReportPage
+          date={date}
+          setDate={setDate}
+          openMonthlyCalendar={openMonthlyCalendar}
+          setAddEntry={setAddEntry}
+          addEntry={addEntry}
+        />
       )}
       <ReportsIconBar
         openDailyCalendar={openDailyCalendar}

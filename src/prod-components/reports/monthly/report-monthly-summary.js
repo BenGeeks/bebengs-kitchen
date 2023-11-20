@@ -1,6 +1,6 @@
 'use client';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { toast } from 'react-toastify';
 import moment from 'moment';
 import * as yup from 'yup';
@@ -56,6 +56,11 @@ const MonthlyReportSummary = ({ date, monthStart, reportSummary, monthStartData 
     editMonthStartMutation.mutate(payload);
   };
 
+  const options = {
+    minimumFractionDigits: 2,
+    maximumFractionDigits: 2,
+  };
+
   return (
     <>
       {addMonthlyStart && (
@@ -91,49 +96,57 @@ const MonthlyReportSummary = ({ date, monthStart, reportSummary, monthStartData 
             onClick={monthStart ? () => setEditMonthlyStart(true) : () => setAddMonthlyStart(true)}
           >
             <div className={styles.sub_info_title}>Month Start: </div>
-            <div className={styles.sub_info_value}>{monthStart?.toLocaleString('en')}</div>
+            <div className={styles.sub_info_value}>{monthStart?.toLocaleString('en', options)}</div>
           </div>
           <div className={styles.sub_info_set}>
             <div className={styles.sub_info_title}>Total Capital: </div>
-            <div className={styles.sub_info_value}>{reportSummary?.totalCapital?.toLocaleString('en')}</div>
+            <div className={styles.sub_info_value}>{reportSummary?.totalCapital?.toLocaleString('en', options)}</div>
           </div>
           <div className={styles.sub_info_set}>
             <div className={styles.sub_info_title}>Total Withdrawal: </div>
-            <div className={styles.sub_info_value}>{reportSummary?.totalWithdrawal?.toLocaleString('en')}</div>
+            <div className={styles.sub_info_value}>{reportSummary?.totalWithdrawal?.toLocaleString('en', options)}</div>
           </div>
         </div>
-        <div className={styles.sub_info}>
-          <div className={styles.sub_info_set}>
-            <div className={styles.sub_info_title}>Total Sales: </div>
-            <div className={styles.sub_info_value}>{reportSummary?.totalSales?.toLocaleString('en')}</div>
-          </div>
-          <div className={styles.sub_info_set}>
-            <div className={styles.sub_info_title}>Total Expenses: </div>
-            <div className={styles.sub_info_value}>{reportSummary?.totalExpenses?.toLocaleString('en')}</div>
-          </div>
-          <div className={styles.sub_info_set}>
-            <div className={styles.sub_info_title}>Total Profit: </div>
-            <div className={styles.sub_info_value}>{reportSummary?.totalProfit?.toLocaleString('en')}</div>
-          </div>
-        </div>
+
         <div className={styles.sub_info}>
           <div className={styles.sub_info_set}>
             <div className={styles.sub_info_title}>Average Sales: </div>
             <div className={styles.sub_info_value}>
-              {reportSummary?.averageSales?.toLocaleString('en') === 'NaN' ? 0 : reportSummary?.averageSales?.toLocaleString('en')}
+              {reportSummary?.averageSales?.toLocaleString('en', options) === 'NaN'
+                ? 0
+                : reportSummary?.averageSales?.toLocaleString('en', options)}
             </div>
           </div>
           <div className={styles.sub_info_set}>
             <div className={styles.sub_info_title}>Average Expenses: </div>
             <div className={styles.sub_info_value}>
-              {reportSummary?.averageExpenses?.toLocaleString('en') === 'NaN' ? 0 : reportSummary?.averageExpenses?.toLocaleString('en')}
+              {reportSummary?.averageExpenses?.toLocaleString('en', options) === 'NaN'
+                ? 0
+                : reportSummary?.averageExpenses?.toLocaleString('en', options)}
             </div>
           </div>
           <div className={styles.sub_info_set}>
             <div className={styles.sub_info_title}>Average Profit: </div>
             <div className={styles.sub_info_value}>
-              {reportSummary?.averageProfit?.toLocaleString('en') === 'NaN' ? 0 : reportSummary?.averageProfit?.toLocaleString('en')}
+              {reportSummary?.averageProfit?.toLocaleString('en', options) === 'NaN'
+                ? 0
+                : reportSummary?.averageProfit?.toLocaleString('en', options)}
             </div>
+          </div>
+        </div>
+
+        <div className={styles.sub_info}>
+          <div className={styles.sub_info_set}>
+            <div className={styles.sub_info_title}>Total Sales: </div>
+            <div className={styles.sub_info_value}>{reportSummary?.totalSales?.toLocaleString('en', options)}</div>
+          </div>
+          <div className={styles.sub_info_set}>
+            <div className={styles.sub_info_title}>Total Expenses: </div>
+            <div className={styles.sub_info_value}>{reportSummary?.totalExpenses?.toLocaleString('en', options)}</div>
+          </div>
+          <div className={styles.sub_info_set}>
+            <div className={styles.sub_info_title}>Total Profit: </div>
+            <div className={styles.sub_info_value}>{reportSummary?.totalProfit?.toLocaleString('en', options)}</div>
           </div>
         </div>
       </div>

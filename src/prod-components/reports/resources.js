@@ -180,7 +180,6 @@ export const INPUT = [
 ];
 
 export const SCHEMA = yup.object().shape({
-  date: yup.string().required('Report date is required'),
   capital: yup.number().required('Set to 0 if blank'),
   withdrawal: yup.number().required('Set to 0 if blank'),
   sales: yup.number().required('Set to 0 if blank'),
@@ -188,7 +187,6 @@ export const SCHEMA = yup.object().shape({
 });
 
 export const DEFAULT = {
-  date: moment(),
   capital: 0,
   withdrawal: 0,
   sales: 0,

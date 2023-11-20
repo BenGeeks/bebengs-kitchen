@@ -11,6 +11,7 @@ import EditNewModal from '@/assets/edit-new-modal';
 import styles from '../reports.module.css';
 import apiRequest from '@/lib/axios';
 import Table from '@/assets/table';
+import moment from 'moment';
 
 const MonthlyReportPage = ({ date, openMonthlyCalendar, setAddEntry, addEntry }) => {
   const queryClient = useQueryClient();
@@ -62,20 +63,20 @@ const MonthlyReportPage = ({ date, openMonthlyCalendar, setAddEntry, addEntry })
     let withdrawal = data.withdrawal !== ' ' ? parseInt(data.withdrawal.replace(/,/g, '')) : 0;
     let sales = data.sales !== ' ' ? parseInt(data.sales.replace(/,/g, '')) : 0;
     let expenses = data.expenses !== ' ' ? parseInt(data.expenses.replace(/,/g, '')) : 0;
-    setEditData({ _id: data._id, date: data.date, capital, withdrawal, sales, expenses });
+    setEditData({ _id: data._id, date: data.date, capital, withdrawal, sales, expenses, date: data.date });
     setEditEntry(true);
   };
 
   if (reportsQuery.isLoading || startQuery.isError)
     return (
-      <div className={styles.page_container} style={{ width: width }}>
+      <div className={styles.page_container}>
         <Loader />
       </div>
     );
 
   if (reportsQuery.isError || startQuery.isError)
     return (
-      <div className={styles.page_container} style={{ width: width }}>
+      <div className={styles.page_container}>
         <Error error={reportsQuery.isError || startQuery.isError} />
       </div>
     );
@@ -89,7 +90,7 @@ const MonthlyReportPage = ({ date, openMonthlyCalendar, setAddEntry, addEntry })
           title="Add new report entry"
           INPUT={INPUT}
           SCHEMA={SCHEMA}
-          DEFAULT={{ ...DEFAULT, date }}
+          DEFAULT={{ ...DEFAULT, date: moment(date) }}
           onSubmit={(data) => newReportMutation.mutate(data)}
           onCancel={() => setAddEntry(false)}
           action={'Add'}

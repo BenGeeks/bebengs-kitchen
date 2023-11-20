@@ -15,7 +15,7 @@ import SalesExpensesBarGraphMobile from './graphs-mobile/sales-expense';
 import styles from './dashboard.module.css';
 import apiRequest from '@/lib/axios';
 
-const DashboardPage = () => {
+const DashboardPage = ({ date }) => {
   const [total, setTotal] = useState(null);
 
   const getTotal = (report) => {
@@ -37,6 +37,12 @@ const DashboardPage = () => {
     onSuccess: (data) => getTotal(data),
   });
 
+  const yearReportQuery = useQuery({
+    queryKey: ['yearReport'],
+    queryFn: () => apiRequest({ url: `reports/summary/${date.year}-${date.month + 1}`, method: 'GET' }).then((res) => res.data),
+  });
+
+  console.log('DASHBOARD QUERY: ', dashboardQuery.data);
   if (dashboardQuery.isLoading)
     return (
       <>

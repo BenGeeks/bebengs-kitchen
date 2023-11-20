@@ -21,7 +21,7 @@ import apiRequest from '@/lib/axios';
 import Table from '@/assets/table';
 import moment from 'moment';
 
-const DailyReportPage = ({ date, openDailyCalendar }) => {
+const DailyReportPage = ({ date, setDate, openDailyCalendar }) => {
   const printRef = useRef();
   const [expensesSummary, setExpenseSummary] = useState(null);
   const [expenseData, setExpenseData] = useState([]);
@@ -30,6 +30,8 @@ const DailyReportPage = ({ date, openDailyCalendar }) => {
   const [finalReportData, setFinalReportData] = useState([]);
   const [otherSalesData, setOtherSalesData] = useState(null);
   const [isPrint, setIsPrint] = useState(false);
+
+  useEffect(() => setDate({ year: moment().year(), month: moment().month(), day: moment().date() }), []);
 
   const reportsQuery = useQuery({
     queryKey: ['reports'],
