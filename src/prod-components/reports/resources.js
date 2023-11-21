@@ -198,9 +198,13 @@ export const getReportSummary = (data) => {
   let totalExpenses = 0;
   let totalCapital = 0;
   let totalWithdrawal = 0;
+  let salesCount = 0;
+  let expenseCount = 0;
 
   let list = [];
   data.forEach((item) => {
+    item.sales !== 0 && salesCount++;
+    item.expense !== 0 && expenseCount++;
     totalSales = totalSales + item.sales;
     totalExpenses = totalExpenses + item.expenses;
     totalCapital = totalCapital + item.capital;
@@ -221,8 +225,8 @@ export const getReportSummary = (data) => {
   });
 
   let totalProfit = totalSales - totalExpenses;
-  let averageSales = totalSales / data?.length;
-  let averageExpenses = totalExpenses / data?.length;
-  let averageProfit = (totalSales - totalExpenses) / data.length;
+  let averageSales = totalSales / salesCount;
+  let averageExpenses = totalExpenses / expenseCount;
+  let averageProfit = averageSales - averageExpenses;
   return { totalSales, totalExpenses, totalProfit, averageSales, averageExpenses, averageProfit, totalCapital, totalWithdrawal, list };
 };

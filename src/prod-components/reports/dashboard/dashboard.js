@@ -39,10 +39,11 @@ const DashboardPage = ({ date }) => {
 
   const yearReportQuery = useQuery({
     queryKey: ['yearReport'],
-    queryFn: () => apiRequest({ url: `reports/summary/${date.year}-${date.month + 1}`, method: 'GET' }).then((res) => res.data),
+    queryFn: () => apiRequest({ url: `reports/summary/year/${date.year}`, method: 'GET' }).then((res) => res.data),
   });
 
-  console.log('DASHBOARD QUERY: ', dashboardQuery.data);
+  console.log('DASHBOARD QUERY: ', yearReportQuery.data);
+
   if (dashboardQuery.isLoading)
     return (
       <>
