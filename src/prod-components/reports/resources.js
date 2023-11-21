@@ -227,6 +227,6 @@ export const getReportSummary = (data) => {
   let totalProfit = totalSales - totalExpenses;
   let averageSales = totalSales / salesCount;
   let averageExpenses = totalExpenses / expenseCount;
-  let averageProfit = averageSales - averageExpenses;
+  let averageProfit = (totalSales - totalExpenses) / salesCount;
   return { totalSales, totalExpenses, totalProfit, averageSales, averageExpenses, averageProfit, totalCapital, totalWithdrawal, list };
 };

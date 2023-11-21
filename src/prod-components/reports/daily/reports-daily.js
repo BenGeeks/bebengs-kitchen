@@ -38,9 +38,8 @@ const DailyReportPage = ({ date, setDate, openDailyCalendar }) => {
     enabled: !openDailyCalendar,
     queryFn: () =>
       apiRequest({
-        url: 'reports',
-        method: 'POST',
-        data: { dateFrom: moment(date).startOf('day'), dateTo: moment(date).endOf('day') },
+        url: `reports/daily/${moment(date).format('YYYY-MM-DD')}`,
+        method: 'GET',
       }).then((res) => res.data),
     onSuccess: (data) => {
       setExpenseData(data.expenseList.sort((a, b) => b.total - a.total));

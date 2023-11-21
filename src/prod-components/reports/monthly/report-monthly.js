@@ -8,6 +8,7 @@ import MonthlyReportSummary from './report-monthly-summary';
 import MonthlyReportTopBar from './report-monthly-top-bar';
 import { Loader, Error } from '@/assets/loader-error';
 import EditNewModal from '@/assets/edit-new-modal';
+import ActionModal from '@/assets/action-modal';
 import styles from '../reports.module.css';
 import apiRequest from '@/lib/axios';
 import Table from '@/assets/table';
@@ -19,11 +20,13 @@ const MonthlyReportPage = ({ date, openMonthlyCalendar, setAddEntry, addEntry })
   const [editEntry, setEditEntry] = useState(false);
   const [editData, setEditData] = useState({});
   const [monthStart, setMonthStart] = useState({});
+  const [openActionModal, setOpenActionModal] = useState(false);
+  const [selectedData, setSelectedData] = useState({});
 
   const reportsQuery = useQuery({
     queryKey: ['reports'],
     enabled: !openMonthlyCalendar,
-    queryFn: () => apiRequest({ url: `reports/summary/${date.year}-${date.month + 1}`, method: 'GET' }).then((res) => res.data),
+    queryFn: () => apiRequest({ url: `reports/month/${date.year}-${date.month + 1}`, method: 'GET' }).then((res) => res.data),
     onSuccess: (data) => setReportSummary(getReportSummary(data)),
   });
 
@@ -58,6 +61,18 @@ const MonthlyReportPage = ({ date, openMonthlyCalendar, setAddEntry, addEntry })
     },
   });
 
+  const deleteReportMutation = useMutation({
+    mutationFn: (id) => apiRequest({ url: `reports/${id}`, method: 'DELETE' }),
+    onSuccess: () => {
+      toast.success('Report data deleted successfully.');
+      queryClient.invalidateQueries({ queryKey: ['reports'] });
+      setOpenActionModal(false);
+    },
+    onError: (error) => {
+      toast.error(error.response.data.error.message);
+    },
+  });
+
   const editReportHandler = (data) => {
     let capital = data.capital !== ' ' ? parseInt(data.capital.replace(/,/g, '')) : 0;
     let withdrawal = data.withdrawal !== ' ' ? parseInt(data.withdrawal.replace(/,/g, '')) : 0;
@@ -67,7 +82,18 @@ const MonthlyReportPage = ({ date, openMonthlyCalendar, setAddEntry, addEntry })
     setEditEntry(true);
   };
 
-  if (reportsQuery.isLoading || startQuery.isError)
+  const onDeleteReportHandler = (id) => {
+    if (confirm('Are you sure to delete this report entry?') == true) {
+      deleteReportMutation.mutate(id);
+    }
+  };
+
+  const onRowClickHandler = (data) => {
+    setSelectedData(data);
+    setOpenActionModal(true);
+  };
+
+  if (reportsQuery.isLoading || startQuery.isLoading)
     return (
       <div className={styles.page_container}>
         <Loader />
@@ -83,6 +109,16 @@ const MonthlyReportPage = ({ date, openMonthlyCalendar, setAddEntry, addEntry })
 
   return (
     <div className={styles.page_container}>
+      {openActionModal && (
+        <ActionModal
+          open={openActionModal}
+          close={() => setOpenActionModal(false)}
+          onCancel={() => setOpenActionModal(false)}
+          onEdit={() => editReportHandler(selectedData)}
+          onDelete={() => onDeleteReportHandler(selectedData._id)}
+        />
+      )}
+
       {addEntry && (
         <EditNewModal
           open={addEntry}
@@ -96,6 +132,7 @@ const MonthlyReportPage = ({ date, openMonthlyCalendar, setAddEntry, addEntry })
           action={'Add'}
         />
       )}
+
       {editEntry && (
         <EditNewModal
           open={editEntry}
@@ -117,7 +154,7 @@ const MonthlyReportPage = ({ date, openMonthlyCalendar, setAddEntry, addEntry })
           headers={MONTHLY_REPORT_HEADER}
           data={reportSummary?.list}
           enableRowClick={true}
-          onRowClick={editReportHandler}
+          onRowClick={onRowClickHandler}
           small={true}
         />
       </div>

@@ -1,7 +1,5 @@
 import dbConnect from '@/lib/dbConnect';
-import Orders from '@/model/order';
-import Expenses from '@/model/expenses';
-import moment from 'moment';
+import Report from '@/model/report';
 
 export default async function handler(req, res) {
   const { method, body } = req;
@@ -9,26 +7,10 @@ export default async function handler(req, res) {
 
   if (method !== 'POST') return res.status(401).json({ message: 'INTRUDER ALERT!' });
 
-  const salesListRequest = Orders.find({
-    $or: [
-      { downPaymentDate: { $gte: moment(body.dateFrom), $lt: moment(body.dateTo) } },
-      { paymentDate: { $gte: moment(body.dateFrom), $lt: moment(body.dateTo) } },
-    ],
-  });
-
-  const expenseListRequest = Expenses.find({ expenseDate: { $gte: moment(body.dateFrom), $lt: moment(body.dateTo) } });
-
-  Promise.all([salesListRequest, expenseListRequest])
-    .then(([salesList, expenseList]) => {
-      return res.status(200).json({ success: true, data: { salesList, expenseList } });
-    })
-    .catch((error) => {
-      return res.status(500).json({ success: false, error });
-    });
+  try {
+    const report = await Report.create(body);
+    res.status(201).json({ success: true, data: report });
+  } catch (error) {
+    res.status(400).json({ success: false, error: error });
+  }
 }
-
-export const config = {
-  api: {
-    externalResolver: true,
-  },
-};

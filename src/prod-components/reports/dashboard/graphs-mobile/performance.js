@@ -8,17 +8,17 @@ import styles from '../dashboard.module.css';
 const PerformancePieGraphWithNeedleMobile = ({ report }) => {
   const RADIAN = Math.PI / 180;
   const data = [
-    { name: 'A', value: 1000, color: 'red' },
-    { name: 'B', value: 1000, color: '#FF8042' },
-    { name: 'C', value: 1500, color: '#FFBB28' },
-    { name: 'D', value: 1000, color: '#00C49F' },
-    { name: 'E', value: 500, color: '#0088FE' },
+    { name: 'A', value: 3000, color: 'red' },
+    { name: 'B', value: 3000, color: '#FF8042' },
+    { name: 'C', value: 4500, color: '#FFBB28' },
+    { name: 'D', value: 3000, color: '#00C49F' },
+    { name: 'E', value: 1500, color: '#0088FE' },
   ];
   const cx = 150;
   const cy = 100;
   const iR = 50;
   const oR = 100;
-  const value = report[report.length - 1].movingAverage;
+  const value = report[report.length - 2]?.movingAverage;
 
   const needle = (value, data, cx, cy, iR, oR, color) => {
     let total = 0;
@@ -47,7 +47,7 @@ const PerformancePieGraphWithNeedleMobile = ({ report }) => {
   return (
     <div className={styles.graph_container}>
       <h2 className={styles.graph_header}>Running Performance Meter</h2>
-      <div className={styles.performance_value}>{report[report.length - 1].movingAverage}</div>
+      <div className={styles.performance_value}>{report[report.length - 2]?.movingAverage}</div>
       <PieChart width={320} height={120}>
         <Pie
           dataKey="value"

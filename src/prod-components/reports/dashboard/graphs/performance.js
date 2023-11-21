@@ -8,17 +8,17 @@ import styles from '../dashboard.module.css';
 const PerformancePieGraphWithNeedle = ({ report }) => {
   const RADIAN = Math.PI / 180;
   const data = [
-    { name: 'A', value: 1000, color: 'red' },
-    { name: 'B', value: 1000, color: '#FF8042' },
-    { name: 'C', value: 1500, color: '#FFBB28' },
-    { name: 'D', value: 1000, color: '#00C49F' },
-    { name: 'E', value: 500, color: '#0088FE' },
+    { name: 'A', value: 3000, color: 'red' },
+    { name: 'B', value: 3000, color: '#FF8042' },
+    { name: 'C', value: 4500, color: '#FFBB28' },
+    { name: 'D', value: 3000, color: '#00C49F' },
+    { name: 'E', value: 1500, color: '#0088FE' },
   ];
   const cx = 250;
   const cy = 200;
   const iR = 80;
   const oR = 150;
-  const value = report[report?.length - 1].movingAverage;
+  const value = report[report?.length - 2]?.movingAverage;
 
   const needle = (value, data, cx, cy, iR, oR, color) => {
     let total = 0;
@@ -47,7 +47,7 @@ const PerformancePieGraphWithNeedle = ({ report }) => {
   return (
     <div className={styles.graph_container}>
       <h2 className={styles.graph_header}>Running Performance Meter</h2>
-      <div className={styles.performance_value}>{report[report.length - 1].movingAverage}</div>
+      <div className={styles.performance_value}>{report[report.length - 2]?.movingAverage}</div>
       <PieChart width={500} height={230}>
         <Pie
           dataKey="value"
@@ -68,11 +68,11 @@ const PerformancePieGraphWithNeedle = ({ report }) => {
         {needle(value, data, cx, cy, iR, oR, '#8884d8')}
       </PieChart>
       <div className={styles.performance_0_label}>0</div>
-      <div className={styles.performance_1k_label}>1000</div>
-      <div className={styles.performance_2k_label}>2000</div>
-      <div className={styles.performance_3k5_label}>3500</div>
-      <div className={styles.performance_4k5_label}>4500</div>
-      <div className={styles.performance_5k_label}>5000</div>
+      <div className={styles.performance_1k_label}>3000</div>
+      <div className={styles.performance_2k_label}>6000</div>
+      <div className={styles.performance_3k5_label}>10500</div>
+      <div className={styles.performance_4k5_label}>13500</div>
+      <div className={styles.performance_5k_label}>15000</div>
     </div>
   );
 };
