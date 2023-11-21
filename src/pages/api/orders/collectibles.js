@@ -6,11 +6,11 @@ export default async function handler(req, res) {
   const { method, body } = req;
   await dbConnect();
 
-  if (method !== 'POST') {
+  if (method !== 'GET') {
     res.status(401).json({ message: 'INTRUDER ALERT!' });
   } else {
     Order.find({
-      $and: [{ isDelivered: true }, { isPaid: false }, { deliveryDate: { $lt: moment(body.dateToday) } }],
+      $and: [{ isDelivered: true }, { isPaid: false }],
     })
       .sort({ deliveryDate: 1 })
       .then((data) => {

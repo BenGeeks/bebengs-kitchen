@@ -28,12 +28,7 @@ const Collectibles = () => {
 
   const collectiblesQuery = useQuery({
     queryKey: ['collectibles'],
-    queryFn: () =>
-      apiRequest({
-        url: 'orders/collectibles',
-        method: 'POST',
-        data: { dateToday: moment().startOf('day') },
-      }).then((res) => res.data),
+    queryFn: () => apiRequest({ url: 'orders/collectibles', method: 'GET' }).then((res) => res.data),
     onSuccess: (data) => {
       setCollectiblesData(formatData(data));
       setSummary(getSummary(data));
