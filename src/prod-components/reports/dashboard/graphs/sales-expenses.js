@@ -11,7 +11,7 @@ const SalesExpensesBarGraph = ({ data }) => {
       <h2 className={styles.graph_header}>Sales and Expense</h2>
       <ComposedChart
         width={1080}
-        height={230}
+        height={600}
         data={data}
         margin={{
           top: 5,
