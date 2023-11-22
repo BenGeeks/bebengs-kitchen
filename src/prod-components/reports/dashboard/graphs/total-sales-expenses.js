@@ -20,7 +20,7 @@ const TotalSalesExpensesPieGraph = ({ total }) => {
   };
   return (
     <div className={styles.graph_container}>
-      <h2 className={styles.graph_header}>Total Sales and Expenses</h2>
+      <h2 className={styles.graph_header}>Profit vs Expenses</h2>
       <PieChart width={500} height={230}>
         <Pie
           data={total}

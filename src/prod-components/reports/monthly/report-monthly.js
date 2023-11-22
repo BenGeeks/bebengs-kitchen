@@ -1,9 +1,10 @@
 'use client';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { toast } from 'react-toastify';
 
-import { MONTHLY_REPORT_HEADER, INPUT, SCHEMA, DEFAULT } from '../resources';
+import { getSalesData, getExpenseSummary } from '@/assets/functions';
+import { MONTHLY_REPORT_HEADER, INPUT, SCHEMA } from '../resources';
 import MonthlyReportSummary from './report-monthly-summary';
 import MonthlyReportTopBar from './report-monthly-top-bar';
 import { Loader, Error } from '@/assets/loader-error';
@@ -24,6 +25,19 @@ const MonthlyReportPage = ({ date, openMonthlyCalendar, setAddEntry, addEntry })
   const [openActionModal, setOpenActionModal] = useState(false);
   const [selectedData, setSelectedData] = useState({});
 
+  const [expensesSummary, setExpenseSummary] = useState([]);
+  const [salesSummary, setSalesSummary] = useState([]);
+
+  let DEFAULT = { date: moment(date), expenses: expensesSummary?.total, sales: salesSummary?.dailyTotal, withdrawal: 0, capital: 0 };
+
+  useEffect(() => {
+    apiRequest({ url: `reports/daily/${moment(date).format('YYYY-MM-DD')}`, method: 'GET' }).then((res) => {
+      res.data;
+      setExpenseSummary(getExpenseSummary(res.data.expenseList));
+      setSalesSummary(getSalesData(res.data.salesList, date));
+    });
+  }, []);
+
   const reportsQuery = useQuery({
     queryKey: ['reports'],
     enabled: !openMonthlyCalendar,
@@ -39,7 +53,7 @@ const MonthlyReportPage = ({ date, openMonthlyCalendar, setAddEntry, addEntry })
   });
 
   const newReportMutation = useMutation({
-    mutationFn: (payload) => apiRequest({ url: 'reports/summary', method: 'POST', data: payload }),
+    mutationFn: (payload) => apiRequest({ url: 'reports', method: 'POST', data: payload }),
     onSuccess: () => {
       toast.success('Report data added successfully.');
       queryClient.invalidateQueries({ queryKey: ['reports'] });
@@ -127,7 +141,7 @@ const MonthlyReportPage = ({ date, openMonthlyCalendar, setAddEntry, addEntry })
           title="Add new report entry"
           INPUT={INPUT}
           SCHEMA={SCHEMA}
-          DEFAULT={{ ...DEFAULT, date: moment(date) }}
+          DEFAULT={DEFAULT}
           onSubmit={(data) => newReportMutation.mutate(data)}
           onCancel={() => setAddEntry(false)}
           action={'Add'}

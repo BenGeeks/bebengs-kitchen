@@ -24,8 +24,8 @@ const ProfitRunningAverageLineGraph = ({ data }) => {
         <YAxis />
         <Tooltip />
         <Legend />
-        <Line type="monotone" dataKey="profit" stroke="#8884d8" activeDot={{ r: 8 }} />
-        <Line type="monotone" dataKey="movingAverage" stroke="#82ca9d" />
+        <Line type="monotone" dataKey="profit" stroke="#82ca9d" activeDot={{ r: 8 }} />
+        <Line type="monotone" dataKey="movingAverage" stroke="#d7583c" strokeWidth="2" />
       </LineChart>
     </div>
   );

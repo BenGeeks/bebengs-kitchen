@@ -53,13 +53,6 @@ export const SCHEMA = yup.object().shape({
   expenses: yup.number().required('Set to 0 if blank'),
 });
 
-export const DEFAULT = {
-  capital: 0,
-  withdrawal: 0,
-  sales: 0,
-  expenses: 0,
-};
-
 export const getReportSummary = (data) => {
   let totalSales = 0;
   let totalExpenses = 0;
@@ -67,8 +60,8 @@ export const getReportSummary = (data) => {
   let totalWithdrawal = 0;
   let salesCount = 0;
   let expenseCount = 0;
-
   let list = [];
+
   data.forEach((item) => {
     item.sales !== 0 && salesCount++;
     item.expense !== 0 && expenseCount++;

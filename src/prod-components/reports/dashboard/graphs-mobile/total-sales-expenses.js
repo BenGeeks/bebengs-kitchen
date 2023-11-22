@@ -9,7 +9,7 @@ const TotalSalesExpensesPieGraphMobile = ({ total }) => {
   const RADIAN = Math.PI / 180;
   const renderCustomizedLabel = ({ cx, cy, midAngle, innerRadius, outerRadius, percent, index }) => {
     const radius = innerRadius + (outerRadius - innerRadius) * 0.5;
-    const x = cx + radius * Math.cos(-midAngle * RADIAN) - 10;
+    const x = cx + radius * Math.cos(-midAngle * RADIAN) + 10;
     const y = cy + radius * Math.sin(-midAngle * RADIAN);
 
     return (
@@ -20,7 +20,7 @@ const TotalSalesExpensesPieGraphMobile = ({ total }) => {
   };
   return (
     <div className={styles.graph_container}>
-      <h2 className={styles.graph_header}>Total Sales and Expenses</h2>
+      <h2 className={styles.graph_header}>Profit vs Expenses</h2>
       <PieChart width={320} height={150}>
         <Pie data={total} cx="50%" cy="50%" labelLine={false} label={renderCustomizedLabel} outerRadius={70} fill="#8884d8" dataKey="value">
           {total?.map((entry, index) => (

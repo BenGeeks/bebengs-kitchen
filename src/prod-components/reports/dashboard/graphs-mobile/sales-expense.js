@@ -1,7 +1,7 @@
 'use client';
 import React from 'react';
 
-import { ComposedChart, Bar, Line, Rectangle, XAxis, YAxis, CartesianGrid, Tooltip, Legend } from 'recharts';
+import { BarChart, Bar, Rectangle, XAxis, YAxis, CartesianGrid, Tooltip, Legend } from 'recharts';
 
 import styles from '../dashboard.module.css';
 
@@ -9,9 +9,9 @@ const SalesExpensesBarGraphMobile = ({ data }) => {
   return (
     <div className={styles.graph_container}>
       <h2 className={styles.graph_header}>Sales and Expense</h2>
-      <ComposedChart
+      <BarChart
         width={320}
-        height={300}
+        height={180}
         data={data}
         margin={{
           top: 5,
@@ -27,9 +27,7 @@ const SalesExpensesBarGraphMobile = ({ data }) => {
         <Legend />
         <Bar dataKey="sales" fill="#8884d8" activeBar={<Rectangle fill="pink" stroke="blue" />} />
         <Bar dataKey="expenses" fill="#82ca9d" activeBar={<Rectangle fill="gold" stroke="purple" />} />
-        <Line type="monotone" dataKey="profit" stroke="#0950e9" activeDot={{ r: 8 }} />
-        <Line type="monotone" dataKey="movingAverage" stroke="#e25130" strokeWidth="2" />
-      </ComposedChart>
+      </BarChart>
     </div>
   );
 };

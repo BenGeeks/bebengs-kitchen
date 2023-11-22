@@ -1,4 +1,4 @@
-const STATIC_CACHE_NAME = 'site-static-cache-v11112023';
+const STATIC_CACHE_NAME = 'site-static-cache-v11232023';
 const DYNAMIC_CACHE_NAME = 'site-dynamic-cache';
 const staticAssets = ['/images/favicon.ico', '/offline.html', '/images/header_logo.png', '/prod', '/sw.js', '/images/loader.gif'];
 

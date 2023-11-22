@@ -26,7 +26,7 @@ const DailyReportPage = ({ date, setDate, openDailyCalendar }) => {
   useEffect(() => setDate({ year: moment().year(), month: moment().month(), day: moment().date() }), []);
 
   const reportsQuery = useQuery({
-    queryKey: ['reports'],
+    queryKey: ['daily'],
     enabled: !openDailyCalendar,
     queryFn: () =>
       apiRequest({
