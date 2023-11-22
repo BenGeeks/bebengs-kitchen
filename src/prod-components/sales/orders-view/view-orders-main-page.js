@@ -7,7 +7,7 @@ import moment from 'moment';
 import ViewOrderDetailsModal from '@/assets/view-order';
 import OrderStatusUpdater from './order-status-updater';
 import { Loader, Error } from '@/assets/loader-error';
-import { getStatusColor } from '../resources';
+import { getStatusColor } from '@/assets/functions';
 import styles from '../sales.module.css';
 import apiRequest from '@/lib/axios';
 

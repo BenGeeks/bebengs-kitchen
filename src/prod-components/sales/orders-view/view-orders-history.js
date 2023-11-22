@@ -3,7 +3,8 @@ import { useState } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import moment from 'moment';
 
-import { getSalesCount, getSalesData } from '../resources';
+// import { getSalesCount, getSalesData } from '../resources';
+import { getSalesCount, getSalesData } from '@/assets/functions';
 import OrdersMainPage from './view-orders-main-page';
 import OrdersIconBar from './view-orders-icon-bar';
 import OrdersSideBar from './view-orders-side-bar';
@@ -21,13 +22,12 @@ const OrderListHistory = ({ currentPage, setCurrentPage, onEdit, calendarDate, s
     enabled: !openCalendar,
     queryFn: () =>
       apiRequest({
-        url: 'orders/search',
-        method: 'POST',
-        data: { dateFrom: moment(calendarDate).startOf('day'), dateTo: moment(calendarDate).endOf('day') },
+        url: `orders/history/${moment(calendarDate).format('YYYY-MM-DD')}`,
+        method: 'GET',
       }).then((res) => res.data),
     onSuccess: (orders) => {
-      setSalesData(getSalesData(orders));
-      setSalesCount(getSalesCount(orders));
+      setSalesData(getSalesData(orders, calendarDate));
+      setSalesCount(getSalesCount(orders, calendarDate));
     },
   });
 

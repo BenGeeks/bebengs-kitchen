@@ -5,10 +5,11 @@ import moment from 'moment-timezone';
 
 export default async function handler(req, res) {
   await dbConnect();
-  let start = moment.tz(req.query.date, 'Asia/Manila').startOf('day');
-  let end = moment.tz(req.query.date, 'Asia/Manila').endOf('day');
 
   if (req.method !== 'GET') return res.status(401).json({ message: 'INTRUDER ALERT!' });
+
+  let start = moment.tz(req.query.date, 'Asia/Manila').startOf('day');
+  let end = moment.tz(req.query.date, 'Asia/Manila').endOf('day');
 
   const salesListRequest = Orders.find({
     $or: [{ downPaymentDate: { $gte: start, $lt: end } }, { paymentDate: { $gte: start, $lt: end } }],

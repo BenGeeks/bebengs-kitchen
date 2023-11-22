@@ -3,7 +3,7 @@ import { useQuery } from '@tanstack/react-query';
 import { useState } from 'react';
 import moment from 'moment';
 
-import { getCollectibles, getSalesCount, getSalesData } from '../resources';
+import { getSalesCount, getSalesData, getCollectibles } from '@/assets/functions';
 import OrdersMainPage from './view-orders-main-page';
 import OrdersIconBar from './view-orders-icon-bar';
 import OrdersSideBar from './view-orders-side-bar';
@@ -16,18 +16,13 @@ const OrderListToday = ({ setCurrentPage, onEdit, currentPage, getWidth, setView
 
   const orderQuery = useQuery({
     queryKey: ['orders'],
-    queryFn: () =>
-      apiRequest({
-        url: 'orders/today',
-        method: 'POST',
-        data: { dateFrom: moment().startOf('day'), dateTo: moment().endOf('day') },
-      }).then((res) => res.data),
+    queryFn: () => apiRequest({ url: 'orders/today', method: 'GET' }).then((res) => res.data),
     staleTime: 0,
     refetchInterval: 20000,
     onSuccess: (orders) => {
       setCollectibleData(getCollectibles(orders));
       setSalesCount(getSalesCount(orders));
-      setSalesData(getSalesData(orders));
+      setSalesData(getSalesData(orders, moment()));
     },
   });
 

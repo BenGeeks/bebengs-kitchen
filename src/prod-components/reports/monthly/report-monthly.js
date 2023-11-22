@@ -3,10 +3,11 @@ import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import React, { useState } from 'react';
 import { toast } from 'react-toastify';
 
-import { MONTHLY_REPORT_HEADER, INPUT, SCHEMA, DEFAULT, getReportSummary } from '../resources';
+import { MONTHLY_REPORT_HEADER, INPUT, SCHEMA, DEFAULT } from '../resources';
 import MonthlyReportSummary from './report-monthly-summary';
 import MonthlyReportTopBar from './report-monthly-top-bar';
 import { Loader, Error } from '@/assets/loader-error';
+import { getReportSummary } from '@/assets/functions';
 import EditNewModal from '@/assets/edit-new-modal';
 import ActionModal from '@/assets/action-modal';
 import styles from '../reports.module.css';
