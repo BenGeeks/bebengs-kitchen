@@ -3,7 +3,6 @@ import { useState } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import moment from 'moment';
 
-// import { getSalesCount, getSalesData } from '../resources';
 import { getSalesCount, getSalesData } from '@/assets/functions';
 import OrdersMainPage from './view-orders-main-page';
 import OrdersIconBar from './view-orders-icon-bar';

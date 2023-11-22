@@ -1,5 +1,3 @@
-import styles from './sales.module.css';
-
 export const COLLECTIBLE_HEADER = [
   { display: 'Customer Name', name: 'name' },
   { display: 'Amount', name: 'amount' },

@@ -4,17 +4,8 @@ import { useQuery } from '@tanstack/react-query';
 import { useReactToPrint } from 'react-to-print';
 import { RiPrinterLine } from 'react-icons/ri';
 
-import {
-  SUMMARY_HEADER,
-  SALES_COUNT_HEADER,
-  EXPENSES_HEADER,
-  // getExpenseSummary,
-  // getFinalReportData,
-  // getOtherSalesData,
-  // getSalesData,
-  // getSalesCount,
-} from '../resources';
 import { getSalesCount, getSalesData, getOtherSalesData, getExpenseSummary, getFinalReportData } from '@/assets/functions';
+import { SUMMARY_HEADER, SALES_COUNT_HEADER, EXPENSES_HEADER } from '../resources';
 import PrintDailyReport from './reports-daily-print';
 import { Loader, Error } from '@/assets/loader-error';
 import styles from '../reports.module.css';
