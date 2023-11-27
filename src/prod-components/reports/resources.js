@@ -3,17 +3,17 @@ import moment from 'moment';
 import * as yup from 'yup';
 
 export const SALES_COUNT_HEADER = [
+  { display: 'Qty', name: 'qty' },
   { display: 'Item', name: 'itemName' },
   { display: 'Size', name: 'size' },
   { display: 'Price', name: 'price' },
-  { display: 'Qty', name: 'qty' },
   { display: 'Total', name: 'subTotal' },
 ];
 
 export const EXPENSES_HEADER = [
+  { display: 'Qty', name: 'qty' },
   { display: 'Item', name: 'item' },
   { display: 'Price', name: 'price' },
-  { display: 'Qty', name: 'qty' },
   { display: 'Total', name: 'total' },
 ];
 

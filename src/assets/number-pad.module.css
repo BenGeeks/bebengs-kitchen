@@ -82,3 +82,14 @@
   font-size: 5rem;
   font-weight: 700;
 }
+
+@media (max-width: 768px) {
+  .numpad_container {
+    width: 100%;
+  }
+
+  .number_card {
+    width: 115px;
+    height: 115px;
+  }
+}

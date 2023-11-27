@@ -58,15 +58,14 @@ const DashboardPage = ({ date }) => {
     <>
       <div className={styles.page_container}>
         <div className={styles.double}>
-          {total && <TotalSalesExpensesPieGraph total={total} />}
-
+          <TotalSalesExpensesPieGraph total={total} />
           <PerformancePieGraphWithNeedle report={report} />
         </div>
         <ProfitRunningAverageLineGraph data={report} />
         <SalesExpensesBarGraph data={report} />
       </div>
       <div className={styles.page_container_mobile}>
-        {report && <PerformancePieGraphWithNeedleMobile report={report} />}
+        <PerformancePieGraphWithNeedleMobile report={report} />
         <TotalSalesExpensesPieGraphMobile total={total} />
         <ProfitRunningAverageLineGraphMobile data={report} />
         <SalesExpensesBarGraphMobile data={report} />

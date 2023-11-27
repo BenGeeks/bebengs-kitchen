@@ -8,11 +8,11 @@ import styles from '../dashboard.module.css';
 const PerformancePieGraphWithNeedleMobile = ({ report }) => {
   const RADIAN = Math.PI / 180;
   const data = [
-    { name: 'A', value: 3000, color: 'red' },
-    { name: 'B', value: 3000, color: '#FF8042' },
-    { name: 'C', value: 4500, color: '#FFBB28' },
-    { name: 'D', value: 3000, color: '#00C49F' },
-    { name: 'E', value: 1500, color: '#0088FE' },
+    { name: 'A', value: 5000, color: 'red' },
+    { name: 'B', value: 3500, color: '#FF8042' },
+    { name: 'C', value: 2500, color: '#FFBB28' },
+    { name: 'D', value: 2000, color: '#00C49F' },
+    { name: 'E', value: 2000, color: '#0088FE' },
   ];
   const cx = 150;
   const cy = 100;
@@ -68,10 +68,10 @@ const PerformancePieGraphWithNeedleMobile = ({ report }) => {
         {needle(value, data, cx, cy, iR, oR, '#8884d8')}
       </PieChart>
       <div className={styles.performance_0_label}>0</div>
-      <div className={styles.performance_1k_label}>3000</div>
-      <div className={styles.performance_2k_label}>6000</div>
-      <div className={styles.performance_3k5_label}>10500</div>
-      <div className={styles.performance_4k5_label}>13500</div>
+      <div className={styles.performance_1k_label}>5000</div>
+      <div className={styles.performance_2k_label}>85000</div>
+      <div className={styles.performance_3k5_label}>11000</div>
+      <div className={styles.performance_4k5_label}>13000</div>
       <div className={styles.performance_5k_label}>15000</div>
     </div>
   );

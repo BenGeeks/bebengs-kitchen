@@ -45,14 +45,14 @@
 
 .performance_1k_label {
   position: absolute;
-  top: 165px;
-  left: 90px;
+  top: 110px;
+  left: 140px;
 }
 
 .performance_2k_label {
   position: absolute;
-  top: 95px;
-  left: 175px;
+  top: 85px;
+  left: 290px;
 }
 
 .performance_3k5_label {
@@ -63,8 +63,8 @@
 
 .performance_4k5_label {
   position: absolute;
-  top: 200px;
-  left: 410px;
+  top: 180px;
+  left: 400px;
 }
 
 .performance_5k_label {
@@ -99,30 +99,31 @@
 
   .graph_header {
     font-size: 1.2rem;
+    margin-bottom: 10px;
   }
 
   .performance_0_label {
     position: absolute;
-    top: 135px;
+    top: 145px;
     left: 45px;
   }
 
   .performance_1k_label {
     position: absolute;
-    top: 85px;
-    left: 35px;
+    top: 60px;
+    left: 65px;
   }
 
   .performance_2k_label {
     position: absolute;
-    top: 40px;
-    left: 90px;
+    top: 43px;
+    left: 180px;
   }
 
   .performance_3k5_label {
     position: absolute;
-    top: 55px;
-    left: 220px;
+    top: 75px;
+    left: 235px;
   }
 
   .performance_4k5_label {
@@ -133,13 +134,13 @@
 
   .performance_5k_label {
     position: absolute;
-    top: 140px;
+    top: 150px;
     left: 265px;
   }
 
   .performance_value {
     position: absolute;
-    top: 110px;
+    top: 120px;
     left: 160px;
     font-weight: 700;
     font-size: 1.4rem;
