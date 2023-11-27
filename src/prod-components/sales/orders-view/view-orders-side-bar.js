@@ -6,7 +6,7 @@ import { Loader, Error } from '@/assets/loader-error';
 import styles from '../sales.module.css';
 import Table from '@/assets/table';
 
-const OrdersSideBar = ({ orderQuery, salesCount, collectibleData, salesData, calendarDate, width }) => {
+const OrdersSideBar = ({ orderQuery, salesCount, collectibleData, salesData, calendarDate, width, leftWidth }) => {
   if (orderQuery.isLoading)
     return (
       <div className={styles.container} style={{ width: width }}>

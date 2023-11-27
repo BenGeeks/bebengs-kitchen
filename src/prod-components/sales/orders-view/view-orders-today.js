@@ -9,7 +9,7 @@ import OrdersIconBar from './view-orders-icon-bar';
 import OrdersSideBar from './view-orders-side-bar';
 import apiRequest from '@/lib/axios';
 
-const OrderListToday = ({ setCurrentPage, onEdit, currentPage, getWidth, setView }) => {
+const OrderListToday = ({ setCurrentPage, onEdit, currentPage, setView, leftWidth }) => {
   const [salesData, setSalesData] = useState({ cashTotal: 0, gCashTotal: 0, dailyTotal: 0 });
   const [salesCount, setSalesCount] = useState([]);
   const [collectibleData, setCollectibleData] = useState([]);
@@ -34,9 +34,9 @@ const OrderListToday = ({ setCurrentPage, onEdit, currentPage, getWidth, setView
         salesCount={salesCount}
         collectibleData={collectibleData}
         calendarDate={moment()}
-        width={getWidth('left')}
+        width={`${leftWidth}%`}
       />
-      <OrdersMainPage orderQuery={orderQuery} calendarDate={moment()} onEdit={onEdit} width={getWidth('right')} />
+      <OrdersMainPage orderQuery={orderQuery} calendarDate={moment()} onEdit={onEdit} width={`${100 - leftWidth}%`} />
       <OrdersIconBar currentPage={currentPage} setCurrentPage={setCurrentPage} onView={() => setView((prev) => prev + 1)} />
     </>
   );
