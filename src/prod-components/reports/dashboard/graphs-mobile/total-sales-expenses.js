@@ -5,7 +5,6 @@ import { PieChart, Pie, Cell } from 'recharts';
 import styles from '../dashboard.module.css';
 
 const TotalSalesExpensesPieGraphMobile = ({ total }) => {
-  console.log(total);
   const COLORS = ['#00C49F', '#FF8042'];
   const RADIAN = Math.PI / 180;
   const renderCustomizedLabel = ({ cx, cy, midAngle, innerRadius, outerRadius, percent, index }) => {
