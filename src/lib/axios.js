@@ -1,7 +1,6 @@
 import Axios from 'axios';
 
 const apiRequest = (payload) => {
-  console.log(payload);
   let config = {
     method: payload.method,
     url: `/api/${payload.url}`,

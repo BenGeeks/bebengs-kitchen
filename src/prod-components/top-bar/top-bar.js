@@ -11,8 +11,7 @@ import React, { useState } from 'react';
 import LoadingMain from '@/assets/loading-main';
 import styles from './top-bar.module.css';
 
-const TopBar = ({ currentPage, setCurrentPage }) => {
-  const [showNavBar, setShowNavBar] = useState(false);
+const TopBar = ({ currentPage, setCurrentPage, showNavBar, setShowNavBar }) => {
   const [isLoading, setIsLoading] = useState(false);
 
   const onSignOutHandler = () => {
@@ -64,7 +63,7 @@ const TopBar = ({ currentPage, setCurrentPage }) => {
           </div>
         </div>
 
-        <div className={showNavBar ? styles.icons_top_bar_show : styles.icons_top_bar_hide}>
+        <div className={showNavBar ? styles.icons_top_bar_show : styles.icons_top_bar_hide} onMouseLeave={() => setShowNavBar(false)}>
           {ICON_LIST.map((icon) => {
             return (
               <div

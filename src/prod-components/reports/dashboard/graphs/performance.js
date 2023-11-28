@@ -46,7 +46,7 @@ const PerformancePieGraphWithNeedle = ({ report }) => {
   };
   return (
     <div className={styles.graph_container}>
-      <h2 className={styles.graph_header}>Running Performance Meter</h2>
+      <h2 className={styles.graph_header}>Weekly Performance Meter</h2>
       <div className={styles.performance_value}>{report[report.length - 2]?.movingAverage}</div>
       <PieChart width={500} height={230}>
         <Pie

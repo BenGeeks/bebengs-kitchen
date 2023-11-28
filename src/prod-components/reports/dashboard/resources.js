@@ -29,7 +29,7 @@ export const getTotal = (report) => {
   ];
 };
 
-export const getReport = (data) => {
+export const getWeeklyReport = (data) => {
   let tempData = {};
   let report = [];
 
@@ -59,6 +59,44 @@ export const getReport = (data) => {
       expenses: tempData[key].expenses,
       profit: tempData[key].profit,
       movingAverage: Math.floor(total / count),
+      ma: Math.floor(total / count),
+    });
+  });
+
+  return report;
+};
+
+export const getMonthlyReport = (data) => {
+  let tempData = {};
+  let report = [];
+
+  data.forEach((entry) => {
+    let month = moment(entry.date).month();
+
+    if (tempData[month]) {
+      tempData[month] = {
+        sales: tempData[month].sales + entry.sales,
+        expenses: tempData[month].expenses + entry.expenses,
+        profit: tempData[month].sales + entry.sales - tempData[month].expenses - entry.expenses,
+      };
+    } else {
+      tempData[month] = { sales: entry.sales, expenses: entry.expenses, profit: entry.sales - entry.expenses };
+    }
+  });
+
+  let keys = Object.keys(tempData);
+  let count = 0;
+  let total = 0;
+  keys.forEach((key) => {
+    total = total + tempData[key].profit;
+    count++;
+    report.push({
+      name: moment(+key + 1, 'M').format('MMM'),
+      sales: tempData[key].sales,
+      expenses: tempData[key].expenses,
+      profit: tempData[key].profit,
+      movingAverage: Math.floor(total / count),
+      ma: Math.floor(total / count),
     });
   });
 

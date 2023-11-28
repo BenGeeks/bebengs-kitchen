@@ -1,5 +1,5 @@
 'use client';
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect } from 'react';
 import moment from 'moment';
 
 import OrderListHistory from './orders-view/view-orders-history';
@@ -8,7 +8,6 @@ import EditOrderPage from './new-order/edit-order';
 import NewOrderPage from './new-order/new-order';
 
 const OrdersPage = () => {
-  const touchRef = useRef();
   const [windowWidth, setWindowWidth] = useState(1024);
   const [view, setView] = useState(1);
   const [currentPage, setCurrentPage] = useState('todays-list');
@@ -17,8 +16,6 @@ const OrdersPage = () => {
   const [leftWidth, setLeftWidth] = useState(50);
   const [touchStart, setTouchStart] = useState(null);
   const [touchEnd, setTouchEnd] = useState(null);
-
-  const minSwipeDistance = 50;
 
   const onTouchStart = (e) => {
     setTouchEnd(null);
@@ -30,8 +27,8 @@ const OrdersPage = () => {
   const onTouchEnd = () => {
     if (!touchStart || !touchEnd) return;
     const distance = touchStart - touchEnd;
-    const isLeftSwipe = distance > minSwipeDistance;
-    const isRightSwipe = distance < -minSwipeDistance;
+    const isLeftSwipe = distance > 50;
+    const isRightSwipe = distance < -50;
 
     if (windowWidth < 1024) {
       if (isRightSwipe && leftWidth === 0) setLeftWidth(100);
@@ -71,13 +68,7 @@ const OrdersPage = () => {
   };
 
   return (
-    <div
-      style={{ display: 'flex', width: '100%' }}
-      ref={touchRef}
-      onTouchStart={onTouchStart}
-      onTouchMove={onTouchMove}
-      onTouchEnd={onTouchEnd}
-    >
+    <div style={{ display: 'flex', width: '100%' }} onTouchStart={onTouchStart} onTouchMove={onTouchMove} onTouchEnd={onTouchEnd}>
       {currentPage === 'todays-list' && (
         <OrderListToday
           setCurrentPage={setCurrentPage}

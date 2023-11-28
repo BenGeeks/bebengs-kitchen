@@ -448,6 +448,9 @@
 }
 
 @media (max-width: 768px) {
+  .container {
+    height: calc(100vh - 30px);
+  }
   .total_item_value {
     font-size: 1.4rem;
   }

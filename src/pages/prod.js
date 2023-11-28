@@ -15,11 +15,12 @@ import styles from '@/page-styles/prod.module.css';
 
 const ProdPage = () => {
   const [currentPage, setCurrentPage] = useState('sales');
+  const [showNavBar, setShowNavBar] = useState(false);
 
   return (
     <div className={styles.main_container}>
-      <TopBar currentPage={currentPage} setCurrentPage={setCurrentPage} />
-      <div className={styles.page_container}>
+      <TopBar currentPage={currentPage} setCurrentPage={setCurrentPage} showNavBar={showNavBar} setShowNavBar={setShowNavBar} />
+      <div className={styles.page_container} onTouchStart={() => setShowNavBar(false)}>
         {currentPage === 'sales' && <SalesPage />}
         {currentPage === 'collectibles' && <Collectibles />}
         {currentPage === 'orders' && <FutureOrders />}

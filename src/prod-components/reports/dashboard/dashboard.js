@@ -2,31 +2,31 @@
 import { useState } from 'react';
 import { useQuery } from '@tanstack/react-query';
 
-import ProfitRunningAverageLineGraph from './graphs/profit-running-average';
 import TotalSalesExpensesPieGraph from './graphs/total-sales-expenses';
 import PerformancePieGraphWithNeedle from './graphs/performance';
 import SalesExpensesBarGraph from './graphs/sales-expenses';
 import { Loader, Error } from '@/assets/loader-error';
 
-import ProfitRunningAverageLineGraphMobile from './graphs-mobile/profit-running-average';
 import TotalSalesExpensesPieGraphMobile from './graphs-mobile/total-sales-expenses';
 import PerformancePieGraphWithNeedleMobile from './graphs-mobile/performance';
 import SalesExpensesBarGraphMobile from './graphs-mobile/sales-expense';
 
-import { getTotal, getReport } from './resources';
+import { getTotal, getWeeklyReport, getMonthlyReport } from './resources';
 import styles from './dashboard.module.css';
 import apiRequest from '@/lib/axios';
 
 const DashboardPage = ({ date }) => {
   const [total, setTotal] = useState(null);
-  const [report, setReport] = useState([]);
+  const [weeklyReport, setWeeklyReport] = useState([]);
+  const [monthlyReport, setMonthlyReport] = useState([]);
 
   const yearReportQuery = useQuery({
     queryKey: ['yearReport'],
     queryFn: () => apiRequest({ url: `reports/year/${date.year}`, method: 'GET' }).then((res) => res.data),
     onSuccess: (data) => {
       setTotal(getTotal(data));
-      setReport(getReport(data));
+      setWeeklyReport(getWeeklyReport(data));
+      setMonthlyReport(getMonthlyReport(data));
     },
   });
 
@@ -59,16 +59,16 @@ const DashboardPage = ({ date }) => {
       <div className={styles.page_container}>
         <div className={styles.double}>
           <TotalSalesExpensesPieGraph total={total} />
-          <PerformancePieGraphWithNeedle report={report} />
+          <PerformancePieGraphWithNeedle report={weeklyReport} />
         </div>
-        <ProfitRunningAverageLineGraph data={report} />
-        <SalesExpensesBarGraph data={report} />
+        <SalesExpensesBarGraph data={weeklyReport} title="Weekly Sales Graph" />
+        <SalesExpensesBarGraph data={monthlyReport} title="Monthly Sales Graph" />
       </div>
       <div className={styles.page_container_mobile}>
-        <PerformancePieGraphWithNeedleMobile report={report} />
+        <PerformancePieGraphWithNeedleMobile report={weeklyReport} />
         <TotalSalesExpensesPieGraphMobile total={total} />
-        <ProfitRunningAverageLineGraphMobile data={report} />
-        <SalesExpensesBarGraphMobile data={report} />
+        <SalesExpensesBarGraphMobile data={weeklyReport} title="Weekly Sales Graph" />
+        <SalesExpensesBarGraphMobile data={monthlyReport} title="Monthly Sales Graph" />
       </div>
     </>
   );

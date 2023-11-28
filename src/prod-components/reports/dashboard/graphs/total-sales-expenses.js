@@ -20,7 +20,8 @@ const TotalSalesExpensesPieGraph = ({ total }) => {
   };
   return (
     <div className={styles.graph_container}>
-      <h2 className={styles.graph_header}>Profit vs Expenses</h2>
+      {total && <h2 className={styles.graph_header}>Total Sales: ₱ {(total[0].value + total[1].value).toLocaleString('en')}</h2>}
+
       <PieChart width={500} height={230}>
         <Pie
           data={total}

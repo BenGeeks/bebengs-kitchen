@@ -20,7 +20,7 @@ const TotalSalesExpensesPieGraphMobile = ({ total }) => {
   };
   return (
     <div className={styles.graph_container}>
-      <h2 className={styles.graph_header}>Profit vs Expenses</h2>
+      {total && <h2 className={styles.graph_header}>Total Sales: ₱ {(total[0].value + total[1].value).toLocaleString('en')}</h2>}
       <PieChart width={320} height={150}>
         <Pie data={total} cx="50%" cy="50%" labelLine={false} label={renderCustomizedLabel} outerRadius={70} fill="#8884d8" dataKey="value">
           {total?.map((entry, index) => (
