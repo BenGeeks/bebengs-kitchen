@@ -24,8 +24,8 @@ export const getTotal = (report) => {
     totalExpense = totalExpense + data.expenses;
   });
   return [
-    { name: 'Total Profit', value: totalSales - totalExpense },
-    { name: 'Total Expenses', value: totalExpense },
+    { name: 'Profit', value: totalSales - totalExpense },
+    { name: 'Expenses', value: totalExpense },
   ];
 };
 
