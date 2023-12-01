@@ -1,6 +1,5 @@
 import { useState } from 'react';
-import { signIn } from 'next-auth/react';
-import { getSession } from 'next-auth/react';
+import { getSession, signIn } from 'next-auth/react';
 import { useRouter } from 'next/router';
 
 import TopBar from '@/page-components/top-bar';

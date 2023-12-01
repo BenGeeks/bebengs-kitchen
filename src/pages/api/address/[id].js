@@ -7,7 +7,6 @@ export default async function handler(req, res) {
     method,
     body,
   } = req;
-
   await dbConnect();
 
   switch (method) {
@@ -34,7 +33,7 @@ export default async function handler(req, res) {
       }
       break;
     default:
-      res.status(400).json({ success: false });
+      res.status(400).json({ success: false, error: 'Invalid Method' });
       break;
   }
 }

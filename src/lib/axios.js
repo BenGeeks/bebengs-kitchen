@@ -6,7 +6,7 @@ const apiRequest = (payload) => {
     url: `/api/${payload.url}`,
     headers: {
       'Content-Type': 'application/json',
-      Authorization: `Bearer ${payload.token}`,
+      // Authorization: `Bearer ${payload.token}`,
     },
     data: payload.data,
   };
