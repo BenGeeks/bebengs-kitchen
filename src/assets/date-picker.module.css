@@ -181,15 +181,15 @@
 
 @media (max-width: 375px) {
   .days_of_the_week {
-    width: 95%;
+    width: 45px;
   }
   .grid {
-    width: 95%;
-    height: 47px;
+    width: 45px;
+    height: 45px;
   }
 
   .grid_selected {
-    width: 95%;
-    height: 47px;
+    width: 45px;
+    height: 45px;
   }
 }
