@@ -4,7 +4,7 @@ import React, { useEffect, useState } from 'react';
 import { toast } from 'react-toastify';
 
 import { getSalesData, getExpenseSummary } from '@/assets/functions';
-import { MONTHLY_REPORT_HEADER, INPUT, SCHEMA } from '../resources';
+import { MONTHLY_REPORT_HEADER, MONTHLY_REPORT_HEADER_MOBILE, INPUT, SCHEMA } from '../resources';
 import MonthlyReportSummary from './report-monthly-summary';
 import MonthlyReportTopBar from './report-monthly-top-bar';
 import { Loader, Error } from '@/assets/loader-error';
@@ -70,6 +70,7 @@ const MonthlyReportPage = ({ date, openMonthlyCalendar, setAddEntry, addEntry })
       toast.success('Report data added successfully.');
       queryClient.invalidateQueries({ queryKey: ['reports'] });
       setEditEntry(false);
+      setOpenActionModal(false);
     },
     onError: (error) => {
       toast.error(error.response.data.error.message);
@@ -170,7 +171,17 @@ const MonthlyReportPage = ({ date, openMonthlyCalendar, setAddEntry, addEntry })
           data={reportSummary?.list}
           enableRowClick={true}
           onRowClick={onRowClickHandler}
-          small={true}
+          alignRight={true}
+        />
+      </div>
+      <div className={styles.table_box_mobile}>
+        <Table
+          headers={MONTHLY_REPORT_HEADER_MOBILE}
+          data={reportSummary?.list}
+          enableRowClick={true}
+          onRowClick={onRowClickHandler}
+          x_small={true}
+          alignRight={true}
         />
       </div>
     </div>

@@ -11,12 +11,14 @@ const ExpensesList = ({ expensesQuery, onRowClick, date }) => {
   const [total, setTotal] = useState();
   const [cash, setCash] = useState();
   const [gcash, setGcash] = useState();
+  const [capital, setCapital] = useState();
 
   useEffect(() => {
     setTotal(expensesQuery?.data?.reduce((total, data) => +data.total + total, 0));
-    setCash(expensesQuery?.data?.reduce((total, data) => (!data.isGcash ? +data.total + total : total), 0));
-    setGcash(expensesQuery?.data?.reduce((total, data) => (data.isGcash ? +data.total + total : total), 0));
-  }, [expensesQuery, setTotal, setCash, setGcash]);
+    setCash(expensesQuery?.data?.reduce((total, data) => (data.source === 'Cash' ? +data.total + total : total), 0));
+    setGcash(expensesQuery?.data?.reduce((total, data) => (data.source === 'G-cash' ? +data.total + total : total), 0));
+    setCapital(expensesQuery?.data?.reduce((total, data) => (data.source === 'Capital' ? +data.total + total : total), 0));
+  }, [expensesQuery, setTotal, setCash, setGcash, setCapital]);
 
   if (expensesQuery.isLoading)
     return (
@@ -40,6 +42,7 @@ const ExpensesList = ({ expensesQuery, onRowClick, date }) => {
           <div className={styles.header_bar_total_container}>
             <h3 className={styles.header_bar_total}>Cash: {cash}</h3>
             <h3 className={styles.header_bar_total}>G-cash: {gcash}</h3>
+            <h3 className={styles.header_bar_total}>Capital: {capital}</h3>
             <h3 className={styles.header_bar_total}>Total: {total}</h3>
           </div>
         </div>

@@ -104,40 +104,46 @@ export const getOtherSalesData = (sales, date) => {
 export const getExpenseSummary = (expenses) => {
   let cash = 0;
   let gcash = 0;
+  let capital = 0;
   let total = 0;
   expenses?.forEach((expense) => {
-    if (expense.isGcash) {
-      gcash = gcash + expense.total;
-    } else {
-      cash = cash + expense.total;
-    }
+    if (expense.source === 'G-cash') gcash = gcash + expense.total;
+    if (expense.source === 'Cash') cash = cash + expense.total;
+    if (expense.source === 'Capital') capital = capital + expense.total;
     total = total + expense.total;
   });
-  return { cash, gcash, total };
+  return { cash, gcash, capital, total };
 };
 
 export const getFinalReportData = (salesSummary, expensesSummary, otherSalesData) => {
   let tempData = [
-    { source: 'Sales', cash: salesSummary?.cashTotal, gcash: salesSummary?.gCashTotal, total: salesSummary?.dailyTotal },
-
+    { source: 'Sales', cash: salesSummary?.cashTotal, gcash: salesSummary?.gCashTotal, capital: 0, total: salesSummary?.dailyTotal },
     {
       source: 'Down Payment',
       cash: otherSalesData?.downPayment?.cash,
       gcash: otherSalesData?.downPayment?.gcash,
+      capital: 0,
       total: otherSalesData?.downPayment?.total,
     },
     {
       source: 'Delivery',
       cash: otherSalesData?.deliveryCharge?.cash,
       gcash: otherSalesData?.deliveryCharge?.gcash,
+      capital: 0,
       total: otherSalesData?.deliveryCharge?.total,
     },
-
-    { source: 'Expenses', cash: expensesSummary?.cash, gcash: expensesSummary?.gcash, total: expensesSummary?.total },
+    {
+      source: 'Expenses',
+      cash: expensesSummary?.cash,
+      gcash: expensesSummary?.gcash,
+      capital: expensesSummary?.capital,
+      total: expensesSummary?.total,
+    },
     {
       source: 'Discount',
       cash: otherSalesData?.discount?.cash,
       gcash: otherSalesData?.discount?.gcash,
+      capital: 0,
       total: otherSalesData?.discount?.total,
     },
     {
@@ -154,6 +160,7 @@ export const getFinalReportData = (salesSummary, expensesSummary, otherSalesData
         otherSalesData?.deliveryCharge?.gcash -
         expensesSummary?.gcash -
         otherSalesData?.discount?.gcash,
+      capital: expensesSummary?.capital,
       total:
         salesSummary?.dailyTotal +
         otherSalesData?.downPayment?.total +
@@ -171,12 +178,10 @@ export const getReportSummary = (data) => {
   let totalCapital = 0;
   let totalWithdrawal = 0;
   let salesCount = 0;
-  let expenseCount = 0;
 
   let list = [];
   data.forEach((item) => {
     item.sales !== 0 && salesCount++;
-    item.expense !== 0 && expenseCount++;
     totalSales = totalSales + item.sales;
     totalExpenses = totalExpenses + item.expenses;
     totalCapital = totalCapital + item.capital;
@@ -198,7 +203,7 @@ export const getReportSummary = (data) => {
 
   let totalProfit = totalSales - totalExpenses;
   let averageSales = totalSales / salesCount;
-  let averageExpenses = totalExpenses / expenseCount;
+  let averageExpenses = totalExpenses / salesCount;
   let averageProfit = (totalSales - totalExpenses) / salesCount;
   return { totalSales, totalExpenses, totalProfit, averageSales, averageExpenses, averageProfit, totalCapital, totalWithdrawal, list };
 };

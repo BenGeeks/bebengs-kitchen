@@ -11,6 +11,8 @@ export const getTotal = (data) => {
   return total;
 };
 
+export const DAYS = ['SUN', 'MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT'];
+
 export const MONTH = [
   { mmm: 'JAN', value: 0 },
   { mmm: 'FEB', value: 1 },
@@ -26,7 +28,7 @@ export const MONTH = [
   { mmm: 'DEC', value: 11 },
 ];
 
-export const YEAR = [2023, 2024, 2025, 2026];
+export const YEAR = [2023, 2024, 2025, 2026, 2027, 2028];
 
 export const QTY_NUMBER = ['1', '2', '3', '4', '5', '6', '7', '8', '9'];
 

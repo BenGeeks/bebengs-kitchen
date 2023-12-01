@@ -11,6 +11,7 @@ export const SALES_COUNT_HEADER = [
 ];
 
 export const EXPENSES_HEADER = [
+  { display: 'Source', name: 'source' },
   { display: 'Qty', name: 'qty' },
   { display: 'Item', name: 'item' },
   { display: 'Price', name: 'price' },
@@ -21,6 +22,7 @@ export const SUMMARY_HEADER = [
   { display: '', name: 'source' },
   { display: 'Cash', name: 'cash' },
   { display: 'G-cash', name: 'gcash' },
+  { display: 'Capital', name: 'capital' },
   { display: 'Total', name: 'total' },
 ];
 
@@ -36,6 +38,16 @@ export const MONTHLY_REPORT_HEADER = [
   { display: 'Expenses', name: 'expenses' },
   { display: 'Profit', name: 'profit' },
   { display: 'Total', name: 'total' },
+];
+
+export const MONTHLY_REPORT_HEADER_MOBILE = [
+  { display: 'D', name: 'day' },
+  { display: 'C', name: 'capital' },
+  { display: 'W', name: 'withdrawal' },
+  { display: 'S', name: 'sales' },
+  { display: 'E', name: 'expenses' },
+  { display: 'P', name: 'profit' },
+  { display: 'T', name: 'total' },
 ];
 
 export const INPUT = [

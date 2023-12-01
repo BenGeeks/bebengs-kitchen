@@ -12,12 +12,12 @@ export const EXPENSES_INPUT = [
   { type: 'text', name: 'description', label: 'Description' },
   { type: 'number', name: 'price', label: 'Price' },
   { type: 'number', name: 'qty', label: 'Quantity' },
-  { type: 'checkbox', name: 'isGcash', label: 'Is G-cash' },
+  { type: 'select', name: 'source', label: 'Source', options: ['Cash', 'G-cash', 'Capital'] },
   { type: 'date', name: 'expenseDate', label: 'Expense Date' },
 ];
 
 export const EXPENSES_TABLE_HEADER = [
-  { display: 'G-cash', name: 'isGcash' },
+  { display: 'Source', name: 'source' },
   { display: 'Item', name: 'item' },
   { display: 'Description', name: 'description' },
   { display: 'Price', name: 'price' },

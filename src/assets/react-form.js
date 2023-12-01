@@ -78,20 +78,34 @@ const ReactForm = ({ layout, schema, defaultValues, onSubmit, onCancel, action }
                         </>
                       ) : (
                         <>
-                          <input
-                            type={input.type}
-                            placeholder={input.label}
-                            className={styles.input}
-                            list={input.name}
-                            {...register(input.name)}
-                            autoFocus={index === 0}
-                          />
-                          {input.list && (
-                            <datalist id={input.name}>
-                              {input.list.map((el) => {
-                                return <option value={el.address} key={el.address} />;
+                          {input.type === 'select' ? (
+                            <select placeholder={input.label} className={styles.input} {...register(input.name)}>
+                              {input?.options?.map((option) => {
+                                return (
+                                  <option key={option} value={option}>
+                                    {option}
+                                  </option>
+                                );
                               })}
-                            </datalist>
+                            </select>
+                          ) : (
+                            <>
+                              <input
+                                type={input.type}
+                                placeholder={input.label}
+                                className={styles.input}
+                                list={input.name}
+                                {...register(input.name)}
+                                autoFocus={index === 0}
+                              />
+                              {input?.list && (
+                                <datalist id={input.name}>
+                                  {input.list.map((el) => {
+                                    return <option value={el.address} key={el.address} />;
+                                  })}
+                                </datalist>
+                              )}
+                            </>
                           )}
                         </>
                       )}

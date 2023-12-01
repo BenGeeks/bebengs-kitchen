@@ -9,7 +9,8 @@ const expensesSchema = new Schema(
     price: { type: Number, required: true },
     qty: { type: Number, required: true },
     total: { type: Number, required: true },
-    isGcash: { type: Boolean, required: true },
+    // isGcash: { type: Boolean, required: true },
+    source: { type: String, enum: ['Cash', 'G-cash', 'Capital'], required: true },
     expenseDate: { type: Date, required: true },
   },
   {

@@ -16,6 +16,14 @@
 .date_picker_container {
   display: flex;
   flex-direction: row;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.date_picker_container_mobile {
+  display: none;
+  flex-direction: column;
+  justify-content: space-between;
   width: 100%;
 }
 
@@ -32,14 +40,15 @@
 
 .month_grid {
   display: grid;
-  grid-template-columns: auto auto auto;
+  grid-template-columns: auto auto;
   background-color: aliceblue;
   padding: 5px;
+  margin-top: 36px;
 }
 
 .day_grid {
   display: grid;
-  grid-template-columns: auto auto auto auto auto auto auto auto;
+  grid-template-columns: auto auto auto auto auto auto auto;
   background-color: aliceblue;
   padding: 5px;
 }
@@ -49,6 +58,18 @@
   grid-template-columns: auto;
   background-color: aliceblue;
   padding: 5px;
+  margin-top: 36px;
+}
+
+.days_of_the_week {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 60px;
+  margin: 2px;
+  padding: 5px 0px;
+  border: 1px solid #374151;
+  color: beige;
 }
 
 .grid {
@@ -78,7 +99,7 @@
   align-items: center;
   margin: 2px;
   background-color: #374151;
-  border: 1px solid beige;
+  border: 1px solid #374151;
   color: beige;
 }
 
@@ -128,42 +149,29 @@
 }
 
 @media (max-width: 768px) {
-  .header_bar {
-    height: 25px;
-    padding-bottom: 0px;
-    margin-bottom: 0px;
-  }
-
-  .header_bar_title {
-    font-size: 1.2rem;
-  }
-
   .date_picker_container {
-    flex-direction: column;
+    display: none;
+  }
+
+  .date_picker_container_mobile {
+    display: flex;
+  }
+
+  .date_picker_month_year_column {
+    display: flex;
+    justify-content: space-between;
   }
 
   .month_grid {
-    grid-template-columns: auto auto auto auto auto auto;
-  }
-
-  .day_grid {
-    grid-template-columns: auto auto auto auto auto auto;
+    grid-template-columns: auto auto auto auto !important;
+    width: 58%;
+    margin-top: 0px;
   }
 
   .year_grid {
-    display: flex;
-    grid-template-columns: none;
-    justify-content: space-around;
-  }
-
-  .grid {
-    width: 55px;
-    height: 55px;
-  }
-
-  .grid_selected {
-    width: 55px;
-    height: 55px;
+    grid-template-columns: auto auto;
+    width: 30.3%;
+    margin-top: 0px;
   }
 
   .button_container {
@@ -172,27 +180,16 @@
 }
 
 @media (max-width: 375px) {
-  .date_picker_container {
-    flex-direction: column;
+  .days_of_the_week {
+    width: 47px;
+  }
+  .grid {
+    width: 47px;
+    height: 47px;
   }
 
-  .month_grid {
-    grid-template-columns: auto auto auto auto auto auto;
-  }
-
-  .day_grid {
-    grid-template-columns: auto auto auto auto auto auto;
-  }
-
-  .year_grid {
-    grid-template-columns: auto auto auto auto auto auto;
-  }
-
-  .grid_dummy {
-    display: flex;
-  }
-
-  .button_container {
-    margin-bottom: 10px;
+  .grid_selected {
+    width: 47px;
+    height: 47px;
   }
 }
