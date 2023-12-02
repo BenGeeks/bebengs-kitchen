@@ -219,9 +219,12 @@
 
 @media (max-width: 768px) {
   .super_container {
+    height: calc(100vh - 125px);
     width: 100%;
     flex-direction: column;
     margin-bottom: 65px;
+    background-color: beige;
+    overflow-y: auto;
   }
 
   .side_bar_container {

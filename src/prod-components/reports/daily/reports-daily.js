@@ -4,7 +4,7 @@ import { useQuery } from '@tanstack/react-query';
 import { useReactToPrint } from 'react-to-print';
 import { RiPrinterLine } from 'react-icons/ri';
 
-import { getSalesCount, getSalesData, getOtherSalesData, getExpenseSummary, getFinalReportData } from '@/assets/functions';
+import { getSalesCount, getSalesSummary, getOtherSalesData, getExpenseSummary, getFinalReportData } from '@/assets/functions';
 import { SUMMARY_HEADER, SALES_COUNT_HEADER, EXPENSES_HEADER } from '../resources';
 import PrintDailyReport from './reports-daily-print';
 import { Loader, Error } from '@/assets/loader-error';
@@ -36,7 +36,7 @@ const DailyReportPage = ({ date, setDate, openDailyCalendar }) => {
     onSuccess: (data) => {
       setExpenseData(data.expenseList.sort((a, b) => b.total - a.total));
       setExpenseSummary(getExpenseSummary(data.expenseList));
-      setSalesSummary(getSalesData(data.salesList, date));
+      setSalesSummary(getSalesSummary(data.salesList, date));
       setSalesData(getSalesCount(data.salesList, date));
       setOtherSalesData(getOtherSalesData(data.salesList, date));
     },

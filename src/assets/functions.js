@@ -49,6 +49,26 @@ export const getSalesData = (sales, calendarDate) => {
   return finalData;
 };
 
+export const getSalesSummary = (sales, calendarDate) => {
+  let downPayment = 0;
+  let cash = 0;
+  let gCash = 0;
+  sales?.forEach((order) => {
+    let total = order?.orderDetails?.items?.reduce((total, data) => +data.subTotal + total, 0);
+    if (order.isPaid && moment(order.paymentDate).format('YYYY-MM-DD') === moment(calendarDate).format('YYYY-MM-DD')) {
+      if (order.isGcash) gCash = gCash + total;
+      if (!order.isGcash) cash = cash + total;
+    }
+
+    if (order.isDownPayment && moment(order.downPaymentDate).format('YYYY-MM-DD') === moment(calendarDate).format('YYYY-MM-DD')) {
+      downPayment = downPayment + order.downPayment;
+    }
+  });
+
+  let finalData = { cashTotal: cash, gCashTotal: gCash, dpTotal: downPayment, dailyTotal: cash + gCash + downPayment };
+  return finalData;
+};
+
 export const getCollectibles = (sales) => {
   let tempFile = {};
   let collectibles = [];
@@ -84,7 +104,7 @@ export const getOtherSalesData = (sales, date) => {
       if (order.downPayment && moment(order.downPaymentDate).format('YYYY-MM-DD') === moment(date).format('YYYY-MM-DD'))
         downPayment = { cash: downPayment.cash, gcash: downPayment.gcash + order.downPayment };
       if (order.discount) discount = { cash: discount.cash, gcash: discount.gcash + order.discount };
-      if (order.deliveryCharge) deliveryCharge = { cash: deliveryCharge.cash, gcash: deliveryCharge.gcash + order.downPayment };
+      if (order.deliveryCharge) deliveryCharge = { cash: deliveryCharge.cash, gcash: deliveryCharge.gcash + order.deliveryCharge };
     } else {
       if (order.downPayment && moment(order.downPaymentDate).format('YYYY-MM-DD') === moment(date).format('YYYY-MM-DD'))
         downPayment = { gcash: downPayment.gcash, cash: downPayment.cash + order.downPayment };
@@ -96,7 +116,7 @@ export const getOtherSalesData = (sales, date) => {
   let otherSalesData = {
     discount: { ...discount, total: discount.cash + discount.gcash },
     deliveryCharge: { ...deliveryCharge, total: deliveryCharge.cash + deliveryCharge.gcash },
-    downPayment: { ...downPayment, total: downPayment.cash + deliveryCharge.gcash },
+    downPayment: { ...downPayment, total: downPayment.cash + downPayment.gcash },
   };
   return otherSalesData;
 };
@@ -116,6 +136,7 @@ export const getExpenseSummary = (expenses) => {
 };
 
 export const getFinalReportData = (salesSummary, expensesSummary, otherSalesData) => {
+  console.log('OTHER SALES DATA: ', otherSalesData);
   let tempData = [
     { source: 'Sales', cash: salesSummary?.cashTotal, gcash: salesSummary?.gCashTotal, capital: 0, total: salesSummary?.dailyTotal },
     {

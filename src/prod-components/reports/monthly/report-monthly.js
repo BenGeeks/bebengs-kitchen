@@ -3,7 +3,7 @@ import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import React, { useEffect, useState } from 'react';
 import { toast } from 'react-toastify';
 
-import { getSalesData, getExpenseSummary } from '@/assets/functions';
+import { getSalesSummary, getExpenseSummary } from '@/assets/functions';
 import { MONTHLY_REPORT_HEADER, MONTHLY_REPORT_HEADER_MOBILE, INPUT, SCHEMA } from '../resources';
 import MonthlyReportSummary from './report-monthly-summary';
 import MonthlyReportTopBar from './report-monthly-top-bar';
@@ -27,14 +27,24 @@ const MonthlyReportPage = ({ date, openMonthlyCalendar, setAddEntry, addEntry })
 
   const [expensesSummary, setExpenseSummary] = useState([]);
   const [salesSummary, setSalesSummary] = useState([]);
+  const [discount, setDiscount] = useState(0);
+  const [delivery, setDelivery] = useState(0);
 
-  let DEFAULT = { date: moment(date), expenses: expensesSummary?.total, sales: salesSummary?.dailyTotal, withdrawal: 0, capital: 0 };
+  let DEFAULT = {
+    date: moment(date),
+    expenses: expensesSummary?.total + discount,
+    sales: salesSummary?.dailyTotal + delivery,
+    withdrawal: 0,
+    capital: 0,
+  };
 
   useEffect(() => {
     apiRequest({ url: `reports/daily/${moment(date).format('YYYY-MM-DD')}`, method: 'GET' }).then((res) => {
       res.data;
       setExpenseSummary(getExpenseSummary(res.data.expenseList));
-      setSalesSummary(getSalesData(res.data.salesList, date));
+      setSalesSummary(getSalesSummary(res.data.salesList, date));
+      setDiscount(res?.data?.salesList?.reduce((total, data) => (data.discount ? +data.discount + total : total), 0));
+      setDelivery(res?.data?.salesList?.reduce((total, data) => (data.deliveryCharge ? +data.deliveryCharge + total : total), 0));
     });
   }, []);
 
