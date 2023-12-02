@@ -89,6 +89,8 @@
 
   .page_container_mobile {
     width: 100%;
+    height: calc(100vh - 125px);
+    overflow-y: auto;
     background-color: aliceblue;
     display: flex;
     flex-direction: column;

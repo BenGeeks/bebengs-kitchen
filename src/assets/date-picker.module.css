@@ -179,7 +179,7 @@
   }
 }
 
-@media (max-width: 450px) {
+@media (max-width: 400px) {
   .days_of_the_week {
     width: 47px;
   }
