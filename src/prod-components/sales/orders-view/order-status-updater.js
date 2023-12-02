@@ -1,21 +1,22 @@
 'use client';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { RiCloseCircleLine, RiBitCoinLine } from 'react-icons/ri';
-import { BsCartCheck, BsCartX, BsCashCoin } from 'react-icons/bs';
-import { TbTruckDelivery } from 'react-icons/tb';
+import { RiCloseCircleLine } from 'react-icons/ri';
 import React, { useState } from 'react';
 import { toast } from 'react-toastify';
 import moment from 'moment';
 
+import DatePicker from '@/assets/date-picker';
 import ModalWide from '@/assets/modal-wide';
 import styles from '../sales.module.css';
 import apiRequest from '@/lib/axios';
 
 const OrderStatusUpdater = ({ open, close, order }) => {
   const queryClient = useQueryClient();
-  const [delivered, setDelivered] = useState(order?.isDelivered);
-  const [paid, setPaid] = useState(order?.isPaid);
-  const [gCash, setGCash] = useState(order?.isGcash);
+  const [delivered, setDelivered] = useState(order?.isDelivered ? order?.isDelivered : false);
+  const [gCash, setGCash] = useState(order?.isGcash ? order?.isGcash : false);
+  const [paid, setPaid] = useState(order?.isPaid ? order?.isPaid : false);
+  const [paymentDate, setPaymentDate] = useState(order?.paymentDate ? moment(order.paymentDate) : moment());
+  const [openDatePicker, setOpenDatePicker] = useState(false);
 
   const updateOrderMutation = useMutation({
     mutationFn: (payload) => apiRequest({ url: `orders/${payload.id}`, method: 'PUT', data: payload.data }),
@@ -34,67 +35,88 @@ const OrderStatusUpdater = ({ open, close, order }) => {
       data: {
         ...order,
         isDelivered: delivered,
-        isPaid: paid,
         isGcash: gCash,
-        paymentDate: paid ? moment() : null,
+        isPaid: paid,
+        paymentDate: paid ? moment(paymentDate) : null,
       },
     });
     close();
   };
 
-  const cancelHandler = () => {
-    setDelivered(order.isDelivered);
-    setPaid(order.isPaid);
-    setGCash(order.isGcash);
-    close();
+  const setCalendarDateHandler = (date) => {
+    setPaymentDate(date);
+    setOpenDatePicker(false);
   };
 
   return (
-    <ModalWide open={open} close={close}>
-      <div className={styles.header_bar}>
-        <h2 className={styles.header_text}>Update Order Status</h2>
-        <div className={styles.header_icon_container}>
-          <div className={styles.header_icon} onClick={close}>
-            <RiCloseCircleLine />
-          </div>
-        </div>
-      </div>
-      <div>
-        {order && (
-          <div className={styles.status_icon_container}>
-            <div
-              className={`${styles.status_icon} ${delivered ? styles.status_icon_green : styles.status_icon_red}`}
-              onClick={() => setDelivered((prev) => !prev)}
-            >
-              <TbTruckDelivery />
-              <span className={styles.status_icon_text}>{delivered ? 'Delivered' : 'Ordered'}</span>
-            </div>
-            <div
-              className={`${styles.status_icon} ${gCash ? styles.status_icon_blue : styles.status_icon_green}`}
-              onClick={() => setGCash((prev) => !prev)}
-            >
-              {gCash ? <RiBitCoinLine /> : <BsCashCoin />}
-              <span className={styles.status_icon_text}>{gCash ? 'G-Cash' : 'Cash'}</span>
-            </div>
-            <div
-              className={`${styles.status_icon} ${paid ? styles.status_icon_green : styles.status_icon_red}`}
-              onClick={() => setPaid((prev) => !prev)}
-            >
-              {paid ? <BsCartCheck /> : <BsCartX />}
-              <span className={styles.status_icon_text}>{paid ? 'Paid' : 'Not Paid'}</span>
+    <>
+      {openDatePicker ? (
+        <DatePicker
+          open={openDatePicker}
+          close={() => setOpenDatePicker(false)}
+          defaultDate={paymentDate}
+          onSave={setCalendarDateHandler}
+        />
+      ) : (
+        <ModalWide open={open} close={close}>
+          <div className={styles.header_bar}>
+            <h2 className={styles.header_text}>{`Update ${order?.orderDetails?.customer?.name}'s order status`}</h2>
+            <div className={styles.header_icon_container}>
+              <div className={styles.header_icon} onClick={close}>
+                <RiCloseCircleLine />
+              </div>
             </div>
           </div>
-        )}
-        <div className={styles.button_container}>
-          <button type="reset" className={styles.button_cancel} onClick={cancelHandler}>
-            Cancel
-          </button>
-          <button className={styles.button_save} type="submit" onClick={statusUpdateHandler}>
-            Update
-          </button>
-        </div>
-      </div>
-    </ModalWide>
+          <div>
+            <div className={styles.input_container}>
+              <label htmlFor="isDelivered" className={styles.input_label}>
+                Is Delivered:
+              </label>
+              <label className={styles.switch}>
+                <input type="checkbox" checked={delivered} onChange={() => setDelivered(!delivered)} id={'isDelivered'} />
+                <span className={`${styles.slider} ${styles.round}`}></span>
+              </label>
+            </div>
+            <div className={styles.input_container}>
+              <label htmlFor="isGcash" className={styles.input_label}>
+                Is G-cash:
+              </label>
+              <label className={styles.switch}>
+                <input type="checkbox" checked={gCash} onChange={() => setGCash(!gCash)} id={'isGcash'} />
+                <span className={`${styles.slider} ${styles.round}`}></span>
+              </label>
+            </div>
+            <div className={styles.input_container}>
+              <label htmlFor="isPaid" className={styles.input_label}>
+                Is Paid:
+              </label>
+              <label className={styles.switch}>
+                <input type="checkbox" checked={paid} onChange={() => setPaid(!paid)} id={'isPaid'} />
+                <span className={`${styles.slider} ${styles.round}`}></span>
+              </label>
+            </div>
+            {paid && (
+              <div className={styles.input_container}>
+                <label htmlFor="paymentDate" className={styles.input_label}>
+                  Payment Date:
+                </label>
+                <div type="date" className={styles.date_status} onClick={() => setOpenDatePicker(true)} id={'paymentDate'}>
+                  {moment(paymentDate).format('ll')}
+                </div>
+              </div>
+            )}
+          </div>
+          <div className={styles.button_container}>
+            <button type="reset" className={styles.button_cancel} onClick={close}>
+              Cancel
+            </button>
+            <button className={styles.button_save} type="submit" onClick={statusUpdateHandler}>
+              Update
+            </button>
+          </div>
+        </ModalWide>
+      )}
+    </>
   );
 };
 
