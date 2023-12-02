@@ -136,7 +136,6 @@ export const getExpenseSummary = (expenses) => {
 };
 
 export const getFinalReportData = (salesSummary, expensesSummary, otherSalesData) => {
-  console.log('OTHER SALES DATA: ', otherSalesData);
   let tempData = [
     { source: 'Sales', cash: salesSummary?.cashTotal, gcash: salesSummary?.gCashTotal, capital: 0, total: salesSummary?.dailyTotal },
     {
