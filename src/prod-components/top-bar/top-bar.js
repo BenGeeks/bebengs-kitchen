@@ -34,7 +34,9 @@ const TopBar = ({ currentPage, setCurrentPage, showNavBar, setShowNavBar }) => {
       <LoadingMain open={isLoading} />
       <div className={styles.top_bar}>
         <div className={styles.company_info_container}>
-          <Image src="/images/logos/website_logo_256.png" alt="bebengs kitchens logo" width={50} height={50} />
+          <div className={styles.logo_image_container}>
+            <Image src="/images/logos/website_logo_256.png" alt="bebengs kitchens logo" width={50} height={50} layout="responsive" />
+          </div>
           <h1 className={styles.company_name}>Bebeng's Kitchen</h1>
         </div>
         <div className={styles.icons_container}>
