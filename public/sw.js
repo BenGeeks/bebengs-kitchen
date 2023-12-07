@@ -1,5 +1,5 @@
-const STATIC_CACHE_NAME = 'site-static-cache-v12072023';
-const DYNAMIC_CACHE_NAME = 'site-dynamic-cache';
+const STATIC_CACHE_NAME = 'site-static-cache-v12072023-2';
+const DYNAMIC_CACHE_NAME = 'site-dynamic-cache-v12072023';
 const staticAssets = ['/images/favicon.ico', '/offline.html', '/images/header_logo.png', '/prod', '/sw.js', '/images/loader.gif'];
 
 self.addEventListener('install', (event) => {

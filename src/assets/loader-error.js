@@ -6,7 +6,7 @@ import styles from './loader.module.css';
 export const Loader = () => {
   return (
     <div className={styles.container}>
-      <img className={styles.loading_gif} src="/images/loading-gif.gif" alt="loading gif" />
+      <img className={styles.loading_gif} src="/images/resources/loading-gif.gif" alt="loading gif" />
     </div>
   );
 };

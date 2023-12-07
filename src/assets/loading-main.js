@@ -8,7 +8,7 @@ const LoadingMain = ({ open, close }) => {
 
   return createPortal(
     <div className={styles.modal_overlay} onClick={close}>
-      <img src="/images/loader.gif" alt="loader gif" />
+      <img src="/images/resources/loader.gif" alt="loader gif" />
     </div>,
     document.getElementById('loader_div')
   );

@@ -99,7 +99,7 @@ const MenuSideBar = ({ width, selectedMenu, setSelectedMenu, variationQuery, act
           <div className={styles.image_container}>
             <img
               className={styles.thumbnail}
-              src={selectedMenu?.thumbnailUrl ? selectedMenu?.thumbnailUrl : '/images/orange_travelpictdinner.png'}
+              src={selectedMenu?.thumbnailUrl ? selectedMenu?.thumbnailUrl : '/images/resources/orange_travelpictdinner.png'}
               alt="Menu image"
             />
           </div>

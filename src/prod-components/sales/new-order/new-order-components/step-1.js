@@ -43,7 +43,7 @@ const Step1 = ({ sortedMenuList, recentItemList, selectItemHandler, isOrderEdit,
                   style={
                     item.thumbnailUrl
                       ? { backgroundImage: 'url(' + item.thumbnailUrl + ')' }
-                      : { backgroundImage: 'url(/images/orange_travelpictdinner.png)' }
+                      : { backgroundImage: 'url(/images/resources/orange_travelpictdinner.png)' }
                   }
                 >
                   <div className={styles.card_name}>{item.itemName}</div>
@@ -66,7 +66,7 @@ const Step1 = ({ sortedMenuList, recentItemList, selectItemHandler, isOrderEdit,
                 style={
                   item.thumbnailUrl
                     ? { backgroundImage: 'url(' + item.thumbnailUrl + ')' }
-                    : { backgroundImage: 'url(/images/orange_travelpictdinner.png)' }
+                    : { backgroundImage: 'url(/images/resources/orange_travelpictdinner.png)' }
                 }
               >
                 <div className={styles.card_name}>{item.itemName}</div>
