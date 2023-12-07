@@ -7,6 +7,7 @@ import { FaRegMoneyBillAlt } from 'react-icons/fa';
 import { PiHandCoins } from 'react-icons/pi';
 import { signOut } from 'next-auth/react';
 import React, { useState } from 'react';
+import Image from 'next/image';
 
 import LoadingMain from '@/assets/loading-main';
 import styles from './top-bar.module.css';
@@ -33,7 +34,8 @@ const TopBar = ({ currentPage, setCurrentPage, showNavBar, setShowNavBar }) => {
       <LoadingMain open={isLoading} />
       <div className={styles.top_bar}>
         <div className={styles.company_info_container}>
-          <img src="/images/header_logo.png" alt="logo" className={styles.company_logo} />
+          {/* <img src="/images/website_logo.png" alt="logo" className={styles.company_logo} /> */}
+          <Image src="/images/website_logo.png" alt="bebengs kitchens logo" width={50} height={50} />
           <h1 className={styles.company_name}>Bebeng's Kitchen</h1>
         </div>
         <div className={styles.icons_container}>

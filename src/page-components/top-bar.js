@@ -1,3 +1,4 @@
+import Image from 'next/image';
 import Link from 'next/link';
 import topBarStyles from '@/page-styles/top-bar.module.css';
 
@@ -5,6 +6,7 @@ const TopBar = () => {
   return (
     <div className={topBarStyles.main_top_bar}>
       <div className={topBarStyles.logo_container}>
+        <Image src="/images/website_logo.png" alt="bebengs kitchens logo" width={50} height={50} />
         <Link className={topBarStyles.logo} href="/">
           Bebeng's Kitchen
         </Link>
