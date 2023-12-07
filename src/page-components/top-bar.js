@@ -6,9 +6,7 @@ const TopBar = () => {
   return (
     <div className={topBarStyles.main_top_bar}>
       <div className={topBarStyles.logo_container}>
-        <div className={topBarStyles.logo_image_container}>
-          <Image src="/images/logos/logo_256x256.png" alt="bebengs kitchens logo" width={50} height={50} layout="responsive" />
-        </div>
+        <Image className={topBarStyles.logo_image} src="/images/logos/logo_256x256.png" alt="bebengs kitchens logo" width={50} height={50} />
         <Link className={topBarStyles.logo} href="/">
           Bebeng's Kitchen
         </Link>

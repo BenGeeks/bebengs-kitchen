@@ -8,9 +8,7 @@ export default function Home() {
       <TopBar />
       <main className={pageStyles.page_main}>
         <div className={pageStyles.container}>
-          <div className={pageStyles.logo_image_container}>
-            <Image src="/images/logos/logo_256x256.png" alt="bebengs kitchens logo" width={120} height={120} layout="responsive" />
-          </div>
+          <Image className={pageStyles.logo_image} src="/images/logos/logo_256x256.png" alt="bebengs kitchens logo" width={120} height={120} />
           <div className={pageStyles.logo}>Bebeng's Kitchen</div>
           <div className={pageStyles.tagline}>Where every bite is a delight!</div>
         </div>
