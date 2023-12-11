@@ -22,13 +22,13 @@
   padding: 40px 60px;
   border-radius: 10px;
   box-shadow: 5px 5px 10px;
-  background-color: rgba(240, 248, 255, 0.8);
+  background-color: rgba(255, 255, 255, 0.8);
   display: flex;
   flex-direction: column;
   align-items: center;
 }
 
-.logo_image_container {
+.logo_image {
   width: 120px;
   height: 120px;
 }
@@ -138,7 +138,7 @@
     border: 1px solid #374151;
   }
 
-  .logo_image_container {
+  .logo_image {
     width: 60px;
     height: 60px;
   }
