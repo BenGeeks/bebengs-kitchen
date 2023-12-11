@@ -12,7 +12,11 @@ export default async function handler(req, res) {
 
   try {
     const orderList = await Order.find({
-      $or: [{ downPaymentDate: { $gte: start, $lt: end } }, { paymentDate: { $gte: start, $lt: end } }],
+      $or: [
+        { downPaymentDate: { $gte: start, $lt: end } },
+        { paymentDate: { $gte: start, $lt: end } },
+        { deliveryDate: { $gte: start, $lt: end } },
+      ],
     });
     res.status(200).json({ success: true, data: orderList });
   } catch (error) {

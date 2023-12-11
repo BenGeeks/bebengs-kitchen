@@ -23,6 +23,7 @@ const OrderStatusUpdater = ({ open, close, order }) => {
     onSuccess: () => {
       toast.success('Order updated successfully.');
       queryClient.invalidateQueries({ queryKey: ['orders'] });
+      queryClient.invalidateQueries({ queryKey: ['history'] });
     },
     onError: (error) => {
       toast.error(error.response.data.error.message);
