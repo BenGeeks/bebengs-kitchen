@@ -1,6 +1,7 @@
 'use client';
 import { useState } from 'react';
 import { useQuery } from '@tanstack/react-query';
+import moment from 'moment';
 
 import TotalSalesExpensesPieGraph from './graphs/total-sales-expenses';
 import PerformancePieGraphWithNeedle from './graphs/performance';
@@ -15,31 +16,28 @@ import { getTotal, getWeeklyReport, getMonthlyReport } from './resources';
 import styles from './dashboard.module.css';
 import apiRequest from '@/lib/axios';
 
-const DashboardPage = ({ date, filterBy, filterValue }) => {
+const DashboardPage = ({ filterBy, filterValue, openDashboardCalendar, year, quarter, month }) => {
   const [total, setTotal] = useState(null);
   const [weeklyReport, setWeeklyReport] = useState([]);
   const [monthlyReport, setMonthlyReport] = useState([]);
 
-  // const yearReportQuery = useQuery({
-  //   queryKey: ['yearReport'],
-  //   queryFn: () => apiRequest({ url: `reports/year/${date.year}`, method: 'GET' }).then((res) => res.data),
-  //   onSuccess: (data) => {
-  //     setTotal(getTotal(data));
-  //     setWeeklyReport(getWeeklyReport(data));
-  //     setMonthlyReport(getMonthlyReport(data));
-  //   },
-  // });
-
   const dashboardReportQuery = useQuery({
     queryKey: ['dashboardReport'],
+    enabled: !openDashboardCalendar,
     queryFn: () =>
-      apiRequest({ url: `reports/dashboard?by=${filterBy}&filterValue=${filterValue}`, method: 'GET' }).then((res) => res.data),
+      apiRequest({ url: `reports/dashboard?filterBy=${filterBy}&filterValue=${filterValue}`, method: 'GET' }).then((res) => res.data),
     onSuccess: (data) => {
       setTotal(getTotal(data));
       setWeeklyReport(getWeeklyReport(data));
       setMonthlyReport(getMonthlyReport(data));
     },
   });
+
+  const getHeaderDisplay = () => {
+    if (filterBy === 'year') return year;
+    if (filterBy === 'quarter') return `Q${quarter} of ${year}`;
+    if (filterBy === 'month') return `${moment({ month }).format('MMMM')} ${year}`;
+  };
 
   if (dashboardReportQuery.isLoading)
     return (
@@ -68,6 +66,8 @@ const DashboardPage = ({ date, filterBy, filterValue }) => {
   return (
     <>
       <div className={styles.page_container}>
+        <h1 className={styles.page_header}>{getHeaderDisplay()}</h1>
+        <br />
         <div className={styles.double}>
           <TotalSalesExpensesPieGraph total={total} />
           <PerformancePieGraphWithNeedle report={weeklyReport} />
@@ -76,6 +76,7 @@ const DashboardPage = ({ date, filterBy, filterValue }) => {
         <SalesExpensesBarGraph data={monthlyReport} title="Monthly Sales Graph" />
       </div>
       <div className={styles.page_container_mobile}>
+        <h1 className={styles.page_header}>{getHeaderDisplay()}</h1>
         <PerformancePieGraphWithNeedleMobile report={weeklyReport} />
         <TotalSalesExpensesPieGraphMobile total={total} />
         <SalesExpensesBarGraphMobile data={weeklyReport} title="Weekly Sales Graph" />

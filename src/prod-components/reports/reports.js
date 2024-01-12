@@ -23,10 +23,6 @@ const ReportsPage = () => {
   const [filterBy, setFilterBy] = useState('year');
   const [filterValue, setFilterValue] = useState(moment().year());
 
-  console.log(month, quarter, year);
-  console.log('FILTER BY: ', filterBy);
-  console.log('FILTER VALUE: ', filterValue);
-
   const setDayDateHandler = (date) => {
     setDate(date);
     setTimeout(() => {
@@ -84,7 +80,16 @@ const ReportsPage = () => {
           onSave={onDashboardFilterSelect}
         />
       )}
-      {currentPage === 'dashboard' && <DashboardPage date={date} filterBy={filterBy} filterValue={filterValue} />}
+      {currentPage === 'dashboard' && (
+        <DashboardPage
+          filterBy={filterBy}
+          filterValue={filterValue}
+          year={year}
+          quarter={quarter}
+          month={month}
+          openDashboardCalendar={openDashboardCalendar}
+        />
+      )}
       {currentPage === 'daily' && <DailyReportPage date={date} setDate={setDate} openDailyCalendar={openDailyCalendar} />}
       {currentPage === 'monthly' && (
         <MonthlyReportPage

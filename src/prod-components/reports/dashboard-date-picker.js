@@ -1,6 +1,4 @@
 'use client';
-import React, { useState } from 'react';
-import moment from 'moment';
 
 import ModalWide from '@/assets/modal-wide';
 import styles from './reports.module.css';
@@ -68,7 +66,7 @@ const DashboarDatePicker = ({ open, close, filterBy, setFilterBy, month, setMont
         <button className={styles.button_cancel} onClick={close}>
           Cancel
         </button>
-        <button className={styles.button_save} onClick={() => onSave(month, quarter, year)}>
+        <button className={styles.button_save} onClick={onSave}>
           Select
         </button>
       </div>

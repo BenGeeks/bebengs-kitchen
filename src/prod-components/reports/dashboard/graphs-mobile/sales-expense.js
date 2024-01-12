@@ -28,6 +28,7 @@ const SalesExpensesBarGraphMobile = ({ data, title }) => {
         <Bar dataKey="profit" stackId="a" fill="#8884d8" activeBar={<Rectangle fill="pink" stroke="blue" />} />
         <Bar dataKey="expenses" stackId="a" fill="#82ca9d" activeBar={<Rectangle fill="gold" stroke="purple" />} />
         <Line type="monotone" dataKey="ma" stroke="#FF8042" strokeWidth="2" />
+        <Line type="monotone" dataKey="sales" stroke="#000000" strokeWidth="2" />
       </ComposedChart>
     </div>
   );

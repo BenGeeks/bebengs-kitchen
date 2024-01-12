@@ -19,6 +19,11 @@
   display: none;
 }
 
+.page_header {
+  font-size: 2rem;
+  margin-top: 5px;
+}
+
 .double {
   display: flex;
   justify-content: space-between;
@@ -97,6 +102,10 @@
     align-items: center;
     padding: 10px;
     margin-bottom: 60px;
+  }
+
+  .page_header {
+    font-size: 1.4rem;
   }
 
   .graph_header {
