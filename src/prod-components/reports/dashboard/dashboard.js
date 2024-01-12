@@ -15,14 +15,25 @@ import { getTotal, getWeeklyReport, getMonthlyReport } from './resources';
 import styles from './dashboard.module.css';
 import apiRequest from '@/lib/axios';
 
-const DashboardPage = ({ date }) => {
+const DashboardPage = ({ date, filterBy, filterValue }) => {
   const [total, setTotal] = useState(null);
   const [weeklyReport, setWeeklyReport] = useState([]);
   const [monthlyReport, setMonthlyReport] = useState([]);
 
-  const yearReportQuery = useQuery({
-    queryKey: ['yearReport'],
-    queryFn: () => apiRequest({ url: `reports/year/${date.year}`, method: 'GET' }).then((res) => res.data),
+  // const yearReportQuery = useQuery({
+  //   queryKey: ['yearReport'],
+  //   queryFn: () => apiRequest({ url: `reports/year/${date.year}`, method: 'GET' }).then((res) => res.data),
+  //   onSuccess: (data) => {
+  //     setTotal(getTotal(data));
+  //     setWeeklyReport(getWeeklyReport(data));
+  //     setMonthlyReport(getMonthlyReport(data));
+  //   },
+  // });
+
+  const dashboardReportQuery = useQuery({
+    queryKey: ['dashboardReport'],
+    queryFn: () =>
+      apiRequest({ url: `reports/dashboard?by=${filterBy}&filterValue=${filterValue}`, method: 'GET' }).then((res) => res.data),
     onSuccess: (data) => {
       setTotal(getTotal(data));
       setWeeklyReport(getWeeklyReport(data));
@@ -30,7 +41,7 @@ const DashboardPage = ({ date }) => {
     },
   });
 
-  if (yearReportQuery.isLoading)
+  if (dashboardReportQuery.isLoading)
     return (
       <>
         <div className={styles.page_container}>
@@ -42,14 +53,14 @@ const DashboardPage = ({ date }) => {
       </>
     );
 
-  if (yearReportQuery.isError)
+  if (dashboardReportQuery.isError)
     return (
       <>
         <div className={styles.page_container}>
-          <Error error={yearReportQuery.error} />
+          <Error error={dashboardReportQuery.error} />
         </div>
         <div className={styles.page_container_mobile}>
-          <Error error={yearReportQuery.error} />
+          <Error error={dashboardReportQuery.error} />
         </div>
       </>
     );

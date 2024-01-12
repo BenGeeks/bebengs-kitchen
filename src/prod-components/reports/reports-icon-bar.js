@@ -5,10 +5,21 @@ import { AiOutlineDashboard } from 'react-icons/ai';
 
 import iconStyles from '@/styles/icons-bar.module.css';
 
-const ReportsIconBar = ({ setOpenDailyCalendar, setOpenMonthlyCalendar, currentPage, setCurrentPage, setAddEntry }) => {
+const ReportsIconBar = ({
+  setOpenDashboardCalendar,
+  setOpenDailyCalendar,
+  setOpenMonthlyCalendar,
+  currentPage,
+  setCurrentPage,
+  setAddEntry,
+}) => {
   return (
     <div className={iconStyles.icon_bar_container}>
-      <div className={iconStyles.icon_box} title="dashboard" onClick={() => setCurrentPage('dashboard')}>
+      <div
+        className={iconStyles.icon_box}
+        title="dashboard"
+        onClick={() => (currentPage === 'dashboard' ? setOpenDashboardCalendar(true) : setCurrentPage('dashboard'))}
+      >
         <div className={iconStyles.icon}>
           <AiOutlineDashboard />
         </div>

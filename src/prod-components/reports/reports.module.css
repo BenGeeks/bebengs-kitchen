@@ -166,3 +166,141 @@
     padding: 5px;
   }
 }
+
+/* ================================ */
+/* ==== DASHBOARD DATE PICKER  ==== */
+/* ================================ */
+
+.header_bar {
+  height: 40px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid #374151;
+  margin-bottom: 5px;
+}
+
+.header_bar_title {
+  margin-left: 15px;
+  color: #374151;
+}
+
+.date_picker_container {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.select_report_by {
+  padding: 5px;
+  font-family: 'Roboto', sans-serif;
+  font-size: 1.4rem;
+  border: none;
+  background-color: transparent;
+  font-weight: 700;
+  color: #de5c5c;
+}
+
+.grid_container {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.year_grid {
+  display: grid;
+  grid-template-columns: auto auto auto auto auto auto auto;
+  background-color: aliceblue;
+  padding: 5px;
+  border-bottom: 1px solid #374151;
+  margin-bottom: 10px;
+}
+
+.month_grid {
+  display: grid;
+  grid-template-columns: auto auto auto auto auto auto;
+  background-color: aliceblue;
+  padding: 5px;
+  border-bottom: 1px solid #374151;
+  margin-bottom: 10px;
+}
+
+.grid {
+  width: 80px;
+  height: 60px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 2px;
+  background-color: beige;
+  border: 1px solid #374151;
+  cursor: pointer;
+  transition: all 0.3s ease-out;
+  font-size: 1.5rem;
+}
+
+.grid:hover {
+  background-color: #374151;
+  border: 1px solid beige;
+  color: beige;
+}
+
+.grid_selected {
+  width: 80px;
+  height: 60px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 2px;
+  background-color: #374151;
+  border: 1px solid #374151;
+  color: beige;
+  font-size: 1.5rem;
+}
+
+.button_container {
+  display: flex;
+  flex-direction: row;
+  margin-top: 10px;
+  padding: 0px 8px;
+}
+
+.button_cancel {
+  width: 50%;
+  border: 1px solid #374151;
+  color: #374151;
+  background-color: #de5c5c;
+  padding: 10px 10px;
+  text-align: center;
+  margin: 1px;
+  transition: 0.3s;
+  cursor: pointer;
+  font-size: 1.4rem;
+}
+
+.button_cancel:hover {
+  background-color: #374151;
+  color: #de5c5c;
+  border: 1px solid #de5c5c;
+}
+
+.button_save {
+  width: 50%;
+  border: 1px solid #374151;
+  color: #374151;
+  background-color: rgb(90, 216, 90);
+  padding: 10px 10px;
+  text-align: center;
+  margin: 1px;
+  transition: 0.3s;
+  cursor: pointer;
+  font-size: 1.4rem;
+}
+
+.button_save:hover {
+  background-color: #374151;
+  color: rgb(90, 216, 90);
+  border: 1px solid rgb(90, 216, 90);
+}

@@ -114,7 +114,7 @@
   width: 50%;
   border: 1px solid #374151;
   color: #374151;
-  background-color: rgb(222, 92, 92);
+  background-color: #de5c5c;
   padding: 10px 10px;
   text-align: center;
   margin: 1px;
@@ -125,8 +125,8 @@
 
 .button_cancel:hover {
   background-color: #374151;
-  color: rgb(222, 92, 92);
-  border: 1px solid rgb(222, 92, 92);
+  color: #de5c5c;
+  border: 1px solid #de5c5c;
 }
 
 .button_save {

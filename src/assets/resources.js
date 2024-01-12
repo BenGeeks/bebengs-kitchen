@@ -30,6 +30,8 @@ export const MONTH = [
 
 export const YEAR = [2023, 2024, 2025, 2026, 2027, 2028];
 
+export const QUARTER = [1, 2, 3, 4];
+
 export const QTY_NUMBER = ['1', '2', '3', '4', '5', '6', '7', '8', '9'];
 
 export const getRandomColor = () => {
