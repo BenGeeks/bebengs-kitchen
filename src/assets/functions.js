@@ -137,7 +137,13 @@ export const getExpenseSummary = (expenses) => {
 
 export const getFinalReportData = (salesSummary, expensesSummary, otherSalesData) => {
   let tempData = [
-    { source: 'Sales', cash: salesSummary?.cashTotal, gcash: salesSummary?.gCashTotal, capital: 0, total: salesSummary?.dailyTotal },
+    {
+      source: 'Sales',
+      cash: salesSummary?.cashTotal,
+      gcash: salesSummary?.gCashTotal,
+      capital: 0,
+      total: salesSummary?.dailyTotal - otherSalesData?.downPayment?.total,
+    },
     {
       source: 'Down Payment',
       cash: otherSalesData?.downPayment?.cash,
@@ -157,7 +163,7 @@ export const getFinalReportData = (salesSummary, expensesSummary, otherSalesData
       cash: expensesSummary?.cash,
       gcash: expensesSummary?.gcash,
       capital: expensesSummary?.capital,
-      total: expensesSummary?.total,
+      total: expensesSummary?.total - expensesSummary?.capital,
     },
     {
       source: 'Discount',
@@ -183,10 +189,10 @@ export const getFinalReportData = (salesSummary, expensesSummary, otherSalesData
       capital: expensesSummary?.capital,
       total:
         salesSummary?.dailyTotal +
-        otherSalesData?.downPayment?.total +
         otherSalesData?.deliveryCharge?.total -
         expensesSummary?.total -
-        otherSalesData?.discount?.total,
+        otherSalesData?.discount?.total +
+        expensesSummary?.capital,
     },
   ];
   return tempData;
