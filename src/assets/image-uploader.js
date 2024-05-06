@@ -19,6 +19,7 @@ const ImageUploader = ({ item, setUrls, uploading, setUploading }) => {
               id="file-upload"
               type="file"
               className={styles.file_input}
+              accept="image/png, image/jpeg"
               onChange={(e) => {
                 setFile(e.target.files?.[0]);
               }}
