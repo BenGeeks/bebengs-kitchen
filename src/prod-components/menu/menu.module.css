@@ -48,6 +48,7 @@
 .side_bar_body {
   display: flex;
 }
+
 .image_container {
   display: flex;
   justify-content: center;
@@ -55,13 +56,27 @@
   width: 100%;
   border: 1px solid #374151;
   margin-bottom: 5px;
+  padding: 5px;
 }
 
 .thumbnail {
-  width: 200px;
-  height: 200px;
+  width: auto;
+  height: 300px;
   border: 1px solid #374151;
   margin: 10px;
+}
+
+@media (max-width: 1024px) {
+  .img {
+    width: 600px;
+  }
+}
+
+@media (max-width: 768px) {
+  .thumbnail {
+    width: 100%;
+    height: auto;
+  }
 }
 /* ================================ */
 /* =============  ICONS  ========== */
