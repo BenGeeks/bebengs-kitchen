@@ -5,6 +5,7 @@ import { ToastContainer, Zoom } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Head from 'next/head';
 import { useEffect } from 'react';
+import { EdgeStoreProvider } from '../lib/edgestore';
 
 const queryClient = new QueryClient();
 
@@ -44,7 +45,9 @@ export default function App({ Component, pageProps }) {
       />
       <QueryClientProvider client={queryClient}>
         <SessionProvider session={pageProps.session}>
-          <Component {...pageProps} />
+          <EdgeStoreProvider>
+            <Component {...pageProps} />
+          </EdgeStoreProvider>
         </SessionProvider>
       </QueryClientProvider>
     </>

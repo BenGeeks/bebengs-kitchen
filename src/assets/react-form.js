@@ -1,8 +1,9 @@
 import { yupResolver } from '@hookform/resolvers/yup';
-import { useForm } from 'react-hook-form';
 import React, { useEffect, useState } from 'react';
+import { useForm } from 'react-hook-form';
 
 import styles from './react-form.module.css';
+import ImageUploader from './image-uploader';
 import DatePicker from './date-picker';
 import moment from 'moment';
 
@@ -10,6 +11,8 @@ const ReactForm = ({ layout, schema, defaultValues, onSubmit, onCancel, action }
   const [openDatePicker, setOpenDatePicker] = useState(false);
   const [dateName, setDatename] = useState('');
   const [calendarDates, setCalendarDates] = useState({});
+  const [urls, setUrls] = useState();
+  const [uploading, setUploading] = useState(false);
 
   const {
     register,
@@ -31,7 +34,7 @@ const ReactForm = ({ layout, schema, defaultValues, onSubmit, onCancel, action }
   };
 
   const onSubmitHandler = (data) => {
-    onSubmit({ ...data, ...calendarDates });
+    urls ? onSubmit({ ...data, ...urls }) : onSubmit({ ...data, ...calendarDates });
   };
 
   useEffect(() => {
@@ -50,13 +53,21 @@ const ReactForm = ({ layout, schema, defaultValues, onSubmit, onCancel, action }
           onSave={setCalendarDateHandler}
         />
       )}
+
+      {layout.map((input, index) => {
+        if (input.type === 'image')
+          return <ImageUploader key={index} setUrls={setUrls} item={input.name} uploading={uploading} setUploading={setUploading} />;
+      })}
+
       <form onSubmit={handleSubmit(onSubmitHandler)}>
         {layout.map((input, index) => {
           return (
             <div key={index} className={styles.input_container}>
-              <label htmlFor={input.name} className={styles.input_label}>
-                {input.label}:
-              </label>
+              {input.type !== 'image' && (
+                <label htmlFor={input.name} className={styles.input_label}>
+                  {input.label}:
+                </label>
+              )}
               {errors[input.name] && <div className={styles.error_message}>{errors[input.name]?.message}</div>}
 
               {input.type === 'textarea' ? (
@@ -90,20 +101,24 @@ const ReactForm = ({ layout, schema, defaultValues, onSubmit, onCancel, action }
                             </select>
                           ) : (
                             <>
-                              <input
-                                type={input.type}
-                                placeholder={input.label}
-                                className={styles.input}
-                                list={input.name}
-                                {...register(input.name)}
-                                autoFocus={index === 0}
-                              />
-                              {input?.list && (
-                                <datalist id={input.name}>
-                                  {input.list.map((el) => {
-                                    return <option value={el.address} key={el.address} />;
-                                  })}
-                                </datalist>
+                              {input.type === 'image' ? null : (
+                                <>
+                                  <input
+                                    type={input.type}
+                                    placeholder={input.label}
+                                    className={styles.input}
+                                    list={input.name}
+                                    {...register(input.name)}
+                                    autoFocus={index === 0}
+                                  />
+                                  {input?.list && (
+                                    <datalist id={input.name}>
+                                      {input.list.map((el) => {
+                                        return <option value={el.address} key={el.address} />;
+                                      })}
+                                    </datalist>
+                                  )}
+                                </>
                               )}
                             </>
                           )}
@@ -116,13 +131,18 @@ const ReactForm = ({ layout, schema, defaultValues, onSubmit, onCancel, action }
             </div>
           );
         })}
+
         <div className={styles.button_container}>
-          <button type="reset" className={styles.button_cancel} onClick={onCancel}>
-            Cancel
-          </button>
-          <button className={styles.button_save} type="submit">
-            {action === 'Add' ? 'Save' : 'Update'}
-          </button>
+          {!uploading && (
+            <>
+              <button type="reset" className={styles.button_cancel} onClick={onCancel}>
+                Cancel
+              </button>
+              <button className={styles.button_save} type="submit">
+                {action === 'Add' ? 'Save' : 'Update'}
+              </button>
+            </>
+          )}
         </div>
       </form>
     </>

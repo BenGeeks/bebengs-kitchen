@@ -6,7 +6,8 @@ export const MENU_SCHEMA = yup.object().shape({
 
 export const MENU_INPUT = [
   { type: 'text', name: 'itemName', label: 'Item name' },
-  { type: 'text', name: 'thumbnailUrl', label: 'Thumbnail URL' },
+  { type: 'textarea', name: 'description', label: 'Description' },
+  { type: 'image', name: 'image', label: 'Image' },
 ];
 
 export const VARIATION_SCHEMA = yup.object().shape({

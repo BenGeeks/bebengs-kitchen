@@ -20,6 +20,8 @@ const MenuSideBar = ({ width, selectedMenu, setSelectedMenu, variationQuery, act
   const [newVariation, setNewVariation] = useState(false);
   const [editVariation, setEditVariation] = useState(false);
 
+  console.log('SELECTED MENU: ', selectedMenu);
+
   const deleteVariationMutation = useMutation({
     mutationFn: (id) => apiRequest({ url: `variations/${id}`, method: 'DELETE' }),
     onSuccess: () => {
@@ -99,7 +101,7 @@ const MenuSideBar = ({ width, selectedMenu, setSelectedMenu, variationQuery, act
           <div className={styles.image_container}>
             <img
               className={styles.thumbnail}
-              src={selectedMenu?.thumbnailUrl ? selectedMenu?.thumbnailUrl : '/images/resources/orange_travelpictdinner.png'}
+              src={selectedMenu?.imageUrl ? selectedMenu?.imageUrl : '/images/resources/orange_travelpictdinner.png'}
               alt="Menu image"
             />
           </div>
