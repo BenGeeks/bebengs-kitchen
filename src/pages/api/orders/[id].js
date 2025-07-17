@@ -1,5 +1,5 @@
-import dbConnect from '@/lib/dbConnect';
-import Order from '@/model/order';
+import dbConnect from "@/lib/dbConnect";
+import Order from "@/model/order";
 
 export default async function handler(req, res) {
   const {
@@ -10,7 +10,7 @@ export default async function handler(req, res) {
   await dbConnect();
 
   switch (method) {
-    case 'DELETE':
+    case "DELETE":
       try {
         const deletedOrder = await Order.findByIdAndDelete({ _id: id });
         if (!deletedOrder) {
@@ -21,7 +21,7 @@ export default async function handler(req, res) {
         res.status(400).json({ error });
       }
       break;
-    case 'PUT':
+    case "PUT":
       try {
         const updatedOrder = await Order.findByIdAndUpdate(id, body, { new: true, runValidators: true });
         if (!updatedOrder) {

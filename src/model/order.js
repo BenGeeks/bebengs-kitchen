@@ -1,4 +1,4 @@
-const mongoose = require('mongoose');
+const mongoose = require("mongoose");
 
 const Schema = mongoose.Schema;
 
@@ -14,6 +14,7 @@ const orderSchema = new Schema(
     discount: { type: Number, required: false },
     total: { type: Number, required: true },
     isGcash: { type: Boolean, required: true },
+    forDelivery: { type: Boolean, required: true },
     isDelivered: { type: Boolean, required: true },
     isPaid: { type: Boolean, required: true },
     orderDetails: {
@@ -43,4 +44,4 @@ const orderSchema = new Schema(
   }
 );
 
-module.exports = mongoose.models.Order || mongoose.model('Order', orderSchema);
+module.exports = mongoose.models.Order || mongoose.model("Order", orderSchema);

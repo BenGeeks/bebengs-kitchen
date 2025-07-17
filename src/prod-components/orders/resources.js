@@ -1,12 +1,12 @@
-'use client';
-import styles from './orders.module.css';
+"use client";
+import styles from "./orders.module.css";
 
-export const HEADERS = ['#', 'Date', 'Name', 'Total'];
+export const HEADERS = ["#", "Date", "Name", "Total"];
 
 export const FUTURE_ORDERS_HEADER = [
-  { display: 'item', name: 'itemName' },
-  { display: 'size', name: 'size' },
-  { display: 'qty', name: 'qty' },
+  { display: "item", name: "itemName" },
+  { display: "size", name: "size" },
+  { display: "qty", name: "qty" },
 ];
 
 export const summarizeReport = (data) => {
@@ -34,6 +34,7 @@ export const summarizeReport = (data) => {
 };
 
 export const getStatusColor = (data) => {
+  if (data && !data.isPaid && !data.isDelivered && data.forDelivery) return styles.yellow;
   if (data && !data.isPaid && data.isDelivered && data.isGcash) return styles.red;
   if (data && !data.isPaid && data.isDelivered && !data.isGcash) return styles.purple;
   if (data && data.isPaid && !data.isDelivered && !data.isGcash) return styles.turquoise;
@@ -44,6 +45,6 @@ export const getStatusColor = (data) => {
 };
 
 export const getTotal = (data) => {
-  let total = data.reduce((total, data) => data.total + total, 0).toLocaleString('en-US');
+  let total = data.reduce((total, data) => data.total + total, 0).toLocaleString("en-US");
   return total;
 };

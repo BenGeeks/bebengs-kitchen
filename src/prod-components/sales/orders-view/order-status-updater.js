@@ -1,17 +1,18 @@
-'use client';
-import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { RiCloseCircleLine } from 'react-icons/ri';
-import React, { useState } from 'react';
-import { toast } from 'react-toastify';
-import moment from 'moment';
+"use client";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { RiCloseCircleLine } from "react-icons/ri";
+import React, { useState } from "react";
+import { toast } from "react-toastify";
+import moment from "moment";
 
-import DatePicker from '@/assets/date-picker';
-import ModalWide from '@/assets/modal-wide';
-import styles from '../sales.module.css';
-import apiRequest from '@/lib/axios';
+import DatePicker from "@/assets/date-picker";
+import ModalWide from "@/assets/modal-wide";
+import styles from "../sales.module.css";
+import apiRequest from "@/lib/axios";
 
 const OrderStatusUpdater = ({ open, close, order }) => {
   const queryClient = useQueryClient();
+  const [forDelivery, setFordelivery] = useState(order?.forDelivery ? order?.forDelivery : false);
   const [delivered, setDelivered] = useState(order?.isDelivered ? order?.isDelivered : false);
   const [gCash, setGCash] = useState(order?.isGcash ? order?.isGcash : false);
   const [paid, setPaid] = useState(order?.isPaid ? order?.isPaid : false);
@@ -19,11 +20,11 @@ const OrderStatusUpdater = ({ open, close, order }) => {
   const [openDatePicker, setOpenDatePicker] = useState(false);
 
   const updateOrderMutation = useMutation({
-    mutationFn: (payload) => apiRequest({ url: `orders/${payload.id}`, method: 'PUT', data: payload.data }),
+    mutationFn: (payload) => apiRequest({ url: `orders/${payload.id}`, method: "PUT", data: payload.data }),
     onSuccess: () => {
-      toast.success('Order updated successfully.');
-      queryClient.invalidateQueries({ queryKey: ['orders'] });
-      queryClient.invalidateQueries({ queryKey: ['history'] });
+      toast.success("Order updated successfully.");
+      queryClient.invalidateQueries({ queryKey: ["orders"] });
+      queryClient.invalidateQueries({ queryKey: ["history"] });
     },
     onError: (error) => {
       toast.error(error.response.data.error.message);
@@ -35,6 +36,7 @@ const OrderStatusUpdater = ({ open, close, order }) => {
       id: order._id,
       data: {
         ...order,
+        forDelivery: forDelivery,
         isDelivered: delivered,
         isGcash: gCash,
         isPaid: paid,
@@ -52,12 +54,7 @@ const OrderStatusUpdater = ({ open, close, order }) => {
   return (
     <>
       {openDatePicker ? (
-        <DatePicker
-          open={openDatePicker}
-          close={() => setOpenDatePicker(false)}
-          defaultDate={paymentDate}
-          onSave={setCalendarDateHandler}
-        />
+        <DatePicker open={openDatePicker} close={() => setOpenDatePicker(false)} defaultDate={paymentDate} onSave={setCalendarDateHandler} />
       ) : (
         <ModalWide open={open} close={close}>
           <div className={styles.header_bar}>
@@ -70,11 +67,20 @@ const OrderStatusUpdater = ({ open, close, order }) => {
           </div>
           <div>
             <div className={styles.input_container}>
+              <label htmlFor="forDelivery" className={styles.input_label}>
+                For Delivery:
+              </label>
+              <label className={styles.switch}>
+                <input type="checkbox" checked={forDelivery} onChange={() => setFordelivery(!forDelivery)} id={"isDelivered"} />
+                <span className={`${styles.slider} ${styles.round}`}></span>
+              </label>
+            </div>
+            <div className={styles.input_container}>
               <label htmlFor="isDelivered" className={styles.input_label}>
                 Is Delivered:
               </label>
               <label className={styles.switch}>
-                <input type="checkbox" checked={delivered} onChange={() => setDelivered(!delivered)} id={'isDelivered'} />
+                <input type="checkbox" checked={delivered} onChange={() => setDelivered(!delivered)} id={"isDelivered"} />
                 <span className={`${styles.slider} ${styles.round}`}></span>
               </label>
             </div>
@@ -83,7 +89,7 @@ const OrderStatusUpdater = ({ open, close, order }) => {
                 Is G-cash:
               </label>
               <label className={styles.switch}>
-                <input type="checkbox" checked={gCash} onChange={() => setGCash(!gCash)} id={'isGcash'} />
+                <input type="checkbox" checked={gCash} onChange={() => setGCash(!gCash)} id={"isGcash"} />
                 <span className={`${styles.slider} ${styles.round}`}></span>
               </label>
             </div>
@@ -92,7 +98,7 @@ const OrderStatusUpdater = ({ open, close, order }) => {
                 Is Paid:
               </label>
               <label className={styles.switch}>
-                <input type="checkbox" checked={paid} onChange={() => setPaid(!paid)} id={'isPaid'} />
+                <input type="checkbox" checked={paid} onChange={() => setPaid(!paid)} id={"isPaid"} />
                 <span className={`${styles.slider} ${styles.round}`}></span>
               </label>
             </div>
@@ -101,8 +107,8 @@ const OrderStatusUpdater = ({ open, close, order }) => {
                 <label htmlFor="paymentDate" className={styles.input_label}>
                   Payment Date:
                 </label>
-                <div type="date" className={styles.date_status} onClick={() => setOpenDatePicker(true)} id={'paymentDate'}>
-                  {moment(paymentDate).format('ll')}
+                <div type="date" className={styles.date_status} onClick={() => setOpenDatePicker(true)} id={"paymentDate"}>
+                  {moment(paymentDate).format("ll")}
                 </div>
               </div>
             )}

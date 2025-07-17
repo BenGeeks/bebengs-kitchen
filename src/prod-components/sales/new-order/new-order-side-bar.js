@@ -1,29 +1,15 @@
-'use client';
-import { RiAddCircleLine } from 'react-icons/ri';
-import { useState } from 'react';
-import moment from 'moment';
+"use client";
+import { RiAddCircleLine } from "react-icons/ri";
+import { useState } from "react";
+import moment from "moment";
 
-import EditShoppingCartItem from './new-order-components/edit-cart-item';
-import { ORDER_ITEMS_HEADER, getTotal } from './resources';
-import ActionModal from '@/assets/action-modal';
-import styles from './new-order.module.css';
-import Table from '@/assets/table';
+import EditShoppingCartItem from "./new-order-components/edit-cart-item";
+import { ORDER_ITEMS_HEADER, getTotal } from "./resources";
+import ActionModal from "@/assets/action-modal";
+import styles from "./new-order.module.css";
+import Table from "@/assets/table";
 
-const NewOrderSideBar = ({
-  selectedCustomer,
-  orderDetails,
-  items,
-  step,
-  setStep,
-  setItems,
-  onCancel,
-  onSave,
-  edit,
-  setEdit,
-  deliveryCharge,
-  discount,
-  downPayment,
-}) => {
+const NewOrderSideBar = ({ selectedCustomer, orderDetails, items, step, setStep, setItems, onCancel, onSave, edit, setEdit, deliveryCharge, discount, downPayment }) => {
   const [openActionModal, setOpenActionModal] = useState(false);
   const [selectedCartItem, setSelectedCartItem] = useState(null);
   const [openEditHandler, setOpenEditHandler] = useState(false);
@@ -66,17 +52,8 @@ const NewOrderSideBar = ({
 
   return (
     <>
-      {openActionModal && (
-        <ActionModal open={openActionModal} close={cancelHandler} onCancel={cancelHandler} onEdit={editHandler} onDelete={deleteHandler} />
-      )}
-      {openEditHandler && (
-        <EditShoppingCartItem
-          open={openEditHandler}
-          close={() => setOpenEditHandler(false)}
-          item={selectedCartItem}
-          onSave={updateItemHandler}
-        />
-      )}
+      {openActionModal && <ActionModal open={openActionModal} close={cancelHandler} onCancel={cancelHandler} onEdit={editHandler} onDelete={deleteHandler} />}
+      {openEditHandler && <EditShoppingCartItem open={openEditHandler} close={() => setOpenEditHandler(false)} item={selectedCartItem} onSave={updateItemHandler} />}
       <div className={edit ? styles.container_hide : styles.container}>
         <div className={styles.main_box}>
           {selectedCustomer && (
@@ -97,7 +74,7 @@ const NewOrderSideBar = ({
               <div className={styles.sub_header}>Order Details:</div>
               <div className={styles.info_container}>
                 <div className={styles.title}>Delivery Date: </div>
-                {moment(orderDetails.deliveryDate).format('MMM DD, yyyy')}
+                {moment(orderDetails.deliveryDate).format("MMM DD, yyyy")}
               </div>
               <div className={styles.info_container}>
                 <div className={styles.title}>Delivery Time: </div>
@@ -106,19 +83,20 @@ const NewOrderSideBar = ({
               {orderDetails.isDownPayment && (
                 <div className={styles.info_container}>
                   <div className={styles.title}>DP Date: </div>
-                  {orderDetails.downPaymentDate && moment(orderDetails.downPaymentDate).format('MMM DD, yyyy')}
+                  {orderDetails.downPaymentDate && moment(orderDetails.downPaymentDate).format("MMM DD, yyyy")}
                 </div>
               )}
               {orderDetails.isPaid && (
                 <div className={styles.info_container}>
                   <div className={styles.title}>Payment Date: </div>
-                  {orderDetails.paymentDate && moment(orderDetails.paymentDate).format('MMM DD, yyyy')}
+                  {orderDetails.paymentDate && moment(orderDetails.paymentDate).format("MMM DD, yyyy")}
                 </div>
               )}
               <div className={styles.boolean_container}>
-                <div>Delivered {orderDetails?.isDelivered ? '🟢' : '🔴'}</div>
-                <div>G-Cash {orderDetails?.isGcash ? '🟢' : '🔴'}</div>
-                <div>Paid: {orderDetails?.isPaid ? '🟢' : '🔴'}</div>
+                <div>For Delivery {orderDetails?.forDelivery ? "🟢" : "🔴"}</div>
+                <div>Delivered {orderDetails?.isDelivered ? "🟢" : "🔴"}</div>
+                <div>G-Cash {orderDetails?.isGcash ? "🟢" : "🔴"}</div>
+                <div>Paid: {orderDetails?.isPaid ? "🟢" : "🔴"}</div>
               </div>
             </div>
           )}
@@ -144,7 +122,7 @@ const NewOrderSideBar = ({
                 <div className={styles.customer_box}>
                   <div className={styles.shoping_card_header_bar}>
                     <div className={styles.shoping_card_title}>Delivery Charge:</div>
-                    <div className={styles.shoping_card_title}>{deliveryCharge?.toLocaleString('en-US')}</div>
+                    <div className={styles.shoping_card_title}>{deliveryCharge?.toLocaleString("en-US")}</div>
                   </div>
                 </div>
               )}
@@ -152,7 +130,7 @@ const NewOrderSideBar = ({
                 <div className={styles.customer_box}>
                   <div className={styles.shoping_card_header_bar}>
                     <div className={styles.shoping_card_title}>Discount:</div>
-                    <div className={styles.shoping_card_title}>{`( ${discount?.toLocaleString('en-US')} )`}</div>
+                    <div className={styles.shoping_card_title}>{`( ${discount?.toLocaleString("en-US")} )`}</div>
                   </div>
                 </div>
               )}
@@ -160,7 +138,7 @@ const NewOrderSideBar = ({
                 <div className={styles.customer_box}>
                   <div className={styles.shoping_card_header_bar}>
                     <div className={styles.shoping_card_title}>Down Payment:</div>
-                    <div className={styles.shoping_card_title}>{`( ${downPayment?.toLocaleString('en-US')} )`}</div>
+                    <div className={styles.shoping_card_title}>{`( ${downPayment?.toLocaleString("en-US")} )`}</div>
                   </div>
                 </div>
               )}

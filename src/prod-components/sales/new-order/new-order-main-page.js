@@ -1,27 +1,16 @@
-'use client';
-import moment from 'moment';
+"use client";
+import moment from "moment";
 
-import CustomersList from '@/prod-components/customer/customer-list';
-import NewOrderSelectItem from './new-order-components/select-item';
-import EditOrderDetails from './new-order-components/edit-2';
-import styles from './new-order.module.css';
+import CustomersList from "@/prod-components/customer/customer-list";
+import NewOrderSelectItem from "./new-order-components/select-item";
+import EditOrderDetails from "./new-order-components/edit-2";
+import styles from "./new-order.module.css";
 
-const NewOrderMainPage = ({
-  setSelectedCustomer,
-  setOrderDetails,
-  orderDetails,
-  setEdit,
-  edit,
-  setStep,
-  onAddItem,
-  isOrderEdit,
-  onCancel,
-  items,
-}) => {
+const NewOrderMainPage = ({ setSelectedCustomer, setOrderDetails, orderDetails, setEdit, edit, setStep, onAddItem, isOrderEdit, onCancel, items }) => {
   const updateDetailsHandler = (data) => {
     let tempData = {
       ...data,
-      deliveryDate: data?.deliveryDate ? data.deliveryDate : moment().format('YYYY-MM-DD'),
+      deliveryDate: data?.deliveryDate ? data.deliveryDate : moment().format("YYYY-MM-DD"),
       deliveryTime: data?.deliveryTime ? data.deliveryTime : null,
       paymentDate: data?.paymentDate ? data.paymentDate : null,
       downPaymentDate: data?.downPaymentDate ? data.downPaymentDate : null,
@@ -50,19 +39,10 @@ const NewOrderMainPage = ({
           <div className={styles.header_bar}>
             <h3 className={styles.header_bar_title}>Order Details:</h3>
           </div>
-          <EditOrderDetails defaultValues={orderDetails} onCancel={cancelHandler} onSubmit={updateDetailsHandler} action={'Add'} />
+          <EditOrderDetails defaultValues={orderDetails} onCancel={cancelHandler} onSubmit={updateDetailsHandler} action={"Add"} />
         </div>
       )}
-      {edit === 3 && (
-        <NewOrderSelectItem
-          onAddItem={onAddItem}
-          edit={edit}
-          setEdit={setEdit}
-          onCancel={onCancel}
-          isOrderEdit={isOrderEdit}
-          items={items}
-        />
-      )}
+      {edit === 3 && <NewOrderSelectItem onAddItem={onAddItem} edit={edit} setEdit={setEdit} onCancel={onCancel} isOrderEdit={isOrderEdit} items={items} />}
     </div>
   );
 };

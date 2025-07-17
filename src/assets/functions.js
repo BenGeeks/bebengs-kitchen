@@ -1,12 +1,12 @@
-import moment from 'moment';
+import moment from "moment";
 
-import styles from './functions.module.css';
+import styles from "./functions.module.css";
 
 export const getSalesCount = (sales, calendarDate) => {
   let tempArray = [];
   let summary = {};
   sales?.forEach((order) => {
-    if (order.isPaid && moment(order.paymentDate).format('YYYY-MM-DD') === moment(calendarDate).format('YYYY-MM-DD')) {
+    if (order.isPaid && moment(order.paymentDate).format("YYYY-MM-DD") === moment(calendarDate).format("YYYY-MM-DD")) {
       order.orderDetails.items.forEach((item) => {
         if (summary[item._id]) {
           summary[item._id] = {
@@ -35,12 +35,12 @@ export const getSalesData = (sales, calendarDate) => {
   let cash = 0;
   let gCash = 0;
   sales?.forEach((order) => {
-    if (order.isPaid && moment(order.paymentDate).format('YYYY-MM-DD') === moment(calendarDate).format('YYYY-MM-DD')) {
+    if (order.isPaid && moment(order.paymentDate).format("YYYY-MM-DD") === moment(calendarDate).format("YYYY-MM-DD")) {
       if (order.isGcash) gCash = gCash + order.total;
       if (!order.isGcash) cash = cash + order.total;
     }
 
-    if (order.isDownPayment && moment(order.downPaymentDate).format('YYYY-MM-DD') === moment(calendarDate).format('YYYY-MM-DD')) {
+    if (order.isDownPayment && moment(order.downPaymentDate).format("YYYY-MM-DD") === moment(calendarDate).format("YYYY-MM-DD")) {
       downPayment = downPayment + order.downPayment;
     }
   });
@@ -55,12 +55,12 @@ export const getSalesSummary = (sales, calendarDate) => {
   let gCash = 0;
   sales?.forEach((order) => {
     let total = order?.orderDetails?.items?.reduce((total, data) => +data.subTotal + total, 0);
-    if (order.isPaid && moment(order.paymentDate).format('YYYY-MM-DD') === moment(calendarDate).format('YYYY-MM-DD')) {
+    if (order.isPaid && moment(order.paymentDate).format("YYYY-MM-DD") === moment(calendarDate).format("YYYY-MM-DD")) {
       if (order.isGcash) gCash = gCash + total;
       if (!order.isGcash) cash = cash + total;
     }
 
-    if (order.isDownPayment && moment(order.downPaymentDate).format('YYYY-MM-DD') === moment(calendarDate).format('YYYY-MM-DD')) {
+    if (order.isDownPayment && moment(order.downPaymentDate).format("YYYY-MM-DD") === moment(calendarDate).format("YYYY-MM-DD")) {
       downPayment = downPayment + order.downPayment;
     }
   });
@@ -101,12 +101,12 @@ export const getOtherSalesData = (sales, date) => {
 
   sales.forEach((order) => {
     if (order.isGcash) {
-      if (order.downPayment && moment(order.downPaymentDate).format('YYYY-MM-DD') === moment(date).format('YYYY-MM-DD'))
+      if (order.downPayment && moment(order.downPaymentDate).format("YYYY-MM-DD") === moment(date).format("YYYY-MM-DD"))
         downPayment = { cash: downPayment.cash, gcash: downPayment.gcash + order.downPayment };
       if (order.discount) discount = { cash: discount.cash, gcash: discount.gcash + order.discount };
       if (order.deliveryCharge) deliveryCharge = { cash: deliveryCharge.cash, gcash: deliveryCharge.gcash + order.deliveryCharge };
     } else {
-      if (order.downPayment && moment(order.downPaymentDate).format('YYYY-MM-DD') === moment(date).format('YYYY-MM-DD'))
+      if (order.downPayment && moment(order.downPaymentDate).format("YYYY-MM-DD") === moment(date).format("YYYY-MM-DD"))
         downPayment = { gcash: downPayment.gcash, cash: downPayment.cash + order.downPayment };
       if (order.discount) discount = { gcash: discount.gcash, cash: discount.cash + order.discount };
       if (order.deliveryCharge) deliveryCharge = { gcash: deliveryCharge.gcash, cash: deliveryCharge.cash + order.deliveryCharge };
@@ -127,9 +127,9 @@ export const getExpenseSummary = (expenses) => {
   let capital = 0;
   let total = 0;
   expenses?.forEach((expense) => {
-    if (expense.source === 'G-cash') gcash = gcash + expense.total;
-    if (expense.source === 'Cash') cash = cash + expense.total;
-    if (expense.source === 'Capital') capital = capital + expense.total;
+    if (expense.source === "G-cash") gcash = gcash + expense.total;
+    if (expense.source === "Cash") cash = cash + expense.total;
+    if (expense.source === "Capital") capital = capital + expense.total;
     total = total + expense.total;
   });
   return { cash, gcash, capital, total };
@@ -138,61 +138,46 @@ export const getExpenseSummary = (expenses) => {
 export const getFinalReportData = (salesSummary, expensesSummary, otherSalesData) => {
   let tempData = [
     {
-      source: 'Sales',
+      source: "Sales",
       cash: salesSummary?.cashTotal,
       gcash: salesSummary?.gCashTotal,
       capital: 0,
       total: salesSummary?.dailyTotal - otherSalesData?.downPayment?.total,
     },
     {
-      source: 'Down Payment',
+      source: "Down Payment",
       cash: otherSalesData?.downPayment?.cash,
       gcash: otherSalesData?.downPayment?.gcash,
       capital: 0,
       total: otherSalesData?.downPayment?.total,
     },
     {
-      source: 'Delivery',
+      source: "Delivery",
       cash: otherSalesData?.deliveryCharge?.cash,
       gcash: otherSalesData?.deliveryCharge?.gcash,
       capital: 0,
       total: otherSalesData?.deliveryCharge?.total,
     },
     {
-      source: 'Expenses',
+      source: "Expenses",
       cash: expensesSummary?.cash,
       gcash: expensesSummary?.gcash,
       capital: expensesSummary?.capital,
       total: expensesSummary?.total - expensesSummary?.capital,
     },
     {
-      source: 'Discount',
+      source: "Discount",
       cash: otherSalesData?.discount?.cash,
       gcash: otherSalesData?.discount?.gcash,
       capital: 0,
       total: otherSalesData?.discount?.total,
     },
     {
-      source: 'Total',
-      cash:
-        salesSummary?.cashTotal +
-        otherSalesData?.downPayment?.cash +
-        otherSalesData?.deliveryCharge?.cash -
-        expensesSummary?.cash -
-        otherSalesData?.discount?.cash,
-      gcash:
-        salesSummary?.gCashTotal +
-        otherSalesData?.downPayment?.gcash +
-        otherSalesData?.deliveryCharge?.gcash -
-        expensesSummary?.gcash -
-        otherSalesData?.discount?.gcash,
+      source: "Total",
+      cash: salesSummary?.cashTotal + otherSalesData?.downPayment?.cash + otherSalesData?.deliveryCharge?.cash - expensesSummary?.cash - otherSalesData?.discount?.cash,
+      gcash: salesSummary?.gCashTotal + otherSalesData?.downPayment?.gcash + otherSalesData?.deliveryCharge?.gcash - expensesSummary?.gcash - otherSalesData?.discount?.gcash,
       capital: expensesSummary?.capital,
-      total:
-        salesSummary?.dailyTotal +
-        otherSalesData?.deliveryCharge?.total -
-        expensesSummary?.total -
-        otherSalesData?.discount?.total +
-        expensesSummary?.capital,
+      total: salesSummary?.dailyTotal + otherSalesData?.deliveryCharge?.total - expensesSummary?.total - otherSalesData?.discount?.total + expensesSummary?.capital,
     },
   ];
   return tempData;
@@ -217,13 +202,13 @@ export const getReportSummary = (data) => {
     list.push({
       _id: item._id,
       date: item.date,
-      day: moment(item.date).format('DD'),
-      capital: item.capital === 0 ? ' ' : item.capital.toLocaleString('en'),
-      withdrawal: item.withdrawal === 0 ? ' ' : item.withdrawal.toLocaleString('en'),
-      sales: item.sales === 0 ? ' ' : item.sales.toLocaleString('en'),
-      expenses: item.expenses === 0 ? ' ' : item.expenses.toLocaleString('en'),
-      profit: profit === 0 ? ' ' : profit.toLocaleString('en'),
-      total: total === 0 ? ' ' : total.toLocaleString('en'),
+      day: moment(item.date).format("DD"),
+      capital: item.capital === 0 ? " " : item.capital.toLocaleString("en"),
+      withdrawal: item.withdrawal === 0 ? " " : item.withdrawal.toLocaleString("en"),
+      sales: item.sales === 0 ? " " : item.sales.toLocaleString("en"),
+      expenses: item.expenses === 0 ? " " : item.expenses.toLocaleString("en"),
+      profit: profit === 0 ? " " : profit.toLocaleString("en"),
+      total: total === 0 ? " " : total.toLocaleString("en"),
     });
   });
 
@@ -235,6 +220,7 @@ export const getReportSummary = (data) => {
 };
 
 export const getStatusColor = (data) => {
+  if (data && !data.isPaid && !data.isDelivered && data.forDelivery) return styles.yellow;
   if (data && !data.isPaid && data.isDelivered && data.isGcash) return styles.red;
   if (data && !data.isPaid && data.isDelivered && !data.isGcash) return styles.purple;
   if (data && data.isPaid && !data.isDelivered && !data.isGcash) return styles.turquoise;

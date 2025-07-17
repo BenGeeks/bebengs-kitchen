@@ -132,7 +132,9 @@
 }
 
 .info_container {
+  width: 100%;
   display: flex;
+  justify-content: space-between;
   font-size: 1.4rem;
   padding: 2px;
   border-bottom: 1px solid #b9b9b9;

@@ -1,13 +1,14 @@
-import React, { useEffect, useState } from 'react';
-import moment from 'moment';
+import React, { useEffect, useState } from "react";
+import moment from "moment";
 
-import styles from '@/assets/react-form.module.css';
-import DatePicker from '@/assets/date-picker';
-import NumberPad from '@/assets/number-pad';
+import styles from "@/assets/react-form.module.css";
+import DatePicker from "@/assets/date-picker";
+import NumberPad from "@/assets/number-pad";
 
 const EditOrderDetails = ({ defaultValues, onCancel, onSubmit, action }) => {
   const [deliveryDate, setDeliveryDate] = useState(defaultValues?.deliveryDate ? defaultValues.deliveryDate : moment());
-  const [deliveryTime, setDeliveryTime] = useState(defaultValues?.deliveryTime ? defaultValues.deliveryTime : '12:00');
+  const [deliveryTime, setDeliveryTime] = useState(defaultValues?.deliveryTime ? defaultValues.deliveryTime : "12:00");
+  const [forDelivery, setForDelivery] = useState(defaultValues?.forDelivery ? defaultValues.forDelivery : false);
   const [isDelivered, setIsDelivered] = useState(defaultValues?.isDelivered ? defaultValues.isDelivered : false);
   const [isGcash, setIsGcash] = useState(defaultValues?.isGcash ? defaultValues.isGcash : false);
   const [isPaid, setIsPaid] = useState(defaultValues?.isPaid ? defaultValues.isPaid : false);
@@ -16,7 +17,7 @@ const EditOrderDetails = ({ defaultValues, onCancel, onSubmit, action }) => {
   const [downPaymentDate, setDownPaymentDate] = useState(defaultValues?.downPaymentDate ? defaultValues.downPaymentDate : null);
   const [downPayment, setDownPayment] = useState(defaultValues?.downPayment ? defaultValues.downPayment : 0);
   const [openDatePicker, setOpenDatePicker] = useState(false);
-  const [dateName, setDatename] = useState('');
+  const [dateName, setDatename] = useState("");
   const [openNumberPad, setOpenNumPad] = useState(false);
 
   const onDateClick = (name) => {
@@ -25,21 +26,21 @@ const EditOrderDetails = ({ defaultValues, onCancel, onSubmit, action }) => {
   };
 
   const setCalendarDateHandler = (date) => {
-    dateName === 'deliveryDate' && setDeliveryDate(moment(date));
-    dateName === 'paymentDate' && setPaymentDate(moment(date));
-    dateName === 'downPaymentDate' && setDownPaymentDate(moment(date));
+    dateName === "deliveryDate" && setDeliveryDate(moment(date));
+    dateName === "paymentDate" && setPaymentDate(moment(date));
+    dateName === "downPaymentDate" && setDownPaymentDate(moment(date));
     setOpenDatePicker(false);
   };
 
   const handleSubmit = () => {
     if (isDownPayment && downPaymentDate === null) {
-      window.alert('Down Payment Date is required!');
+      window.alert("Down Payment Date is required!");
     } else if (isDownPayment && downPayment === 0) {
-      window.alert('Down Payment cannot be 0!');
+      window.alert("Down Payment cannot be 0!");
     } else if (isPaid && paymentDate === null) {
-      window.alert('Payment Date is required!');
+      window.alert("Payment Date is required!");
     } else {
-      onSubmit({ deliveryDate, deliveryTime, isDelivered, isGcash, isPaid, paymentDate, isDownPayment, downPaymentDate, downPayment });
+      onSubmit({ deliveryDate, deliveryTime, isDelivered, isGcash, isPaid, paymentDate, isDownPayment, downPaymentDate, downPayment, forDelivery });
     }
   };
 
@@ -51,27 +52,29 @@ const EditOrderDetails = ({ defaultValues, onCancel, onSubmit, action }) => {
 
   return (
     <>
-      {openNumberPad && (
-        <NumberPad open={openNumberPad} close={() => setOpenNumPad(false)} onSubmit={(num) => setDownPayment(num)} value={downPayment} />
-      )}
+      {openNumberPad && <NumberPad open={openNumberPad} close={() => setOpenNumPad(false)} onSubmit={(num) => setDownPayment(num)} value={downPayment} />}
       {openDatePicker && <DatePicker open={openDatePicker} close={() => setOpenDatePicker(false)} onSave={setCalendarDateHandler} />}
       <div className={styles.input_container}>
         <label className={styles.input_label}>Delivery Date:</label>
-        <div type="date" className={styles.date} onClick={() => onDateClick('deliveryDate')}>
-          {moment(deliveryDate).format('ll')}
+        <div type="date" className={styles.date} onClick={() => onDateClick("deliveryDate")}>
+          {moment(deliveryDate).format("ll")}
         </div>
       </div>
       <div className={styles.input_container}>
         <label htmlFor="deliveryTime" className={styles.input_label}>
           Delivery Time:
         </label>
-        <input
-          id="deliveryTime"
-          type="time"
-          className={styles.input}
-          value={deliveryTime}
-          onChange={(e) => setDeliveryTime(e.target.value)}
-        />
+        <input id="deliveryTime" type="time" className={styles.input} value={deliveryTime} onChange={(e) => setDeliveryTime(e.target.value)} />
+      </div>
+
+      <div className={styles.input_container}>
+        <label htmlFor="forDelivery" className={styles.input_label}>
+          For Delivery:
+        </label>
+        <label className={styles.switch}>
+          <input type="checkbox" id="isDelivered" checked={forDelivery} onChange={() => setForDelivery((prev) => !prev)} />
+          <span className={`${styles.slider} ${styles.round}`}></span>
+        </label>
       </div>
 
       <div className={styles.input_container}>
@@ -106,24 +109,15 @@ const EditOrderDetails = ({ defaultValues, onCancel, onSubmit, action }) => {
       {isDownPayment && (
         <div className={styles.input_container}>
           <label className={styles.input_label}>Down Payment Date:</label>
-          <div
-            type="date"
-            className={styles.date}
-            style={{ backgroundColor: isDownPayment && downPaymentDate === null && 'pink' }}
-            onClick={() => onDateClick('downPaymentDate')}
-          >
-            {moment(downPaymentDate).format('ll')}
+          <div type="date" className={styles.date} style={{ backgroundColor: isDownPayment && downPaymentDate === null && "pink" }} onClick={() => onDateClick("downPaymentDate")}>
+            {moment(downPaymentDate).format("ll")}
           </div>
         </div>
       )}
       {isDownPayment && (
         <div className={styles.input_container}>
           <label className={styles.input_label}>DP Amount:</label>
-          <div
-            className={styles.date}
-            style={{ backgroundColor: isDownPayment && downPayment === 0 && 'pink' }}
-            onClick={() => setOpenNumPad(true)}
-          >
+          <div className={styles.date} style={{ backgroundColor: isDownPayment && downPayment === 0 && "pink" }} onClick={() => setOpenNumPad(true)}>
             {downPayment}
           </div>
         </div>
@@ -142,13 +136,8 @@ const EditOrderDetails = ({ defaultValues, onCancel, onSubmit, action }) => {
       {isPaid && (
         <div className={styles.input_container}>
           <label className={styles.input_label}>Payment Date:</label>
-          <div
-            type="date"
-            className={styles.date}
-            style={{ backgroundColor: isPaid && paymentDate === null && 'pink' }}
-            onClick={() => onDateClick('paymentDate')}
-          >
-            {moment(paymentDate).format('ll')}
+          <div type="date" className={styles.date} style={{ backgroundColor: isPaid && paymentDate === null && "pink" }} onClick={() => onDateClick("paymentDate")}>
+            {moment(paymentDate).format("ll")}
           </div>
         </div>
       )}
@@ -158,7 +147,7 @@ const EditOrderDetails = ({ defaultValues, onCancel, onSubmit, action }) => {
           Cancel
         </button>
         <button className={styles.button_save} type="submit" onClick={handleSubmit}>
-          {action === 'Add' ? 'Save' : 'Update'}
+          {action === "Add" ? "Save" : "Update"}
         </button>
       </div>
     </>
