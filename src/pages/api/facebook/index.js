@@ -1,4 +1,4 @@
-const FORWARD_URL = "https://webhook.site/e34a972a-4781-4cea-9245-b4fa75117754";
+const FORWARD_URL = "https://webhook.site/96803fa3-ae93-4992-8f84-ecd960420731";
 
 export default async function handler(req, res) {
   const { method, url } = req;
