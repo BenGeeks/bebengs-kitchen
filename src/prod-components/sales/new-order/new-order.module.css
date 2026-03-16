@@ -564,6 +564,23 @@
   border: 1px solid rgb(90, 216, 90);
 }
 
+@media (max-width: 1200px) {
+  .card,
+  .number_card {
+    width: 180px;
+    height: 180px;
+  }
+
+  .card_price {
+    font-size: 2.8rem;
+    margin-bottom: 15px;
+  }
+
+  .card_name {
+    font-size: 1rem;
+  }
+}
+
 @media (max-width: 768px) {
   .page_container {
     width: 100%;
@@ -676,22 +693,5 @@
 
   .update_cart_item_grid_text {
     font-size: 0.8rem;
-  }
-}
-
-@media (max-width: 1200px) {
-  .card,
-  .number_card {
-    width: 180px;
-    height: 180px;
-  }
-
-  .card_price {
-    font-size: 2.8rem;
-    margin-bottom: 15px;
-  }
-
-  .card_name {
-    font-size: 1rem;
   }
 }

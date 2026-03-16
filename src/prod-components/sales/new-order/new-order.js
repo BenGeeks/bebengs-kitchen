@@ -1,20 +1,20 @@
-'use client';
-import { useMutation, useQueryClient } from '@tanstack/react-query';
-import React, { useState } from 'react';
-import { toast } from 'react-toastify';
+"use client";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import React, { useState } from "react";
+import { toast } from "react-toastify";
 
-import CustomerNew from '@/prod-components/customer/customer-new';
-import NewOrderMainPage from './new-order-main-page';
-import { DEFAULT_ORDER_DETAILS } from './resources';
-import NewOrderIconBar from './new-order-icon-bar';
-import NewOrderSideBar from './new-order-side-bar';
-import apiRequest from '@/lib/axios';
+import CustomerNew from "@/prod-components/customer/customer-new";
+import NewOrderMainPage from "./new-order-main-page";
+import { getDefaultOrderDetails } from "./resources";
+import NewOrderIconBar from "./new-order-icon-bar";
+import NewOrderSideBar from "./new-order-side-bar";
+import apiRequest from "@/lib/axios";
 
 const NewOrderPage = ({ setCurrentPage, isFutureOrder }) => {
   const queryClient = useQueryClient();
   const [selectedCustomer, setSelectedCustomer] = useState(null);
   const [items, setItems] = useState([]);
-  const [orderDetails, setOrderDetails] = useState(DEFAULT_ORDER_DETAILS);
+  const [orderDetails, setOrderDetails] = useState(getDefaultOrderDetails());
   const [step, setStep] = useState(1);
   const [edit, setEdit] = useState(1);
   const [addCustomer, setAddCustomer] = useState(false);
@@ -22,12 +22,10 @@ const NewOrderPage = ({ setCurrentPage, isFutureOrder }) => {
   const [discount, setDiscount] = useState(0);
 
   const newOrderMutation = useMutation({
-    mutationFn: (data) => apiRequest({ url: `orders`, method: 'POST', data: data }),
+    mutationFn: (data) => apiRequest({ url: `orders`, method: "POST", data: data }),
     onSuccess: () => {
-      toast.success('Order added successfully.');
-      isFutureOrder
-        ? queryClient.invalidateQueries({ queryKey: ['future_orders'] })
-        : queryClient.invalidateQueries({ queryKey: ['orders'] });
+      toast.success("Order added successfully.");
+      isFutureOrder ? queryClient.invalidateQueries({ queryKey: ["future_orders"] }) : queryClient.invalidateQueries({ queryKey: ["orders"] });
     },
     onError: (error) => {
       toast.error(error.response.data.error.message);
@@ -35,10 +33,10 @@ const NewOrderPage = ({ setCurrentPage, isFutureOrder }) => {
   });
 
   const resetFormHandler = () => {
-    if (confirm('Are you sure to reset the data') == true) {
+    if (confirm("Are you sure to reset the data") == true) {
       setSelectedCustomer(null);
       setItems([]);
-      setOrderDetails(DEFAULT_ORDER_DETAILS);
+      setOrderDetails(getDefaultOrderDetails());
       setStep(1);
       setEdit(1);
     }
@@ -60,18 +58,18 @@ const NewOrderPage = ({ setCurrentPage, isFutureOrder }) => {
   };
 
   const onCancelHandler = () => {
-    if (confirm('Are you sure you want to cancel this order?') == true) {
+    if (confirm("Are you sure you want to cancel this order?") == true) {
       setSelectedCustomer(null);
       setItems([]);
-      setOrderDetails(DEFAULT_ORDER_DETAILS);
+      setOrderDetails(getDefaultOrderDetails());
       setStep(1);
-      isFutureOrder ? setCurrentPage('orders-list') : setCurrentPage('todays-list');
+      isFutureOrder ? setCurrentPage("orders-list") : setCurrentPage("todays-list");
     }
   };
 
   const onSaveHandler = () => {
-    if (!selectedCustomer) return toast.error('Please select a customer.');
-    if (items.length === 0) return toast.error('Shopping cart should not be empty.');
+    if (!selectedCustomer) return toast.error("Please select a customer.");
+    if (items.length === 0) return toast.error("Shopping cart should not be empty.");
     let total = items.reduce((total, data) => data.subTotal + total, 0) - +orderDetails.downPayment;
     let tempData = {
       ...orderDetails,
@@ -85,9 +83,9 @@ const NewOrderPage = ({ setCurrentPage, isFutureOrder }) => {
     newOrderMutation.mutate(tempData);
     setSelectedCustomer(null);
     setItems([]);
-    setOrderDetails(DEFAULT_ORDER_DETAILS);
+    setOrderDetails(getDefaultOrderDetails());
     setStep(1);
-    isFutureOrder ? setCurrentPage('orders-list') : setCurrentPage('todays-list');
+    isFutureOrder ? setCurrentPage("orders-list") : setCurrentPage("todays-list");
   };
 
   const onAddCustomerSuccess = (customer) => {
